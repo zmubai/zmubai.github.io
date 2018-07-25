@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="算法," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="有两个长度分别为m,n的升序数组,其中n&amp;gt; m*m,求这两个数组的交集,要求其复杂度尽可能低。 如： 数组a :-10,6,7 数组b:-15,1,3,4,5,6,7,8,9,10,15 输出：6，7  思路分析：最直接的思路，两层循环嵌套，找出两者的交集。123456789101112void intersection0(int *a,int lenA,int *b,int lenB)&amp;">
+<meta name="keywords" content="算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法-两个有序数组找交集">
+<meta property="og:url" content="http://yoursite.com/2018/03/21/2018-03-21-0/index.html">
+<meta property="og:site_name" content="沐白的个人博客">
+<meta property="og:description" content="有两个长度分别为m,n的升序数组,其中n&amp;gt; m*m,求这两个数组的交集,要求其复杂度尽可能低。 如： 数组a :-10,6,7 数组b:-15,1,3,4,5,6,7,8,9,10,15 输出：6，7  思路分析：最直接的思路，两层循环嵌套，找出两者的交集。123456789101112void intersection0(int *a,int lenA,int *b,int lenB)&amp;">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1690665-6539524f70453f4b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-07-22T08:53:47.932Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="算法-两个有序数组找交集">
+<meta name="twitter:description" content="有两个长度分别为m,n的升序数组,其中n&amp;gt; m*m,求这两个数组的交集,要求其复杂度尽可能低。 如： 数组a :-10,6,7 数组b:-15,1,3,4,5,6,7,8,9,10,15 输出：6，7  思路分析：最直接的思路，两层循环嵌套，找出两者的交集。123456789101112void intersection0(int *a,int lenA,int *b,int lenB)&amp;">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/1690665-6539524f70453f4b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/03/21/2018-03-21-0/"/>
+
+
+
+
+
+  <title>算法-两个有序数组找交集 | 沐白的个人博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">沐白的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/21/2018-03-21-0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zengbailiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/icon.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="沐白的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">算法-两个有序数组找交集</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-21T00:00:00+08:00">
+                2018-03-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/03/21/2018-03-21-0/" class="leancloud_visitors" data-flag-title="算法-两个有序数组找交集">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p> 有两个长度分别为m,n的升序数组,其中n&gt; m*m,求这两个数组的交集,要求其复杂度尽可能低。<br> 如：<br> 数组a :-10,6,7<br> 数组b:-15,1,3,4,5,6,7,8,9,10,15<br> 输出：6，7</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1690665-6539524f70453f4b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="时间复杂度对比曲线.png"></p>
+<p><strong>思路分析</strong>：最直接的思路，两层循环嵌套，找出两者的交集。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">void intersection0(int *a,int lenA,int *b,int lenB)</span><br><span class="line">&#123;</span><br><span class="line">    for (int i = 0 ; i &lt; lenA; i ++) &#123;</span><br><span class="line">         int num = *(a + i);</span><br><span class="line">        for (int j = index ; j &lt; lenB; j ++) &#123;</span><br><span class="line">            int temp = *(b + j);</span><br><span class="line">            if (num == temp) &#123;</span><br><span class="line">                printf(&quot;%d &quot;,num);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>时间复杂度分析：</strong><br>最好的情况为：m + （1 + 2 + … + m = m + m^2 /2+m/2  渐进为m^2 ;<br>最坏的情况为：m + m <em>(m </em>m) =  m^3 +m ；渐进为m^3；<br>平均复杂度为：m^3</p>
+<p><strong>优化：</strong><br>由于本身是一个升序的数列，当第一个元素查找到的时候，其下标为index，那么把index+1作为下一个元素的查找起始下标；如果第一个元素没有找到，记录B数组第一个比他大的元素的index作为下一个元素的查找起始下标。通过把查找范围不断缩小，查找的效率就会有所提高。优化后的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">void intersection0(int *a,int lenA,int *b,int lenB)</span><br><span class="line">&#123;</span><br><span class="line">    for (int i = 0 ; i &lt; lenA; i ++) &#123;</span><br><span class="line">        int num = *(a + i);</span><br><span class="line">        int index = 0;</span><br><span class="line">        for (int j = index ; j &lt; lenB; j ++) &#123;</span><br><span class="line">            int temp = *(b + j);</span><br><span class="line">            if (num == temp) &#123;</span><br><span class="line">                index = j + 1;//记录下标，作为下一元素的起始查找下标。</span><br><span class="line">                printf(&quot;%d &quot;,num);</span><br><span class="line">            &#125;</span><br><span class="line">            else if (temp &gt; num)</span><br><span class="line">            &#123;</span><br><span class="line">                index = j;//记录下标，作为下一元素的起始查找下标。</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>优化后的时间复杂度分析：</strong><br>最好的情况为：m + m = 2m  渐进为m；<br>最坏的情况为：m + 1 + 2+ 3…+ m 渐进为 m^2 ；<br>平均时间复杂度为：m^2  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">//另外一种写法,时间复杂度跟上面的一样</span><br><span class="line">void intersection1(int *a,int len0,int *b,int len1)</span><br><span class="line">&#123;</span><br><span class="line">    int i ,j;</span><br><span class="line">    i = 0;</span><br><span class="line">    j = 0;</span><br><span class="line">    while (i &lt;= len0 - 1 &amp;&amp; j &lt;= len1 - 1) &#123;</span><br><span class="line">        if (*(a + i) == *(b + j)) &#123;</span><br><span class="line">            i ++;</span><br><span class="line">            j ++;</span><br><span class="line">        &#125;</span><br><span class="line">        else if (*(a + i) &gt; *(b + j))</span><br><span class="line">        &#123;</span><br><span class="line">            j ++;</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            i ++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="分析与改进"><a href="#分析与改进" class="headerlink" title="分析与改进"></a>分析与改进</h4><p>可见上面的算法都是m的平方阶或立方阶，并不理想。因为a数组遍历是必须的，问题就转变为提高在b数组中查找效率。复杂度计算应该为m(??)这样的形式，可不可以实现m(logm)这样的线性对数阶呢。比较简单的是使用二分查找。同时为了在查找的过程中不断收窄比较范围，使用双向间隔查找的方式。</p>
+<p>具体过程：<br>先查找a[0]并收窄查找下限，然后查找a[lenA - 1- 0]并收窄查找上限，然后进入下一轮。另外b数组的元素分布比较均匀的话，可以使用<strong>插值查找</strong>，效率会比二分法高不少。插值查找关键步骤mid = low + (height - low ) *(key - b[low])/(b[height]-b[low] )。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line">void intersection(int *a,int len0,int *b,int len1)</span><br><span class="line">&#123;</span><br><span class="line">    int low = 0;</span><br><span class="line">    int height = len1 - 1;</span><br><span class="line">    </span><br><span class="line">    int tempLow = low;</span><br><span class="line">    int tempHeight = height;</span><br><span class="line">    </span><br><span class="line">    int mid;</span><br><span class="line">    </span><br><span class="line">    //双向间隔遍历查找</span><br><span class="line">    for (int i = 0 ; i &lt;= len0/2; i ++) &#123;</span><br><span class="line">        </span><br><span class="line">        //如果是同于个元素结束,考虑i执行了++，就是上轮的右边等于当前的左边</span><br><span class="line">        if(i == len0  - i)</span><br><span class="line">        &#123;</span><br><span class="line">            break;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        low = tempLow;</span><br><span class="line">        height = tempHeight;</span><br><span class="line">        mid = (low + height)/2;</span><br><span class="line">        //左边开始查找,并调整下限</span><br><span class="line">        int  num = *(a + i);</span><br><span class="line">        while (height &gt;= low) &#123;</span><br><span class="line">             printf(&quot;mid %d\n&quot;,mid);</span><br><span class="line">            int temp = *(b + mid);</span><br><span class="line">            if (num == temp) &#123;</span><br><span class="line">                tempLow = mid;//调整下限</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">            else if (low == height)</span><br><span class="line">            &#123;</span><br><span class="line">                tempLow = mid;//调整下限</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">            else if (num &lt; temp)</span><br><span class="line">            &#123;</span><br><span class="line">                height = mid - 1;</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                low = mid + 1;</span><br><span class="line">            &#125;</span><br><span class="line">            mid = (low + height)/2;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        printf(&quot;-------右边-----\n&quot;);</span><br><span class="line">        //如果是同于个元素结束</span><br><span class="line">        if(i == len0 - 1 - i)</span><br><span class="line">        &#123;</span><br><span class="line">            break;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        low = tempLow;</span><br><span class="line">        height = tempHeight;</span><br><span class="line">        mid = (low + height)/2;</span><br><span class="line">        //右边开始查找,并调整上限</span><br><span class="line">        int  num1 = *(a + len0 - 1 - i);</span><br><span class="line">        while (height &gt;=low) &#123;</span><br><span class="line">            int temp = *(b + mid);</span><br><span class="line">            if (num1 == temp) &#123;</span><br><span class="line">                tempHeight = mid;//调整上限</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">            else if (low == height)</span><br><span class="line">            &#123;</span><br><span class="line">                tempHeight = mid;//调整上限</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">            else if (num1 &lt; temp)</span><br><span class="line">            &#123;</span><br><span class="line">                height = mid - 1;</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                low = mid + 1;</span><br><span class="line">            &#125;</span><br><span class="line">            mid = (low + height)/2;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但是，这样输出的顺序也是间隔的。所以，如果要求输出是升序的话，这个输出的时候就要处理下，左边遍历的可以马上输出，右边遍历的需要存储起来，处理结束后，再顺序输出。</p>
+<p>参考资料：<br>插值查找:<br><a href="https://blog.csdn.net/wangyunyun00/article/details/23464359" target="_blank" rel="noopener">https://blog.csdn.net/wangyunyun00/article/details/23464359</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/算法/" rel="tag"># 算法</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/16/2018-03-17-1/" rel="next" title="github page 域名绑定、域名设置https配置">
+                <i class="fa fa-chevron-left"></i> github page 域名绑定、域名设置https配置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/23/2018-04-23-0/" rel="prev" title="git 常用操作汇总">
+                git 常用操作汇总 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/icon.jpg"
+                alt="zengbailiang" />
+            
+              <p class="site-author-name" itemprop="name">zengbailiang</p>
+              <p class="site-description motion-element" itemprop="description">知行合一</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zmubai" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#分析与改进"><span class="nav-number">1.</span> <span class="nav-text">分析与改进</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zengbailiang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("7VSaCuGNNUXrDp0aOK65w7PQ-gzGzoHsz", "l1D8p6eriduqG6aqx1f8H7ia");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

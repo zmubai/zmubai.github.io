@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="swift," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="最早接触swift的时候是swift2.0，现在已经到了swift4.0了。可惜的是项目中一直没有机会使用swift，但最近回顾swift的时候发现swift确实有很多优点。swift是一门强类型的语言，它有类型推断、它的语法提供尽量精简的表达方式，闭包的形式一简再简，化繁为简。例如：类型推断，因为你给变量赋值了，那么其实你的类型就是变量的类型，我能根据已有的信息推断出需要的信息。  为了更好的">
+<meta name="keywords" content="swift">
+<meta property="og:type" content="article">
+<meta property="og:title" content="初入swift-常量变量、可选类型、可选绑定、隐式解析可选类型">
+<meta property="og:url" content="http://yoursite.com/2018/03/14/2018-03-17-0/index.html">
+<meta property="og:site_name" content="沐白的个人博客">
+<meta property="og:description" content="最早接触swift的时候是swift2.0，现在已经到了swift4.0了。可惜的是项目中一直没有机会使用swift，但最近回顾swift的时候发现swift确实有很多优点。swift是一门强类型的语言，它有类型推断、它的语法提供尽量精简的表达方式，闭包的形式一简再简，化繁为简。例如：类型推断，因为你给变量赋值了，那么其实你的类型就是变量的类型，我能根据已有的信息推断出需要的信息。  为了更好的">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-07-22T08:53:43.680Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="初入swift-常量变量、可选类型、可选绑定、隐式解析可选类型">
+<meta name="twitter:description" content="最早接触swift的时候是swift2.0，现在已经到了swift4.0了。可惜的是项目中一直没有机会使用swift，但最近回顾swift的时候发现swift确实有很多优点。swift是一门强类型的语言，它有类型推断、它的语法提供尽量精简的表达方式，闭包的形式一简再简，化繁为简。例如：类型推断，因为你给变量赋值了，那么其实你的类型就是变量的类型，我能根据已有的信息推断出需要的信息。  为了更好的">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/03/14/2018-03-17-0/"/>
+
+
+
+
+
+  <title>初入swift-常量变量、可选类型、可选绑定、隐式解析可选类型 | 沐白的个人博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">沐白的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/14/2018-03-17-0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zengbailiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/icon.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="沐白的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">初入swift-常量变量、可选类型、可选绑定、隐式解析可选类型</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-14T00:00:00+08:00">
+                2018-03-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/swift/" itemprop="url" rel="index">
+                    <span itemprop="name">swift</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/03/14/2018-03-17-0/" class="leancloud_visitors" data-flag-title="初入swift-常量变量、可选类型、可选绑定、隐式解析可选类型">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>最早接触swift的时候是swift2.0，现在已经到了swift4.0了。可惜的是项目中一直没有机会使用swift，但最近回顾swift的时候发现swift确实有很多优点。swift是一门强类型的语言，它有类型推断、它的语法提供尽量精简的表达方式，闭包的形式一简再简，化繁为简。<br>例如：类型推断，因为你给变量赋值了，那么其实你的类型就是变量的类型，我能根据已有的信息推断出需要的信息。</p>
+</blockquote>
+<p>为了更好的加深对swift的印象，从语法入手，对比oc，并做总结。 </p>
+<h4 id="一-swift只有常量和变量。"><a href="#一-swift只有常量和变量。" class="headerlink" title="一.swift只有常量和变量。"></a>一.swift只有常量和变量。</h4><p>声明变量用var，常量用let，如果一个值不需要变化的话，那么就把它声明为常量。无论是常量和变量在使用前都必须初始化，否则会编译报错。 </p>
+<pre><code>//swift不需要添加“;”,系统自动识别
+let item0 = 1  //系统自动推断出类型为int
+let item1:Int = 1 //注明类型  
+var item2 = 1
+var item3:String = &quot;hello swift&quot;
+</code></pre><p>具备oc没有的类型推断，起到简化代码的效果。同时它隐含着对开发者的要求，要清楚自己赋值的变量类型。  </p>
+<h4 id="二-可选类型"><a href="#二-可选类型" class="headerlink" title="二.可选类型"></a>二.可选类型</h4><p>swift提供可选类型来处理值存在缺失的情况。例如你定义一个常量，如果在它的使用期间有可能会为空，那么就有必要把这个常量定义为可选类型。</p>
+<pre><code>var item:Int?  //定义为可选类型。没有显式赋值，默认赋值为nil
+</code></pre><p>swift真机智，又提醒开发者需要搞清楚这个变量会不会存在缺失。</p>
+<p>更机智的是，你使用这个值的时候也要考虑几种情况。</p>
+<ol>
+<li><p>当不清楚它是否有值的情况下，获取它的时候可以直接使用变量名，例如print(item)</p>
+</li>
+<li><p>当明确知道它有值的情况下，使用强制解析（变量后面添加！），如print(item!)。但是如果这个值为nil，使用tiem！就会出现异常。</p>
+</li>
+</ol>
+<p>然后为了区分这两种情况，可以通过if进行判断，这里又有一个叫做<strong>可选绑定</strong>的概念。</p>
+<pre><code>var item：Int？ 
+//普通的if判断
+if item != nil
+{
+  print(tiem!)
+}
+else
+{
+//不操作，反正是为nil
+}
+
+//可选绑定
+//temp只做输出作用，如果item赋值给temp有值，那么进入第一个分支，temp只做输出作用，不需要再进行强制解析。
+if let temp = item
+{
+  print(temp)
+}
+else
+{
+
+}
+</code></pre><p>从语法的角度来分析，要避免使用item！且item = nil 的情况，因为这种情况会导致程序崩溃。但是从swfit的设计思想和开发者的角度来看，要更清楚每个常量变量的作用、生命周期会不会存在为空的情况等。使用强制解析的时候，必须确保有值。</p>
+<h4 id="三、相对可选类型，另外有一个隐式解析可选类型"><a href="#三、相对可选类型，另外有一个隐式解析可选类型" class="headerlink" title="三、相对可选类型，另外有一个隐式解析可选类型"></a>三、相对可选类型，另外有一个隐式解析可选类型</h4><p>如果你总能确定这个常量在它的生命周期中一定有值，那么就没有必要每次都进行if判断或者可选绑定，这样是非常低效的。直接把类型定义为隐式解析可选类型。<br>形如：  </p>
+<pre><code>//可选绑定
+var item0:Int? = 1
+let temp0 =  item0!
+
+//隐士解析可选绑定，问号变成感叹号
+var item1:Int! = 1
+//直接解析，不需要感叹号
+let temp1 = item1
+</code></pre><p><strong>小结</strong><br>通过分析可选类型、可选绑定、隐式解析可选类型、变量的获取等用法，去思考下swift为什么要这么设计。能感觉到swift尽量通过语法层面的东西，对开发者有更高的要求，至少在编码的层面要更清楚自己定义的每一个东西，它的作用是怎么样的，会存在什么情况，使用的时候的状态是有值还是没值等等。</p>
+<p>待续~</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/swift/" rel="tag"># swift</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/02/22/2018-03-17-4/" rel="next" title="iOS 网络数据-减少重复的字典取值操作、直接获取目的字段">
+                <i class="fa fa-chevron-left"></i> iOS 网络数据-减少重复的字典取值操作、直接获取目的字段
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/16/2018-03-17-1/" rel="prev" title="github page 域名绑定、域名设置https配置">
+                github page 域名绑定、域名设置https配置 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/icon.jpg"
+                alt="zengbailiang" />
+            
+              <p class="site-author-name" itemprop="name">zengbailiang</p>
+              <p class="site-description motion-element" itemprop="description">知行合一</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zmubai" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#一-swift只有常量和变量。"><span class="nav-number">1.</span> <span class="nav-text">一.swift只有常量和变量。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二-可选类型"><span class="nav-number">2.</span> <span class="nav-text">二.可选类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三、相对可选类型，另外有一个隐式解析可选类型"><span class="nav-number">3.</span> <span class="nav-text">三、相对可选类型，另外有一个隐式解析可选类型</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zengbailiang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("7VSaCuGNNUXrDp0aOK65w7PQ-gzGzoHsz", "l1D8p6eriduqG6aqx1f8H7ia");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

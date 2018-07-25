@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="算法," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="题目两个排序数组的中位数 给定两个大小为 m 和 n 的有序数组 nums1 和 nums2 。 请找出这两个有序数组的中位数。要求算法的时间复杂度为 O(log (m+n)) 。123456789101112示例 1:nums1 = [1, 3]nums2 = [2]中位数是 2.0示例 2:nums1 = [1, 2]nums2 = [3, 4]中位数是 (2 + 3)/2 = 2.5 思路：">
+<meta name="keywords" content="算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法-两个排序数组的中位数">
+<meta property="og:url" content="http://yoursite.com/2018/06/30/2018-06-30-01-leetcode/index.html">
+<meta property="og:site_name" content="沐白的个人博客">
+<meta property="og:description" content="题目两个排序数组的中位数 给定两个大小为 m 和 n 的有序数组 nums1 和 nums2 。 请找出这两个有序数组的中位数。要求算法的时间复杂度为 O(log (m+n)) 。123456789101112示例 1:nums1 = [1, 3]nums2 = [2]中位数是 2.0示例 2:nums1 = [1, 2]nums2 = [3, 4]中位数是 (2 + 3)/2 = 2.5 思路：">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-07-22T08:52:55.951Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="算法-两个排序数组的中位数">
+<meta name="twitter:description" content="题目两个排序数组的中位数 给定两个大小为 m 和 n 的有序数组 nums1 和 nums2 。 请找出这两个有序数组的中位数。要求算法的时间复杂度为 O(log (m+n)) 。123456789101112示例 1:nums1 = [1, 3]nums2 = [2]中位数是 2.0示例 2:nums1 = [1, 2]nums2 = [3, 4]中位数是 (2 + 3)/2 = 2.5 思路：">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/06/30/2018-06-30-01-leetcode/"/>
+
+
+
+
+
+  <title>算法-两个排序数组的中位数 | 沐白的个人博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">沐白的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/30/2018-06-30-01-leetcode/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zengbailiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/icon.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="沐白的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">算法-两个排序数组的中位数</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-30T00:00:00+08:00">
+                2018-06-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/06/30/2018-06-30-01-leetcode/" class="leancloud_visitors" data-flag-title="算法-两个排序数组的中位数">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h4><p>两个排序数组的中位数</p>
+<p>给定两个大小为 m 和 n 的有序数组 nums1 和 nums2 。</p>
+<p>请找出这两个有序数组的中位数。要求算法的时间复杂度为 O(log (m+n)) 。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">示例 1:</span><br><span class="line"></span><br><span class="line">nums1 = [1, 3]</span><br><span class="line">nums2 = [2]</span><br><span class="line"></span><br><span class="line">中位数是 2.0</span><br><span class="line">示例 2:</span><br><span class="line"></span><br><span class="line">nums1 = [1, 2]</span><br><span class="line">nums2 = [3, 4]</span><br><span class="line"></span><br><span class="line">中位数是 (2 + 3)/2 = 2.5</span><br></pre></td></tr></table></figure></p>
+<h4 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h4><ol>
+<li>中位数下标 （假设数组为arr，长度为len，下标范围[0 ,len - 1]）<ol>
+<li>如果len % 2 = 1 （为奇数），那么中位数的值为arr[mindIndex = len /2] 。</li>
+<li>如果len % 2 - 0 (为偶数)，那么中位数的值为(arr[len/2]+arr[len/2 - 1])/2.0的值的和的平均值。</li>
+</ol>
+</li>
+<li>思路一：最简单的思路把两个有序数组合并成一个有序的数组，再通过规则1.获取中位数的值。优化：结合题目要求，只需要获取中位数的值，并不需要真的要把两个数组排序成一个有序数组。那么通过两数组间隔读取，下标后移，直到累加到位置为为len/2即可获取到结果。这里如何更快地把找到len/2的位置是效率的关键。</li>
+<li>思路二：假定数组A、B、长度分别为Alen、Blen。那么排序后的新数组为C、Clen。Clen = (Alen + Blen + 1）/ 2。因为A和B都是有序的，如果C是由A和B的一部分元素组成的。那么可以想象，C必然是A左边一定长度为ALefPairLen和B的左边一定长度为BLeftPairLen的两部分组成.ALefPairLen和BLeftPairLen是联动关系，ALefPairLen + BLeftPairLen =  (Alen + Blen + 1）/ 2,一增一减，一减一增，总长度是固定的。然后为了获得中位数，只需要获取其中一个数组的用于合并那部分的末尾Index，或者index + 1 （index + 1 = LefPairLen） ；这就变成了一个查找指定下标的问题了。</li>
+</ol>
+<h4 id="继续思路二（切换到程序中的变量，便于理解）"><a href="#继续思路二（切换到程序中的变量，便于理解）" class="headerlink" title="继续思路二（切换到程序中的变量，便于理解）"></a>继续思路二（切换到程序中的变量，便于理解）</h4><ol>
+<li><p>定义：<br>假定，A数组的用于合并的长度为i，，那么最后一个元素的下标为i-1，i为用于合并的最后一个元素的下一个元素的下标。B的数组的长度j = (Alen + Blen + 1）/ 2 - i,那么B数组的最后一个元素的下标为j-1，j为用于合并的最后一个元素的下一个元素的下标。</p>
+</li>
+<li><p>结束条件：<br>要获取合法的i值，需要满足 A[i -1 ] &lt;= B[j] &amp;&amp; A[j] &gt;= B[j -1]；<br>如果leftPairA的最后一个元素少于leftPairB在原数组中最后一个元素的下一个元素，那么leftPairA是符合要求的。反过来B数组也一样。要达到在leftPairA和leftPairB右边的元素都比这两部分大，不然就需要继续调整。</p>
+</li>
+<li><p>特殊情况：代码注释中记录。</p>
+</li>
+<li>数的获取：<br>因为取长度的时候为halfLen = (Alen + Blen + 1）/ 2。如果总长度为奇数，最后一位就是中位fmax(a[i-1],B[j-1])。如果总长度为偶数，需要取处于中间的两个数，最后一位(fmax(a[i-1],B[j-1])为左边的一个，右边一个为halfLen之外的fmin(A[i],B[j]))。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line">double findMedianSortedArrays(int* nums1, int nums1Size, int* nums2, int nums2Size) &#123;</span><br><span class="line">    int* A = nums1;</span><br><span class="line">    int* B = nums2;</span><br><span class="line">    int m = nums1Size;</span><br><span class="line">    int n = nums2Size;</span><br><span class="line">    </span><br><span class="line">    if (m &gt; n ) &#123;</span><br><span class="line">        int* tmp = A;</span><br><span class="line">        A = B;</span><br><span class="line">        B = tmp;</span><br><span class="line">        int k = m;</span><br><span class="line">        m = n;</span><br><span class="line">        n = k;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    int iMin = 0;</span><br><span class="line">    int iMax = m;</span><br><span class="line">    //halfLen 偶数等于实际的一半，奇数等于向上取整</span><br><span class="line">    int halfLen = (m + n + 1) / 2 ;</span><br><span class="line">    </span><br><span class="line">    while (iMin &lt;= iMax) &#123;</span><br><span class="line">        //偶数index[i-1 , i ],奇数[i]</span><br><span class="line">        int i = (iMin + iMax) /2;</span><br><span class="line">        //长度之外的第一个元素</span><br><span class="line">        int j = halfLen - i;</span><br><span class="line">        if (i &lt; iMax &amp;&amp; A[i] &lt; B[j - 1] )</span><br><span class="line">        &#123;</span><br><span class="line">            //太小了，下限提高</span><br><span class="line">            iMin = iMin + 1;</span><br><span class="line">        &#125;</span><br><span class="line">        else if ( i &gt; iMin &amp;&amp; A[i- 1] &gt; B[j]) &#123;</span><br><span class="line">            //太大了,上限降低</span><br><span class="line">            iMax = iMax - 1;</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            </span><br><span class="line">            //满足需求 (A[i - 1] &lt; B[j] &amp;&amp; A[i] &gt; B[j - 1]) || i == 0 || j == 0 || i == m || j == n</span><br><span class="line">            int leftMax = 0;</span><br><span class="line">            //m &gt; n</span><br><span class="line">            if (i == 0) &#123;</span><br><span class="line">                //在A被选中的长度为0</span><br><span class="line">                leftMax = B[j - 1];</span><br><span class="line">            &#125;else if (j == 0)</span><br><span class="line">            &#123;</span><br><span class="line">                //在B中被选中的长度为0</span><br><span class="line">                leftMax = A[i - 1];</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                //i = m;代表A数组都被选中</span><br><span class="line">                //j = n;代表整个B数组都被选中</span><br><span class="line">                //包含 j == n || i == m 的情况</span><br><span class="line">                leftMax = fmax(A[i - 1], B[j - 1]);</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            if ((m + n) % 2 == 1) &#123;</span><br><span class="line">                return leftMax;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            int rightMin = 0;</span><br><span class="line">            if (i == m)</span><br><span class="line">            &#123;</span><br><span class="line">                //A全部被选中。那么总长度为偶数时，中位数为中间两数的平均值，选中的最后一个数为leftMax，rightMin为hanlflen之外的第一个数B[j]；</span><br><span class="line">                rightMin = B[j];</span><br><span class="line">            &#125;else if (j == n)</span><br><span class="line">            &#123;</span><br><span class="line">                //B全部被选中。那么总长度为偶数时，中位数为中间两数的平均值，选中的最后一个数为leftMax，rightMin为hanlflen之外的第一个数A[j]；</span><br><span class="line">                rightMin = A[i];</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                //包含j == 0 || i == 0 的情况</span><br><span class="line">                rightMin = fmin(A[i], B[j]);</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            return (leftMax + rightMin) / 2.0 ;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line">//另外一种效率不错的解法</span><br><span class="line">double findMedianSortedArrays(int* nums1, int nums1Size, int* nums2, int nums2Size) &#123;</span><br><span class="line">    int* A = nums1;</span><br><span class="line">    int* B = nums2;</span><br><span class="line">    int m = nums1Size;</span><br><span class="line">    int n = nums2Size;</span><br><span class="line">    </span><br><span class="line">    if (m &lt; n ) &#123;</span><br><span class="line">        int* tmp = A;</span><br><span class="line">        A = B;</span><br><span class="line">        B = tmp;</span><br><span class="line">        int k = m;</span><br><span class="line">        m = n;</span><br><span class="line">        n = k;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    int iMin = 0;</span><br><span class="line">    int iMax = m;</span><br><span class="line">    int halfLen = (m + n + 1) / 2 ;</span><br><span class="line">    </span><br><span class="line">    while (iMin &lt;= iMax) &#123;</span><br><span class="line">        //偶数index[i-1 , i ],奇数[i]</span><br><span class="line">        int i = (iMin + iMax) /2;</span><br><span class="line">        //长度之外的第一个元素</span><br><span class="line">        int j = halfLen - i;</span><br><span class="line">        if ( A[i- 1] &gt; B[j] &amp;&amp; i &gt; iMin ) &#123;</span><br><span class="line">            //太大了,上限降低</span><br><span class="line">            iMax = iMax - 1;</span><br><span class="line">        &#125;</span><br><span class="line">        else if (A[i] &lt; B[j - 1] &amp;&amp; i &lt; iMax)</span><br><span class="line">        &#123;</span><br><span class="line">            //太小了，下限提高</span><br><span class="line">            iMin = iMin + 1;</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            </span><br><span class="line">            //满足需求 A[i - 1] &lt; B[j] &amp;&amp; A[i] &gt; B[j - 1]</span><br><span class="line">            int leftMax = 0;</span><br><span class="line">            //m &gt; n</span><br><span class="line">            if (i == 0) &#123;</span><br><span class="line">                //在A中无法找到符合的数值</span><br><span class="line">                leftMax = B[j - 1];</span><br><span class="line">            &#125;else if (j == 0)</span><br><span class="line">            &#123;</span><br><span class="line">                //在B中无法找到符合的数值</span><br><span class="line">                leftMax = A[i - 1];</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                //包含 j == n || i == m 的情况</span><br><span class="line">                leftMax = fmax(A[i - 1], B[j - 1]);</span><br><span class="line">                if ((m + n) % 2 == 1) &#123;</span><br><span class="line">                    return leftMax;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            int rightMin = 0;</span><br><span class="line">             if (i == m)</span><br><span class="line">            &#123;</span><br><span class="line">                rightMin = B[j];</span><br><span class="line">            &#125;else if (j == n)</span><br><span class="line">            &#123;</span><br><span class="line">                rightMin = A[i];</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                //包含j == 0 || i == 0 的情况</span><br><span class="line">                rightMin = fmin(A[i], B[j]);</span><br><span class="line">        </span><br><span class="line">            </span><br><span class="line">            return (leftMax + rightMin) / 2.0 ;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>小结:这道理题要处理的细节比较多。切割长度halfLen = (m + n + 1) / 2，最后一位是哪一位，是刚好是中位数呢，还是中位数左移一位，还是右移一位呢。这个会影响到后面的中位数下标取值。还要搞懂每个临界条件代表的意义。总的来说如果每一句代码都是必须的，那么必然要做到对代码的含义了然于心，才能保证程序的正确性。对的思路+对的编码 = 对的答案。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/算法/" rel="tag"># 算法</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/28/2018-06-28-01-leetcode/" rel="next" title="算法-两数相加">
+                <i class="fa fa-chevron-left"></i> 算法-两数相加
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/01/2018-06-07-01-leetcode/" rel="prev" title="算法-两最长回文子串">
+                算法-两最长回文子串 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/icon.jpg"
+                alt="zengbailiang" />
+            
+              <p class="site-author-name" itemprop="name">zengbailiang</p>
+              <p class="site-description motion-element" itemprop="description">知行合一</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zmubai" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#思路："><span class="nav-number">2.</span> <span class="nav-text">思路：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#继续思路二（切换到程序中的变量，便于理解）"><span class="nav-number">3.</span> <span class="nav-text">继续思路二（切换到程序中的变量，便于理解）</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zengbailiang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("7VSaCuGNNUXrDp0aOK65w7PQ-gzGzoHsz", "l1D8p6eriduqG6aqx1f8H7ia");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
