@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta name="google-site-verification" content="xdxP4Om7Pxp3OMC73kRMv2emRoA91RXOEPaKMivB_zg" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="算法," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="题目：将字符串 “PAYPALISHIRING” 以Z字形排列成给定的行数：123P   A   H   NA P L S I I GY   I   R 之后从左往右，逐行读取字符：”PAHNAPLSIIGYIR” 实现一个将字符串进行指定行数变换的函数: string convert(string s, int numRows);示例 1: 输入: s = “PAYPALISHIRING”, n">
+<meta name="keywords" content="算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法-Z字形变换">
+<meta property="og:url" content="https://zengbailiang.cn/2018-07-07-07-01leetcode.html">
+<meta property="og:site_name" content="沐白的个人博客">
+<meta property="og:description" content="题目：将字符串 “PAYPALISHIRING” 以Z字形排列成给定的行数：123P   A   H   NA P L S I I GY   I   R 之后从左往右，逐行读取字符：”PAHNAPLSIIGYIR” 实现一个将字符串进行指定行数变换的函数: string convert(string s, int numRows);示例 1: 输入: s = “PAYPALISHIRING”, n">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-07-19T14:03:07.625Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="算法-Z字形变换">
+<meta name="twitter:description" content="题目：将字符串 “PAYPALISHIRING” 以Z字形排列成给定的行数：123P   A   H   NA P L S I I GY   I   R 之后从左往右，逐行读取字符：”PAHNAPLSIIGYIR” 实现一个将字符串进行指定行数变换的函数: string convert(string s, int numRows);示例 1: 输入: s = “PAYPALISHIRING”, n">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://zengbailiang.cn/2018-07-07-07-01leetcode.html"/>
+
+
+
+
+
+  <title>算法-Z字形变换 | 沐白的个人博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">沐白的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2018-07-07-07-01leetcode.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zengbailiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/icon.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="沐白的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">算法-Z字形变换</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-07T00:00:00+08:00">
+                2018-07-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/blog/" itemprop="url" rel="index">
+                    <span itemprop="name">blog</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018-07-07-07-01leetcode.html" class="leancloud_visitors" data-flag-title="算法-Z字形变换">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p>将字符串 “PAYPALISHIRING” 以Z字形排列成给定的行数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">P   A   H   N</span><br><span class="line">A P L S I I G</span><br><span class="line">Y   I   R</span><br></pre></td></tr></table></figure></p>
+<p>之后从左往右，逐行读取字符：”PAHNAPLSIIGYIR”</p>
+<p>实现一个将字符串进行指定行数变换的函数:</p>
+<p>string convert(string s, int numRows);<br>示例 1:</p>
+<p>输入: s = “PAYPALISHIRING”, numRows = 3<br>输出: “PAHNAPLSIIGYIR”<br>示例 2:</p>
+<p>输入: s = “PAYPALISHIRING”, numRows = 4<br>输出: “PINALSIGYAHRPI”<br>解释:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">P     I    N</span><br><span class="line">A   L S  I G</span><br><span class="line">Y A   H R</span><br><span class="line">P     I</span><br></pre></td></tr></table></figure></p>
+<h4 id="思路1：按行排序"><a href="#思路1：按行排序" class="headerlink" title="思路1：按行排序"></a>思路1：按行排序</h4><ol>
+<li>题目要求有两个，一个是字符是按Z字形排序，一个由上而下按行输出。</li>
+<li>分析下Z字形的排序规律。z字形先是由上而下，到了底部再向上，每到底部或者顶部就会反弹，程序中使用bool变量lineUp记录方向。遍历字符的同时，使用一个二维数组int a[row][strlen(s)]来存储行与元素原始下标的关系。遍历完毕后，按行拼接字符串并输出。</li>
+<li><p>元素的下标与输出后所在的行有这样的对应关系。</p>
+<pre><code>#row #数字对应元素下标。
+ 0   0P      6I       12N
+ 1   1A   5L 7S   11I 13G
+ 2   2Y 4A   8H 10R
+ 3   3P      9I     
+</code></pre></li>
+<li><p>代码</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">char* convert(char* s, int numRows) &#123;</span><br><span class="line">if (numRows == 1) &#123;</span><br><span class="line">    return s;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bool lineUp = true;</span><br><span class="line">int len = strlen(s);</span><br><span class="line">//记录字符的二维数组。其实可以使用int的二维数组，因为字符能自动转成asscii对应的int数字。</span><br><span class="line">char **pArr = (char**)malloc(sizeof(char*) * numRows);</span><br><span class="line"></span><br><span class="line">//这个数组是为了记录当前行最大下标，用于后面遍历。其实可以不用，在记录字符串的时候末尾添加&apos;\0&apos;用于判断就行。</span><br><span class="line">int *indexArr = (int*)malloc(sizeof(int) * numRows);</span><br><span class="line">memset(indexArr, -1, sizeof(int) * numRows);</span><br><span class="line"></span><br><span class="line">for (int i = 0; i &lt; numRows; i++ ) &#123;</span><br><span class="line">//开始的时候设置长度为len 。在leetcode上执行报超出内存限制。分析后改为len /2 + 1,因为两行的时候最多为len / 2 + 1；超过三行字符被分散到其他行行，也不会超过len /2 + 1。修改后执行通过。</span><br><span class="line">    char *a = (char*)malloc(sizeof(char*) * (len / 2 + 1));</span><br><span class="line">    memset(a, &apos;#&apos;, sizeof(char*) * (len / 2  + 1));</span><br><span class="line">    pArr[i] = a;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int j = 0;</span><br><span class="line">for (int i = 0; i &lt; len; i ++) &#123;</span><br><span class="line">    int currentIndex = indexArr[j] + 1;</span><br><span class="line">    indexArr[j] = currentIndex;</span><br><span class="line">    pArr[j][currentIndex] = s[i];</span><br><span class="line">    if (lineUp) &#123;</span><br><span class="line">        if (j == numRows - 1) &#123;</span><br><span class="line">            j --;</span><br><span class="line">            lineUp = false;</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            j ++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        if (j == 0) &#123;</span><br><span class="line">            j ++;</span><br><span class="line">            lineUp = true;</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            j --;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">char *p = (char*)malloc(sizeof(char*) * len);</span><br><span class="line">memset(p, 0, sizeof(char*) * len);</span><br><span class="line">int jj = 0;</span><br><span class="line">for (int ii = 0; ii &lt; numRows ; ii ++)&#123;</span><br><span class="line">    char *temp = pArr[ii];</span><br><span class="line">    for (int k = 0; k &lt;= indexArr[ii]; k++) &#123;</span><br><span class="line">        p[jj++] = temp[k];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">free(pArr);</span><br><span class="line">free(indexArr);</span><br><span class="line"></span><br><span class="line">return p;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol start="5">
+<li>复杂度分析<ol>
+<li>时间复杂度 O(n), n = strlen(s);</li>
+<li>空间复杂度 O(n)。</li>
+</ol>
+</li>
+</ol>
+<h4 id="思路2：按行访问"><a href="#思路2：按行访问" class="headerlink" title="思路2：按行访问"></a>思路2：按行访问</h4><ol>
+<li>这个是对字符输入的方式分析后得出的数学规律。首尾两行成等比关系，中间的行除了等比的位置填充元素外，另外还需要在等比距离倒退一定长度offset的位置填充，offset = currentRow。</li>
+<li><p>代码</p>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">char* convert(char* s, int numRows) &#123;</span><br><span class="line">int len = strlen(s);</span><br><span class="line">//特殊情况特殊处理</span><br><span class="line">if (len == 0 || numRows == 0 || numRows == 1 || numRows == len)</span><br><span class="line">&#123;</span><br><span class="line">    return s;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">char *p = (char*)malloc(sizeof(char) * len);</span><br><span class="line">//等比间隔</span><br><span class="line">int cycleLen = 2 * numRows - 2;</span><br><span class="line">int pIndex = 0;</span><br><span class="line">for (int i = 0 ; i &lt; numRows; i ++) &#123;</span><br><span class="line">    for (int j = 0; j + i &lt; len ; j += cycleLen) &#123;</span><br><span class="line">        //获取等比位置的字符</span><br><span class="line">        p[pIndex ++] = s[i + j];</span><br><span class="line">        //获取中间行非等比位置的字符</span><br><span class="line">        if (i != 0 &amp;&amp; i != numRows - 1 &amp;&amp;  j + cycleLen - i &lt; len) &#123;</span><br><span class="line">            p[pIndex ++] = s[ j + cycleLen - i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">return p;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</code></pre></li>
+<li><p>复杂度分析</p>
+<ol>
+<li>时间复杂度 O(n), n = strlen(s);</li>
+<li>空间复杂度 O(n)。如果返回字符不视为额外空间，那么空间复杂度为O(1)。</li>
+</ol>
+</li>
+</ol>
+<h4 id="小结："><a href="#小结：" class="headerlink" title="小结："></a>小结：</h4><ol>
+<li>这道题开始也是用分析规律的方法去做，但举的例子少了点，写出来运行才发现规律是错的。后面也就没继续找数学规律。 为了避免下次犯错，找规律需要论证不少于3个例子。同时规律需要分情况讨论，例如该题的首尾两行作为一类，中间行作为一类。另外别想着用简单的规律就能处理全部问题，一般这类问题都是二级或者多级的，例如多种情况对应不同的规律，或者同一个规律要处理的多个问题。还有如果一类问题按一定方式呈现，一般会存在规律。</li>
+<li>注意的地方：二维数组初始化问题；meset的使用；字符串、ASCII码、int之间的关系等。</li>
+<li>部分代码可以写的更简洁，但为了更好的描述过程，暂时还是保持这个风格，有利于学习和理解。</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/算法/" rel="tag"># 算法</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018-06-07-01-leetcode.html" rel="next" title="算法-两最长回文子串">
+                <i class="fa fa-chevron-left"></i> 算法-两最长回文子串
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018-07-07-07-10leetcode.html" rel="prev" title="算法-最大子序和">
+                算法-最大子序和 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/icon.jpg"
+                alt="zengbailiang" />
+            
+              <p class="site-author-name" itemprop="name">zengbailiang</p>
+              <p class="site-description motion-element" itemprop="description">知行合一</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a rel="external nofollow" href="/archives/">
+              
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zmubai" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#题目："><span class="nav-number">1.</span> <span class="nav-text">题目：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#思路1：按行排序"><span class="nav-number">2.</span> <span class="nav-text">思路1：按行排序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#思路2：按行访问"><span class="nav-number">3.</span> <span class="nav-text">思路2：按行访问</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小结："><span class="nav-number">4.</span> <span class="nav-text">小结：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zengbailiang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a rel="external nofollow" class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("7VSaCuGNNUXrDp0aOK65w7PQ-gzGzoHsz", "l1D8p6eriduqG6aqx1f8H7ia");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
