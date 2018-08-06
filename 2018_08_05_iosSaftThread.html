@@ -69,7 +69,7 @@
 
 
 
-  <meta name="keywords" content="算法," />
+  <meta name="keywords" content="iOS 多线程安全" />
 
 
 
@@ -80,18 +80,18 @@
 
 
 
-<meta name="description" content="/* 给定两个非空链表来表示两个非负整数。位数按照逆序方式存储，它们的每个节点只存储单个数字。将两数相加返回一个新的链表。 你可以假设除了数字 0 之外，这两个数字都不会以零开头。  示例： 输入：(2 -&amp;gt; 4 -&amp;gt; 3) + (5 -&amp;gt; 6 -&amp;gt; 4) 输出：7 -&amp;gt; 0 -&amp;gt; 8 原因：342 + 465 = 807  */ 123456789101112">
-<meta name="keywords" content="算法">
+<meta name="description" content="线程安全的概念如果在多线程的场景下，运行一段程序，不会出现预料之外的结果。可以认为这段程序是线程安全的。 导致线程不安全的原因当多线程访问同一个代码段的时候，共享变量的信息可以被各个访问它的线程所修改，以致于某个线程执行完代码块后出现期望之外的结果，甚至使线程崩溃。 123456789101112131415161718__block int i = 0;    dispatch_async(di">
+<meta name="keywords" content="iOS 多线程安全">
 <meta property="og:type" content="article">
-<meta property="og:title" content="算法-两数相加">
-<meta property="og:url" content="https://zengbailiang.cn/2018-06-28-01-leetcode.html">
+<meta property="og:title" content="iOS 多线程安全">
+<meta property="og:url" content="https://zengbailiang.cn/2018_08_05_iosSaftThread.html">
 <meta property="og:site_name" content="沐白的个人博客">
-<meta property="og:description" content="/* 给定两个非空链表来表示两个非负整数。位数按照逆序方式存储，它们的每个节点只存储单个数字。将两数相加返回一个新的链表。 你可以假设除了数字 0 之外，这两个数字都不会以零开头。  示例： 输入：(2 -&amp;gt; 4 -&amp;gt; 3) + (5 -&amp;gt; 6 -&amp;gt; 4) 输出：7 -&amp;gt; 0 -&amp;gt; 8 原因：342 + 465 = 807  */ 123456789101112">
+<meta property="og:description" content="线程安全的概念如果在多线程的场景下，运行一段程序，不会出现预料之外的结果。可以认为这段程序是线程安全的。 导致线程不安全的原因当多线程访问同一个代码段的时候，共享变量的信息可以被各个访问它的线程所修改，以致于某个线程执行完代码块后出现期望之外的结果，甚至使线程崩溃。 123456789101112131415161718__block int i = 0;    dispatch_async(di">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-22T08:53:52.405Z">
+<meta property="og:updated_time" content="2018-08-06T13:38:38.639Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="算法-两数相加">
-<meta name="twitter:description" content="/* 给定两个非空链表来表示两个非负整数。位数按照逆序方式存储，它们的每个节点只存储单个数字。将两数相加返回一个新的链表。 你可以假设除了数字 0 之外，这两个数字都不会以零开头。  示例： 输入：(2 -&amp;gt; 4 -&amp;gt; 3) + (5 -&amp;gt; 6 -&amp;gt; 4) 输出：7 -&amp;gt; 0 -&amp;gt; 8 原因：342 + 465 = 807  */ 123456789101112">
+<meta name="twitter:title" content="iOS 多线程安全">
+<meta name="twitter:description" content="线程安全的概念如果在多线程的场景下，运行一段程序，不会出现预料之外的结果。可以认为这段程序是线程安全的。 导致线程不安全的原因当多线程访问同一个代码段的时候，共享变量的信息可以被各个访问它的线程所修改，以致于某个线程执行完代码块后出现期望之外的结果，甚至使线程崩溃。 123456789101112131415161718__block int i = 0;    dispatch_async(di">
 
 
 
@@ -121,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="https://zengbailiang.cn/2018-06-28-01-leetcode.html"/>
+  <link rel="canonical" href="https://zengbailiang.cn/2018_08_05_iosSaftThread.html"/>
 
 
 
 
 
-  <title>算法-两数相加 | 沐白的个人博客</title>
+  <title>iOS 多线程安全 | 沐白的个人博客</title>
   
 
 
@@ -244,7 +244,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2018-06-28-01-leetcode.html">
+    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2018_08_05_iosSaftThread.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="zengbailiang">
@@ -261,7 +261,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">算法-两数相加</h1>
+          <h1 class="post-title" itemprop="name headline">iOS 多线程安全</h1>
         
 
         <div class="post-meta">
@@ -273,8 +273,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-28T00:00:00+08:00">
-                2018-06-28
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-05T00:00:00+08:00">
+                2018-08-05
               </time>
             
 
@@ -296,8 +296,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
                   </a>
                 </span>
 
@@ -313,7 +313,7 @@
 
           
           
-             <span id="/2018-06-28-01-leetcode.html" class="leancloud_visitors" data-flag-title="算法-两数相加">
+             <span id="/2018_08_05_iosSaftThread.html" class="leancloud_visitors" data-flag-title="iOS 多线程安全">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -338,7 +338,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  357
+                  1,091
                 </span>
               
 
@@ -363,15 +363,75 @@
       
 
       
-        <p>/*<br> 给定两个非空链表来表示两个非负整数。位数按照逆序方式存储，它们的每个节点只存储单个数字。将两数相加返回一个新的链表。<br> 你可以假设除了数字 0 之外，这两个数字都不会以零开头。</p>
-<p> 示例：<br> 输入：(2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4)<br> 输出：7 -&gt; 0 -&gt; 8<br> 原因：342 + 465 = 807</p>
-<p> */</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Definition for singly-linked list.</span><br><span class="line"> * struct ListNode &#123;</span><br><span class="line"> *     int val;</span><br><span class="line"> *     struct ListNode *next;</span><br><span class="line"> * &#125;;</span><br><span class="line"> */</span><br><span class="line">struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2) &#123;</span><br><span class="line">    struct ListNode* l3 = (struct ListNode*)malloc(sizeof(struct ListNode));</span><br><span class="line">    struct ListNode* n1 = l1;</span><br><span class="line">    struct ListNode* n2 = l2;</span><br><span class="line">    struct ListNode* n3 = l3;</span><br><span class="line">    int carry = 0;</span><br><span class="line">    while (1) &#123;</span><br><span class="line">        int c1 = 0;</span><br><span class="line">        int c2 = 0;</span><br><span class="line">        if (n1 != NULL) &#123;</span><br><span class="line">            c1 = n1-&gt;val;</span><br><span class="line">            n1 = n1 -&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        if (n2 != NULL) &#123;</span><br><span class="line">            c2 = n2-&gt;val;</span><br><span class="line">            n2 = n2 -&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        int sum = c1 + c2 + carry;</span><br><span class="line">        carry = sum /10;</span><br><span class="line">        int currentValue = sum % 10;</span><br><span class="line">        n3-&gt;val = currentValue;</span><br><span class="line">        //考虑进位有值得情况需要进入下一个循环</span><br><span class="line">        if(n1 != NULL || n2 != NULL || carry)</span><br><span class="line">        &#123;</span><br><span class="line">            struct ListNode* newNode = (struct ListNode*)malloc(sizeof(struct ListNode));</span><br><span class="line">            n3-&gt;next = newNode;</span><br><span class="line">            n3 = n3 -&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">        //最后一个节点为NULL</span><br><span class="line">            n3 -&gt;next = NULL;</span><br><span class="line">            break;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">   </span><br><span class="line">    return l3;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>小结：面向过程的思路。<br>注意的几个问题：</p>
-<ol>
-<li>进位问题，低位相加得出进位值提供给高位计算。</li>
-<li>最后一轮相加的时候可能会产生进位，这个时候需要进入下一轮循环，计算下一位的值。</li>
-</ol>
+        <h3 id="线程安全的概念"><a href="#线程安全的概念" class="headerlink" title="线程安全的概念"></a>线程安全的概念</h3><p>如果在多线程的场景下，运行一段程序，不会出现预料之外的结果。可以认为这段程序是线程安全的。</p>
+<h3 id="导致线程不安全的原因"><a href="#导致线程不安全的原因" class="headerlink" title="导致线程不安全的原因"></a>导致线程不安全的原因</h3><p>当多线程访问同一个代码段的时候，共享变量的信息可以被各个访问它的线程所修改，以致于某个线程执行完代码块后出现期望之外的结果，甚至使线程崩溃。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">__block int i = 0;</span><br><span class="line">    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^&#123;</span><br><span class="line"></span><br><span class="line">        for (int j= 0 ; j &lt; 1000; j++) &#123;</span><br><span class="line">            i ++;</span><br><span class="line">        &#125;</span><br><span class="line">        NSLog(@&quot; a thread: %d&quot;,i);</span><br><span class="line"></span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line">    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^&#123;</span><br><span class="line">        </span><br><span class="line">        for (int j= 0 ; j &lt; 1000; j++) &#123;</span><br><span class="line">            i ++;</span><br><span class="line">        &#125;</span><br><span class="line">        NSLog(@&quot;b thread: %d&quot;,i);</span><br><span class="line">        </span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
+<p>其中一种结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2018-08-05 15:30:10.299750+0800 safeThreadTest[16566:2770764]  a thread: 1055</span><br><span class="line">2018-08-05 15:30:10.299750+0800 safeThreadTest[16566:2770766] b thread: 1965</span><br></pre></td></tr></table></figure></p>
+<p>与期待的1000 和2000 不一致。</p>
+<h3 id="避免线程不安全"><a href="#避免线程不安全" class="headerlink" title="避免线程不安全"></a>避免线程不安全</h3><p>避免线程不安全的关键是在原子操作，对需要原子操作的代码片段，通过加锁保证其线程安全。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">__block int i = 0;</span><br><span class="line">NSLock *lock = [NSLock new];</span><br><span class="line"></span><br><span class="line">dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^&#123;</span><br><span class="line">    [lock lock];</span><br><span class="line">    for (int j= 0 ; j &lt; 1000; j++) &#123;</span><br><span class="line">        i ++;</span><br><span class="line">    &#125;</span><br><span class="line">    NSLog(@&quot; a thread: %d&quot;,i);</span><br><span class="line">    [lock unlock];</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^&#123;</span><br><span class="line">    [lock lock];</span><br><span class="line">    for (int j= 0 ; j &lt; 1000; j++) &#123;</span><br><span class="line">        i ++;</span><br><span class="line">    &#125;</span><br><span class="line">    NSLog(@&quot;b thread: %d&quot;,i);</span><br><span class="line">    [lock unlock];</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>稳定的结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2018-08-05 15:34:46.495629+0800 safeThreadTest[16758:2774646]  a thread: 1000</span><br><span class="line">2018-08-05 15:34:46.495806+0800 safeThreadTest[16758:2774644] b thread: 2000</span><br></pre></td></tr></table></figure></p>
+<h3 id="iOS中的atomic与nonatomic"><a href="#iOS中的atomic与nonatomic" class="headerlink" title="iOS中的atomic与nonatomic"></a>iOS中的atomic与nonatomic</h3><p>使用atomic定义的属性，系统为其默认生成的setter和getter方法是加锁的，setter操作与getter操作是互斥的原子操作。而使用nonatomic定义的属性，系统为其默认生产的setter和getter是不加锁的，两者的操作不互斥，同时也不具备原子性。</p>
+<p>由于nonatomic是不加锁的，所以性能是比atomic高。而我们在开发过程中一般也是使用该属性。因为atomic只能保证属性的读写原子操作，并不能保证线程安全，在多线程编程中依然要根据代码的具体功能划分原子操作的范围，通过加锁来保证线程安全。除非原子操作范围就是这个属性的读与写，否则是没有必要定义成atomic，因为线程安全已经通过外层加锁处理。</p>
+<p>系统是通过地址总线寻址，数据总线存取数据的。而且数据总线只有一个，其访问内存是串行操作。假定数据总线宽度为64位，数据长度超过64位，那么数据总线就必须多次访问内存。如果数据长度少于数据总线宽度，读写总是串行的，也即是其操作是原子的。int、bool、float、double等操作总是原子操作，同时在定义时无需指定atomic，避免系统增加不必要的加锁操作。而不定长度的数据类型，就有必要根据实际情况定义atomic或nonatomic。</p>
+<h3 id="iOS中锁的使用"><a href="#iOS中锁的使用" class="headerlink" title="iOS中锁的使用"></a>iOS中锁的使用</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th style="text-align:left">说明</th>
+<th style="text-align:left">性能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">OSSPinLock</td>
+<td style="text-align:left">自旋锁</td>
+<td style="text-align:left">高</td>
+</tr>
+<tr>
+<td style="text-align:left">dispatch_semaphore_t</td>
+<td style="text-align:left">信号量</td>
+<td style="text-align:left">高</td>
+</tr>
+<tr>
+<td style="text-align:left">pthread_mutex</td>
+<td style="text-align:left">linux提供的互斥锁</td>
+<td style="text-align:left">高</td>
+</tr>
+<tr>
+<td style="text-align:left">NSLock</td>
+<td style="text-align:left">OC提供的互斥锁</td>
+<td style="text-align:left">一般</td>
+</tr>
+<tr>
+<td style="text-align:left">pthread_mutex(recursive)</td>
+<td style="text-align:left">linux提供的互斥锁</td>
+<td style="text-align:left">一般</td>
+</tr>
+<tr>
+<td style="text-align:left">NSCondition</td>
+<td style="text-align:left">作为锁和线程检查器，有wait/signal方法</td>
+<td style="text-align:left">一般</td>
+</tr>
+<tr>
+<td style="text-align:left">NSRecursiveLock</td>
+<td style="text-align:left">递归锁</td>
+<td style="text-align:left">一般</td>
+</tr>
+<tr>
+<td style="text-align:left">NSConditionLock</td>
+<td style="text-align:left">条件锁，内部包含一个NSCondition对象</td>
+<td style="text-align:left">低</td>
+</tr>
+<tr>
+<td style="text-align:left">@synchronized</td>
+<td style="text-align:left">互斥锁</td>
+<td style="text-align:left">低</td>
+</tr>
+</tbody>
+</table>
+<p>加锁性能不能代表具体程序运行锁的性能。加锁快可能跟锁的实现简单，费时少有关。但使用中锁的性能跟线程等待采用的方式是休眠还是忙等有关。自旋锁由于优先级反转的问题已经不能使用，iOS10有替代版本。常规开发使用简单的NSLock、@synchronized等已经能满足大部分需求，性能要求高再考虑使用信号量等。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>以上线程安全、锁做简单的总结和理解。如果在开发中，还是要尽量避免多线程设计，搞不好出现死锁，也不好调试。程序的稳定安全比程序的性能更重要。要在确保程序的稳定和线程安全的情况下，再去提高程序的性能。</p>
+<p>参考：<br><br><a href="http://mrpeak.cn/blog/ios-thread-safety/" target="_blank" rel="noopener">iOS多线程到底不安全在哪里？</a><br><br><a href="https://blog.ibireme.com/2016/01/16/spinlock_is_unsafe_in_ios/" target="_blank" rel="noopener">不再安全的 OSSpinLock</a></p>
 
       
     </div>
@@ -389,7 +449,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/算法/" rel="tag"># 算法</a>
+            <a href="/tags/线程安全/" rel="tag"># 线程安全</a>
           
         </div>
       
@@ -402,8 +462,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018-06-28-02-leetcode.html" rel="next" title="算法-无重复字符的最长子串">
-                <i class="fa fa-chevron-left"></i> 算法-无重复字符的最长子串
+              <a href="/2018_08_04_processAndThread.html" rel="next" title="进程与线程">
+                <i class="fa fa-chevron-left"></i> 进程与线程
               </a>
             
           </div>
@@ -411,10 +471,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018-06-30-01-leetcode.html" rel="prev" title="算法-两个排序数组的中位数">
-                算法-两个排序数组的中位数 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -466,8 +522,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -541,6 +606,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#线程安全的概念"><span class="nav-number">1.</span> <span class="nav-text">线程安全的概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#导致线程不安全的原因"><span class="nav-number">2.</span> <span class="nav-text">导致线程不安全的原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#避免线程不安全"><span class="nav-number">3.</span> <span class="nav-text">避免线程不安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#iOS中的atomic与nonatomic"><span class="nav-number">4.</span> <span class="nav-text">iOS中的atomic与nonatomic</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#iOS中锁的使用"><span class="nav-number">5.</span> <span class="nav-text">iOS中锁的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

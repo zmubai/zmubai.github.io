@@ -4,8 +4,28 @@
 
     
   <url>
+    <loc>https://zengbailiang.cn/2018_08_05_iosSaftThread.html</loc>
+    <lastmod>2018-08-06T13:38:38.639Z</lastmod>
+    <data>
+        <display>
+        <title>iOS 多线程安全</title>
+        <pubTime>2018-08-04T16:00:00.000Z</pubTime>
+        
+        <tag>线程安全</tag>
+         
+         
+           
+             
+              <breadCrumb title="iOS" url="https://zengbailiang.cn/categories/iOS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://zengbailiang.cn/2018_08_04_processAndThread.html</loc>
-    <lastmod>2018-08-04T14:03:41.531Z</lastmod>
+    <lastmod>2018-08-04T14:05:51.608Z</lastmod>
     <data>
         <display>
         <title>进程与线程</title>

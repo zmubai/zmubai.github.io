@@ -243,6 +243,198 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2018-03-17-1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zengbailiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/icon.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="沐白的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018-03-17-1.html" itemprop="url">github page 域名绑定、域名设置https配置</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-16T00:00:00+08:00">
+                2018-03-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/swift/" itemprop="url" rel="index">
+                    <span itemprop="name">swift</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018-03-17-1.html" class="leancloud_visitors" data-flag-title="github page 域名绑定、域名设置https配置">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  334
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>最近搭建了个人博客，网上教程很多，最后选择使用github page + 个人域名 + 配置https的方案。<br>主要参考：<a href="http://beiyuu.com/github-pages" target="_blank" rel="noopener">http://beiyuu.com/github-pages</a></p>
+</blockquote>
+<h3 id="一、域名与github-page-的配置问题。"><a href="#一、域名与github-page-的配置问题。" class="headerlink" title="一、域名与github page 的配置问题。"></a>一、域名与github page 的配置问题。</h3><h4 id="fork模板仓库后，在git端需要进行三步配置："><a href="#fork模板仓库后，在git端需要进行三步配置：" class="headerlink" title="fork模板仓库后，在git端需要进行三步配置："></a>fork模板仓库后，在git端需要进行三步配置：</h4><ol>
+<li><p>CNAME文件修改【内容必须为一行】<br><img src="/personImg/CNAME配置.png" alt="CNAME配置.png"></p>
+</li>
+<li><p>修改仓库名称为：userName.github.io，此为github page要求的命名方式。<br><img src="/personImg/配置名称.jpeg" alt="配置名称.jpeg"></p>
+</li>
+<li><p>进入仓库setting进行设置。<br><img src="/personImg/git端域名配置.jpeg" alt="git端域名配置.jpeg"></p>
+</li>
+</ol>
+<h3 id="域名解析配置中需要配置ip地址："><a href="#域名解析配置中需要配置ip地址：" class="headerlink" title="域名解析配置中需要配置ip地址："></a>域名解析配置中需要配置ip地址：</h3><p><em>分两步</em></p>
+<ol>
+<li><p>获取github page的ip地址。<br><img src="/personImg/githubPageIpAdress.png" alt="githubPageIpAdress.png"></p>
+</li>
+<li><p>配置域名解析【这里使用的是阿里云的域名，其他的域名配置应该是类似的。更新后大概需要10分钟左右才能生效】<br><img src="/personImg/dominSetting.png" alt="dominSetting.png"></p>
+</li>
+</ol>
+<p>两者都没配好的时候，访问userName.github.io时可能会跳转到github的404页面。如果两者都对应ip地址配置好的，清空本地缓存并多刷新访问，有可能页面缓存或dns缓存没刷新。</p>
+<h3 id="二、github-page-不支持证书绑定，通过dns代理跳转实现。"><a href="#二、github-page-不支持证书绑定，通过dns代理跳转实现。" class="headerlink" title="二、github page 不支持证书绑定，通过dns代理跳转实现。"></a>二、github page 不支持证书绑定，通过dns代理跳转实现。</h3><p>具体参考：<a href="https://segmentfault.com/a/1190000007740693" target="_blank" rel="noopener">https://segmentfault.com/a/1190000007740693</a><br>与教程中不同的是，新版的page rule有所不同，没有了always use Https这个配置了，忽略即可。</p>
+<p>相关资源参考：<br>//主流程<br><a href="http://beiyuu.com/github-pages" target="_blank" rel="noopener">http://beiyuu.com/github-pages</a><br>//https配置<br><a href="https://segmentfault.com/a/1190000007740693" target="_blank" rel="noopener">https://segmentfault.com/a/1190000007740693</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2018-03-17-0.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1181,7 +1373,7 @@ let temp1 = item1
               
                 <a rel="external nofollow" href="/archives/">
               
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1203,7 +1395,7 @@ let temp1 = item1
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1264,7 +1456,7 @@ let temp1 = item1
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">30.6k</span>
+    <span title="Site words total count">31.7k</span>
   
 </div>
 
