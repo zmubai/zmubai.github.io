@@ -243,6 +243,216 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2018-04-23-0.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zengbailiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/icon.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="沐白的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018-04-23-0.html" itemprop="url">git 常用操作汇总</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-23T00:00:00+08:00">
+                2018-04-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/git/" itemprop="url" rel="index">
+                    <span itemprop="name">git</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018-04-23-0.html" class="leancloud_visitors" data-flag-title="git 常用操作汇总">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  869
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="说明-默认在master分支、远程分支origin，-省略分支名称"><a href="#说明-默认在master分支、远程分支origin，-省略分支名称" class="headerlink" title="说明(默认在master分支、远程分支origin， 省略分支名称)"></a>说明(默认在master分支、远程分支origin， 省略分支名称)</h4><p><img src="https://upload-images.jianshu.io/upload_images/1690665-c6ce334a8505da19.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="gitRebase.png"></p>
+<h6 id="配置本地信息"><a href="#配置本地信息" class="headerlink" title="配置本地信息"></a>配置本地信息</h6><pre><code>git cogfig --global user.name userName   
+git config --global user.email userEmail    
+</code></pre><h6 id="克隆远程仓库"><a href="#克隆远程仓库" class="headerlink" title="克隆远程仓库"></a>克隆远程仓库</h6><pre><code>git clone remotePath     
+</code></pre><p>如：git clone <a href="https://github.com/yourname/test.git" target="_blank" rel="noopener">https://github.com/yourname/test.git</a> </p>
+<h6 id="本地推送到远程仓库"><a href="#本地推送到远程仓库" class="headerlink" title="本地推送到远程仓库"></a>本地推送到远程仓库</h6><pre><code>git  remote add origin remotePath   [绑定远程仓库]   
+git push -u origin master [推送到远程master分支]    
+</code></pre><h6 id="本地提交"><a href="#本地提交" class="headerlink" title="本地提交"></a>本地提交</h6><pre><code>git status [显示工作区变更]   
+git add finePath [把单个文件添加到暂存区]   
+git commit -m &quot;log&quot; [提交到本地分支]   
+git commit -am &quot;log&quot; [提交到本地分支，包含add操作]   
+</code></pre><h6 id="显示文件修改"><a href="#显示文件修改" class="headerlink" title="显示文件修改"></a>显示文件修改</h6><pre><code>git diff finePath [工作区文件与暂存区文件对比]  
+git diff finePath --cached [暂存区文件与当前版本文件对比]  
+参考：https://www.jianshu.com/p/80542dc3164e
+</code></pre><h6 id="本地分支处理"><a href="#本地分支处理" class="headerlink" title="本地分支处理"></a>本地分支处理</h6><pre><code>git branch -a [显示本地所有分支]  
+git checkout -b newBranch [开发新功能的时候，开启新分支]  
+git checkout branchWhichHas [切换到已存在分支]  
+</code></pre><h6 id="合并分支操作："><a href="#合并分支操作：" class="headerlink" title="合并分支操作："></a>合并分支操作：</h6><pre><code>git checkout -b B [建立分支B]  
+......开发新功能 并提交  
+git checkout master [切换到master分支]  
+git merge B [在master分支中把B分支更新合并过来]  
+</code></pre><h6 id="本地变基"><a href="#本地变基" class="headerlink" title="本地变基"></a>本地变基</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git rebase B [把B分支中的修改以变基的方式合并到master分支中，以当前分支为基底，把B分支的修改逐一提交到当前分支]  </span><br><span class="line"></span><br><span class="line">注意点:变基能把提交历史记录变得清晰，便于管理和维护。但要遵守原则：一旦分支中的提交对象发布到公共仓库，就千万不要对该分支进行变基操作。因为变基修改推送到远程，别人同步后，会认为是一个新的提交，实际上内容没有变化。然后他需要合并这个提交才能继续开发，合并后会存在两份相同的提交历史。这个合并推送到服务器，会导致其他开发者不必要的疑惑。</span><br><span class="line"></span><br><span class="line">变基详细说明：</span><br><span class="line">https://git-scm.com/book/zh/v1/Git-%E5%88%86%E6%94%AF-%E5%88%86%E6%94%AF%E7%9A%84%E5%8F%98%E5%9F%BA</span><br></pre></td></tr></table></figure>
+<h6 id="本地撤销操作"><a href="#本地撤销操作" class="headerlink" title="本地撤销操作"></a>本地撤销操作</h6><pre><code>git checkout -- filePath [工作区撤销单个文件修改] 
+git checkout commitId filePath [单个文件回滚]  
+git reset HEAD fineName  [暂存区撤销单个文件修改]   
+git reset HEAD --hard commitid [本地回滚到版本号为commitid]   
+git push origin HEAD --force [同步回滚远程版本]   
+</code></pre><h6 id="如果不小心把问题代码同步到了远程，为了不影响其他人开发，可考虑强制回滚代码。"><a href="#如果不小心把问题代码同步到了远程，为了不影响其他人开发，可考虑强制回滚代码。" class="headerlink" title="如果不小心把问题代码同步到了远程，为了不影响其他人开发，可考虑强制回滚代码。"></a>如果不小心把问题代码同步到了远程，为了不影响其他人开发，可考虑强制回滚代码。</h6><pre><code>git reset HEAD commitID  [1.本地问题版本先回滚 ]
+git push -f   或者 git push --force [2.把本地代码强制同步远程]
+或
+git revert  [撤销上一次提交]
+或
+如果要回滚到较远的版本，比较暴力的方法：拉取一份新副本，手动把改动的新代码覆盖到新副本并提交。
+参考：
+https://blog.csdn.net/fuchaosz/article/details/52170105
+</code></pre><h6 id="对于单次commit操作的再修改"><a href="#对于单次commit操作的再修改" class="headerlink" title="对于单次commit操作的再修改"></a>对于单次commit操作的再修改</h6><pre><code>可以继续add 文件 并执行git commit  --amend [合并上次提交为本次提交]   
+</code></pre><h6 id="冲突处理"><a href="#冲突处理" class="headerlink" title="冲突处理"></a>冲突处理</h6><pre><code>修改冲突文件后再次执行add、commit操作   
+</code></pre><h6 id="log-查询"><a href="#log-查询" class="headerlink" title="log 查询"></a>log 查询</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git log   </span><br><span class="line">git log --author=authorName [指定提交人]</span><br><span class="line">git log --pretty=oneline [单行显示log信息]   </span><br><span class="line"></span><br><span class="line">log更多用法：</span><br><span class="line">https://git-scm.com/book/zh/v1/Git-%E5%9F%BA%E7%A1%80-%E6%9F%A5%E7%9C%8B%E6%8F%90%E4%BA%A4%E5%8E%86%E5%8F%B2</span><br></pre></td></tr></table></figure>
+<p>彩蛋存送门：<a href="https://git-scm.com/download/gui/mac" target="_blank" rel="noopener">https://git-scm.com/download/gui/mac</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2018-03-21-0.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1557,7 +1767,7 @@ let temp1 = item1
               
                 <a rel="external nofollow" href="/archives/">
               
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1579,7 +1789,7 @@ let temp1 = item1
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1626,7 +1836,7 @@ let temp1 = item1
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1640,7 +1850,7 @@ let temp1 = item1
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">34.3k</span>
+    <span title="Site words total count">36.2k</span>
   
 </div>
 
