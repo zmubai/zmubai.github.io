@@ -243,6 +243,217 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2018-07-07-07-10leetcode.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zengbailiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/icon.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="沐白的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018-07-07-07-10leetcode.html" itemprop="url">算法-最大子序和</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-10T00:00:00+08:00">
+                2018-07-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018-07-07-07-10leetcode.html" class="leancloud_visitors" data-flag-title="算法-最大子序和">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,350
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p>给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。</p>
+<p>示例:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: [-2,1,-3,4,-1,2,1,-5,4],</span><br><span class="line">输出: 6</span><br><span class="line">解释: 连续子数组 [4,-1,2,1] 的和最大，为 6。</span><br></pre></td></tr></table></figure></p>
+<h4 id="题目分析："><a href="#题目分析：" class="headerlink" title="题目分析："></a>题目分析：</h4><h4 id="思路1：贪心算法"><a href="#思路1：贪心算法" class="headerlink" title="思路1：贪心算法"></a>思路1：贪心算法</h4><ol>
+<li>连续子数组之和如果为负数，那么把它作为和的一部分反而减少了和的大小。所以当子数组之和为负数的时候进行舍弃，取下一个元素作为起点重新累加。但这样累加会存在一个问题，虽然知道起点，也知道终点，但过程中累加到哪一个元素的和为最大却不知道。只能通过每累加一个元素就计算一次和，这样就不会错过每个可能的最大值。</li>
+<li>代码 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">int greedMaxSubArray(int* nums, int numsSize)</span><br><span class="line">&#123;</span><br><span class="line">    int maxSum = INT_MIN;</span><br><span class="line">    int thisMaxSum = INT_MIN;</span><br><span class="line">    for (int i = 0 ; i &lt; numsSize; i ++) &#123;</span><br><span class="line">    </span><br><span class="line">        //如何和小于0代码表示这整块都可以舍弃，因为不起到增大和的作用</span><br><span class="line">        if (thisMaxSum &lt;= 0) &#123;</span><br><span class="line">            thisMaxSum = nums[i];</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            thisMaxSum += nums[i];</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        if(maxSum &lt; thisMaxSum)</span><br><span class="line">        &#123;</span><br><span class="line">            maxSum = thisMaxSum;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    return maxSum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol start="5">
+<li>复杂度分析<ol>
+<li>时间复杂度 O(n), n = strlen(s)，一层循环;</li>
+<li>空间复杂度 O(1)，固定数量的变量。</li>
+</ol>
+</li>
+</ol>
+<h4 id="思路2：动态规划DP"><a href="#思路2：动态规划DP" class="headerlink" title="思路2：动态规划DP"></a>思路2：动态规划DP</h4><ol>
+<li>运行到当前步骤获取到的可用和值为当前元素的值以及累加上当前元素所得的和中的最大值。获取的DP公式： maxSub(i) = getMaxSub(maxSub(i - 1) + nums[i],nums[i]);</li>
+<li><p>代码</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">//  maxSub(i) = getMaxSub(maxSub(i - 1) + nums[i],nums[i]);</span><br><span class="line">int dpMaxSubArray(int* nums, int numsSize)</span><br><span class="line">&#123;</span><br><span class="line">    int max = nums[0];</span><br><span class="line">    int sum = nums[0];</span><br><span class="line">    </span><br><span class="line">    for (int i = 0 ; i &lt; numsSize; i ++) &#123;</span><br><span class="line">        int currentValue = nums[i];</span><br><span class="line">        if (sum + currentValue &lt; currentValue) &#123;</span><br><span class="line">            sum += currentValue;</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            sum = currentValue;</span><br><span class="line">        &#125;</span><br><span class="line">        if (sum&gt;max) &#123;</span><br><span class="line">            max = sum;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return max;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>复杂度分析</p>
+<ol>
+<li>时间复杂度 O(n), n = strlen(s)，一层循环;</li>
+<li>空间复杂度 O(1)，少量的固定的额外空间。</li>
+</ol>
+</li>
+</ol>
+<h4 id="思路3：分治递归"><a href="#思路3：分治递归" class="headerlink" title="思路3：分治递归"></a>思路3：分治递归</h4><ol>
+<li>把数组分成左右两部分，那么对于这个范围，最大和可能出现在左边或者右边或者跨越两个左右部分。本轮中先给出分割点，从分割点向两边扩散遍历，获取跨越中心点最大的和值（只需要把左右部分的遍历最大值相加，有可能左边最大值为正，右边最大值为负，不用管只管相加，左边最大值会在分割后的左边某次递归中参与比较。递归有时候就是在一轮中考虑的情况变少了，有些情况是否在递归的过程中已被处理，或者说递归入参的改变就能计算出这些情况。）。方法的返回值为递归左部分、递归右部分、本轮跨越中心的最大和值三者的最大值。比较难理解的还是每一轮只计算跨越分割点的最大和值，随着范围的缩小递归起来就涵盖了所有的情况。</li>
+<li><p>代码</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">int max(int a ,int b)</span><br><span class="line">&#123;</span><br><span class="line">    return a&gt;b? a : b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int maxSubArray(int* nums, int numsSize) &#123;</span><br><span class="line">    int maxSubLeft = 0;</span><br><span class="line">    int maxSUbRight = 0;</span><br><span class="line">    int maxLeft = INT_MIN;</span><br><span class="line">    int maxRight = INT_MIN;</span><br><span class="line">    </span><br><span class="line">    //推出递归条件</span><br><span class="line">    if (left == right) &#123;</span><br><span class="line">        return nums[left];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    int center = (left + right) / 2 ;</span><br><span class="line">    int maxTempLeft = 0;</span><br><span class="line">    //计算当前的左相加最大值,右到左</span><br><span class="line">    for (int i = center; i &gt;= left; i --) &#123;</span><br><span class="line">        maxTempLeft += nums[i];</span><br><span class="line">        if (maxLeft &lt; maxTempLeft) &#123;</span><br><span class="line">            maxLeft = maxTempLeft;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    if (maxLeft == INT_MIN) &#123;</span><br><span class="line">        maxLeft = 0;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //计算当maxTempRight   当前前右相加最大值，左到右</span><br><span class="line">    //每一个子数组都独自全部累加左右部分，那么久含括了所有的情况。</span><br><span class="line">    int  maxTempRight = 0;</span><br><span class="line">    for (int i = center + 1; i &lt;= right; i ++) &#123;</span><br><span class="line">        maxTempRight += nums[i];</span><br><span class="line">        if (maxRight &lt; maxTempRight) &#123;</span><br><span class="line">            maxRight = maxTempRight;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    if (maxRight == INT_MIN) &#123;</span><br><span class="line">        maxRight = 0;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    maxSubLeft = maxsubArrayRe(nums, left, center);</span><br><span class="line">    maxSUbRight = maxsubArrayRe(nums, center + 1,right);</span><br><span class="line">    </span><br><span class="line">    return max(max(maxSUbRight,maxSubLeft),maxLeft + maxRight);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>复杂度分析</p>
+<ol>
+<li>时间复杂度O(NlogN)。</li>
+</ol>
+</li>
+</ol>
+<h4 id="小结："><a href="#小结：" class="headerlink" title="小结："></a>小结：</h4><ol>
+<li>贪心算法中，一边累加一边记录最大值，通过这样的方式而不会错过可能的最大值。我开始想的是如何确定起点和终点，想通过舍弃头尾部分获取中间部分的方式来解题，分析出舍弃的条件是累加值少于0，就是对中间部分为负增益。这个思路也许可行，但我没搞出来。而DP，就是要分析规律，关注于步骤与步骤之间的共性，得出dp方程，通过代码实现思路。分治方法中，注意的是中心向两边扩散才能正确的计算跨越左右两边之和。递归中必不可少的是，退出递归条件，上下层递归之间的联系交互是如何的（每一轮都计算出当前范围中跨越左右两边的最大值，而下一轮递归中他会计算出，左边的最大值和右边的最大值），是否涵盖是全部情况。如果采用二分法，因为是分割了范围，那么本轮处理中需要保证那些跨越切割范围的情况。</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2018-07-07-07-01leetcode.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2000,305 +2211,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2018-05-05-01.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zengbailiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/icon.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="沐白的个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018-05-05-01.html" itemprop="url">git的文件系统与底层原理 (1)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-05T00:00:00+08:00">
-                2018-05-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/git/" itemprop="url" rel="index">
-                    <span itemprop="name">git</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018-05-05-01.html" class="leancloud_visitors" data-flag-title="git的文件系统与底层原理 (1)">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1,102
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p> 由于工作中使用git作为版本管理，之前对git的了解不多，特别是底层方面的原理方面的知识。为了能更好的使用git，有必要学习并梳理下相关知识。</p>
-<p>步入正题：</p>
-<h3 id="git的文件结构"><a href="#git的文件结构" class="headerlink" title="git的文件结构"></a>git的文件结构</h3><p>执行git init 初始化后，会在.git文件夹下会创建多个目录，每个文件夹功能划分的很清晰。<br><img src="https://upload-images.jianshu.io/upload_images/1690665-6458ddc5b28b057a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/720" alt="git目录结构.png"></p>
-<h3 id="git的存储方式"><a href="#git的存储方式" class="headerlink" title="git的存储方式"></a>git的存储方式</h3><p>Git 是一套内容寻址文件系统.通过键值对的方式存储和查找。</p>
-<p>下面操作一遍，直观的看到整个过程，以便理解。</p>
-<h5 id="首先，创建一个内容对象"><a href="#首先，创建一个内容对象" class="headerlink" title="首先，创建一个内容对象"></a>首先，创建一个内容对象</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ echo &quot;小明的文件&quot; | git hash-object -w --stdin</span><br><span class="line">5c98f8a9221e5336f68c7575cd238b48875137c6</span><br></pre></td></tr></table></figure>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>命令/参数</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>     echo</td>
-<td>将字符串输出到终端</td>
-<td></td>
-</tr>
-<tr>
-<td>     git hash-object</td>
-<td>创建一个blob（二进制大对象）,<br>可指定其他类型，不一定是blob。</td>
-<td></td>
-</tr>
-<tr>
-<td>     –stdin</td>
-<td>从标准终端中读取输入，代替从文件读取，<br>这里读取的是由echo命令输出到终端的字符串。</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>-w</td>
-<td>把blob对象写入数据库</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<p>参考：<a href="https://git-scm.com/docs/git-hash-object" target="_blank" rel="noopener">https://git-scm.com/docs/git-hash-object</a></p>
-<h5 id="查看刚才存储的数据"><a href="#查看刚才存储的数据" class="headerlink" title="查看刚才存储的数据"></a>查看刚才存储的数据</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ find .git/objects -type f</span><br><span class="line">.git/objects/5c/98f8a9221e5336f68c7575cd238b48875137c6</span><br></pre></td></tr></table></figure>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>命令/参数</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>find</td>
-<td>查找目录下文件</td>
-<td></td>
-</tr>
-<tr>
-<td>-type f</td>
-<td>指定查类型为普通文件</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<p>参考：<a href="http://man.linuxde.net/find" target="_blank" rel="noopener">http://man.linuxde.net/find</a></p>
-<p>可以见到文件名称为数字和字母组成的字符串。这个是根据文件内容和头信息（Header），通过SHA-1算法计算得出的40位十六进制校验和。</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>校验和</td>
-<td>5c98f8a9221e5336f68c7575cd238b48875137c6</td>
-<td></td>
-</tr>
-<tr>
-<td>存储路径</td>
-<td>5c/98f8a9221e5336f68c7575cd238b48875137c6<br>以校验和前两位作为子路径创建文件夹，<br>以校验和后38位作为文件名生成文件。</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<p><em>SHA-1是一种加密哈希函数（cryptographic hash function）。SHA-1将文件中的内容通过其hash算法生成一个160bit的报文摘要，即40个十六进制数字（每个十六进制数字占4位）。它几乎可以保证，如果两个文件的SHA-1值是相同的，那么它们确是完全相同的内容（类似于生活中的指纹识别）；SHA-1主要有两种用途，一个是加密，一个是数据完整性校验。Linux kernel开创者和Git的开发者——Linus说，Git使用了SHA-1并非是为了安全性，而是为了数据的完整性。理论上SHA-1会在2^51攻击下实现哈希碰撞，所以也不是完全的安全。</em></p>
-<h5 id="通过校验和作为键值-解读文件"><a href="#通过校验和作为键值-解读文件" class="headerlink" title="通过校验和作为键值 解读文件"></a>通过校验和作为键值 解读文件</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git cat-file -p 5c98f8a9221e5336f68c7575cd238b48875137c6</span><br><span class="line">小明的文件</span><br></pre></td></tr></table></figure>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>命令/参数</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>git cat-file</td>
-<td>读取对象信息</td>
-<td></td>
-</tr>
-<tr>
-<td>-p</td>
-<td>根据对象的类型打印其信息</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<p>参考：<a href="https://git-scm.com/docs/git-cat-file" target="_blank" rel="noopener">https://git-scm.com/docs/git-cat-file</a></p>
-<p>以上，说明了git的数据存储的基本方式。主要是使用SHA-1算法根据其内容和头信息生成唯一的40位校验和，并使用校验和作为key做文件存取。</p>
-<p>模拟bolb对象存储流程<br><img src="https://upload-images.jianshu.io/upload_images/1690665-a9e4427dc58379b1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="bolb存储流程图.png"></p>
-<p>以上，说明了git的数据存储的基本方式。主要步骤：</p>
-<ol>
-<li>使用SHA-1算法根据其原始内容和头信息（头信息格式”blob #{content.length}\0”）生成唯一的40位校验和。</li>
-<li>以校验和前两位创建文件夹、校验和后38位作为文件名。</li>
-<li>对拼接后的内容压缩后存储。        </li>
-</ol>
-<hr>
-<p>下面是创建文件，修改文件，恢复文件的相关过程。</p>
-<h5 id="重新创建一个仓库并创建一个文件"><a href="#重新创建一个仓库并创建一个文件" class="headerlink" title="重新创建一个仓库并创建一个文件"></a>重新创建一个仓库并创建一个文件</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ echo &apos;小明该吃午饭了&apos; &gt; test.txt</span><br><span class="line">$ git hash-object -w test.txt</span><br><span class="line">efbd70f46da0d1852de88c58aebc86616beecdaf</span><br></pre></td></tr></table></figure>
-<h5 id="修改文件再保存"><a href="#修改文件再保存" class="headerlink" title="修改文件再保存"></a>修改文件再保存</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ echo &quot;小明打算去吃个泡面&quot; &gt; test.txt</span><br><span class="line">$ git hash-object -w test.txt</span><br><span class="line">26aab56c7d1f9bd962b28f78ce61f021b221d317</span><br></pre></td></tr></table></figure>
-<h5 id="查看已保存的内容"><a href="#查看已保存的内容" class="headerlink" title="查看已保存的内容"></a>查看已保存的内容</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ find .git/objects -type f</span><br><span class="line">.git/objects/26/aab56c7d1f9bd962b28f78ce61f021b221d317</span><br><span class="line">.git/objects/ef/bd70f46da0d1852de88c58aebc86616beecdaf</span><br></pre></td></tr></table></figure>
-<h5 id="恢复到第一个版本"><a href="#恢复到第一个版本" class="headerlink" title="恢复到第一个版本"></a>恢复到第一个版本</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git cat-file -p efbd70f46da0d1852de88c58aebc86616beecdaf &gt; .git/test.txt</span><br><span class="line">$ cat .git/test.txt</span><br><span class="line">小明该吃午饭了</span><br></pre></td></tr></table></figure>
-<p>git会记录每个版本的修改，根据校验和可恢复到相应的版本。</p>
-<hr>
-<p><strong>小结：</strong>这个过程中包括文件创建、文件修改、文件恢复，跟我们平时工作中使用的高级命令功能很相似。git会把整个过程转化为底层操作，同时对用户透明。</p>
-<p><strong>相关引用参考：</strong></p>
-<p><a href="http://smilejay.com/2012/08/git-commit-sha-1/" target="_blank" rel="noopener">http://smilejay.com/2012/08/git-commit-sha-1/</a></p>
-<p><a href="https://git-scm.com/book/zh/v1/Git-%E5%86%85%E9%83%A8%E5%8E%9F%E7%90%86-Git-%E5%AF%B9%E8%B1%A1" target="_blank" rel="noopener">https://git-scm.com/book/zh/v1/Git-%E5%86%85%E9%83%A8%E5%8E%9F%E7%90%86-Git-%E5%AF%B9%E8%B1%A1</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2353,7 +2265,7 @@
               
                 <a rel="external nofollow" href="/archives/">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2364,7 +2276,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2375,7 +2287,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2436,7 +2348,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">36.2k</span>
+    <span title="Site words total count">40.3k</span>
   
 </div>
 
