@@ -69,7 +69,7 @@
 
 
 
-  <meta name="keywords" content="源码阅读," />
+  <meta name="keywords" content="源码阅读,设计分析," />
 
 
 
@@ -80,21 +80,21 @@
 
 
 
-<meta name="description" content="SDWebImage">
-<meta name="keywords" content="源码阅读">
+<meta name="description" content="一、库功能主要提供了网络图片异步下载的功能。使ui展示大量网络图片的时候，能不堵塞主线程，保存界面流畅；同时，能有策略的异步下载图片，并正确的赋值到对应的控件上。sd库在异步下载的基础上，提供了磁盘缓存，提供了图片异步解压，尽可能的提高界面的体验。官方地址:https://github.com/SDWebImage/SDWebImage 二、整体需求 需求：imageview 把url作为入参，发">
+<meta name="keywords" content="源码阅读,设计分析">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SDWebImage设计思路分析">
 <meta property="og:url" content="https://zengbailiang.cn/2019-03-10sdimage设计分析.html">
 <meta property="og:site_name" content="沐白的个人博客">
-<meta property="og:description" content="SDWebImage">
+<meta property="og:description" content="一、库功能主要提供了网络图片异步下载的功能。使ui展示大量网络图片的时候，能不堵塞主线程，保存界面流畅；同时，能有策略的异步下载图片，并正确的赋值到对应的控件上。sd库在异步下载的基础上，提供了磁盘缓存，提供了图片异步解压，尽可能的提高界面的体验。官方地址:https://github.com/SDWebImage/SDWebImage 二、整体需求 需求：imageview 把url作为入参，发">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://zengbailiang.cn/personImg/CSDWebImageClassDiagram.png">
-<meta property="og:image" content="https://zengbailiang.cn/personImg/CSDWebImageSequenceDiagram.png">
-<meta property="og:updated_time" content="2019-03-11T13:37:03.162Z">
+<meta property="og:image" content="https://zengbailiang.cn/personImg/SDWebImageClassDiagram.png">
+<meta property="og:image" content="https://zengbailiang.cn/personImg/SDWebImageSequenceDiagram.png">
+<meta property="og:updated_time" content="2019-03-11T14:04:08.710Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SDWebImage设计思路分析">
-<meta name="twitter:description" content="SDWebImage">
-<meta name="twitter:image" content="https://zengbailiang.cn/personImg/CSDWebImageClassDiagram.png">
+<meta name="twitter:description" content="一、库功能主要提供了网络图片异步下载的功能。使ui展示大量网络图片的时候，能不堵塞主线程，保存界面流畅；同时，能有策略的异步下载图片，并正确的赋值到对应的控件上。sd库在异步下载的基础上，提供了磁盘缓存，提供了图片异步解压，尽可能的提高界面的体验。官方地址:https://github.com/SDWebImage/SDWebImage 二、整体需求 需求：imageview 把url作为入参，发">
+<meta name="twitter:image" content="https://zengbailiang.cn/personImg/SDWebImageClassDiagram.png">
 
 
 
@@ -341,7 +341,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  4,140
+                  4,151
                 </span>
               
 
@@ -351,10 +351,6 @@
             </div>
           
 
-          
-              <div class="post-description">
-                  SDWebImage
-              </div>
           
 
         </div>
@@ -370,7 +366,7 @@
       
 
       
-        <h5 id="一、库功能"><a href="#一、库功能" class="headerlink" title="一、库功能"></a>一、库功能</h5><p>主要提供了网络图片异步下载的功能。使ui展示大量网络图片的时候，能不堵塞主线程，保存界面流畅；同时，能有策略的异步下载图片，并正确的赋值到对应的控件上。sd库在异步下载的基础上，提供了磁盘缓存，提供了图片异步解压，尽可能的提高界面的体验。</p>
+        <h5 id="一、库功能"><a href="#一、库功能" class="headerlink" title="一、库功能"></a>一、库功能</h5><p>主要提供了网络图片异步下载的功能。使ui展示大量网络图片的时候，能不堵塞主线程，保存界面流畅；同时，能有策略的异步下载图片，并正确的赋值到对应的控件上。sd库在异步下载的基础上，提供了磁盘缓存，提供了图片异步解压，尽可能的提高界面的体验。<br>官方地址:<a href="https://github.com/SDWebImage/SDWebImage" target="_blank" rel="noopener">https://github.com/SDWebImage/SDWebImage</a></p>
 <h5 id="二、整体需求"><a href="#二、整体需求" class="headerlink" title="二、整体需求"></a>二、整体需求</h5><ul>
 <li><p>需求：imageview 把url作为入参，发起图片异步下载并在下载完毕后回调显示。</p>
 </li>
@@ -425,8 +421,8 @@
 <li>runtime关联对象</li>
 <li>信号量作为锁的使用</li>
 </ul>
-<h5 id="六、SDWebImage官方类图"><a href="#六、SDWebImage官方类图" class="headerlink" title="六、SDWebImage官方类图"></a>六、SDWebImage官方类图</h5><p><img src="/personImg/CSDWebImageClassDiagram.png" alt="SDWebImageClassDiagram.png"></p>
-<h5 id="七、SDWebImage时序图"><a href="#七、SDWebImage时序图" class="headerlink" title="七、SDWebImage时序图"></a>七、SDWebImage时序图</h5><p><img src="/personImg/CSDWebImageSequenceDiagram.png" alt="SDWebImageSequenceDiagram.png"></p>
+<h5 id="六、SDWebImage官方类图"><a href="#六、SDWebImage官方类图" class="headerlink" title="六、SDWebImage官方类图"></a>六、SDWebImage官方类图</h5><p><img src="/personImg/SDWebImageClassDiagram.png" alt="SDWebImageClassDiagram.png"></p>
+<h5 id="七、SDWebImage官方时序图"><a href="#七、SDWebImage官方时序图" class="headerlink" title="七、SDWebImage官方时序图"></a>七、SDWebImage官方时序图</h5><p><img src="/personImg/SDWebImageSequenceDiagram.png" alt="SDWebImageSequenceDiagram.png"></p>
 
       
     </div>
@@ -445,6 +441,8 @@
         <div class="post-tags">
           
             <a href="/tags/源码阅读/" rel="tag"># 源码阅读</a>
+          
+            <a href="/tags/设计分析/" rel="tag"># 设计分析</a>
           
         </div>
       
@@ -568,7 +566,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -611,7 +609,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#一、库功能"><span class="nav-number">1.</span> <span class="nav-text">一、库功能</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#二、整体需求"><span class="nav-number">2.</span> <span class="nav-text">二、整体需求</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#三、-技术的实现"><span class="nav-number">3.</span> <span class="nav-text">三、 技术的实现</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#四、使用的设计模式"><span class="nav-number">4.</span> <span class="nav-text">四、使用的设计模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#五、利用语言特性的相关技巧"><span class="nav-number">5.</span> <span class="nav-text">五、利用语言特性的相关技巧</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#六、SDWebImage官方类图"><span class="nav-number">6.</span> <span class="nav-text">六、SDWebImage官方类图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#七、SDWebImage时序图"><span class="nav-number">7.</span> <span class="nav-text">七、SDWebImage时序图</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#一、库功能"><span class="nav-number">1.</span> <span class="nav-text">一、库功能</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#二、整体需求"><span class="nav-number">2.</span> <span class="nav-text">二、整体需求</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#三、-技术的实现"><span class="nav-number">3.</span> <span class="nav-text">三、 技术的实现</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#四、使用的设计模式"><span class="nav-number">4.</span> <span class="nav-text">四、使用的设计模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#五、利用语言特性的相关技巧"><span class="nav-number">5.</span> <span class="nav-text">五、利用语言特性的相关技巧</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#六、SDWebImage官方类图"><span class="nav-number">6.</span> <span class="nav-text">六、SDWebImage官方类图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#七、SDWebImage官方时序图"><span class="nav-number">7.</span> <span class="nav-text">七、SDWebImage官方时序图</span></a></li></ol></div>
             
 
           </div>
@@ -645,7 +643,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">40.3k</span>
+    <span title="Site words total count">40.4k</span>
   
 </div>
 
