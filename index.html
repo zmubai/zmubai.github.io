@@ -243,185 +243,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2019-07-14本地加密方案.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zengbailiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/icon.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="沐白的个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019-07-14本地加密方案.html" itemprop="url">iOS 本地数据安全存储方案探索</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-14T00:00:00+08:00">
-                2019-07-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据安全/" itemprop="url" rel="index">
-                    <span itemprop="name">数据安全</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019-07-14本地加密方案.html" class="leancloud_visitors" data-flag-title="iOS 本地数据安全存储方案探索">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1,063
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>###前言：<br>一般app都支持本地记录登录状态，并支持离线的情况下加载用户数据，为了满足这样的场景，就需要把相关信息保存到本地。对于iOS持久化方面，无论使用userDefault、plist文件、归档、数据库等存储方式，都需要考虑一个问题，如何安全的存储数据？对于这个问题，可以对数据加密保存，至于选择哪种持久化方式，并不是那么重要。</p>
-<p>#####加密方案<br>说到对数据进行加密，那么肯定是要有一套安全的加密方案才行。以下是一些方案例子：<br>A. 一些摘要算法或编码处理。<br>B. 使用特定的秘钥执行某种对称加密。<br>C. 使用特定的公私钥执行某种非对称加密。<br>D. 某种自定义加密算法。<br>对于A，这只是一种把明文转为非明文的一种方式。摘要算法不可逆，但数据无法还原，不符合需求。编码处理，可以反编码还原明文，实际上数据并没有变得更安全，也是不符合需求。但采用编码的方式，还是比直接使用明文要好那么一点点。<br>对于B.使用公开的对称算法进行加解密，只要保证秘钥的安全，是可行的。<br>对于C.同B，但相对于对称加密，非对称加密效率较低，所以在保证秘钥安全的前提下，选择B，而不是选择C。但C的安全系数会比B高。两者都已经满足数据破解的成本超过其获取的价值的要求。<br>对于D，自定义算法，就要具体分析了， 破解难度因算法本身设计有关，但这个一般都是比较有实力的公司才这么搞吧，但一般都安全性比较高。是最好的方案之一，但其存在一定设计成本和测试成本。</p>
-<p>#####从安全范围的角度去考虑<br>到了这里，又面临了一个秘钥安全的问题，一般来说，我们可能会把秘钥硬编码到代码中，但我们的二进制文件存在一个字符串常量区，只要这个字符串在代码中被引用了，那么编译器就会把其写进字符串常量区。如果这样，稍微的分析下二进制文件，就可能把秘钥获取。所以秘钥硬编码是比较危险的。面对这个问题，可以通过把秘钥分拆成多个字符串，再通过某些处理生成真正的秘钥，来提高安全性。这里会存在一个更值得思考的问题，为了引出这个问题，先回归到方案的探索。</p>
-<p>到目前为止讨论到的都是本地怎么安全保存数据，到如何安全保存秘钥，都是围绕着单体方案去考虑，而没有从整体上去考虑。从安全范围的角度去考虑，如果在每一个客户端都是同样的加密算法，同样的秘钥，那么只要其中一个被破解，整个大厦立马倒塌。</p>
-<p>为此，可以给安卓和苹果分别分配不同的秘钥，这样就能把两个平台，这块的安全性隔离。既然有了这样的想法，那么前进一步，如果每个客户端都拥有不同的秘钥，并且是一种随机秘钥（随机安全性更高，当然可能伪随机，虽然伪随机实际上是通过算法来生成的，有规律，但其破解难度很大），那么就能把这块的安全性做到客户端隔离。</p>
-<p>#####最终选择的方案：<br>使用AES对称加密算法；使用随机算法生成本地秘钥，秘钥中添加时效性信息，并保存到keyChain中。</p>
-<p>优点：客户端隔离、对称加解密效率高，随机秘钥破解难度大。<br>缺点：由于客户端隔离，秘钥都不一样，数据无法统一分析，因此也影响了适用场景。</p>
-<p>demo:<a href="https://github.com/zmubai/LocalEncryptDemo" target="_blank" rel="noopener">LocalEncryptDemo</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2019-07-14安全思考.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -557,8 +378,7 @@
 <li>网络数据传输安全</li>
 <li>app代码安全</li>
 </ol>
-<p>####以下分别对每一点展开</p>
-<h3 id="1-敏感数据输入安全"><a href="#1-敏感数据输入安全" class="headerlink" title="1.敏感数据输入安全"></a>1.敏感数据输入安全</h3><ul>
+<h4 id="以下分别对每一点展开"><a href="#以下分别对每一点展开" class="headerlink" title="以下分别对每一点展开"></a>以下分别对每一点展开</h4><h3 id="1-敏感数据输入安全"><a href="#1-敏感数据输入安全" class="headerlink" title="1.敏感数据输入安全"></a>1.敏感数据输入安全</h3><ul>
 <li><p>textField密码模式与自定义键盘</p>
 <p>  敏感数据主要是指密码信息或者使用户的个人信息、交易信息等。当我们输入密码的时候一般会打开textField的密码输入模式，这时候是会强制使用系统键盘，并且密码输入后不可见。如果苹果对系统键盘没有做数据获取，那么这相对安全的，不存在数据泄漏。但这个代码不是开源的，所以也是不敢打包票的。所以我们常见的一些银行app会去实现私有键盘，同时会打乱数字字母的位置。这里面大概有两个考虑，一个是防止键盘数据监听，另一个是防止第三者通过观察用户输入手势猜测密码。</p>
 <p>  然而iOS是苹果的系统，如果苹果硬要监控数据，那么怎么都是没办法避免的，除非不用iOS系统。但这个本来就与苹果的立场相悖的。所以一些app实现私有键盘，个人认为主要是防止第三者通过观察用户输入手势的手段，猜测出密码。另外自定义键盘每个按钮点击的时候不显示视觉变化。如果在点击的时候样式发生变化，同时手机被录屏了，那么视频中就能看到密码输入的具体字符和顺序，导致密码泄露。</p>
@@ -692,7 +512,185 @@
 <li>使用加固工具，或第三方加固服务（UAObfuscatedString编译插件、爱加密、360加固等。）</li>
 </ol>
 <p>相关文章参考：<br><a href="https://www.jianshu.com/p/bff550b3ead4" target="_blank" rel="noopener">对 iOS app 进行安全加固</a></p>
-<p>####总结：孙子兵法有言知己知彼，方可百战百胜。安全攻防就是这样的一个东西，要去了解哪些攻击破解手段，才能更好的实施应对手段。</p>
+<h4 id="总结：孙子兵法有言知己知彼，方可百战百胜。安全攻防就是这样的一个东西，要去了解哪些攻击破解手段，才能更好的实施应对手段。"><a href="#总结：孙子兵法有言知己知彼，方可百战百胜。安全攻防就是这样的一个东西，要去了解哪些攻击破解手段，才能更好的实施应对手段。" class="headerlink" title="总结：孙子兵法有言知己知彼，方可百战百胜。安全攻防就是这样的一个东西，要去了解哪些攻击破解手段，才能更好的实施应对手段。"></a>总结：孙子兵法有言知己知彼，方可百战百胜。安全攻防就是这样的一个东西，要去了解哪些攻击破解手段，才能更好的实施应对手段。</h4>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2019-07-14本地加密方案.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zengbailiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/icon.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="沐白的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019-07-14本地加密方案.html" itemprop="url">iOS 本地数据安全存储方案探索</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-14T00:00:00+08:00">
+                2019-07-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据安全/" itemprop="url" rel="index">
+                    <span itemprop="name">数据安全</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019-07-14本地加密方案.html" class="leancloud_visitors" data-flag-title="iOS 本地数据安全存储方案探索">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,063
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h3><p>一般app都支持本地记录登录状态，并支持离线的情况下加载用户数据，为了满足这样的场景，就需要把相关信息保存到本地。对于iOS持久化方面，无论使用userDefault、plist文件、归档、数据库等存储方式，都需要考虑一个问题，如何安全的存储数据？对于这个问题，可以对数据加密保存，至于选择哪种持久化方式，并不是那么重要。</p>
+<h5 id="加密方案"><a href="#加密方案" class="headerlink" title="加密方案"></a>加密方案</h5><p>说到对数据进行加密，那么肯定是要有一套安全的加密方案才行。以下是一些方案例子：<br>A. 一些摘要算法或编码处理。<br>B. 使用特定的秘钥执行某种对称加密。<br>C. 使用特定的公私钥执行某种非对称加密。<br>D. 某种自定义加密算法。<br>对于A，这只是一种把明文转为非明文的一种方式。摘要算法不可逆，但数据无法还原，不符合需求。编码处理，可以反编码还原明文，实际上数据并没有变得更安全，也是不符合需求。但采用编码的方式，还是比直接使用明文要好那么一点点。<br>对于B.使用公开的对称算法进行加解密，只要保证秘钥的安全，是可行的。<br>对于C.同B，但相对于对称加密，非对称加密效率较低，所以在保证秘钥安全的前提下，选择B，而不是选择C。但C的安全系数会比B高。两者都已经满足数据破解的成本超过其获取的价值的要求。<br>对于D，自定义算法，就要具体分析了， 破解难度因算法本身设计有关，但这个一般都是比较有实力的公司才这么搞吧，但一般都安全性比较高。是最好的方案之一，但其存在一定设计成本和测试成本。</p>
+<h5 id="从安全范围的角度去考虑"><a href="#从安全范围的角度去考虑" class="headerlink" title="从安全范围的角度去考虑"></a>从安全范围的角度去考虑</h5><p>到了这里，又面临了一个秘钥安全的问题，一般来说，我们可能会把秘钥硬编码到代码中，但我们的二进制文件存在一个字符串常量区，只要这个字符串在代码中被引用了，那么编译器就会把其写进字符串常量区。如果这样，稍微的分析下二进制文件，就可能把秘钥获取。所以秘钥硬编码是比较危险的。面对这个问题，可以通过把秘钥分拆成多个字符串，再通过某些处理生成真正的秘钥，来提高安全性。这里会存在一个更值得思考的问题，为了引出这个问题，先回归到方案的探索。</p>
+<p>到目前为止讨论到的都是本地怎么安全保存数据，到如何安全保存秘钥，都是围绕着单体方案去考虑，而没有从整体上去考虑。从安全范围的角度去考虑，如果在每一个客户端都是同样的加密算法，同样的秘钥，那么只要其中一个被破解，整个大厦立马倒塌。</p>
+<p>为此，可以给安卓和苹果分别分配不同的秘钥，这样就能把两个平台，这块的安全性隔离。既然有了这样的想法，那么前进一步，如果每个客户端都拥有不同的秘钥，并且是一种随机秘钥（随机安全性更高，当然可能伪随机，虽然伪随机实际上是通过算法来生成的，有规律，但其破解难度很大），那么就能把这块的安全性做到客户端隔离。</p>
+<h5 id="最终选择的方案："><a href="#最终选择的方案：" class="headerlink" title="最终选择的方案："></a>最终选择的方案：</h5><p>使用AES对称加密算法；使用随机算法生成本地秘钥，秘钥中添加时效性信息，并保存到keyChain中。</p>
+<p>优点：客户端隔离、对称加解密效率高，随机秘钥破解难度大。<br>缺点：由于客户端隔离，秘钥都不一样，数据无法统一分析，因此也影响了适用场景。</p>
+<p>demo:<a href="https://github.com/zmubai/LocalEncryptDemo" target="_blank" rel="noopener">LocalEncryptDemo</a></p>
 
           
         
