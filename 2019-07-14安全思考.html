@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta name="google-site-verification" content="xdxP4Om7Pxp3OMC73kRMv2emRoA91RXOEPaKMivB_zg" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="数据安全," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="iOS 移动端 安全思考 这是一遍安全知识总结的博客，并涉及相关知识的延伸，以作知识备忘和总结。  安全相关的几个方面：   敏感数据输入安全 外部调用，和对外数据安全 本地数据存储安全 网络数据传输安全 app代码安全  ####以下分别对每一点展开 1.敏感数据输入安全 textField密码模式与自定义键盘   敏感数据主要是指密码信息或者使用户的个人信息、交易信息等。当我们输入密码的时候一">
+<meta name="keywords" content="数据安全">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS 移动端 安全思考与总结">
+<meta property="og:url" content="https://zengbailiang.cn/2019-07-14安全思考.html">
+<meta property="og:site_name" content="沐白的个人博客">
+<meta property="og:description" content="iOS 移动端 安全思考 这是一遍安全知识总结的博客，并涉及相关知识的延伸，以作知识备忘和总结。  安全相关的几个方面：   敏感数据输入安全 外部调用，和对外数据安全 本地数据存储安全 网络数据传输安全 app代码安全  ####以下分别对每一点展开 1.敏感数据输入安全 textField密码模式与自定义键盘   敏感数据主要是指密码信息或者使用户的个人信息、交易信息等。当我们输入密码的时候一">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1690665-9e69d9eb90759663.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1690665-28e536782b2bf45e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1690665-b7286c7a9af90258.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-07-14T12:49:43.026Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS 移动端 安全思考与总结">
+<meta name="twitter:description" content="iOS 移动端 安全思考 这是一遍安全知识总结的博客，并涉及相关知识的延伸，以作知识备忘和总结。  安全相关的几个方面：   敏感数据输入安全 外部调用，和对外数据安全 本地数据存储安全 网络数据传输安全 app代码安全  ####以下分别对每一点展开 1.敏感数据输入安全 textField密码模式与自定义键盘   敏感数据主要是指密码信息或者使用户的个人信息、交易信息等。当我们输入密码的时候一">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/1690665-9e69d9eb90759663.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://zengbailiang.cn/2019-07-14安全思考.html"/>
+
+
+
+
+
+  <title>iOS 移动端 安全思考与总结 | 沐白的个人博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">沐白的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2019-07-14安全思考.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zengbailiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/icon.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="沐白的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">iOS 移动端 安全思考与总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-14T00:00:00+08:00">
+                2019-07-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据安全/" itemprop="url" rel="index">
+                    <span itemprop="name">数据安全</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019-07-14安全思考.html" class="leancloud_visitors" data-flag-title="iOS 移动端 安全思考与总结">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  6,577
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="iOS-移动端-安全思考"><a href="#iOS-移动端-安全思考" class="headerlink" title="iOS 移动端 安全思考"></a>iOS 移动端 安全思考</h3><p><img src="https://upload-images.jianshu.io/upload_images/1690665-9e69d9eb90759663.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="v2-510e2d2a1aae6e5ced9f1b142b33af0a_r (1).jpg"></p>
+<p>这是一遍安全知识总结的博客，并涉及相关知识的延伸，以作知识备忘和总结。</p>
+<ul>
+<li>安全相关的几个方面：</li>
+</ul>
+<ol>
+<li>敏感数据输入安全</li>
+<li>外部调用，和对外数据安全</li>
+<li>本地数据存储安全</li>
+<li>网络数据传输安全</li>
+<li>app代码安全</li>
+</ol>
+<p>####以下分别对每一点展开</p>
+<h3 id="1-敏感数据输入安全"><a href="#1-敏感数据输入安全" class="headerlink" title="1.敏感数据输入安全"></a>1.敏感数据输入安全</h3><ul>
+<li><p>textField密码模式与自定义键盘</p>
+<p>  敏感数据主要是指密码信息或者使用户的个人信息、交易信息等。当我们输入密码的时候一般会打开textField的密码输入模式，这时候是会强制使用系统键盘，并且密码输入后不可见。如果苹果对系统键盘没有做数据获取，那么这相对安全的，不存在数据泄漏。但这个代码不是开源的，所以也是不敢打包票的。所以我们常见的一些银行app会去实现私有键盘，同时会打乱数字字母的位置。这里面大概有两个考虑，一个是防止键盘数据监听，另一个是防止第三者通过观察用户输入手势猜测密码。</p>
+<p>  然而iOS是苹果的系统，如果苹果硬要监控数据，那么怎么都是没办法避免的，除非不用iOS系统。但这个本来就与苹果的立场相悖的。所以一些app实现私有键盘，个人认为主要是防止第三者通过观察用户输入手势的手段，猜测出密码。另外自定义键盘每个按钮点击的时候不显示视觉变化。如果在点击的时候样式发生变化，同时手机被录屏了，那么视频中就能看到密码输入的具体字符和顺序，导致密码泄露。</p>
+</li>
+<li><p>第三方键盘完全访问</p>
+<p>  另外使用第三方键盘，特别是在运行完全访问之后，存在安全风险。允许完全访问后，第三方键盘能把用户输入的数据发送到自家后台（就算开始不允许完全访问，后面再允许，之前的输入数据也会被上传。因为不允许完全访问的时候，第三方键盘能把输入数据保存到本地，当获取到完全访问的时候再把这部分数据上传）。收集这个数据能对键盘的输入体验进行优化，主要是自动更正功能和根据用户的习惯匹配出更高频率的词语。但风险是时刻存在的，这个需要用户对体验的优化与承受的风险之间做权衡。但保守策略，安全起见，最好还是不允许键盘的完全访问。link:<a href="https://spiim.com/blog/about-full-access.html" target="_blank" rel="noopener">iOS 8 第三方键盘“完全访问”的那些事</a></p>
+</li>
+<li><p>键盘缓存</p>
+<p>  当用户使用系统键盘，并开启自动更正功能的时候，系统就会把键盘的输入记录到系统的一个特定路径的文件中（/private/var/mobile/Library/Keyboard/dynamic-text.dat），并且该文件是明文存储。所以获取到文件内容，并加以分析，就有可能获取到用户的密码信息等。但这里有一个前提，必须是越狱手机才能获取，因为存在沙盒机制，应用是无法访问到该目录的文件的。基于这一点，使用自定义键盘就可以避免被输入被缓存。<br>link:<a href="https://www.ctolib.com/docs-ios-security-defense-c-keyboard-cache.html" target="_blank" rel="noopener">键盘缓存与安全键盘</a>    </p>
+</li>
+<li><p>安全策略：</p>
+<ol>
+<li>输入密码设置textField的密码输入模式。</li>
+<li>安全性更好的，实现私有键盘，每次打乱键值顺序，控件不实现点击效果。</li>
+<li>不允许第三方键盘的完全访问。</li>
+</ol>
+</li>
+</ul>
+<h3 id="2-外部调用，和对外数据安全"><a href="#2-外部调用，和对外数据安全" class="headerlink" title="2. 外部调用，和对外数据安全"></a>2. 外部调用，和对外数据安全<br></h3><ol>
+<li>外部调用是指，其他应用唤起app的行为。主要是通过scheme来唤起。通常app内部是有处理外部调用的逻辑的，并能根据scheme后面拼接的参数来跳转到不同的业务模块。那么这里就有可能存在逻辑漏洞，特别对于重要的涉及用户金钱或隐私的模块，需要有一套严谨的参数校验规则，避免漏洞发生。个人认为这种提供给外部的入口，都是app安全的一个隐患，所有必须要有一个严谨的权限校验规则。</li>
+<li><p>对外数据，指通过各种途径能被外部获知的数据。这里主要是app退到后台显示的截图，因为实在不知道这个归类到哪里，就归类到对外数据。系统截图是系统为了提供用户体验的手段，但可能无意中泄漏了重要信息。故这里要进行处理，第一种可以禁止截图，那么推到后台把keyWindows隐藏，那么系统的截图就变成黑色；另外一种就是手动替换截图，一般会对截图进行模糊化。</p>
+</li>
+<li><p>安全策略</p>
+<ol>
+<li>外部发起调用，需要有一套完善的鉴权机制。</li>
+<li>系统截图，需要手动替换。</li>
+</ol>
+</li>
+</ol>
+<h3 id="3-本地数据存储安全"><a href="#3-本地数据存储安全" class="headerlink" title="3. 本地数据存储安全"></a>3. 本地数据存储安全</h3><p>本地数据如果明文保存的话，是不安全的。虽然有沙盒机制的保护，但如果手机被越狱了，那么数据就暴露了。所以，重要信息需要进行加密保存。可以采用aes进行加密，base64编码后进行保存。这样就算数据被获取，也无法得到有用信息。由于这里使用aes加密，那么如何安全保存加密秘钥是一个重要的问题。因为如果秘钥被破解了，那么数据就被破解了。因为本地数据加解密都在本地进行，所以秘钥作用范围也仅限于本地数据。一般可以使用两种方式提供秘钥：第一种hardCode秘钥，第二种本地生成秘钥，再保存本地。下面对安全性方案进行讨论：</p>
+<ol>
+<li><p>hanrdCode秘钥：<br></p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//形如：</span><br><span class="line">static NSString *aesPriKey = @&quot;xxx0xxx0xxx0xxx0xxx0&quot;;</span><br></pre></td></tr></table></figure>
+<p> 这看起来好像没什么问题，但这种hardCode的方式，很容易被获取。获取方式：使用逆向技术对app进行砸壳（例如pp助手下载的app已经砸壳），并使用使用machOViewer<br> 查看APP的二进制文件，就能获取到字符串常量（前提是这个字符有被引用，否则编译器貌似会优化掉。但我们加密的秘钥怎么可能会不引用呢，测试的时候发现的现象，顺便记录下）。</p>
+</li>
+</ol>
+<p><img src="https://upload-images.jianshu.io/upload_images/1690665-28e536782b2bf45e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>如果写入到文件中，然后在运行过程中通过读文件的方式获取秘钥，那么也是不安全的，秘钥不能直接保存到文件中，但难道要把秘钥加密保存到文件中，那么用于加密的秘钥怎么保证安全，这就变成了鸡生蛋蛋生鸡的问题了。可以尝试直接对秘钥加盐然后编码存储到文件中，这样只要加盐规则和编码规则足够复杂也是相对安全的。</p>
+<ol start="2">
+<li><p>本地生成秘钥<br> 由于这个秘钥保存的问题，个人在开发中使用的方案是，本地生成随机秘钥，并把秘钥保存到系统keychain中,同时可以设置秘钥的有效时间。这样设计有两个好处，一个生成随机秘钥，能保证每台手机的秘钥不一样，这样能缩窄影响范围，第二个是由于时效性的存在，当然这个时效性只能引用于用户登录信息等功能，但它增加了秘钥破解的难度。除非破解了代码逻辑并成功获取到keychain的秘钥，同时破解苹果的加密算法，才有可能破解整套策略，所以是相对安全的。在这个过程中，我们甚至可以对生成的秘钥加盐，但我认为这个貌似没必要，如果加盐是常量字符串，反而能从分析二进制文件常量字符中顺藤摸瓜找到相关的加密逻辑，留下多余线索。</p>
+</li>
+<li><p>安全策略：    </p>
+<ol>
+<li>不使用常量字符串定义秘钥。如果确实是固定的秘钥，那么要使用一套混淆规则混淆秘钥，使用的时候再对秘钥进行反混淆，例如 salt1 +  原始秘钥 + salt2 再两次base64生成新的字符串作为常量保存。使用的时候，base64Decode两次再获取中间的元素秘钥。规则应该多变的，不要全部一致，否则这个混淆就没有意义了。</li>
+<li>本地秘钥随机生成（可以使用arc4random(),这里不要使用时间戳作为随机种子，因为时间戳是有规律的。但时间戳可以作为信息添加到秘钥中，作为有效时间的判断。）同时生成的秘钥以密码的形式保存到系统的keyChain中，这样苹果会对秘钥进行加密并保存到keyChain中。可采用aes128/192/256(秘钥长度分别为16/24/32byte,128/192/256bit) + base64编码的加密方案。</li>
+</ol>
+</li>
+</ol>
+<p><strong>aes的相关说明</strong></p>
+<p>aes是一种分组密码算法。   以下摘录维基百科对分组密码的一些重要描述,包括分组密码的概念，还有算法的设计原则中两个重要因素扩散和扰乱。其中还谈到每一轮都使用不同的子秘钥，这样会大大增加区块之间的关联性，让破解难度变高，而几种加密模式中ecb电密码本模式并没有使用这种设计思想去实现加密，下面会谈到多种加密模式。</p>
+<blockquote>
+<p>维基百科</p>
+<blockquote>
+<p>在密码学中，分组加密（英语：Block cipher），又称分块加密或块密码，是一种对称密钥算法。它将明文分成多个等长的模块（block），使用确定的算法和对称密钥对每组分别加密解密。</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>迭代产生的密文在每一轮加密中使用不同的子密钥，而子密钥生成自原始密钥。</p>
+<p>设计原则:<br><strong>扩散（diffusion）</strong>和<strong>扰乱（confusion）</strong>是影响密码安全的主要因素。扩散的目的是让明文中的单个数字影响密文中的多个数字，从而使明文的统计特征在密文中消失，相当于明文的统计结构被扩散。扰乱是指让密钥与密文的统计信息之间的关系变得复杂，从而增加通过统计方法进行攻击的难度。扰乱可以通过各种代换算法实现。</p>
+</blockquote>
+</blockquote>
+<p><strong>分组密码工作模式</strong></p>
+<p>分组密码工作模式，常用模式有五种：电子密码本ECB、密码块链接CBC、填充密码块链接PCBC、密文反馈CFB、输出反馈OFB、计数器模式CTR。另外还有相关的很重要的几个概念，分别是加密向量IV和块填充模式PADDING。维基百科概关于分组密码工作模式的概要说的很精辟。</p>
+<blockquote>
+<p>维基百科 -分组密码工作模式</p>
+<blockquote>
+<p>密码学中，分组（block）密码的工作模式（mode of operation）允许使用同一个分组密码密钥对多于一块的数据进行加密，并保证其安全性。分组密码自身只能加密长度等于密码分组长度的单块数据，若要加密变长数据，则数据必须先被划分为一些单独的密码块。通常而言，最后一块数据也需要使用合适填充方式将数据扩展到匹配密码块大小的长度。一种工作模式描述了加密每一数据块的过程，并常常使用基于一个通常称为初始化向量的附加输入值以进行随机化，以保证安全[1]。</p>
+</blockquote>
+</blockquote>
+<p>对于AES来说，块的固定长度为128bit,秘钥长度为128/192/256bit（这个涉及到编码细节，例如不知道这个，就不知道秘钥的长度，可能导致编码错误）。由于块的长度固定为128，所以就存在最后一个块填充的问题，这涉及到块的填充模式PADDING,加密解密都需要用同样的的块填充模式去处理最后的块（涉及到编程细节，块填充模式的选择）。加密的时候是对明文切分成若干组，每组长度都等于128位。aes会对每一组进行多轮加密。其过程包括若干步骤，轮秘钥加、字节替换、行位移、列混合、轮秘钥加，并且根据秘钥的位数不同分别对应不同的轮数（位数/轮数）128/10，192/12,256/14。密码学的东西不太好啃，数学渣渣表示啃不动，需要比较好的数学基础才能比较畅顺的理解其加密过程的每个步骤，但我觉得十几步的加密过程和多轮的加密，应该是围绕扩散和扰乱两点出发，来提高算法的破解难度的。</p>
+<p><strong>ECB模式与CBC模式</strong></p>
+<p>挑选ECB和CBC模式分析，加深对分组密码工作模式的理解，直观对比两模式的差异，并简要说明下使用IV的原因。</p>
+<p>ECB模式：<br>把明文划分为长度相等的块128bit,并对每个块独立加密，最后拼接成为完整的加密密文。<br>由于每个块都是使用同一个秘钥独立加密，块与块之间没有关联性，对于同样的明文块（不管其在整个块集合中那个位置）加密产生的密文都是一样的，因此更有规律性，不能很好隐藏数据。</p>
+<p>CBC模式：<br>同样先划分块，加密的时候CBC每个明文块与前一个密文块进行异或后再进行加密。这样每个块都依赖其前面的块，内部是联动的，这样的话，存在明文系统的块，加密出来的结果也是不一样的，从这一点来看比ECB安全性更高。但这里存在一个问题，就是如果第一个块内容一样，那么对于共同的明文前缀加密出来的结果也是一样的，如果这样，反而变成了破解的一个入口。为了解决这种情况，这个时候上面提到的重要元素向量IV就派上用场了，第一个块加密加入向量的参与，主要确保每一个条消息独有的一个向量，那么就能保证密文的唯一性。缺点：由于块之间存在依赖导致其加密过程是串行的，并且消息必须被填充到块大小的整数倍。</p>
+<p>aes的加密原理：aes支持三种秘钥长度分别是128/192/256位，对应字符串长度为16/24/32。加密的时候是对明文切分成若干组，每组长度都等于128位。aes会对每一组进行多轮加密。其过程包括若干步骤，轮秘钥加、字节替换、行位移、列混合、轮秘钥加，并且根据秘钥的位数不同分别对应不同的轮数（位数/轮数）128/10，192/12,256/14。</p>
+<p><a href="https://zh.wikipedia.org/wiki/%E9%AB%98%E7%BA%A7%E5%8A%A0%E5%AF%86%E6%A0%87%E5%87%86" target="_blank" rel="noopener">维基百科-AES</a></p>
+<p><a href="https://zh.wikipedia.org/wiki/%E5%88%86%E7%BB%84%E5%AF%86%E7%A0%81%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F" target="_blank" rel="noopener">维基百科-分组密码工作模式</a></p>
+<p><strong>关于随机数</strong></p>
+<blockquote>
+<p>维基百科-随机数</p>
+<blockquote>
+<p>根据密码学原理，随机数的随机性检验可以分为三个标准：<br><strong>1.统计学伪随机性</strong>。统计学伪随机性指的是在给定的随机比特流样本中，1的数量大致等于0的数量，同理，“10”“01”“00”“11”四者数量大致相等。类似的标准被称为统计学随机性。满足这类要求的数字在人类“一眼看上去”是随机的。<br><strong>2.密码学安全伪随机性</strong>。其定义为，给定随机样本的一部分和随机算法，不能有效的演算出随机样本的剩余部分。<br><strong>3.真随机性</strong>。其定义为随机样本不可重现。实际上衹要给定边界条件，真随机数并不存在，可是如果产生一个真随机数样本的边界条件十分复杂且难以捕捉（比如计算机当地的本底辐射波动值），可以认为用这个方法演算出来了真随机数。但实际上，这也只是非常接近真随机数的伪随机数，一般认为，无论是本地辐射、物理噪音、抛硬币……等都是可被观察了解的，任何基于经典力学产生的随机数，都只是伪随机数。</p>
+</blockquote>
+</blockquote>
+<p>随机数分类：<br></p>
+<ol>
+<li>伪随机数：满足第一个条件的随机数。<br></li>
+<li>密码学安全的伪随机数：同时满足前两个条件的随机数。可以通过密码学安全伪随机数生成器计算得出。<br></li>
+<li>真随机数：同时满足三个条件的随机数。</li>
+</ol>
+<p><strong>重点是</strong>：随机数在密码学中非常重要，保密通信中大量运用的会话密钥的生成即需要真随机数的参与。如果一个随机数生成算法是有缺陷的，那么会话密钥可以直接被推算出来。真正的随机数是使用物理现象产生的：比如掷钱币、骰子、转轮、使用电子组件的噪音、核裂变等等。这样的随机数生成器叫做物理性随机数生成器，它们的缺点是技术要求比较高。<br>在实际应用中往往使用伪随机数就足够了。这些数列是“似乎”随机的数，实际上它们是通过一个固定的、可以重复的计算方法产生的。它们不真正地随机，因为它们实际上是可以计算出来的，但是它们具有类似于随机数的统计特征。这样的生成器叫做伪随机数生成器。<br>在真正关键性的应用中，比如在密码学中，人们一般使用真正的随机数。</p>
+<p><a href="https://zh.wikipedia.org/wiki/%E9%9A%8F%E6%9C%BA%E6%95%B0" target="_blank" rel="noopener">维基百科-随机数</a></p>
+<p><strong>关于加盐</strong></p>
+<blockquote>
+<p>维基百科-盐</p>
+<blockquote>
+<p>盐（Salt），在密码学中，是指在散列之前将散列内容（例如：密码）的任意固定位置插入特定的字符串。这个在散列中加入字符串的方式称为“加盐”。其作用是让加盐后的散列结果和没有加盐的结果不相同，在不同的应用情景中，这个处理可以增加额外的安全性。</p>
+</blockquote>
+</blockquote>
+<p>作用：提高数据安全性， 加盐后再通过散列算法得出特征值，不能直接通过彩虹表暴力破解出原数据，在验证用户密码的场景下，极大的提高了安全性。但同时因为要校验用户密码，所以需要保存这个盐值。</p>
+<p>以下为维基百科相关描述<br><br>通常情况下，当字段经过散列处理（如MD5），会生成一段散列值，而散列后的值一般是无法通过特定算法得到原始字段的。但是某些情况，比如一个大型的彩虹表，通过在表中搜索该MD5值，很有可能在极短的时间内找到该散列值对应的真实字段内容。<br>加盐后的散列值，可以极大的降低由于用户数据被盗而带来的密码泄漏风险，即使通过彩虹表寻找到了散列后的数值所对应的原始内容，但是由于经过了加盐，插入的字符串扰乱了真正的密码，使得获得真实密码的概率大大降低。</p>
+<p>所以在某些业务场景下可以考虑使用加盐的方式提高数据安全性。</p>
+<h3 id="4-网络数据传输安全"><a href="#4-网络数据传输安全" class="headerlink" title="4. 网络数据传输安全"></a>4. 网络数据传输安全</h3><p>移动数据通过网络传输主要是面临几个风险：1.窃听风险。2.篡改风险。3.冒充风险。<br>那么可以认为如果没有以上风险，传输就是安全的。s<br>在民用领域网络通信一般都是使用http，https，又或者使用socket的tcp udp通讯，另外还有一些私有协议（微信、qq）。对于敏感数据的传输，使用http是不安全的（除非先自己加密一遍再传输），而在不使用私有协议的前提下，为了保证安全性，一般会使用https。https依赖于第三方权威机构证书认证和非对称算法，能使clien和server相互确认身份，安全生成第三个随机数，并协商出用于对称加密的会话密秘钥，进行安全的对称加密传输（<a href="http://www.ruanyifeng.com/blog/2014/02/ssl_tls.html" target="_blank" rel="noopener">https原理说明</a>），我认为安全生成了会话秘钥后，在没有秘钥的情况下无法解开密文的，这样就能有效防止了窃听风险，篡改风险和冒充风险。首先无法解密就能避免窃听和冒充，而篡改，或者你可以把内容换掉，但这会导致解密失败，就算解密成功也是没有意义的内容，无关紧要。</p>
+<p>但在使用https的情况下，有几个点还是需要注意一下：</p>
+<ol>
+<li>https可以使用自签名证书，这种情况通过浏览器请求，地址栏开头一般会出现一个✘的图标，代表这个请求是不授信的，有些浏览器会提示风险并询问是否继续访问。但如果你在系统中添加了相关的根证书并设置信任，那么这个请求就会被认为是合法的。所以，往系统中添加证书需要慎重。</li>
+<li>客户端编码的时候，要根据服务器的证书情况（权威认证证书，还是自签名证书）设置合理的证书校验规则。编码涉及的点：1.是否校验域名；2.是否校验有效期；3.具体的校验策略。如果是使用AFNetWorking,涉及到的编码如下：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//配置请求Manager是创建安全策略对象</span><br><span class="line">//暂时忽略PinningMode的选择</span><br><span class="line">AFSecurityPolicy *securityPolicy = [AFSecurityPolicy policyWithPinningMode:xxxx];</span><br><span class="line"></span><br><span class="line">//是否校验域名，3.0版本默认为YES。</span><br><span class="line">securityPolicy.validatesDomainName=NO;</span><br><span class="line"></span><br><span class="line">//是否允许无效证书（包括不校验证书有效期）。假设你想通过设置这里，来跳过校验有效期的话，在AFSSLPinningModeNone和AFSSLPinningModePublicKey是有效的，但AFSSLPinningModeCertificate是无效的，AFSSLPinningModeCertificate是一定会去校验证书是否有效，然后再去验证证书链，这里还是存在一定的疑惑，或许我可以给作者提一个issue。</span><br><span class="line">securityPolicy.allowInvalidCertificates=NO;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><strong>简述AFSecurityPolicy三种模式</strong></p>
+<ol>
+<li>AFSSLPinningModeNone<br>选择该模式，当设置allowInvalidCertificates为YES时，会去校验证书有效期，会使用系统内置的权威机构根证书去校验客户端证书是否合法。但如果allowInvalidCertificates设置为NO，不进行合法性校验校验，方法返回值直接返回YES）。</li>
+<li>AFSSLPinningModePublicKey<br>读取内嵌所有cer（DER编码）文件，并提取全部publicKey,判断客户端证书的publicKey是否被包含。<br>3.AFSSLPinningModeCertificate<br>读取内嵌所有cer（DER编码）文件，并判断端客户端证书内容是否被包含，只要证书链中其中一个证书被包含即可。因为客户端证书是由其上级证书签发的，而其上级证书是由服务器证书直接或者间接签发的，重点是上级证书能校验下级证书的合法性，换句话说如果客户端的上级证书被包含了，那么就能确认客户端证书的合法性。为了提高代码效率可以直接包含客户端证书或者客户端证书的上级证书。</li>
+</ol>
+<p><strong>小结：三种安全策略</strong></p>
+<ol>
+<li>allowInvalidCertificates = YES ;+ AFSSLPinningModeNone; + validatesDomainName = YES（必须为YES，否则不安全；这样可以防止数据被篡改，但可以被抓包，数据还是会泄漏。）; </li>
+<li>allowInvalidCertificates = NO；+ AFSSLPinningModePublicKey; + validatesDomainName = YES/NO（某些情况下，证书域名不匹配所有客户端请求，此时需要配置为NO）;</li>
+<li>AFSSLPinningModeCertificatev；+ alidatesDomainName = YES/NO（同上）;</li>
+</ol>
+<p>下图为越狱版支付宝包内容展示，可见里面内嵌了pem编码格式的证书，包含了base64格式的公钥。<br><img src="https://upload-images.jianshu.io/upload_images/1690665-b7286c7a9af90258.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//命令行查看证书内容：</span><br><span class="line">zmubaiMacBook:AlipayWallet.app zengbailiang$ cat opensdk_public.pem </span><br><span class="line">-----BEGIN PUBLIC KEY-----</span><br><span class="line">MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCtDVxvZhDT6FNaBqZ/Js2h7G7j</span><br><span class="line">v88UjsRlv2qDHpobSqzqe/PAbfmHZNvOOlR07l9k8GJMUp4v4z+hTy4pjypmB1St</span><br><span class="line">nt5nulRHIbcUSQ3LsT3rETJGVsGBEkvIeZXHFRDK5UmeUO9IgiviwAthgvLnDM9S</span><br><span class="line">ZOa9QCTROfibnpYWVQIDAQAB</span><br><span class="line">-----END PUBLIC KEY-----</span><br></pre></td></tr></table></figure>
+<p>参考链接：<br><a href="http://www.ruanyifeng.com/blog/2014/02/ssl_tls.html" target="_blank" rel="noopener">SSL/TLS协议运行机制的概述</a><br><a href="https://baike.baidu.com/item/X.509/2817050" target="_blank" rel="noopener">X.509公钥证书格式标准，对证书链的验证过程有很好的说明</a><br><a href="http://www.cocoachina.com/ios/20140916/9632.html" target="_blank" rel="noopener">AF证书校验部分源码说明</a></p>
+<h3 id="5-app代码安全"><a href="#5-app代码安全" class="headerlink" title="5. app代码安全"></a>5. app代码安全</h3><p>这部分主要是涉及到开发期的代码混淆、加固技术。逆向加固方面的知识了解的比较少，也就不做什么记录了。但仍然需要记录下一些主要的点。</p>
+<p>提高代码安全，增强逆向难道的一些手段</p>
+<ol>
+<li>类名、方法名、属性名混淆。（但混淆过度，可能导致审核被拒）</li>
+<li>重要函数使用c（依然能被hood，使用fishhook等工具），内联静态函数安全性更高。</li>
+<li>加密重要的字符串，避免砸壳后直接分析获取重要信息。（这方面有开源库）</li>
+<li>使用加固工具，或第三方加固服务（UAObfuscatedString编译插件、爱加密、360加固等。）</li>
+</ol>
+<p>相关文章参考：<br><a href="https://www.jianshu.com/p/bff550b3ead4" target="_blank" rel="noopener">对 iOS app 进行安全加固</a></p>
+<p>####总结：孙子兵法有言知己知彼，方可百战百胜。安全攻防就是这样的一个东西，要去了解哪些攻击破解手段，才能更好的实施应对手段。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据安全/" rel="tag"># 数据安全</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019-03-10sdimage设计分析.html" rel="next" title="SDWebImage设计思路分析">
+                <i class="fa fa-chevron-left"></i> SDWebImage设计思路分析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019-07-14本地加密方案.html" rel="prev" title="iOS 本地数据安全存储方案探索">
+                iOS 本地数据安全存储方案探索 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/icon.jpg"
+                alt="zengbailiang" />
+            
+              <p class="site-author-name" itemprop="name">zengbailiang</p>
+              <p class="site-description motion-element" itemprop="description">知行合一</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a rel="external nofollow" href="/archives/">
+              
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zmubai" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#iOS-移动端-安全思考"><span class="nav-number">1.</span> <span class="nav-text">iOS 移动端 安全思考</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-敏感数据输入安全"><span class="nav-number">2.</span> <span class="nav-text">1.敏感数据输入安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-外部调用，和对外数据安全"><span class="nav-number">3.</span> <span class="nav-text">2. 外部调用，和对外数据安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-本地数据存储安全"><span class="nav-number">4.</span> <span class="nav-text">3. 本地数据存储安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-网络数据传输安全"><span class="nav-number">5.</span> <span class="nav-text">4. 网络数据传输安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-app代码安全"><span class="nav-number">6.</span> <span class="nav-text">5. app代码安全</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zengbailiang</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">45.3k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a rel="external nofollow" class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("7VSaCuGNNUXrDp0aOK65w7PQ-gzGzoHsz", "l1D8p6eriduqG6aqx1f8H7ia");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

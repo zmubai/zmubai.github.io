@@ -69,7 +69,7 @@
 
 
 
-  <meta name="keywords" content="网络数据处理," />
+  <meta name="keywords" content="数据安全," />
 
 
 
@@ -80,18 +80,18 @@
 
 
 
-<meta name="description" content="当我们处理接口数据的时候，有些情况仅仅需要获取一个或多个字段，来进行状态判断或数据显示。在写这部分代码的时候，或多或少会有一种重复感，但它又不是一成不变的重复，而是其模式相同，大量的字典取值操作，又或者多层的字典取值。这里能否实现一个功能，减少重复操作，一步到位，又或者提高下效率，让这部分代码逻辑变得简洁统一。我想可以自己定义一个取值协议，通过这个协议对数据进行解析，获取目的字段。这样就方便多了">
-<meta name="keywords" content="网络数据处理">
+<meta name="description" content="###前言：一般app都支持本地记录登录状态，并支持离线的情况下加载用户数据，为了满足这样的场景，就需要把相关信息保存到本地。对于iOS持久化方面，无论使用userDefault、plist文件、归档、数据库等存储方式，都需要考虑一个问题，如何安全的存储数据？对于这个问题，可以对数据加密保存，至于选择哪种持久化方式，并不是那么重要。 #####加密方案说到对数据进行加密，那么肯定是要有一套安全的加">
+<meta name="keywords" content="数据安全">
 <meta property="og:type" content="article">
-<meta property="og:title" content="iOS 网络数据-减少重复的字典取值操作、直接获取目的字段">
-<meta property="og:url" content="https://zengbailiang.cn/2018-03-17-4.html">
+<meta property="og:title" content="iOS 本地数据安全存储方案探索">
+<meta property="og:url" content="https://zengbailiang.cn/2019-07-14本地加密方案.html">
 <meta property="og:site_name" content="沐白的个人博客">
-<meta property="og:description" content="当我们处理接口数据的时候，有些情况仅仅需要获取一个或多个字段，来进行状态判断或数据显示。在写这部分代码的时候，或多或少会有一种重复感，但它又不是一成不变的重复，而是其模式相同，大量的字典取值操作，又或者多层的字典取值。这里能否实现一个功能，减少重复操作，一步到位，又或者提高下效率，让这部分代码逻辑变得简洁统一。我想可以自己定义一个取值协议，通过这个协议对数据进行解析，获取目的字段。这样就方便多了">
+<meta property="og:description" content="###前言：一般app都支持本地记录登录状态，并支持离线的情况下加载用户数据，为了满足这样的场景，就需要把相关信息保存到本地。对于iOS持久化方面，无论使用userDefault、plist文件、归档、数据库等存储方式，都需要考虑一个问题，如何安全的存储数据？对于这个问题，可以对数据加密保存，至于选择哪种持久化方式，并不是那么重要。 #####加密方案说到对数据进行加密，那么肯定是要有一套安全的加">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-22T08:53:46.610Z">
+<meta property="og:updated_time" content="2019-07-14T12:50:49.424Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS 网络数据-减少重复的字典取值操作、直接获取目的字段">
-<meta name="twitter:description" content="当我们处理接口数据的时候，有些情况仅仅需要获取一个或多个字段，来进行状态判断或数据显示。在写这部分代码的时候，或多或少会有一种重复感，但它又不是一成不变的重复，而是其模式相同，大量的字典取值操作，又或者多层的字典取值。这里能否实现一个功能，减少重复操作，一步到位，又或者提高下效率，让这部分代码逻辑变得简洁统一。我想可以自己定义一个取值协议，通过这个协议对数据进行解析，获取目的字段。这样就方便多了">
+<meta name="twitter:title" content="iOS 本地数据安全存储方案探索">
+<meta name="twitter:description" content="###前言：一般app都支持本地记录登录状态，并支持离线的情况下加载用户数据，为了满足这样的场景，就需要把相关信息保存到本地。对于iOS持久化方面，无论使用userDefault、plist文件、归档、数据库等存储方式，都需要考虑一个问题，如何安全的存储数据？对于这个问题，可以对数据加密保存，至于选择哪种持久化方式，并不是那么重要。 #####加密方案说到对数据进行加密，那么肯定是要有一套安全的加">
 
 
 
@@ -121,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="https://zengbailiang.cn/2018-03-17-4.html"/>
+  <link rel="canonical" href="https://zengbailiang.cn/2019-07-14本地加密方案.html"/>
 
 
 
 
 
-  <title>iOS 网络数据-减少重复的字典取值操作、直接获取目的字段 | 沐白的个人博客</title>
+  <title>iOS 本地数据安全存储方案探索 | 沐白的个人博客</title>
   
 
 
@@ -244,7 +244,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2018-03-17-4.html">
+    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2019-07-14本地加密方案.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="zengbailiang">
@@ -261,7 +261,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">iOS 网络数据-减少重复的字典取值操作、直接获取目的字段</h1>
+          <h1 class="post-title" itemprop="name headline">iOS 本地数据安全存储方案探索</h1>
         
 
         <div class="post-meta">
@@ -273,8 +273,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-22T00:00:00+08:00">
-                2018-02-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-14T00:00:00+08:00">
+                2019-07-14
               </time>
             
 
@@ -296,8 +296,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/net-data/" itemprop="url" rel="index">
-                    <span itemprop="name">net data</span>
+                  <a href="/categories/数据安全/" itemprop="url" rel="index">
+                    <span itemprop="name">数据安全</span>
                   </a>
                 </span>
 
@@ -313,7 +313,7 @@
 
           
           
-             <span id="/2018-03-17-4.html" class="leancloud_visitors" data-flag-title="iOS 网络数据-减少重复的字典取值操作、直接获取目的字段">
+             <span id="/2019-07-14本地加密方案.html" class="leancloud_visitors" data-flag-title="iOS 本地数据安全存储方案探索">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -338,7 +338,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,165
+                  1,063
                 </span>
               
 
@@ -363,26 +363,14 @@
       
 
       
-        <blockquote>
-<p>当我们处理接口数据的时候，有些情况仅仅需要获取一个或多个字段，来进行状态判断或数据显示。在写这部分代码的时候，或多或少会有一种重复感，但它又不是一成不变的重复，而是其模式相同，大量的字典取值操作，又或者多层的字典取值。这里能否实现一个功能，减少重复操作，一步到位，又或者提高下效率，让这部分代码逻辑变得简洁统一。我想可以自己定义一个取值协议，通过这个协议对数据进行解析，获取目的字段。这样就方便多了，只要根据协议解析就就可以省去很多重复操作。</p>
-</blockquote>
-<h5 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h5><p>获取到后台数据的时候，接口回调回来的是一个字典对象，如果不是，那么需要进行一层处理转换成字典对象。然后，我们只需要对这个字典对象一层一层的解析，直到获取并返回目的字段的值。在解析的过程中，添加必要的健壮性处理，如果无法满足下一步解析的条件，结束解析并返回错误信息。</p>
-<h5 id="协议设定"><a href="#协议设定" class="headerlink" title="协议设定"></a>协议设定</h5><p>传入特定结构的字符串作为解析的依据。而这个字符串的结构规则就是协议的内容。</p>
-<ol>
-<li>把”{“作为字典类型的标记</li>
-<li>把”[“作为数组类型的标记</li>
-<li>在”{“、”[“前添加各自的字段名keyName</li>
-<li>由左到右解析</li>
-</ol>
-<p>例如：@”keyName0{KeyName1{dstKeyName{“<br>第一层字段名为keyName0，类型为字典，所以先解析出一个字典对象value0。通过value0和第二层字段名KeyName1，解析出一个value1。如此类推，通过value1获取目的字段dstKeyName的值dstValue。<br>其正确的数据结构：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;keyName0&quot;:&#123;</span><br><span class="line">        &quot;KeyName1&quot;:&#123;</span><br><span class="line">            &quot;dstKeyName&quot;:&#123;</span><br><span class="line">               //keys &amp; values</span><br><span class="line">              &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h5 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h5><p>能获取下一层的必须是一个字典对象，就是说协议字符串目的字段之前所有字段的类型标记都为”{“。还有一点，我们可以在目的字段后面添加类型标记，这样的话，就可以根据这个类型标记来判断目的字段的值的类型是否与期待的一致。可以添加NSString、NSNumber类型的符号如NSString对应@，Number对应$等，约定好添加逻辑处理即可。</p>
-<p>测试代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">NSString *path = [[NSBundle mainBundle]pathForResource:@&quot;json&quot; ofType:@&quot;txt&quot;];</span><br><span class="line">    NSString *jsonString = [[NSString alloc]initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];</span><br><span class="line">    NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];</span><br><span class="line">    NSError *jsonError = nil;</span><br><span class="line">    NSDictionary *testDictionary = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&amp;jsonError];</span><br><span class="line">    if (jsonError) &#123;</span><br><span class="line">        NSLog(@&quot;error0：%@ &quot;,jsonError);</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    NSNumber *status = [SafeDataProcessor getObjectWithFormmateString:@&quot;data&#123;status&quot; data:testDictionary];</span><br><span class="line">    //直接获取page字段</span><br><span class="line">    NSNumber *page = [SafeDataProcessor getObjectWithFormmateString:@&quot;data&#123;result&#123;all_page&quot; data:testDictionary];</span><br><span class="line">    </span><br><span class="line">    //先获取result字段，再获取list字段</span><br><span class="line">    NSDictionary *result = [SafeDataProcessor getObjectWithFormmateString:@&quot;data&#123;result&#123;&quot; data:testDictionary];</span><br><span class="line">    NSArray *list = [SafeDataProcessor getObjectWithFormmateString:@&quot;list[&quot; data:result];</span><br><span class="line">    </span><br><span class="line">    NSLog(@&quot;\n statu:%@,\n page:%@,\n list:%@,\n result:%@,\n &quot;,status,page,list,result);</span><br></pre></td></tr></table></figure></p>
-<p>调试结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">2018-02-22 10:57:25.093365+0800 SafeNetDataProcessor[2882:123596] </span><br><span class="line"> statu:200,</span><br><span class="line"> page:20,</span><br><span class="line"> list:(</span><br><span class="line">        &#123;</span><br><span class="line">        &quot;check_reply_info&quot; =         &#123;</span><br><span class="line">            num = 6;</span><br><span class="line">            type = 1;</span><br><span class="line">        &#125;;</span><br><span class="line">        content = &quot;\U5b66\U4e60\U4e0d\U662f\U7ed9\U8001\U5e08\U5b66\U7684\Uff0c\U662f\U7ed9\U4f60\U81ea\U5df1\U5b66\U7684\U3002&quot;;</span><br><span class="line">        &quot;create_time&quot; = 1518361773;</span><br><span class="line">        floor = 1;</span><br><span class="line">        groupid = &quot;-1&quot;;</span><br><span class="line">        &quot;light_count&quot; = 1992;</span><br><span class="line">        pid = 259696;</span><br><span class="line">        puid = 25941704;</span><br><span class="line">        quote =         (</span><br><span class="line">        );</span><br><span class="line">        &quot;quote_deleted&quot; = 0;</span><br><span class="line">        smallcontent = &quot;\U5b66\U4e60\U4e0d\U662f\U7ed9...&quot;;</span><br><span class="line">        time = &quot;8\U5c0f\U65f6\U524d&quot;;</span><br><span class="line">        togglecontent = &quot;&quot;;</span><br><span class="line">        &quot;update_info&quot; = 0;</span><br><span class="line">        userImg = &quot;http://i1.hoopchina.com.cn/user/665/256623943989665/256623943989665-1518360162.jpeg@45h_45w_2e&quot;;</span><br><span class="line">        userName = &quot;\U4e8c\U53f7\U8001\U6d41\U6c13&quot;;</span><br><span class="line">        &quot;user_banned&quot; = 0;</span><br><span class="line">        via = 9;</span><br><span class="line">    &#125;,</span><br></pre></td></tr></table></figure></p>
-<h5 id="功能的优缺点分析"><a href="#功能的优缺点分析" class="headerlink" title="功能的优缺点分析"></a>功能的优缺点分析</h5><p>优点：这个功能的优点很明显，就是把分散的处理集中了，输入结构字符串和网络返回值，即可获取目的字段的值，中间的健壮性处理和取值操作都可以省掉了，从这个角度看，减少了编码工作，提高了效率；同时，统一的健壮性处理，只要保证内部处理正确稳定，那么该部分处理就是稳定安全的。对比原来，每次都要手写一次，难保每次都是正确的，特别拷贝大段代码进行修改，这样的操作容易出现低级错误。</p>
-<p>缺点：根据字符串来解析，所以会有额外的字符串操作处理，使程序的执行效率变低。</p>
-<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>从程序运行的角度来看，效率最高的的固然是最贴近需求，无多余操作的代码。但从软件开发的角度来看，程序本身执行效率很重要，但是程序健壮性、编码效率和编码质量也同样重要。</p>
-<p>demo地址:<br><a href="https://github.com/zmubai/SafeDataProcessor" target="_blank" rel="noopener">https://github.com/zmubai/SafeDataProcessor</a></p>
-<p>end~</p>
+        <p>###前言：<br>一般app都支持本地记录登录状态，并支持离线的情况下加载用户数据，为了满足这样的场景，就需要把相关信息保存到本地。对于iOS持久化方面，无论使用userDefault、plist文件、归档、数据库等存储方式，都需要考虑一个问题，如何安全的存储数据？对于这个问题，可以对数据加密保存，至于选择哪种持久化方式，并不是那么重要。</p>
+<p>#####加密方案<br>说到对数据进行加密，那么肯定是要有一套安全的加密方案才行。以下是一些方案例子：<br>A. 一些摘要算法或编码处理。<br>B. 使用特定的秘钥执行某种对称加密。<br>C. 使用特定的公私钥执行某种非对称加密。<br>D. 某种自定义加密算法。<br>对于A，这只是一种把明文转为非明文的一种方式。摘要算法不可逆，但数据无法还原，不符合需求。编码处理，可以反编码还原明文，实际上数据并没有变得更安全，也是不符合需求。但采用编码的方式，还是比直接使用明文要好那么一点点。<br>对于B.使用公开的对称算法进行加解密，只要保证秘钥的安全，是可行的。<br>对于C.同B，但相对于对称加密，非对称加密效率较低，所以在保证秘钥安全的前提下，选择B，而不是选择C。但C的安全系数会比B高。两者都已经满足数据破解的成本超过其获取的价值的要求。<br>对于D，自定义算法，就要具体分析了， 破解难度因算法本身设计有关，但这个一般都是比较有实力的公司才这么搞吧，但一般都安全性比较高。是最好的方案之一，但其存在一定设计成本和测试成本。</p>
+<p>#####从安全范围的角度去考虑<br>到了这里，又面临了一个秘钥安全的问题，一般来说，我们可能会把秘钥硬编码到代码中，但我们的二进制文件存在一个字符串常量区，只要这个字符串在代码中被引用了，那么编译器就会把其写进字符串常量区。如果这样，稍微的分析下二进制文件，就可能把秘钥获取。所以秘钥硬编码是比较危险的。面对这个问题，可以通过把秘钥分拆成多个字符串，再通过某些处理生成真正的秘钥，来提高安全性。这里会存在一个更值得思考的问题，为了引出这个问题，先回归到方案的探索。</p>
+<p>到目前为止讨论到的都是本地怎么安全保存数据，到如何安全保存秘钥，都是围绕着单体方案去考虑，而没有从整体上去考虑。从安全范围的角度去考虑，如果在每一个客户端都是同样的加密算法，同样的秘钥，那么只要其中一个被破解，整个大厦立马倒塌。</p>
+<p>为此，可以给安卓和苹果分别分配不同的秘钥，这样就能把两个平台，这块的安全性隔离。既然有了这样的想法，那么前进一步，如果每个客户端都拥有不同的秘钥，并且是一种随机秘钥（随机安全性更高，当然可能伪随机，虽然伪随机实际上是通过算法来生成的，有规律，但其破解难度很大），那么就能把这块的安全性做到客户端隔离。</p>
+<p>#####最终选择的方案：<br>使用AES对称加密算法；使用随机算法生成本地秘钥，秘钥中添加时效性信息，并保存到keyChain中。</p>
+<p>优点：客户端隔离、对称加解密效率高，随机秘钥破解难度大。<br>缺点：由于客户端隔离，秘钥都不一样，数据无法统一分析，因此也影响了适用场景。</p>
+<p>demo:<a href="https://github.com/zmubai/LocalEncryptDemo" target="_blank" rel="noopener">LocalEncryptDemo</a></p>
 
       
     </div>
@@ -400,7 +388,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/网络数据处理/" rel="tag"># 网络数据处理</a>
+            <a href="/tags/数据安全/" rel="tag"># 数据安全</a>
           
         </div>
       
@@ -413,8 +401,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018-03-17-3.html" rel="next" title="iOS 网络数据处理技巧，提高程序健壮性">
-                <i class="fa fa-chevron-left"></i> iOS 网络数据处理技巧，提高程序健壮性
+              <a href="/2019-07-14安全思考.html" rel="next" title="iOS 移动端 安全思考与总结">
+                <i class="fa fa-chevron-left"></i> iOS 移动端 安全思考与总结
               </a>
             
           </div>
@@ -422,10 +410,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018-03-17-0.html" rel="prev" title="初入swift-常量变量、可选类型、可选绑定、隐式解析可选类型">
-                初入swift-常量变量、可选类型、可选绑定、隐式解析可选类型 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -477,17 +461,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -561,22 +536,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#实现思路"><span class="nav-number">1.</span> <span class="nav-text">实现思路</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#协议设定"><span class="nav-number">2.</span> <span class="nav-text">协议设定</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#补充"><span class="nav-number">3.</span> <span class="nav-text">补充</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#功能的优缺点分析"><span class="nav-number">4.</span> <span class="nav-text">功能的优缺点分析</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number"></span> <span class="nav-text">小结</span></a></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
