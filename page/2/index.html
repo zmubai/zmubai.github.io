@@ -243,6 +243,214 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2018-07-07-15-0leetcode.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zengbailiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/icon.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="沐白的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018-07-07-15-0leetcode.html" itemprop="url">算法-使用最小花费爬楼梯</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-15T00:00:00+08:00">
+                2018-07-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018-07-07-15-0leetcode.html" class="leancloud_visitors" data-flag-title="算法-使用最小花费爬楼梯">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,333
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p>数组的每个索引做为一个阶梯，第 i个阶梯对应着一个非负数的体力花费值 cost<a href="索引从0开始">i</a>。</p>
+<p>每当你爬上一个阶梯你都要花费对应的体力花费值，然后你可以选择继续爬一个阶梯或者爬两个阶梯。</p>
+<p>您需要找到达到楼层顶部的最低花费。在开始时，你可以选择从索引为 0 或 1 的元素作为初始阶梯。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">示例 1:</span><br><span class="line"></span><br><span class="line">输入: cost = [10, 15, 20]</span><br><span class="line">输出: 15</span><br><span class="line">解释: 最低花费是从cost[1]开始，然后走两步即可到阶梯顶，一共花费15。</span><br><span class="line"></span><br><span class="line">示例 2:</span><br><span class="line"></span><br><span class="line">输入: cost = [1, 100, 1, 1, 1, 100, 1, 1, 100, 1]</span><br><span class="line">输出: 6</span><br><span class="line">解释: 最低花费方式是从cost[0]开始，逐个经过那些1，跳过cost[3]，一共花费6。</span><br></pre></td></tr></table></figure></p>
+<p>注意：</p>
+<p>cost 的长度将会在 [2, 1000]。<br>每一个 cost[i] 将会是一个Integer类型，范围为 [0, 999]。</p>
+<h4 id="题目分析："><a href="#题目分析：" class="headerlink" title="题目分析："></a>题目分析：</h4><p>可以把每个阶梯当做一个节点，能走出消耗值小值得路径可能有几条。同时可能会存在一些节点你走错了无法走出最小值的路径。如何选择这些节点是个问题。这看起来有点像广度优先搜索，每一次选择都需要根据前面的两个节点和当前节点的消耗值来确定那个组合的消耗值最小从而确定当前节点的选择。但这其实是一个动态规划问题，后面节点的选择不受前面节点的选择的影响，但会根据前面节点选择的值来确定当前节点的选择（前后步骤的联系），为了保证消耗值最小，前提是每一次选择节点都要满足消耗值最小，那么当路径走完的时候总的消耗值就是最小。算法实现的时候记录每个节点的最小消耗总值，用于后面的节点选择。实际上只需要记录最近的两个节点的最小消耗总值即可。</p>
+<h4 id="思路1：dp"><a href="#思路1：dp" class="headerlink" title="思路1：dp"></a>思路1：dp</h4><ol>
+<li>dp特点：<ol>
+<li>后面的步骤不受前面的步骤的影响，但会用到前面步骤的计算值。需保证前面的步骤选择正确性。</li>
+<li>利用容器记录每个步骤的可用值，空间换时间。</li>
+</ol>
+</li>
+<li>代码 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">int min(int a, int b )</span><br><span class="line">&#123;</span><br><span class="line">    return a &lt; b ? a:b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">int minCostClimbingStairs(int* cost, int costSize) &#123;</span><br><span class="line">   int *dp = (int *)malloc(sizeof(int) * (costSize + 1));</span><br><span class="line">   memset(dp, 0, sizeof(int) * (costSize + 1));</span><br><span class="line">   if (costSize == 2) &#123;</span><br><span class="line">       return min(cost[0],cost[1]);</span><br><span class="line">   &#125;</span><br><span class="line">   for (int i = 2; i &lt;= costSize; i ++) &#123;</span><br><span class="line">   //记录每个dp值</span><br><span class="line">       dp[i] = min(dp[i - 1] + cost[i - 1],dp[i-2] + cost[ i - 2]);</span><br><span class="line">   &#125;</span><br><span class="line">   return dp[costSize];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">int minCostClimbingStairs(int* cost, int costSize) &#123;</span><br><span class="line">    int dpStep1 = 0,dpStep2 = 0,dpTemp = 0;</span><br><span class="line">    if (costSize == 2) &#123;</span><br><span class="line">        return min(cost[0],cost[1]);</span><br><span class="line">    &#125;</span><br><span class="line">    for (int i = 2; i &lt;= costSize; i ++) &#123;</span><br><span class="line">        </span><br><span class="line">        dpTemp = dpStep1;</span><br><span class="line">        //记录最近的第一个节点的dp值</span><br><span class="line">        dpStep1 = min(dpStep1 + cost[i - 1],dpStep2 + cost[i - 2]);</span><br><span class="line">        //记录最近的第二个节点dp值</span><br><span class="line">        dpStep2 = dpTemp;</span><br><span class="line">    &#125;</span><br><span class="line">    return dpStep1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol start="3">
+<li>复杂度分析<ol>
+<li>时间复杂度 O(n), n = strlen(s)，一层循环;</li>
+<li>空间复杂度 优化后为O(1)，固定数量的变量。</li>
+</ol>
+</li>
+</ol>
+<h4 id="思路2：递归实现"><a href="#思路2：递归实现" class="headerlink" title="思路2：递归实现"></a>思路2：递归实现</h4><ol>
+<li>关键步骤跟dp是一样的，只是逆向的方式实现。变成了最后一次爬梯是选择走一步还是走两步的问题，然后分别计算走一步的最小消耗值和走两步的最小消耗值。执行一个递归过程。计算过程中，发现走一步的很多dp值可以被走二步所用。通过存入一个数组指针存储已有步骤的dp值。这次很多dp值都会被二次利用，而不像dp只利用前面的两个dp值。</li>
+<li><p>代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">int min(int a, int b )</span><br><span class="line">&#123;</span><br><span class="line">    return a &lt; b ? a:b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int subMinCostClimbingStairs(int* cost, int end,int *dp)</span><br><span class="line">&#123;</span><br><span class="line">    if (dp[end] != 0) &#123;</span><br><span class="line">        return dp[end];</span><br><span class="line">    &#125;</span><br><span class="line">    if(end == 2)</span><br><span class="line">    &#123;</span><br><span class="line">        dp[end] = min(cost[0],cost[1]);</span><br><span class="line">    &#125;</span><br><span class="line">    else if (end == 1|| end == 0)</span><br><span class="line">    &#123;</span><br><span class="line">        dp[end] = 0;</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">         //1步的值。</span><br><span class="line">        int a = subMinCostClimbingStairs(cost, end - 1,dp) + cost[end - 1];</span><br><span class="line">        //2步的值。这个步骤的执行已经是a有值得时候了，所以可以复用a计算过程中产生的dp值。</span><br><span class="line">        int b = subMinCostClimbingStairs(cost, end - 2,dp) + cost[end - 2];</span><br><span class="line">        //存储dp值</span><br><span class="line">        dp[end] = min(a,b);</span><br><span class="line">    &#125;</span><br><span class="line">    return dp[end];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int minCostClimbingStairs(int* cost, int costSize) &#123;</span><br><span class="line">    int *dp = (int *)malloc(sizeof(int) * (costSize + 1));</span><br><span class="line">    memset(dp, 0, sizeof(int) * (costSize + 1));</span><br><span class="line">    return subMinCostClimbingStairs(cost, costSize,dp);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>复杂度分析</p>
+<ol>
+<li>时间复杂度 大于O(n) 且小于 O(n^2)，定向比较下。</li>
+<li>空间复杂度 O(1)，少量的固定的额外空间。</li>
+</ol>
+</li>
+</ol>
+<h4 id="小结："><a href="#小结：" class="headerlink" title="小结："></a>小结：</h4><ol>
+<li>递归的执行过程还是比较抽象，调试也不方便。递归跟逆向思维联系比较大，从问题的最后一个步骤抽象，反过来递归直到达到退出条件再逐步出栈得出计算结果。而且在调试的过程中会出现内存爆炸的情况，这也是递归需要考虑的问题。可以通过复用计算的中间值减少计算量和提高效率。</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2018-07-07-14-10leetcode.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1240,186 +1448,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2018-06-28-01-leetcode.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zengbailiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/icon.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="沐白的个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018-06-28-01-leetcode.html" itemprop="url">算法-两数相加</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-28T00:00:00+08:00">
-                2018-06-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018-06-28-01-leetcode.html" class="leancloud_visitors" data-flag-title="算法-两数相加">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  357
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>/*<br> 给定两个非空链表来表示两个非负整数。位数按照逆序方式存储，它们的每个节点只存储单个数字。将两数相加返回一个新的链表。<br> 你可以假设除了数字 0 之外，这两个数字都不会以零开头。</p>
-<p> 示例：<br> 输入：(2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4)<br> 输出：7 -&gt; 0 -&gt; 8<br> 原因：342 + 465 = 807</p>
-<p> */</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Definition for singly-linked list.</span><br><span class="line"> * struct ListNode &#123;</span><br><span class="line"> *     int val;</span><br><span class="line"> *     struct ListNode *next;</span><br><span class="line"> * &#125;;</span><br><span class="line"> */</span><br><span class="line">struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2) &#123;</span><br><span class="line">    struct ListNode* l3 = (struct ListNode*)malloc(sizeof(struct ListNode));</span><br><span class="line">    struct ListNode* n1 = l1;</span><br><span class="line">    struct ListNode* n2 = l2;</span><br><span class="line">    struct ListNode* n3 = l3;</span><br><span class="line">    int carry = 0;</span><br><span class="line">    while (1) &#123;</span><br><span class="line">        int c1 = 0;</span><br><span class="line">        int c2 = 0;</span><br><span class="line">        if (n1 != NULL) &#123;</span><br><span class="line">            c1 = n1-&gt;val;</span><br><span class="line">            n1 = n1 -&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        if (n2 != NULL) &#123;</span><br><span class="line">            c2 = n2-&gt;val;</span><br><span class="line">            n2 = n2 -&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        int sum = c1 + c2 + carry;</span><br><span class="line">        carry = sum /10;</span><br><span class="line">        int currentValue = sum % 10;</span><br><span class="line">        n3-&gt;val = currentValue;</span><br><span class="line">        //考虑进位有值得情况需要进入下一个循环</span><br><span class="line">        if(n1 != NULL || n2 != NULL || carry)</span><br><span class="line">        &#123;</span><br><span class="line">            struct ListNode* newNode = (struct ListNode*)malloc(sizeof(struct ListNode));</span><br><span class="line">            n3-&gt;next = newNode;</span><br><span class="line">            n3 = n3 -&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">        //最后一个节点为NULL</span><br><span class="line">            n3 -&gt;next = NULL;</span><br><span class="line">            break;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">   </span><br><span class="line">    return l3;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>小结：面向过程的思路。<br>注意的几个问题：</p>
-<ol>
-<li>进位问题，低位相加得出进位值提供给高位计算。</li>
-<li>最后一轮相加的时候可能会产生进位，这个时候需要进入下一轮循环，计算下一位的值。</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2018-06-28-02-leetcode.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1559,6 +1587,186 @@
 <p>其他解法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">//每个字符都有唯一字符串ASCII的作为唯一标识，这是个技巧性问题。最多256个</span><br><span class="line">int lengthOfLongestSubstring(char* s) &#123;</span><br><span class="line">    //算法：用book标记出现过的字符的index，用max标记最大长度，用start标记当前不重复开始的index，用num表示当前不重复的个数</span><br><span class="line">    //遍历数组，若book[]大于start，说明遇到相同元素，则从其相同处重新计算长度和起始位置</span><br><span class="line">    if(NULL == s)</span><br><span class="line">        return NULL;</span><br><span class="line">    int len=strlen(s);</span><br><span class="line">    int book[255]=&#123;0&#125;;</span><br><span class="line">    //memset(book,0xff,255*sizeof(int));//将book初始化为-1</span><br><span class="line">    if (0==len)</span><br><span class="line">        return 0;</span><br><span class="line">    int start=0,max=0;//max_start=0;</span><br><span class="line">    int num=0;</span><br><span class="line">    for (int i=0;i&lt;len;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        if(book[s[i]]==0 || book[s[i]]&lt;start+1)</span><br><span class="line">        &#123;</span><br><span class="line">            num++;</span><br><span class="line">            if(num&gt;max)</span><br><span class="line">            &#123;</span><br><span class="line">                //max_start=start;</span><br><span class="line">                max=num;</span><br><span class="line">            &#125;</span><br><span class="line">            book[s[i]]=i+1;</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            start=book[s[i]];</span><br><span class="line">            num=i-start+1;</span><br><span class="line">            book[s[i]]=i+1;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return max;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">//写得好屌啊</span><br><span class="line">int lengthOfLongestSubstring(char* s) &#123;</span><br><span class="line">    int len=0;</span><br><span class="line">    char *end=s,*temp;</span><br><span class="line">    char* addressTable[128]=&#123;NULL&#125;;</span><br><span class="line">    while(*end)&#123;</span><br><span class="line">        temp = addressTable[*end];</span><br><span class="line">        addressTable[*end]=end;</span><br><span class="line">        if(temp&gt;=s)&#123;</span><br><span class="line">        len=end-s&gt;len?end-s:len;</span><br><span class="line">        s = temp+1;</span><br><span class="line">        &#125;end++;</span><br><span class="line">    &#125;</span><br><span class="line">    len=end-s&gt;len?end-s:len;</span><br><span class="line">    return len;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>小结：这里又存在查找问题，可以考虑使用哈希Map提高效率。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2018-06-28-01-leetcode.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zengbailiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/icon.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="沐白的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018-06-28-01-leetcode.html" itemprop="url">算法-两数相加</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-28T00:00:00+08:00">
+                2018-06-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018-06-28-01-leetcode.html" class="leancloud_visitors" data-flag-title="算法-两数相加">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  357
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>/*<br> 给定两个非空链表来表示两个非负整数。位数按照逆序方式存储，它们的每个节点只存储单个数字。将两数相加返回一个新的链表。<br> 你可以假设除了数字 0 之外，这两个数字都不会以零开头。</p>
+<p> 示例：<br> 输入：(2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4)<br> 输出：7 -&gt; 0 -&gt; 8<br> 原因：342 + 465 = 807</p>
+<p> */</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Definition for singly-linked list.</span><br><span class="line"> * struct ListNode &#123;</span><br><span class="line"> *     int val;</span><br><span class="line"> *     struct ListNode *next;</span><br><span class="line"> * &#125;;</span><br><span class="line"> */</span><br><span class="line">struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2) &#123;</span><br><span class="line">    struct ListNode* l3 = (struct ListNode*)malloc(sizeof(struct ListNode));</span><br><span class="line">    struct ListNode* n1 = l1;</span><br><span class="line">    struct ListNode* n2 = l2;</span><br><span class="line">    struct ListNode* n3 = l3;</span><br><span class="line">    int carry = 0;</span><br><span class="line">    while (1) &#123;</span><br><span class="line">        int c1 = 0;</span><br><span class="line">        int c2 = 0;</span><br><span class="line">        if (n1 != NULL) &#123;</span><br><span class="line">            c1 = n1-&gt;val;</span><br><span class="line">            n1 = n1 -&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        if (n2 != NULL) &#123;</span><br><span class="line">            c2 = n2-&gt;val;</span><br><span class="line">            n2 = n2 -&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        int sum = c1 + c2 + carry;</span><br><span class="line">        carry = sum /10;</span><br><span class="line">        int currentValue = sum % 10;</span><br><span class="line">        n3-&gt;val = currentValue;</span><br><span class="line">        //考虑进位有值得情况需要进入下一个循环</span><br><span class="line">        if(n1 != NULL || n2 != NULL || carry)</span><br><span class="line">        &#123;</span><br><span class="line">            struct ListNode* newNode = (struct ListNode*)malloc(sizeof(struct ListNode));</span><br><span class="line">            n3-&gt;next = newNode;</span><br><span class="line">            n3 = n3 -&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">        //最后一个节点为NULL</span><br><span class="line">            n3 -&gt;next = NULL;</span><br><span class="line">            break;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">   </span><br><span class="line">    return l3;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>小结：面向过程的思路。<br>注意的几个问题：</p>
+<ol>
+<li>进位问题，低位相加得出进位值提供给高位计算。</li>
+<li>最后一轮相加的时候可能会产生进位，这个时候需要进入下一轮循环，计算下一位的值。</li>
+</ol>
 
           
         
@@ -2034,204 +2242,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2018-05-12-01.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zengbailiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/icon.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="沐白的个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018-05-12-01.html" itemprop="url">iOS 指纹解锁 检测指纹信息变更</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-09T00:00:00+08:00">
-                2018-05-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/blog/" itemprop="url" rel="index">
-                    <span itemprop="name">blog</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018-05-12-01.html" class="leancloud_visitors" data-flag-title="iOS 指纹解锁 检测指纹信息变更">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1,303
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>通过LAContext evaluatedPolicyDomainState属性可以获取到当前data类型的指纹信息数据，当指纹增加或者删除，该data就会发生变化，通过记录这个TouchIdData与最新的data做对比就能判断指纹信息是否变更，从而定制app功能。</p>
-<h3 id="存在的疑问："><a href="#存在的疑问：" class="headerlink" title="存在的疑问："></a>存在的疑问：</h3><ol>
-<li>TouchIdData可能为空吗？<br>官方文档说明：<blockquote>
-<p>Discussion<br>This property returns a value only when the canEvaluatePolicy(<em>:error:) method succeeds for a biometric policy or the evaluatePolicy(</em>:localizedReason:reply:) method is called and a successful biometric authentication is performed. Otherwise, nil is returned.<br>只有当canEvaluatePolicy方法执行并返回YES或者evaluatePolicy执行并指纹识别通过，这个属性才能有值，否则为空。</p>
-</blockquote>
-</li>
-<li>TouchIdData能否获取具体的指纹信息？<blockquote>
-<p>The returned data is an opaque structure. It can be used to compare with other values returned by this property to determine whether the authorized database has been updated. However, the nature of the change cannot be determined from this data.<br>返回的数据是一个不透明的结构。它可以用来与此属性返回的其他值进行比较，以确定是否更新了授权数据库。然而，变化的性质不能从这些数据中确定。</p>
-</blockquote>
-</li>
-</ol>
-<ol start="3">
-<li>在指纹信息没有修改的时候，不同app获取到的TouchIdData是一样的吗?<br>实测不同的app，在指纹没有变化的情况下TouchIdData是不一样的。但这个是不能打包票的，如果苹果修改了这部分的算法，返回一个相同值也是有可能的。</li>
-</ol>
-<ol start="4">
-<li>添加一个新指纹，再删除刚添加的那个指纹，TouchIdData相对一轮操作之前变化了吗？<br>实测TouchIdData没有变化，也就是说TouchIdData是面向结果的，而不是面向过程的，只要最终结果指纹集合一样，TouchIdData就一样。</li>
-</ol>
-<p>代码实现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br></pre></td><td class="code"><pre><span class="line">    static var IDENTIFY:String? = nil</span><br><span class="line">    static let SERVICE = &quot;TOUCHID_SERVICE&quot;</span><br><span class="line">    static let ACCOUNT_PREFIX = &quot;TOUCHID_PERFIX&quot;</span><br><span class="line">    open class func setCurrentTouchIdDataIdentity(identity:String )</span><br><span class="line">    &#123;</span><br><span class="line">        //设定当前身份用于存储data</span><br><span class="line">        TouchIdManager.IDENTIFY = identity</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">//获取当前时刻的data</span><br><span class="line">  class func currentOriTouchIdData() -&gt; Data?&#123;</span><br><span class="line">        let context = LAContext()</span><br><span class="line">        var error:NSError? = nil;</span><br><span class="line">//先使用canEvaluatePolicy方法进行评估</span><br><span class="line">        if context.canEvaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, error: &amp;error) &#123;</span><br><span class="line">            </span><br><span class="line">            return context.evaluatedPolicyDomainState</span><br><span class="line">        &#125;</span><br><span class="line">        print(&quot;errorMsg:&quot; + self.errorMessageForFails(errorCode:(error?.code)! ))</span><br><span class="line">        return nil</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//使用keychain保存当前身份的data</span><br><span class="line">open class func setCurrentIdentityTouchIdData()-&gt; Bool</span><br><span class="line">    &#123;</span><br><span class="line">        if self.currentTouchIdDataIdentity() == nil</span><br><span class="line">        &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            if self.currentOriTouchIdData() != nil</span><br><span class="line">            &#123;</span><br><span class="line">                //storage by keychain</span><br><span class="line">                SAMKeychain.setPasswordData(self.currentOriTouchIdData()!, forService:SERVICE, account: ACCOUNT_PREFIX + self.currentTouchIdDataIdentity()!)</span><br><span class="line">                return true;</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                return false;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//获取当前身份的上一次存储的data，用于对比</span><br><span class="line"> class func currentIdentityTouchIdData()-&gt;Data?</span><br><span class="line">    &#123;</span><br><span class="line">        guard (self.currentTouchIdDataIdentity() != nil) else &#123;</span><br><span class="line">            return nil;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        return  SAMKeychain.passwordData(forService: TouchIdManager.SERVICE, account: TouchIdManager.ACCOUNT_PREFIX + self.currentTouchIdDataIdentity()!)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//检测以这个身份设置开始到当前时刻指纹信息是否变更</span><br><span class="line">open class func touchIdInfoDidChange()-&gt;Bool</span><br><span class="line">    &#123;</span><br><span class="line">        let data = self.currentOriTouchIdData()</span><br><span class="line">        if data == nil &amp;&amp; self.isErrorTouchIDLockout() &#123;</span><br><span class="line">            //lock after unlock failed many times,and the fingerprint is not changed.</span><br><span class="line">            return false</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            let oldData = self.currentIdentityTouchIdData()</span><br><span class="line">            </span><br><span class="line">            if oldData == nil</span><br><span class="line">            &#123;</span><br><span class="line">                //never set</span><br><span class="line">                return false</span><br><span class="line">            &#125;</span><br><span class="line">            else if oldData == data</span><br><span class="line">            &#123;</span><br><span class="line">                //not change</span><br><span class="line">                return false</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                return true</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//检测当前是否为biometryLockout状态</span><br><span class="line">    class func isErrorTouchIDLockout()-&gt;Bool</span><br><span class="line">    &#123;</span><br><span class="line">        let context = LAContext()</span><br><span class="line">        var error:NSError?</span><br><span class="line">        context.canEvaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, error: &amp;error)</span><br><span class="line">        </span><br><span class="line">        guard error != nil else &#123;</span><br><span class="line">            return false</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        if error!.code == LAError.biometryLockout.rawValue &#123;</span><br><span class="line">            return true</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            return false</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="指纹识别的两种LAPolicy："><a href="#指纹识别的两种LAPolicy：" class="headerlink" title="指纹识别的两种LAPolicy："></a>指纹识别的两种LAPolicy：</h3><ul>
-<li>deviceOwnerAuthenticationWithBiometrics<br>这个类型不能弹出密码解锁界面，但能更精准的反馈用户操作的状态：如指纹识别三次失败等。</li>
-<li>deviceOwnerAuthentication<br>对识别行为的结果做了简化，无法判断具体状态。但能弹出密码解锁界面。<br>结合两者可以使指纹解锁做的更友善一点。</li>
-<li>最终效果[正常流程]：指纹识别错误三次回调失败-&gt;再点击再识别错误两次-&gt;弹出密码解锁界面-&gt;密码错误5次-&gt;锁定1分钟-&gt;再输错-&gt;锁定五分钟。</li>
-</ul>
-<p>代码实现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line">open class func showTouchId(title:String,fallbackTitle:String?, fallbackBlock:TouchIdFallBackBlokc?,resultBlock:TouchIdResultBlock?)</span><br><span class="line">   &#123;</span><br><span class="line">       let context = LAContext();</span><br><span class="line">       context.localizedFallbackTitle = fallbackTitle</span><br><span class="line">       var useableError:NSError?</span><br><span class="line">       if context.canEvaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, error: &amp;useableError) &#123;</span><br><span class="line">           context.evaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, localizedReason: title) &#123; (success, error) in</span><br><span class="line">               DispatchQueue.main.async &#123;</span><br><span class="line">                   if success</span><br><span class="line">                   &#123;</span><br><span class="line">                       if resultBlock != nil</span><br><span class="line">                       &#123;</span><br><span class="line">                           resultBlock!(true,success,error)</span><br><span class="line">                       &#125;</span><br><span class="line">                   &#125;</span><br><span class="line">                   else</span><br><span class="line">                   &#123;</span><br><span class="line">                       guard let error = error else</span><br><span class="line">                       &#123;</span><br><span class="line">                           return;</span><br><span class="line">                       &#125;</span><br><span class="line">                       </span><br><span class="line">                       print(&quot;errorMsg:&quot; + self.errorMessageForFails(errorCode: error._code))</span><br><span class="line">                       </span><br><span class="line">                       if error._code == LAError.userFallback.rawValue</span><br><span class="line">                       &#123;</span><br><span class="line">                           if fallbackBlock != nil</span><br><span class="line">                           &#123;</span><br><span class="line">                               fallbackBlock!()</span><br><span class="line">                           &#125;</span><br><span class="line">                       &#125;</span><br><span class="line">                       else if error._code == LAError.biometryLockout.rawValue</span><br><span class="line">                       &#123;</span><br><span class="line">                           //try to show password interface</span><br><span class="line">                           self.tryShowTouchIdOrPwdInterface(title: title, resultBlock: resultBlock)</span><br><span class="line">                       &#125;</span><br><span class="line">                       else</span><br><span class="line">                       &#123;</span><br><span class="line">                           if resultBlock != nil</span><br><span class="line">                           &#123;</span><br><span class="line">                               resultBlock!(true,success,error)</span><br><span class="line">                           &#125;</span><br><span class="line">                       &#125;</span><br><span class="line">                   &#125;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       else</span><br><span class="line">       &#123;</span><br><span class="line">           print(&quot;errorMsg:&quot; + self.errorMessageForFails(errorCode:(useableError?.code)! ))</span><br><span class="line">           </span><br><span class="line">           if useableError?.code == LAError.biometryLockout.rawValue</span><br><span class="line">           &#123;</span><br><span class="line">               //try to show password interface</span><br><span class="line">               self.tryShowTouchIdOrPwdInterface(title: title, resultBlock: resultBlock)</span><br><span class="line">           &#125;</span><br><span class="line">           else</span><br><span class="line">           &#123;</span><br><span class="line">               if resultBlock != nil</span><br><span class="line">               &#123;</span><br><span class="line">                   resultBlock!(false,false,useableError)</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   class func tryShowTouchIdOrPwdInterface(title:String,resultBlock:TouchIdResultBlock?)</span><br><span class="line">   &#123;</span><br><span class="line">       let context = LAContext();</span><br><span class="line">       context.localizedFallbackTitle = &quot;&quot;</span><br><span class="line">       var useableError:NSError?</span><br><span class="line">       if context.canEvaluatePolicy(LAPolicy.deviceOwnerAuthentication, error: &amp;useableError) &#123;</span><br><span class="line">           context.evaluatePolicy(LAPolicy.deviceOwnerAuthentication, localizedReason: title) &#123; (success, error) in</span><br><span class="line">               </span><br><span class="line">               DispatchQueue.main.async &#123;</span><br><span class="line">                   if resultBlock != nil</span><br><span class="line">                   &#123;</span><br><span class="line">                       resultBlock!(true,success,error)</span><br><span class="line">                   &#125;</span><br><span class="line">               &#125;</span><br><span class="line">               </span><br><span class="line">               guard let error = error else</span><br><span class="line">               &#123;</span><br><span class="line">                   return;</span><br><span class="line">               &#125;</span><br><span class="line">               print(&quot;errorMsg:&quot; + self.errorMessageForFails(errorCode: error._code))</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       else</span><br><span class="line">       &#123;</span><br><span class="line">           print(&quot;errorMsg:&quot; + self.errorMessageForFails(errorCode:(useableError?.code)! ))</span><br><span class="line">           </span><br><span class="line">           if resultBlock != nil</span><br><span class="line">           &#123;</span><br><span class="line">               resultBlock!(false,false,useableError)</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
-<p>测试demo:     </p>
-<p>swift:<a href="https://github.com/zmubai/TouchIDTest-swift" target="_blank" rel="noopener">https://github.com/zmubai/TouchIDTest-swift</a></p>
-<p>object-c:<a href="https://github.com/zmubai/TouchIDTest-OC" target="_blank" rel="noopener">https://github.com/zmubai/TouchIDTest-OC</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2286,7 +2296,7 @@
               
                 <a rel="external nofollow" href="/archives/">
               
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2297,7 +2307,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2308,7 +2318,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2369,7 +2379,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">45.3k</span>
+    <span title="Site words total count">46.7k</span>
   
 </div>
 
