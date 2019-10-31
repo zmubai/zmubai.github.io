@@ -425,6 +425,187 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2019-10-31leetcode658找到 K 个最接近的元素.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zengbailiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/icon.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="沐白的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019-10-31leetcode658找到 K 个最接近的元素.html" itemprop="url">658. 找到 K 个最接近的元素</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-14T00:00:00+08:00">
+                2019-07-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019-10-31leetcode658找到 K 个最接近的元素.html" class="leancloud_visitors" data-flag-title="658. 找到 K 个最接近的元素">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  853
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>给定一个排序好的数组，两个整数 k 和 x，从数组中找到最靠近 x（两数之差最小）的 k 个数。返回的结果必须要是按升序排好的。如果有两个数与 x 的差值一样，优先选择数值较小的那个数。</p>
+<p>示例 1:</p>
+<p>输入: [1,2,3,4,5], k=4, x=3<br>输出: [1,2,3,4]</p>
+<h4 id="解法一："><a href="#解法一：" class="headerlink" title="解法一："></a>解法一：</h4><p>找到k个最接近的元素，实际上是返回原数组的一个子数组。那么可以通过两头向中间获取原数组的元素，然后跟x对比，舍弃差值较大的。直到舍弃size - k 个元素为止。然后通过一个数组返回这些帅选过后的元素。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;int&gt; findClosestElements(vector&lt;int&gt;&amp; arr, int k, int x) &#123;</span><br><span class="line">    vector&lt;int&gt; res(k,0);</span><br><span class="line">    int len = arr.size();</span><br><span class="line">    int left = 0;</span><br><span class="line">    int right = len - 1;</span><br><span class="line">    while(len &gt; k)&#123;</span><br><span class="line">        if(abs(arr[left] - x) &gt; abs(arr[right] - x))&#123;</span><br><span class="line">            left ++;</span><br><span class="line">        &#125;</span><br><span class="line">        else&#123;</span><br><span class="line">            right --;</span><br><span class="line">        &#125;</span><br><span class="line">        len --;</span><br><span class="line">    &#125;</span><br><span class="line">    ///新数值index从0开始</span><br><span class="line">    int index = 0;</span><br><span class="line">    for(int i = left; i &lt;= right; i ++)&#123;</span><br><span class="line">        res[index++] = arr[i];</span><br><span class="line">    &#125;</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="后记："><a href="#后记：" class="headerlink" title="后记："></a>后记：</h5><p>1.把问题转化为查找子数组。确定了这一点，然后想到解法一的思路。分析题目，对信息进行有效的解读，非常有利于思路的推进，或者找到新的思路。例如此题转花为查找子数组。</p>
+<h4 id="解法二："><a href="#解法二：" class="headerlink" title="解法二："></a>解法二：</h4><p>采用二分法，查找最合适的子数组的起始坐标。二分开始的范围为(0,size - k),保证右边只至少存在k个元素。然后二分，获取arr[mid] - x,arr[mid + k ] -x 的值来比较，判断arr[mid]是否被舍弃，如果舍弃那么 left = mid +1,反之right = mid.最后达到临界条件left = right。然后获取 left .. left + k(不包含)下标的元素集合返回。</p>
+<p>比较难理解的点分析：<br>当abs(arr[mid] - x) &gt; abs(arr[mid + k] - x)时，舍弃mid这个点,start = mid + 1，这个很好理解。<br>但当abs(arr[mid] - x) &gt;= abs(arr[mid + k] - x)是，end = mid，这个就不太好理解了。根据对比条件可得，要舍弃[mid+k]这个点。那么就算end作为start，那么返回的区间就是[mid, mid + k -1]。从个角度来看，这个二分的过程，实际上是确定start的过程，由始至终目标start都在[start,end]这个区间中，然后不断二分，比较最合适的start。这样好像就理解了这个解法的关键点了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;int&gt; findClosestElements(vector&lt;int&gt;&amp; arr, int k, int x) &#123;</span><br><span class="line">    vector&lt;int&gt; res(k,0);</span><br><span class="line">    int start = 0;</span><br><span class="line">     //end的初始值，设定二分开始区间为(0,size -k),所以下面用到mid + k 是不会越界的;</span><br><span class="line">    int end = arr.size() - k;</span><br><span class="line">    int mid;</span><br><span class="line">    while (start &lt; end) &#123;</span><br><span class="line">        mid = start + (end - start)/2;</span><br><span class="line">        if(abs(arr[mid] - x) &gt; abs(arr[mid + k] - x))&#123;</span><br><span class="line">        ///这里是mid这个点已经不符合要求，舍弃，调整start</span><br><span class="line">            start = mid + 1;</span><br><span class="line">        &#125;</span><br><span class="line">        else&#123;</span><br><span class="line">        ///这是是</span><br><span class="line">            end = mid;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    int index = 0;</span><br><span class="line">    for (int i = start; i &lt; start + k; i ++) &#123;</span><br><span class="line">        res[index++] = arr[i];</span><br><span class="line">    &#125;</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>后记：二分法并不是想象中的那么简单。某些场景下并不是那么好理解。就如此题的，目的是获取目标起始坐标，二分的区间也是起始坐标所在的区间。而比较的条件是能确定区间移动方向的两个边界值的比较。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2019-07-14本地加密方案.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2326,287 +2507,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2018_07_24_ios.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zengbailiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/icon.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="沐白的个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018_07_24_ios.html" itemprop="url">iOS 深复制与浅复制</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-24T00:00:00+08:00">
-                2018-07-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018_07_24_ios.html" class="leancloud_visitors" data-flag-title="iOS 深复制与浅复制">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1,284
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="官方文档翻译"><a href="#官方文档翻译" class="headerlink" title="官方文档翻译"></a>官方文档翻译</h3><p>Protocol<br>NSCopying(swift)</p>
-<p>A protocol that objects adopt to provide functional copies of themselves.<br>对象采用的一种协议，用来提供拷贝自身元素的功能。</p>
-<p>Overview</p>
-<blockquote>
-<p>The exact meaning of “copy” can vary from class to class, but a copy must be a functionally independent object with values identical to the original at the time the copy was made. A copy produced with NSCopying is implicitly retained by the sender, who is responsible for releasing it.</p>
-</blockquote>
-<p>拷贝的确切意义会因类而异，但拷贝的必须是一个功能独立的对象并且其值在复制时跟 元素对象的值一样。通过NSCopying生成的副本会被发送者隐式持有，发送者负责其释放。</p>
-<blockquote>
-<p>NSCopying declares one method, copy(with:), but copying is commonly invoked with the convenience method copy(). The copy() method is defined for all objects inheriting from NSObject and simply invokes copy(with:) with the default zone.</p>
-</blockquote>
-<p>NSCopying声明一个方法copy(with:)，但拷贝通常被便利方法copy()调用。copy()方法被所的继承NSObject的对象定义，并通过默认zone直接调用copy(with:)。</p>
-<blockquote>
-<p>Your options for implementing this protocol are as follows:</p>
-</blockquote>
-<p>您实现本协议的选项如下:</p>
-<ul>
-<li><p>Implement NSCopying using alloc and init… in classes that don’t inherit copy(with:).</p>
-<ul>
-<li>在不继承copy(with:)的类中，使用alloc和init方法。</li>
-</ul>
-</li>
-<li><p>Implement NSCopying by invoking the superclass’s copy(with:) when NSCopying behavior is inherited. If the superclass implementation might use the NSCopyObject function, make explicit assignments to pointer instance variables for retained objects.</p>
-<ul>
-<li>当NSCopying行为被继承时，通过调用父类的copy(with:)实现NSCopying。如果父类实现可能使用NSCopyObject方法，显式分配指针实例变量来持有对象。</li>
-</ul>
-</li>
-<li><p>Implement NSCopying by retaining the original instead of creating a new copy when the class and its contents are immutable.</p>
-<ul>
-<li>当类及其内容是不可变的时，通过保留原始副本而不是创建新的副本来实现NSCopying。</li>
-</ul>
-</li>
-<li><p>If a subclass inherits NSCopying from its superclass and declares additional instance variables, the subclass has to override copy(with:) to properly handle its own instance variables, invoking the superclass’s implementation first.</p>
-<ul>
-<li>如果一个子类继承其父类的NSCopying并声明额外的实例变量。子类必须重写copy(with:)方法来处理自身的实例变量，父类的copy(with:）方法会先被执行。</li>
-</ul>
-</li>
-</ul>
-<hr>
-<p>Protocol<br>NSMutableCopying(Object-c)</p>
-<blockquote>
-<p>A protocol that mutable objects adopt to provide functional copies of themselves.</p>
-</blockquote>
-<p>可变对象采用的一种协议，用来提供拷贝自身元素的功能。</p>
-<p>Overview</p>
-<blockquote>
-<p>The NSMutableCopying protocol declares a method for providing mutable copies of an object. Only classes that define an “immutable vs. mutable” distinction should adopt this protocol. Classes that don’t define such a distinction should adopt NSCopying instead.</p>
-</blockquote>
-<p>NSMutableCopying协议声明了一个方法，用于提供对象的可变副本。只有定义“不可变与可变”区别的类才应该采用此协议。没有定义这种区别的类应该采用NSCopying。</p>
-<blockquote>
-<p>NSMutableCopying declares one method, mutableCopyWithZone:, but mutable copying is commonly invoked with the convenience method mutableCopy. The mutableCopy method is defined for all NSObjects and simply invokes mutableCopyWithZone: with the default zone.</p>
-</blockquote>
-<p>NSMutableCopying定义了一个方法mutableCopyWithZone。但可变拷贝一般通过便利方法mutableCopy调用。mutableCopy方法被所有的NSObjects定义并通过默认zone直接调用mutableCopyWithZone。</p>
-<blockquote>
-<p>If a subclass inherits NSMutableCopying from its superclass and declares additional instance variables, the subclass has to override mutableCopyWithZone: to properly handle its own instance variables, invoking the superclass’s implementation first.</p>
-</blockquote>
-<p>如果子类通过父类继承NSMutableCopying协议，同时定义了额外的实例变量。子类必须复写mutableCopyWithZone方法来处理自身额外的实例变量，但会先调用父类的mutableCopyWithZone方法。</p>
-<hr>
-<h4 id="相关API："><a href="#相关API：" class="headerlink" title="相关API："></a>相关API：</h4><pre><code>- (id)copy;//执行成功返回不可变对象
-
-- (id)mutableCopy;//执行成功返回可变对象
-</code></pre><h4 id="从组合的方式理解深浅拷贝"><a href="#从组合的方式理解深浅拷贝" class="headerlink" title="从组合的方式理解深浅拷贝"></a>从组合的方式理解深浅拷贝</h4><p>指针拷贝：返回对象与被复制对象都指向同一个对象，返回对象拷贝的是被复制对象的指针。</p>
-<p>内容拷贝：创建新的对象，并把被复制对象的内容复制。返回对象与被复制对象指向不同的对象，返回对象拷贝的是被复制对象的内容。</p>
-<ol>
-<li>浅复制：被复制对象每一层都是指针拷贝。<ol>
-<li>仅当执行imutable对象执行copy方法时产生浅复制。</li>
-</ol>
-</li>
-<li><p>深复制：被复制对象第一层是内容拷贝。</p>
-<ol>
-<li>执行mutableCopy总会产生深复制。</li>
-<li>mutable对象执行拷贝总会产生深拷贝，不论copy或mutableCopy。</li>
-<li>当对象属性中存在集合的时候，集合本身是深拷贝，但其元素执行的依然是浅拷贝。这个在某些开发场景中如果使用不当，会导致业务逻辑的不对。因为是指针拷贝，实际上是同一个对象。如果我们期待他们是不同的对象，期待他们之间的修改是互不影响的，那么久需要执行完全拷贝，简单的深拷贝是不满足的。所以，要实现集合属性的内容拷贝，需要对集合属性执行 initWithArray:copyItems: / initWithDictionary:copyItems:。copyItems入参YES。</li>
-</ol>
-</li>
-<li><p>排列组合：</p>
-</li>
-</ol>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">object type</th>
-<th style="text-align:left">invoke funtion</th>
-<th style="text-align:left">copy type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">imutable object</td>
-<td style="text-align:left">copy</td>
-<td style="text-align:left">shallow copy</td>
-</tr>
-<tr>
-<td style="text-align:left">imutable object</td>
-<td style="text-align:left">mutableCopy</td>
-<td style="text-align:left">deep copy</td>
-</tr>
-<tr>
-<td style="text-align:left">mutable object</td>
-<td style="text-align:left">copy</td>
-<td style="text-align:left">deep copy</td>
-</tr>
-<tr>
-<td style="text-align:left">mutable object</td>
-<td style="text-align:left">mutableCopy</td>
-<td style="text-align:left">deep copy</td>
-</tr>
-</tbody>
-</table>
-<p>我的理解是当执行拷贝使对象状态发生变化，即可变变为不可变或者不可变变为可变，必然是深拷贝。另外可变对象执行拷贝必然也是深拷贝。</p>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>可变对象拷贝深拷贝，状态变化深拷贝。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2661,7 +2561,7 @@
               
                 <a rel="external nofollow" href="/archives/">
               
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2683,7 +2583,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2744,7 +2644,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">47.3k</span>
+    <span title="Site words total count">48.2k</span>
   
 </div>
 
