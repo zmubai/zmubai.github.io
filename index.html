@@ -339,7 +339,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  847
+                  1,164
                 </span>
               
 
@@ -370,6 +370,8 @@
 <h4 id="解法一："><a href="#解法一：" class="headerlink" title="解法一："></a>解法一：</h4><p>使用一个全局数组来存储已有的范围。对于添加，遍历数组，分两种情况判断，1.范围之间不存在交集，那么把rangs[i]加入到临时数组中；2.如果包含（被包含或包含）或者两者存在交集，那么更新left,right,值。重复该过程，直到遍历结束，此时把合成的left,right范围插入到临时数组中，赋值给全局数组，更新范围成功。对于删除，遍历数组，分三种情况判断，1.范围之间没有交集，那么把rangs[i]加入到临时数组中；2.如果存在交集（包括包含/被包含），这个时候，对范围进行拆分,那部分依然包含的范围加入到临时数组中，如果是包含的情况情况，要把两边的范围加入，如果是部分交集，只需把原范围不相交的一侧加入。在编码的时候，通过两个if处理了交集的情况。对于查询，就是遍历范围，判断边界，返回结果。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;pair&lt;int,int&gt;&gt; rangs;</span><br><span class="line"></span><br><span class="line">   void addRange(int left, int right) &#123;</span><br><span class="line">       vector&lt;pair&lt;int, int&gt;&gt; res;</span><br><span class="line">       int size = (int)rangs.size();</span><br><span class="line">       for(int i = 0; i &lt; size; i ++)&#123;</span><br><span class="line">          if(rangs[i].first &gt;= right || left &gt;= rangs[i].second)&#123;</span><br><span class="line">               //不包含，且没有交集</span><br><span class="line">               res.push_back(rangs[i]);</span><br><span class="line">           &#125;</span><br><span class="line">           else&#123;</span><br><span class="line">               //包含或存在交集</span><br><span class="line">               left = min(left, rangs[i].first);</span><br><span class="line">               right = max(right, rangs[i].second);</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       res.insert(res.begin(), &#123;left,right&#125;);</span><br><span class="line">       rangs = res;</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   bool queryRange(int left, int right) &#123;</span><br><span class="line">       int size = (int)rangs.size();</span><br><span class="line">       for(int i = 0; i &lt; size; i ++)&#123;</span><br><span class="line">           if(rangs[i].first &lt;= left &amp;&amp; rangs[i].second &gt;= right)&#123;</span><br><span class="line">               return true;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       return false;</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   void removeRange(int left, int right) &#123;</span><br><span class="line">      vector&lt;pair&lt;int, int&gt;&gt; res;</span><br><span class="line">      int size = (int)rangs.size();</span><br><span class="line">      for(int i = 0; i &lt; size; i ++)&#123;</span><br><span class="line">          if(rangs[i].first &gt; right || left &gt; rangs[i].second)&#123;</span><br><span class="line">              //不包含 并且不连续(如果 &gt;= || &gt;=的话，对与相连的区间就少了合成的机会。某些情况下会导致边界的重复，如果发生，那么会导致删除函数的不准确)</span><br><span class="line">              res.push_back(rangs[i]);</span><br><span class="line">          &#125;</span><br><span class="line">          else&#123;</span><br><span class="line">              //存在交集 或者 包含</span><br><span class="line">              if (rangs[i].first &lt; left) &#123;</span><br><span class="line">                  res.push_back(&#123;rangs[i].first,left&#125;);</span><br><span class="line">              &#125;</span><br><span class="line">              if (rangs[i].second &gt; right)</span><br><span class="line">              &#123;</span><br><span class="line">                  res.push_back(&#123;right,rangs[i].second&#125;);</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      rangs = res;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
 <p>后记：这种方法没太大的技巧。情况较多和边界处理，是这道题的难点所在。</p>
+<h4 id="解法二"><a href="#解法二" class="headerlink" title="解法二:"></a>解法二:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">map&lt;int,int&gt; m;</span><br><span class="line">    /*</span><br><span class="line">     查找所在的范围。</span><br><span class="line">     1.add. 如果不存在，直接返回原范围。否则，返回需要更新的范围</span><br><span class="line">     2.remove 如果不存在，直接返回原范围。否则，返回交集的范围。</span><br><span class="line">     */</span><br><span class="line">    pair&lt;int, int&gt; find(int left,int right)&#123;</span><br><span class="line">        auto l = m.upper_bound(left);</span><br><span class="line">        auto r = m.upper_bound(right);</span><br><span class="line">        if (l != m.begin() &amp;&amp; (--l)-&gt;second &lt; left) &#123;</span><br><span class="line">            //不存在交集</span><br><span class="line">            l++;</span><br><span class="line">        &#125;</span><br><span class="line">        if (l==r) &#123;</span><br><span class="line">            return &#123;left,right&#125;;</span><br><span class="line">        &#125;</span><br><span class="line">        int i = min(left,l-&gt;first);</span><br><span class="line">        int j = max(right,(--r)-&gt;second);</span><br><span class="line">        m.erase(l, ++r);</span><br><span class="line">        return &#123;i,j&#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">   void addRange(int left, int right) &#123;</span><br><span class="line">       pair&lt;int, int&gt; p = find(left,right);</span><br><span class="line">       //插入或调整范围</span><br><span class="line">       m[p.first] = p.second;</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   bool queryRange(int left, int right) &#123;</span><br><span class="line">    //获取第一个大于left的pair,如果不是第一个，那么必然存在firs&lt;left的pair，如果这个pair的second大于等于right,那么返回true。</span><br><span class="line">       auto p = m.upper_bound(left);</span><br><span class="line">       return p != m.begin() &amp;&amp; (--p)-&gt;second &gt;= right;</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   void removeRange(int left, int right) &#123;</span><br><span class="line">       pair&lt;int, int&gt; p = find(left,right);</span><br><span class="line">       //去除，[left,right)。更新范围，要保留左侧或右侧的相交的部分。</span><br><span class="line">       if(p.first &lt; left) m[p.first] = left;</span><br><span class="line">       if(p.second &gt; right) m[right] = p.second;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>后记：使用map这样的有序的结构，从而使用二分提高查找效率。</p>
 
           
         
@@ -1131,184 +1133,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2019-07-17回了一趟学校.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zengbailiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/icon.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="沐白的个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019-07-17回了一趟学校.html" itemprop="url">回了一趟校园</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-14T00:00:00+08:00">
-                2019-07-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/记事/" itemprop="url" rel="index">
-                    <span itemprop="name">记事</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019-07-17回了一趟学校.html" class="leancloud_visitors" data-flag-title="回了一趟校园">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1,313
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="回了一趟学校"><a href="#回了一趟学校" class="headerlink" title="回了一趟学校"></a>回了一趟学校</h3><p>大概是五月份的时候回了趟学校。再次回去还是比较感慨，想去的地方很多，但时间缺有限，就选了几个比较有回忆又比较便捷的地方去走走。也许是因为大学时代值得回忆的事情太多了，又或者是怀念作为学生的时候的那份心情和青春，总之很难说清。但每每想到这些，总会非常感叹，有些事情，有些年纪只能经历一次，心态会伴随着年纪而变化，又或者其他的一些原因，总之过去的那个特定的阶段特定的事情和那份特定的心情，是后面阶段无法再重新获取的。这确实是个比较无奈的事情，但这应该是合理的，人生就应该要有不同的阶段。</p>
-<h5 id="13路车"><a href="#13路车" class="headerlink" title="13路车"></a>13路车</h5><p>有些事情还是没变，但变化总是在不断的发生。熟悉的13路车还在，还是要从东区走过20分钟的上山路才到尧山校区，我很享受在车上的感受，特别是坐窗旁的位置，吹着风，看着窗外的风景。但13路好像已经都变成了空调车，窗都没了。</p>
-<h5 id="尧山"><a href="#尧山" class="headerlink" title="尧山"></a>尧山</h5><p>再次上尧山， 还是爬着上。记得大一第一次爬好像是中秋节节日，那时候很多人，而再爬的当天的人很少，感觉比较冷清，可能是时间的问题吧。山上也有了不少变化，山顶走向盘山公路的路变了，中间被围起来私用了。下山的时候和朋友一起走盘山公路下山，我同样很喜欢尧山的盘山公路，有很长的一段泊油路，干净美丽。这里还是会见到小年轻，小情侣骑着小电瓶，游盘山公路。</p>
-<h5 id="尧山校区"><a href="#尧山校区" class="headerlink" title="尧山校区"></a>尧山校区</h5><p>傍晚回到了尧山校区，最让我震惊的是，食堂不允许使用现金了，其实早在第一天逛东区的时候，就发现这个坑爹的问题了，比较失望，无法再尝一遍食堂的味道，但同时发现了一个事情，因为学校的数字校园毕业了依然可以用，而且还能通过支付宝充值，我尝试充了一块钱，还真可以，但我没把我的校园卡带过来，还有我也不知道我的校园卡是否还能用了，也许我的校园卡还没消磁，还有就是学校系统确实还支持，这让留给了我一些待挖掘的事情，下次我可要验证下这个问题，真够有意思的。回到话题，晚上和朋友只能去商业街吃饭了，比较随性，但同样让我震惊的是，之前的商业街那么热闹，咋这么冷清。后面了解到，学校领导做了某些限制，更规范了，但这里面可能存在很多利益问题吧，反正没了之前的热闹了。遥想当年，哪里还是很热闹，买西瓜，买菠萝，买奶茶，哎，一去不复还。大学那几年，最开始有男生宿舍那边的阳光商业街，有靠近女生宿舍的职工宿舍楼下的店铺。特别是教职工楼下的奶茶店之类的店铺，那时候那些地方就有一些特殊的气氛，仿佛有一种爱情的荷尔蒙，是谈情说爱的地方，也是经常见到情侣的地方，当然更多的是虐狗的地方了。可悲的是，大学四年，我被虐足四年，还乐此不疲。<br>如今，阳光商业街没了，有了新商业街，现在新商业街又被搞萧条，职工楼下的小店也都禁止了营业，另外又在原阳光商业街哪里搞了一个新阳光商业街。对比这些吃吃喝喝的，仿佛当年更气氛更好，但他们没有经历过当年，所以就算真的如我所想的那样，对于他们来说最丰富有趣的依然是他们现在所感受到的。</p>
-<h5 id="花江"><a href="#花江" class="headerlink" title="花江"></a>花江</h5><p>还有的是，以前可以在学校旁的花江划竹筏，烧烤，现在由于建了新的教职工园区，在花江上搭了座桥，导致不能划竹筏了。那些年满是笑语的地方没了。另外那些烧烤场地，也无法烧烤了，看到这样，有点说不出味道。也许因为这些没有了，会失去一些趣味吧。不可否认可能是因为现在的娱乐方式变得跟以前不太一样了，才导致这些变化，但具体怎么样，就不太清楚了，毕竟现在已经是00后的大学时代了。最后，最后，让我不得不吐槽的是，学习的男女比例好像更均衡了，情侣比例好像更高了，虽然这是好事啊，但这让我失去了一种熟悉感。</p>
-<p><img src="/personImg/guet1.jpeg" alt="guet1.jpeg"></p>
-<p>这里承载了一生仅有的一次大学时光，也是我人生中的一段美好时光，怀念、感恩。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2019-07-14本地加密方案.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1440,6 +1264,184 @@
 <h5 id="最终选择的方案："><a href="#最终选择的方案：" class="headerlink" title="最终选择的方案："></a>最终选择的方案：</h5><p>使用AES对称加密算法；使用随机算法生成本地秘钥，秘钥中添加时效性信息，并保存到keyChain中。</p>
 <p>优点：客户端隔离、对称加解密效率高，随机秘钥破解难度大。<br>缺点：由于客户端隔离，秘钥都不一样，数据无法统一分析，因此也影响了适用场景。</p>
 <p>demo:<a href="https://github.com/zmubai/LocalEncryptDemo" target="_blank" rel="noopener">LocalEncryptDemo</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2019-07-17回了一趟学校.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zengbailiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/icon.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="沐白的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019-07-17回了一趟学校.html" itemprop="url">回了一趟校园</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-14T00:00:00+08:00">
+                2019-07-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/记事/" itemprop="url" rel="index">
+                    <span itemprop="name">记事</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019-07-17回了一趟学校.html" class="leancloud_visitors" data-flag-title="回了一趟校园">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,313
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="回了一趟学校"><a href="#回了一趟学校" class="headerlink" title="回了一趟学校"></a>回了一趟学校</h3><p>大概是五月份的时候回了趟学校。再次回去还是比较感慨，想去的地方很多，但时间缺有限，就选了几个比较有回忆又比较便捷的地方去走走。也许是因为大学时代值得回忆的事情太多了，又或者是怀念作为学生的时候的那份心情和青春，总之很难说清。但每每想到这些，总会非常感叹，有些事情，有些年纪只能经历一次，心态会伴随着年纪而变化，又或者其他的一些原因，总之过去的那个特定的阶段特定的事情和那份特定的心情，是后面阶段无法再重新获取的。这确实是个比较无奈的事情，但这应该是合理的，人生就应该要有不同的阶段。</p>
+<h5 id="13路车"><a href="#13路车" class="headerlink" title="13路车"></a>13路车</h5><p>有些事情还是没变，但变化总是在不断的发生。熟悉的13路车还在，还是要从东区走过20分钟的上山路才到尧山校区，我很享受在车上的感受，特别是坐窗旁的位置，吹着风，看着窗外的风景。但13路好像已经都变成了空调车，窗都没了。</p>
+<h5 id="尧山"><a href="#尧山" class="headerlink" title="尧山"></a>尧山</h5><p>再次上尧山， 还是爬着上。记得大一第一次爬好像是中秋节节日，那时候很多人，而再爬的当天的人很少，感觉比较冷清，可能是时间的问题吧。山上也有了不少变化，山顶走向盘山公路的路变了，中间被围起来私用了。下山的时候和朋友一起走盘山公路下山，我同样很喜欢尧山的盘山公路，有很长的一段泊油路，干净美丽。这里还是会见到小年轻，小情侣骑着小电瓶，游盘山公路。</p>
+<h5 id="尧山校区"><a href="#尧山校区" class="headerlink" title="尧山校区"></a>尧山校区</h5><p>傍晚回到了尧山校区，最让我震惊的是，食堂不允许使用现金了，其实早在第一天逛东区的时候，就发现这个坑爹的问题了，比较失望，无法再尝一遍食堂的味道，但同时发现了一个事情，因为学校的数字校园毕业了依然可以用，而且还能通过支付宝充值，我尝试充了一块钱，还真可以，但我没把我的校园卡带过来，还有我也不知道我的校园卡是否还能用了，也许我的校园卡还没消磁，还有就是学校系统确实还支持，这让留给了我一些待挖掘的事情，下次我可要验证下这个问题，真够有意思的。回到话题，晚上和朋友只能去商业街吃饭了，比较随性，但同样让我震惊的是，之前的商业街那么热闹，咋这么冷清。后面了解到，学校领导做了某些限制，更规范了，但这里面可能存在很多利益问题吧，反正没了之前的热闹了。遥想当年，哪里还是很热闹，买西瓜，买菠萝，买奶茶，哎，一去不复还。大学那几年，最开始有男生宿舍那边的阳光商业街，有靠近女生宿舍的职工宿舍楼下的店铺。特别是教职工楼下的奶茶店之类的店铺，那时候那些地方就有一些特殊的气氛，仿佛有一种爱情的荷尔蒙，是谈情说爱的地方，也是经常见到情侣的地方，当然更多的是虐狗的地方了。可悲的是，大学四年，我被虐足四年，还乐此不疲。<br>如今，阳光商业街没了，有了新商业街，现在新商业街又被搞萧条，职工楼下的小店也都禁止了营业，另外又在原阳光商业街哪里搞了一个新阳光商业街。对比这些吃吃喝喝的，仿佛当年更气氛更好，但他们没有经历过当年，所以就算真的如我所想的那样，对于他们来说最丰富有趣的依然是他们现在所感受到的。</p>
+<h5 id="花江"><a href="#花江" class="headerlink" title="花江"></a>花江</h5><p>还有的是，以前可以在学校旁的花江划竹筏，烧烤，现在由于建了新的教职工园区，在花江上搭了座桥，导致不能划竹筏了。那些年满是笑语的地方没了。另外那些烧烤场地，也无法烧烤了，看到这样，有点说不出味道。也许因为这些没有了，会失去一些趣味吧。不可否认可能是因为现在的娱乐方式变得跟以前不太一样了，才导致这些变化，但具体怎么样，就不太清楚了，毕竟现在已经是00后的大学时代了。最后，最后，让我不得不吐槽的是，学习的男女比例好像更均衡了，情侣比例好像更高了，虽然这是好事啊，但这让我失去了一种熟悉感。</p>
+<p><img src="/personImg/guet1.jpeg" alt="guet1.jpeg"></p>
+<p>这里承载了一生仅有的一次大学时光，也是我人生中的一段美好时光，怀念、感恩。</p>
 
           
         
@@ -2366,7 +2368,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">50.3k</span>
+    <span title="Site words total count">50.6k</span>
   
 </div>
 
