@@ -243,6 +243,221 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2018-07-07-07-01leetcode.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zengbailiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/icon.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="liang's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018-07-07-07-01leetcode.html" itemprop="url">算法-Z字形变换</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-07T00:00:00+08:00">
+                2018-07-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/blog/" itemprop="url" rel="index">
+                    <span itemprop="name">blog</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018-07-07-07-01leetcode.html" class="leancloud_visitors" data-flag-title="算法-Z字形变换">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,228
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p>将字符串 “PAYPALISHIRING” 以Z字形排列成给定的行数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">P   A   H   N</span><br><span class="line">A P L S I I G</span><br><span class="line">Y   I   R</span><br></pre></td></tr></table></figure></p>
+<p>之后从左往右，逐行读取字符：”PAHNAPLSIIGYIR”</p>
+<p>实现一个将字符串进行指定行数变换的函数:</p>
+<p>string convert(string s, int numRows);<br>示例 1:</p>
+<p>输入: s = “PAYPALISHIRING”, numRows = 3<br>输出: “PAHNAPLSIIGYIR”<br>示例 2:</p>
+<p>输入: s = “PAYPALISHIRING”, numRows = 4<br>输出: “PINALSIGYAHRPI”<br>解释:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">P     I    N</span><br><span class="line">A   L S  I G</span><br><span class="line">Y A   H R</span><br><span class="line">P     I</span><br></pre></td></tr></table></figure></p>
+<h4 id="思路1：按行排序"><a href="#思路1：按行排序" class="headerlink" title="思路1：按行排序"></a>思路1：按行排序</h4><ol>
+<li>题目要求有两个，一个是字符是按Z字形排序，一个由上而下按行输出。</li>
+<li>分析下Z字形的排序规律。z字形先是由上而下，到了底部再向上，每到底部或者顶部就会反弹，程序中使用bool变量lineUp记录方向。遍历字符的同时，使用一个二维数组int a[row][strlen(s)]来存储行与元素原始下标的关系。遍历完毕后，按行拼接字符串并输出。</li>
+<li><p>元素的下标与输出后所在的行有这样的对应关系。</p>
+<pre><code>#row #数字对应元素下标。
+ 0   0P      6I       12N
+ 1   1A   5L 7S   11I 13G
+ 2   2Y 4A   8H 10R
+ 3   3P      9I     
+</code></pre></li>
+<li><p>代码</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">char* convert(char* s, int numRows) &#123;</span><br><span class="line">if (numRows == 1) &#123;</span><br><span class="line">    return s;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bool lineUp = true;</span><br><span class="line">int len = strlen(s);</span><br><span class="line">//记录字符的二维数组。其实可以使用int的二维数组，因为字符能自动转成asscii对应的int数字。</span><br><span class="line">char **pArr = (char**)malloc(sizeof(char*) * numRows);</span><br><span class="line"></span><br><span class="line">//这个数组是为了记录当前行最大下标，用于后面遍历。其实可以不用，在记录字符串的时候末尾添加&apos;\0&apos;用于判断就行。</span><br><span class="line">int *indexArr = (int*)malloc(sizeof(int) * numRows);</span><br><span class="line">memset(indexArr, -1, sizeof(int) * numRows);</span><br><span class="line"></span><br><span class="line">for (int i = 0; i &lt; numRows; i++ ) &#123;</span><br><span class="line">//开始的时候设置长度为len 。在leetcode上执行报超出内存限制。分析后改为len /2 + 1,因为两行的时候最多为len / 2 + 1；超过三行字符被分散到其他行行，也不会超过len /2 + 1。修改后执行通过。</span><br><span class="line">    char *a = (char*)malloc(sizeof(char*) * (len / 2 + 1));</span><br><span class="line">    memset(a, &apos;#&apos;, sizeof(char*) * (len / 2  + 1));</span><br><span class="line">    pArr[i] = a;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int j = 0;</span><br><span class="line">for (int i = 0; i &lt; len; i ++) &#123;</span><br><span class="line">    int currentIndex = indexArr[j] + 1;</span><br><span class="line">    indexArr[j] = currentIndex;</span><br><span class="line">    pArr[j][currentIndex] = s[i];</span><br><span class="line">    if (lineUp) &#123;</span><br><span class="line">        if (j == numRows - 1) &#123;</span><br><span class="line">            j --;</span><br><span class="line">            lineUp = false;</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            j ++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        if (j == 0) &#123;</span><br><span class="line">            j ++;</span><br><span class="line">            lineUp = true;</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            j --;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">char *p = (char*)malloc(sizeof(char*) * len);</span><br><span class="line">memset(p, 0, sizeof(char*) * len);</span><br><span class="line">int jj = 0;</span><br><span class="line">for (int ii = 0; ii &lt; numRows ; ii ++)&#123;</span><br><span class="line">    char *temp = pArr[ii];</span><br><span class="line">    for (int k = 0; k &lt;= indexArr[ii]; k++) &#123;</span><br><span class="line">        p[jj++] = temp[k];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">free(pArr);</span><br><span class="line">free(indexArr);</span><br><span class="line"></span><br><span class="line">return p;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol start="5">
+<li>复杂度分析<ol>
+<li>时间复杂度 O(n), n = strlen(s);</li>
+<li>空间复杂度 O(n)。</li>
+</ol>
+</li>
+</ol>
+<h4 id="思路2：按行访问"><a href="#思路2：按行访问" class="headerlink" title="思路2：按行访问"></a>思路2：按行访问</h4><ol>
+<li>这个是对字符输入的方式分析后得出的数学规律。首尾两行成等比关系，中间的行除了等比的位置填充元素外，另外还需要在等比距离倒退一定长度offset的位置填充，offset = currentRow。</li>
+<li><p>代码</p>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">char* convert(char* s, int numRows) &#123;</span><br><span class="line">int len = strlen(s);</span><br><span class="line">//特殊情况特殊处理</span><br><span class="line">if (len == 0 || numRows == 0 || numRows == 1 || numRows == len)</span><br><span class="line">&#123;</span><br><span class="line">    return s;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">char *p = (char*)malloc(sizeof(char) * len);</span><br><span class="line">//等比间隔</span><br><span class="line">int cycleLen = 2 * numRows - 2;</span><br><span class="line">int pIndex = 0;</span><br><span class="line">for (int i = 0 ; i &lt; numRows; i ++) &#123;</span><br><span class="line">    for (int j = 0; j + i &lt; len ; j += cycleLen) &#123;</span><br><span class="line">        //获取等比位置的字符</span><br><span class="line">        p[pIndex ++] = s[i + j];</span><br><span class="line">        //获取中间行非等比位置的字符</span><br><span class="line">        if (i != 0 &amp;&amp; i != numRows - 1 &amp;&amp;  j + cycleLen - i &lt; len) &#123;</span><br><span class="line">            p[pIndex ++] = s[ j + cycleLen - i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">return p;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</code></pre></li>
+<li><p>复杂度分析</p>
+<ol>
+<li>时间复杂度 O(n), n = strlen(s);</li>
+<li>空间复杂度 O(n)。如果返回字符不视为额外空间，那么空间复杂度为O(1)。</li>
+</ol>
+</li>
+</ol>
+<h4 id="小结："><a href="#小结：" class="headerlink" title="小结："></a>小结：</h4><ol>
+<li>这道题开始也是用分析规律的方法去做，但举的例子少了点，写出来运行才发现规律是错的。后面也就没继续找数学规律。 为了避免下次犯错，找规律需要论证不少于3个例子。同时规律需要分情况讨论，例如该题的首尾两行作为一类，中间行作为一类。另外别想着用简单的规律就能处理全部问题，一般这类问题都是二级或者多级的，例如多种情况对应不同的规律，或者同一个规律要处理的多个问题。还有如果一类问题按一定方式呈现，一般会存在规律。</li>
+<li>注意的地方：二维数组初始化问题；meset的使用；字符串、ASCII码、int之间的关系等。</li>
+<li>部分代码可以写的更简洁，但为了更好的描述过程，暂时还是保持这个风格，有利于学习和理解。</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2018-06-07-01-leetcode.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -618,186 +833,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2018-06-28-01-leetcode.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zengbailiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/icon.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="liang's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018-06-28-01-leetcode.html" itemprop="url">算法-两数相加</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-28T00:00:00+08:00">
-                2018-06-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018-06-28-01-leetcode.html" class="leancloud_visitors" data-flag-title="算法-两数相加">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  357
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>/*<br> 给定两个非空链表来表示两个非负整数。位数按照逆序方式存储，它们的每个节点只存储单个数字。将两数相加返回一个新的链表。<br> 你可以假设除了数字 0 之外，这两个数字都不会以零开头。</p>
-<p> 示例：<br> 输入：(2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4)<br> 输出：7 -&gt; 0 -&gt; 8<br> 原因：342 + 465 = 807</p>
-<p> */</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Definition for singly-linked list.</span><br><span class="line"> * struct ListNode &#123;</span><br><span class="line"> *     int val;</span><br><span class="line"> *     struct ListNode *next;</span><br><span class="line"> * &#125;;</span><br><span class="line"> */</span><br><span class="line">struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2) &#123;</span><br><span class="line">    struct ListNode* l3 = (struct ListNode*)malloc(sizeof(struct ListNode));</span><br><span class="line">    struct ListNode* n1 = l1;</span><br><span class="line">    struct ListNode* n2 = l2;</span><br><span class="line">    struct ListNode* n3 = l3;</span><br><span class="line">    int carry = 0;</span><br><span class="line">    while (1) &#123;</span><br><span class="line">        int c1 = 0;</span><br><span class="line">        int c2 = 0;</span><br><span class="line">        if (n1 != NULL) &#123;</span><br><span class="line">            c1 = n1-&gt;val;</span><br><span class="line">            n1 = n1 -&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        if (n2 != NULL) &#123;</span><br><span class="line">            c2 = n2-&gt;val;</span><br><span class="line">            n2 = n2 -&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        int sum = c1 + c2 + carry;</span><br><span class="line">        carry = sum /10;</span><br><span class="line">        int currentValue = sum % 10;</span><br><span class="line">        n3-&gt;val = currentValue;</span><br><span class="line">        //考虑进位有值得情况需要进入下一个循环</span><br><span class="line">        if(n1 != NULL || n2 != NULL || carry)</span><br><span class="line">        &#123;</span><br><span class="line">            struct ListNode* newNode = (struct ListNode*)malloc(sizeof(struct ListNode));</span><br><span class="line">            n3-&gt;next = newNode;</span><br><span class="line">            n3 = n3 -&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">        //最后一个节点为NULL</span><br><span class="line">            n3 -&gt;next = NULL;</span><br><span class="line">            break;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">   </span><br><span class="line">    return l3;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>小结：面向过程的思路。<br>注意的几个问题：</p>
-<ol>
-<li>进位问题，低位相加得出进位值提供给高位计算。</li>
-<li>最后一轮相加的时候可能会产生进位，这个时候需要进入下一轮循环，计算下一位的值。</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2018-06-28-02-leetcode.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -937,6 +972,186 @@
 <p>其他解法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">//每个字符都有唯一字符串ASCII的作为唯一标识，这是个技巧性问题。最多256个</span><br><span class="line">int lengthOfLongestSubstring(char* s) &#123;</span><br><span class="line">    //算法：用book标记出现过的字符的index，用max标记最大长度，用start标记当前不重复开始的index，用num表示当前不重复的个数</span><br><span class="line">    //遍历数组，若book[]大于start，说明遇到相同元素，则从其相同处重新计算长度和起始位置</span><br><span class="line">    if(NULL == s)</span><br><span class="line">        return NULL;</span><br><span class="line">    int len=strlen(s);</span><br><span class="line">    int book[255]=&#123;0&#125;;</span><br><span class="line">    //memset(book,0xff,255*sizeof(int));//将book初始化为-1</span><br><span class="line">    if (0==len)</span><br><span class="line">        return 0;</span><br><span class="line">    int start=0,max=0;//max_start=0;</span><br><span class="line">    int num=0;</span><br><span class="line">    for (int i=0;i&lt;len;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        if(book[s[i]]==0 || book[s[i]]&lt;start+1)</span><br><span class="line">        &#123;</span><br><span class="line">            num++;</span><br><span class="line">            if(num&gt;max)</span><br><span class="line">            &#123;</span><br><span class="line">                //max_start=start;</span><br><span class="line">                max=num;</span><br><span class="line">            &#125;</span><br><span class="line">            book[s[i]]=i+1;</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            start=book[s[i]];</span><br><span class="line">            num=i-start+1;</span><br><span class="line">            book[s[i]]=i+1;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return max;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">//写得好屌啊</span><br><span class="line">int lengthOfLongestSubstring(char* s) &#123;</span><br><span class="line">    int len=0;</span><br><span class="line">    char *end=s,*temp;</span><br><span class="line">    char* addressTable[128]=&#123;NULL&#125;;</span><br><span class="line">    while(*end)&#123;</span><br><span class="line">        temp = addressTable[*end];</span><br><span class="line">        addressTable[*end]=end;</span><br><span class="line">        if(temp&gt;=s)&#123;</span><br><span class="line">        len=end-s&gt;len?end-s:len;</span><br><span class="line">        s = temp+1;</span><br><span class="line">        &#125;end++;</span><br><span class="line">    &#125;</span><br><span class="line">    len=end-s&gt;len?end-s:len;</span><br><span class="line">    return len;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>小结：这里又存在查找问题，可以考虑使用哈希Map提高效率。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2018-06-28-01-leetcode.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zengbailiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/icon.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="liang's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018-06-28-01-leetcode.html" itemprop="url">算法-两数相加</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-28T00:00:00+08:00">
+                2018-06-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018-06-28-01-leetcode.html" class="leancloud_visitors" data-flag-title="算法-两数相加">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  357
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>/*<br> 给定两个非空链表来表示两个非负整数。位数按照逆序方式存储，它们的每个节点只存储单个数字。将两数相加返回一个新的链表。<br> 你可以假设除了数字 0 之外，这两个数字都不会以零开头。</p>
+<p> 示例：<br> 输入：(2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4)<br> 输出：7 -&gt; 0 -&gt; 8<br> 原因：342 + 465 = 807</p>
+<p> */</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Definition for singly-linked list.</span><br><span class="line"> * struct ListNode &#123;</span><br><span class="line"> *     int val;</span><br><span class="line"> *     struct ListNode *next;</span><br><span class="line"> * &#125;;</span><br><span class="line"> */</span><br><span class="line">struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2) &#123;</span><br><span class="line">    struct ListNode* l3 = (struct ListNode*)malloc(sizeof(struct ListNode));</span><br><span class="line">    struct ListNode* n1 = l1;</span><br><span class="line">    struct ListNode* n2 = l2;</span><br><span class="line">    struct ListNode* n3 = l3;</span><br><span class="line">    int carry = 0;</span><br><span class="line">    while (1) &#123;</span><br><span class="line">        int c1 = 0;</span><br><span class="line">        int c2 = 0;</span><br><span class="line">        if (n1 != NULL) &#123;</span><br><span class="line">            c1 = n1-&gt;val;</span><br><span class="line">            n1 = n1 -&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        if (n2 != NULL) &#123;</span><br><span class="line">            c2 = n2-&gt;val;</span><br><span class="line">            n2 = n2 -&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        int sum = c1 + c2 + carry;</span><br><span class="line">        carry = sum /10;</span><br><span class="line">        int currentValue = sum % 10;</span><br><span class="line">        n3-&gt;val = currentValue;</span><br><span class="line">        //考虑进位有值得情况需要进入下一个循环</span><br><span class="line">        if(n1 != NULL || n2 != NULL || carry)</span><br><span class="line">        &#123;</span><br><span class="line">            struct ListNode* newNode = (struct ListNode*)malloc(sizeof(struct ListNode));</span><br><span class="line">            n3-&gt;next = newNode;</span><br><span class="line">            n3 = n3 -&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">        //最后一个节点为NULL</span><br><span class="line">            n3 -&gt;next = NULL;</span><br><span class="line">            break;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">   </span><br><span class="line">    return l3;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>小结：面向过程的思路。<br>注意的几个问题：</p>
+<ol>
+<li>进位问题，低位相加得出进位值提供给高位计算。</li>
+<li>最后一轮相加的时候可能会产生进位，这个时候需要进入下一轮循环，计算下一位的值。</li>
+</ol>
 
           
         
@@ -1425,181 +1640,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2018-05-09-011.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zengbailiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/icon.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="liang's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018-05-09-011.html" itemprop="url">数组实现循环队列</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-09T00:00:00+08:00">
-                2018-05-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据结构/" itemprop="url" rel="index">
-                    <span itemprop="name">数据结构</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018-05-09-011.html" class="leancloud_visitors" data-flag-title="数组实现循环队列">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  991
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>循环队列作为一种常用的数据结构，它使头尾指针能够灵活的在容器头尾跳跃，实现循环存取的结构。线性队列，在不移动元素的情况下，随着数据的不断读写，会出现假上溢的情况（当尾部指针已经到了容器底部，线性队列就无法插入了，尽管存在已出队列的可以空间，），导致已出队列的可用空间无法再被利用。另外循环队列很适合作为缓存的处理。</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line"></span><br><span class="line">  CycleQueue.m</span><br><span class="line">  CycleQueue</span><br><span class="line"></span><br><span class="line">  Created by zengbailiang on 2018/5/8.</span><br><span class="line">  Copyright © 2018年 zengbailiang. All rights reserved.</span><br><span class="line">  循环队列</span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line">#import &quot;CycleQueue.h&quot;</span><br><span class="line"></span><br><span class="line">#define CYCLE_QUEUE_MAX_SIZE 10</span><br><span class="line">#define CYCLE_QUEUE_ELEMENT int</span><br><span class="line"></span><br><span class="line">typedef struct kSCycleQueue</span><br><span class="line">&#123;</span><br><span class="line">    CYCLE_QUEUE_ELEMENT data[CYCLE_QUEUE_MAX_SIZE];</span><br><span class="line">    int fornt ,rear;</span><br><span class="line">&#125;*SCycleQueue;</span><br><span class="line"></span><br><span class="line">@implementation CycleQueue</span><br><span class="line"></span><br><span class="line">int queueInit(SCycleQueue *queue)</span><br><span class="line">&#123;</span><br><span class="line">    if ((*queue) == NULL) &#123;</span><br><span class="line">        (*queue) = (SCycleQueue)malloc(sizeof(struct kSCycleQueue));</span><br><span class="line"></span><br><span class="line">        /*初始化队列头和队列尾部，队列尾初始化为-1是为了添加原始的时候统一操作为后移*/</span><br><span class="line"></span><br><span class="line">        (*queue)-&gt;fornt = 0;</span><br><span class="line">        (*queue)-&gt;rear = -1;</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        return -1;</span><br><span class="line">    &#125;</span><br><span class="line">    return 1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bool canAdd(SCycleQueue *queue)</span><br><span class="line">&#123;</span><br><span class="line">    if((*queue) == NULL</span><br><span class="line">       ||(*queue)-&gt;fornt + (*queue) -&gt;rear + 1 == CYCLE_QUEUE_MAX_SIZE</span><br><span class="line">       ||((*queue)-&gt;rear != -1 &amp;&amp;  (*queue)-&gt;rear + 1 == (*queue)-&gt;fornt))</span><br><span class="line">    &#123;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int add(SCycleQueue *queue,CYCLE_QUEUE_ELEMENT e)</span><br><span class="line">&#123;</span><br><span class="line">    if (canAdd(queue)) &#123;</span><br><span class="line">        /*如果已经是在最后一个原始，那么跳到第0个原始添加，实现循环*/</span><br><span class="line">        if ((*queue) -&gt; rear == CYCLE_QUEUE_MAX_SIZE - 1) &#123;</span><br><span class="line">            (*queue) -&gt; rear = 0;</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            /*非最后一个元素后移即可*/</span><br><span class="line">            (*queue) -&gt; rear += 1;</span><br><span class="line">        &#125;</span><br><span class="line">        /*队尾添加元素*/</span><br><span class="line">        (*queue) -&gt;data[(*queue) -&gt;rear] = e;</span><br><span class="line">        return 1;</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int delete(SCycleQueue *queue,CYCLE_QUEUE_ELEMENT *e)</span><br><span class="line">&#123;</span><br><span class="line">    if ((*queue) == NULL) &#123;</span><br><span class="line">        return  -1;</span><br><span class="line">    &#125;</span><br><span class="line">    /*如果rear不等于-1就代表存在元素*/</span><br><span class="line">    else if((*queue)-&gt;fornt == 0 &amp;&amp; (*queue)-&gt;rear == -1)</span><br><span class="line">    &#123;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        (*e) = (*queue)-&gt;data[(*queue)-&gt;fornt];</span><br><span class="line">        (*queue)-&gt;data[(*queue)-&gt;fornt] = -1;</span><br><span class="line">        /*如果 fornt == rear，代表最后一个元素了，这个时候把标记复位用于上面的判断。*/</span><br><span class="line">        if ((*queue)-&gt;fornt == (*queue)-&gt;rear) &#123;</span><br><span class="line">            (*queue)-&gt;fornt = 0;</span><br><span class="line">            (*queue)-&gt;rear = -1;</span><br><span class="line">        &#125;</span><br><span class="line">        else if((*queue)-&gt;fornt == CYCLE_QUEUE_MAX_SIZE - 1)</span><br><span class="line">        &#123;</span><br><span class="line">            /*如果是最后一个元素出队列，那么队列头跳到容器第一个元素实现循环出队列*/</span><br><span class="line">            (*queue)-&gt;fornt = 0;</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            (*queue)-&gt;fornt += 1;</span><br><span class="line">        &#125;</span><br><span class="line">      return 1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (void)testt</span><br><span class="line">&#123;</span><br><span class="line">    test();</span><br><span class="line">    test1();</span><br><span class="line">    test2();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void test()</span><br><span class="line">&#123;</span><br><span class="line">    SCycleQueue queue;</span><br><span class="line">    queueInit(&amp;queue);</span><br><span class="line">    add(&amp;queue, 0);</span><br><span class="line">    add(&amp;queue, 1);</span><br><span class="line">    add(&amp;queue, 2);</span><br><span class="line">    add(&amp;queue, 3);</span><br><span class="line">    add(&amp;queue, 4);</span><br><span class="line">    add(&amp;queue, 5);</span><br><span class="line">    add(&amp;queue, 6);</span><br><span class="line">    add(&amp;queue, 7);</span><br><span class="line">    add(&amp;queue, 8);</span><br><span class="line">    /*加满*/</span><br><span class="line">    add(&amp;queue, 9);</span><br><span class="line">    CYCLE_QUEUE_ELEMENT e;</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    /*容器底部已满，循环到头部开始添加*/</span><br><span class="line">    add(&amp;queue, 10);</span><br><span class="line">    add(&amp;queue, 11);</span><br><span class="line">    add(&amp;queue, 12);</span><br><span class="line">    add(&amp;queue, 13);</span><br><span class="line">    add(&amp;queue, 14);</span><br><span class="line">&#125;</span><br><span class="line">void test1()</span><br><span class="line">&#123;</span><br><span class="line">    SCycleQueue queue;</span><br><span class="line">    queueInit(&amp;queue);</span><br><span class="line">    add(&amp;queue, 0);</span><br><span class="line">    add(&amp;queue, 1);</span><br><span class="line">    add(&amp;queue, 2);</span><br><span class="line">    add(&amp;queue, 3);</span><br><span class="line">    add(&amp;queue, 4);</span><br><span class="line">    add(&amp;queue, 5);</span><br><span class="line">    add(&amp;queue, 6);</span><br><span class="line">    add(&amp;queue, 7);</span><br><span class="line">    add(&amp;queue, 8);</span><br><span class="line">    add(&amp;queue, 9);</span><br><span class="line">    CYCLE_QUEUE_ELEMENT e;</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    /*全部出队列，标记复位*/</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    add(&amp;queue, 6);</span><br><span class="line">    add(&amp;queue, 7);</span><br><span class="line">    add(&amp;queue, 8);</span><br><span class="line">    add(&amp;queue, 9);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void test2()</span><br><span class="line">&#123;</span><br><span class="line">    SCycleQueue queue;</span><br><span class="line">    queueInit(&amp;queue);</span><br><span class="line">    add(&amp;queue, 0);</span><br><span class="line">    add(&amp;queue, 1);</span><br><span class="line">    add(&amp;queue, 2);</span><br><span class="line">    add(&amp;queue, 3);</span><br><span class="line">    add(&amp;queue, 4);</span><br><span class="line">    add(&amp;queue, 5);</span><br><span class="line">    add(&amp;queue, 6);</span><br><span class="line">    add(&amp;queue, 7);</span><br><span class="line">    add(&amp;queue, 8);</span><br><span class="line">    add(&amp;queue, 9);</span><br><span class="line">    CYCLE_QUEUE_ELEMENT e;</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line"></span><br><span class="line">    /*font = 5*/</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    add(&amp;queue, 15);</span><br><span class="line">    add(&amp;queue, 16);</span><br><span class="line">    add(&amp;queue, 11);</span><br><span class="line">    add(&amp;queue, 12);</span><br><span class="line">    add(&amp;queue, 13);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line"></span><br><span class="line">    /*循环到容器头出队列*/</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2018-05-12-01.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1750,6 +1790,181 @@
 <p>测试demo:     </p>
 <p>swift:<a href="https://github.com/zmubai/TouchIDTest-swift" target="_blank" rel="noopener">https://github.com/zmubai/TouchIDTest-swift</a></p>
 <p>object-c:<a href="https://github.com/zmubai/TouchIDTest-OC" target="_blank" rel="noopener">https://github.com/zmubai/TouchIDTest-OC</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2018-05-09-011.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zengbailiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/icon.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="liang's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018-05-09-011.html" itemprop="url">数组实现循环队列</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-09T00:00:00+08:00">
+                2018-05-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018-05-09-011.html" class="leancloud_visitors" data-flag-title="数组实现循环队列">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  991
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>循环队列作为一种常用的数据结构，它使头尾指针能够灵活的在容器头尾跳跃，实现循环存取的结构。线性队列，在不移动元素的情况下，随着数据的不断读写，会出现假上溢的情况（当尾部指针已经到了容器底部，线性队列就无法插入了，尽管存在已出队列的可以空间，），导致已出队列的可用空间无法再被利用。另外循环队列很适合作为缓存的处理。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line"></span><br><span class="line">  CycleQueue.m</span><br><span class="line">  CycleQueue</span><br><span class="line"></span><br><span class="line">  Created by zengbailiang on 2018/5/8.</span><br><span class="line">  Copyright © 2018年 zengbailiang. All rights reserved.</span><br><span class="line">  循环队列</span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line">#import &quot;CycleQueue.h&quot;</span><br><span class="line"></span><br><span class="line">#define CYCLE_QUEUE_MAX_SIZE 10</span><br><span class="line">#define CYCLE_QUEUE_ELEMENT int</span><br><span class="line"></span><br><span class="line">typedef struct kSCycleQueue</span><br><span class="line">&#123;</span><br><span class="line">    CYCLE_QUEUE_ELEMENT data[CYCLE_QUEUE_MAX_SIZE];</span><br><span class="line">    int fornt ,rear;</span><br><span class="line">&#125;*SCycleQueue;</span><br><span class="line"></span><br><span class="line">@implementation CycleQueue</span><br><span class="line"></span><br><span class="line">int queueInit(SCycleQueue *queue)</span><br><span class="line">&#123;</span><br><span class="line">    if ((*queue) == NULL) &#123;</span><br><span class="line">        (*queue) = (SCycleQueue)malloc(sizeof(struct kSCycleQueue));</span><br><span class="line"></span><br><span class="line">        /*初始化队列头和队列尾部，队列尾初始化为-1是为了添加原始的时候统一操作为后移*/</span><br><span class="line"></span><br><span class="line">        (*queue)-&gt;fornt = 0;</span><br><span class="line">        (*queue)-&gt;rear = -1;</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        return -1;</span><br><span class="line">    &#125;</span><br><span class="line">    return 1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bool canAdd(SCycleQueue *queue)</span><br><span class="line">&#123;</span><br><span class="line">    if((*queue) == NULL</span><br><span class="line">       ||(*queue)-&gt;fornt + (*queue) -&gt;rear + 1 == CYCLE_QUEUE_MAX_SIZE</span><br><span class="line">       ||((*queue)-&gt;rear != -1 &amp;&amp;  (*queue)-&gt;rear + 1 == (*queue)-&gt;fornt))</span><br><span class="line">    &#123;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int add(SCycleQueue *queue,CYCLE_QUEUE_ELEMENT e)</span><br><span class="line">&#123;</span><br><span class="line">    if (canAdd(queue)) &#123;</span><br><span class="line">        /*如果已经是在最后一个原始，那么跳到第0个原始添加，实现循环*/</span><br><span class="line">        if ((*queue) -&gt; rear == CYCLE_QUEUE_MAX_SIZE - 1) &#123;</span><br><span class="line">            (*queue) -&gt; rear = 0;</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            /*非最后一个元素后移即可*/</span><br><span class="line">            (*queue) -&gt; rear += 1;</span><br><span class="line">        &#125;</span><br><span class="line">        /*队尾添加元素*/</span><br><span class="line">        (*queue) -&gt;data[(*queue) -&gt;rear] = e;</span><br><span class="line">        return 1;</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int delete(SCycleQueue *queue,CYCLE_QUEUE_ELEMENT *e)</span><br><span class="line">&#123;</span><br><span class="line">    if ((*queue) == NULL) &#123;</span><br><span class="line">        return  -1;</span><br><span class="line">    &#125;</span><br><span class="line">    /*如果rear不等于-1就代表存在元素*/</span><br><span class="line">    else if((*queue)-&gt;fornt == 0 &amp;&amp; (*queue)-&gt;rear == -1)</span><br><span class="line">    &#123;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        (*e) = (*queue)-&gt;data[(*queue)-&gt;fornt];</span><br><span class="line">        (*queue)-&gt;data[(*queue)-&gt;fornt] = -1;</span><br><span class="line">        /*如果 fornt == rear，代表最后一个元素了，这个时候把标记复位用于上面的判断。*/</span><br><span class="line">        if ((*queue)-&gt;fornt == (*queue)-&gt;rear) &#123;</span><br><span class="line">            (*queue)-&gt;fornt = 0;</span><br><span class="line">            (*queue)-&gt;rear = -1;</span><br><span class="line">        &#125;</span><br><span class="line">        else if((*queue)-&gt;fornt == CYCLE_QUEUE_MAX_SIZE - 1)</span><br><span class="line">        &#123;</span><br><span class="line">            /*如果是最后一个元素出队列，那么队列头跳到容器第一个元素实现循环出队列*/</span><br><span class="line">            (*queue)-&gt;fornt = 0;</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            (*queue)-&gt;fornt += 1;</span><br><span class="line">        &#125;</span><br><span class="line">      return 1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (void)testt</span><br><span class="line">&#123;</span><br><span class="line">    test();</span><br><span class="line">    test1();</span><br><span class="line">    test2();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void test()</span><br><span class="line">&#123;</span><br><span class="line">    SCycleQueue queue;</span><br><span class="line">    queueInit(&amp;queue);</span><br><span class="line">    add(&amp;queue, 0);</span><br><span class="line">    add(&amp;queue, 1);</span><br><span class="line">    add(&amp;queue, 2);</span><br><span class="line">    add(&amp;queue, 3);</span><br><span class="line">    add(&amp;queue, 4);</span><br><span class="line">    add(&amp;queue, 5);</span><br><span class="line">    add(&amp;queue, 6);</span><br><span class="line">    add(&amp;queue, 7);</span><br><span class="line">    add(&amp;queue, 8);</span><br><span class="line">    /*加满*/</span><br><span class="line">    add(&amp;queue, 9);</span><br><span class="line">    CYCLE_QUEUE_ELEMENT e;</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    /*容器底部已满，循环到头部开始添加*/</span><br><span class="line">    add(&amp;queue, 10);</span><br><span class="line">    add(&amp;queue, 11);</span><br><span class="line">    add(&amp;queue, 12);</span><br><span class="line">    add(&amp;queue, 13);</span><br><span class="line">    add(&amp;queue, 14);</span><br><span class="line">&#125;</span><br><span class="line">void test1()</span><br><span class="line">&#123;</span><br><span class="line">    SCycleQueue queue;</span><br><span class="line">    queueInit(&amp;queue);</span><br><span class="line">    add(&amp;queue, 0);</span><br><span class="line">    add(&amp;queue, 1);</span><br><span class="line">    add(&amp;queue, 2);</span><br><span class="line">    add(&amp;queue, 3);</span><br><span class="line">    add(&amp;queue, 4);</span><br><span class="line">    add(&amp;queue, 5);</span><br><span class="line">    add(&amp;queue, 6);</span><br><span class="line">    add(&amp;queue, 7);</span><br><span class="line">    add(&amp;queue, 8);</span><br><span class="line">    add(&amp;queue, 9);</span><br><span class="line">    CYCLE_QUEUE_ELEMENT e;</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    /*全部出队列，标记复位*/</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    add(&amp;queue, 6);</span><br><span class="line">    add(&amp;queue, 7);</span><br><span class="line">    add(&amp;queue, 8);</span><br><span class="line">    add(&amp;queue, 9);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void test2()</span><br><span class="line">&#123;</span><br><span class="line">    SCycleQueue queue;</span><br><span class="line">    queueInit(&amp;queue);</span><br><span class="line">    add(&amp;queue, 0);</span><br><span class="line">    add(&amp;queue, 1);</span><br><span class="line">    add(&amp;queue, 2);</span><br><span class="line">    add(&amp;queue, 3);</span><br><span class="line">    add(&amp;queue, 4);</span><br><span class="line">    add(&amp;queue, 5);</span><br><span class="line">    add(&amp;queue, 6);</span><br><span class="line">    add(&amp;queue, 7);</span><br><span class="line">    add(&amp;queue, 8);</span><br><span class="line">    add(&amp;queue, 9);</span><br><span class="line">    CYCLE_QUEUE_ELEMENT e;</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line"></span><br><span class="line">    /*font = 5*/</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    add(&amp;queue, 15);</span><br><span class="line">    add(&amp;queue, 16);</span><br><span class="line">    add(&amp;queue, 11);</span><br><span class="line">    add(&amp;queue, 12);</span><br><span class="line">    add(&amp;queue, 13);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line"></span><br><span class="line">    /*循环到容器头出队列*/</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
 
           
         
@@ -2084,216 +2299,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2018-04-23-0.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zengbailiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/icon.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="liang's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018-04-23-0.html" itemprop="url">git 常用操作汇总</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-23T00:00:00+08:00">
-                2018-04-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/git/" itemprop="url" rel="index">
-                    <span itemprop="name">git</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018-04-23-0.html" class="leancloud_visitors" data-flag-title="git 常用操作汇总">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  869
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="说明-默认在master分支、远程分支origin，-省略分支名称"><a href="#说明-默认在master分支、远程分支origin，-省略分支名称" class="headerlink" title="说明(默认在master分支、远程分支origin， 省略分支名称)"></a>说明(默认在master分支、远程分支origin， 省略分支名称)</h4><p><img src="https://upload-images.jianshu.io/upload_images/1690665-c6ce334a8505da19.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="gitRebase.png"></p>
-<h6 id="配置本地信息"><a href="#配置本地信息" class="headerlink" title="配置本地信息"></a>配置本地信息</h6><pre><code>git cogfig --global user.name userName   
-git config --global user.email userEmail    
-</code></pre><h6 id="克隆远程仓库"><a href="#克隆远程仓库" class="headerlink" title="克隆远程仓库"></a>克隆远程仓库</h6><pre><code>git clone remotePath     
-</code></pre><p>如：git clone <a href="https://github.com/yourname/test.git" target="_blank" rel="noopener">https://github.com/yourname/test.git</a> </p>
-<h6 id="本地推送到远程仓库"><a href="#本地推送到远程仓库" class="headerlink" title="本地推送到远程仓库"></a>本地推送到远程仓库</h6><pre><code>git  remote add origin remotePath   [绑定远程仓库]   
-git push -u origin master [推送到远程master分支]    
-</code></pre><h6 id="本地提交"><a href="#本地提交" class="headerlink" title="本地提交"></a>本地提交</h6><pre><code>git status [显示工作区变更]   
-git add finePath [把单个文件添加到暂存区]   
-git commit -m &quot;log&quot; [提交到本地分支]   
-git commit -am &quot;log&quot; [提交到本地分支，包含add操作]   
-</code></pre><h6 id="显示文件修改"><a href="#显示文件修改" class="headerlink" title="显示文件修改"></a>显示文件修改</h6><pre><code>git diff finePath [工作区文件与暂存区文件对比]  
-git diff finePath --cached [暂存区文件与当前版本文件对比]  
-参考：https://www.jianshu.com/p/80542dc3164e
-</code></pre><h6 id="本地分支处理"><a href="#本地分支处理" class="headerlink" title="本地分支处理"></a>本地分支处理</h6><pre><code>git branch -a [显示本地所有分支]  
-git checkout -b newBranch [开发新功能的时候，开启新分支]  
-git checkout branchWhichHas [切换到已存在分支]  
-</code></pre><h6 id="合并分支操作："><a href="#合并分支操作：" class="headerlink" title="合并分支操作："></a>合并分支操作：</h6><pre><code>git checkout -b B [建立分支B]  
-......开发新功能 并提交  
-git checkout master [切换到master分支]  
-git merge B [在master分支中把B分支更新合并过来]  
-</code></pre><h6 id="本地变基"><a href="#本地变基" class="headerlink" title="本地变基"></a>本地变基</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git rebase B [把B分支中的修改以变基的方式合并到master分支中，以当前分支为基底，把B分支的修改逐一提交到当前分支]  </span><br><span class="line"></span><br><span class="line">注意点:变基能把提交历史记录变得清晰，便于管理和维护。但要遵守原则：一旦分支中的提交对象发布到公共仓库，就千万不要对该分支进行变基操作。因为变基修改推送到远程，别人同步后，会认为是一个新的提交，实际上内容没有变化。然后他需要合并这个提交才能继续开发，合并后会存在两份相同的提交历史。这个合并推送到服务器，会导致其他开发者不必要的疑惑。</span><br><span class="line"></span><br><span class="line">变基详细说明：</span><br><span class="line">https://git-scm.com/book/zh/v1/Git-%E5%88%86%E6%94%AF-%E5%88%86%E6%94%AF%E7%9A%84%E5%8F%98%E5%9F%BA</span><br></pre></td></tr></table></figure>
-<h6 id="本地撤销操作"><a href="#本地撤销操作" class="headerlink" title="本地撤销操作"></a>本地撤销操作</h6><pre><code>git checkout -- filePath [工作区撤销单个文件修改] 
-git checkout commitId filePath [单个文件回滚]  
-git reset HEAD fineName  [暂存区撤销单个文件修改]   
-git reset HEAD --hard commitid [本地回滚到版本号为commitid]   
-git push origin HEAD --force [同步回滚远程版本]   
-</code></pre><h6 id="如果不小心把问题代码同步到了远程，为了不影响其他人开发，可考虑强制回滚代码。"><a href="#如果不小心把问题代码同步到了远程，为了不影响其他人开发，可考虑强制回滚代码。" class="headerlink" title="如果不小心把问题代码同步到了远程，为了不影响其他人开发，可考虑强制回滚代码。"></a>如果不小心把问题代码同步到了远程，为了不影响其他人开发，可考虑强制回滚代码。</h6><pre><code>git reset HEAD commitID  [1.本地问题版本先回滚 ]
-git push -f   或者 git push --force [2.把本地代码强制同步远程]
-或
-git revert  [撤销上一次提交]
-或
-如果要回滚到较远的版本，比较暴力的方法：拉取一份新副本，手动把改动的新代码覆盖到新副本并提交。
-参考：
-https://blog.csdn.net/fuchaosz/article/details/52170105
-</code></pre><h6 id="对于单次commit操作的再修改"><a href="#对于单次commit操作的再修改" class="headerlink" title="对于单次commit操作的再修改"></a>对于单次commit操作的再修改</h6><pre><code>可以继续add 文件 并执行git commit  --amend [合并上次提交为本次提交]   
-</code></pre><h6 id="冲突处理"><a href="#冲突处理" class="headerlink" title="冲突处理"></a>冲突处理</h6><pre><code>修改冲突文件后再次执行add、commit操作   
-</code></pre><h6 id="log-查询"><a href="#log-查询" class="headerlink" title="log 查询"></a>log 查询</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git log   </span><br><span class="line">git log --author=authorName [指定提交人]</span><br><span class="line">git log --pretty=oneline [单行显示log信息]   </span><br><span class="line"></span><br><span class="line">log更多用法：</span><br><span class="line">https://git-scm.com/book/zh/v1/Git-%E5%9F%BA%E7%A1%80-%E6%9F%A5%E7%9C%8B%E6%8F%90%E4%BA%A4%E5%8E%86%E5%8F%B2</span><br></pre></td></tr></table></figure>
-<p>彩蛋存送门：<a href="https://git-scm.com/download/gui/mac" target="_blank" rel="noopener">https://git-scm.com/download/gui/mac</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2348,7 +2353,7 @@ https://blog.csdn.net/fuchaosz/article/details/52170105
               
                 <a rel="external nofollow" href="/archives/">
               
-                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-count">37</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2431,7 +2436,7 @@ https://blog.csdn.net/fuchaosz/article/details/52170105
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">51.9k</span>
+    <span title="Site words total count">52.6k</span>
   
 </div>
 
