@@ -88,7 +88,7 @@
 <meta property="og:site_name" content="liang&#39;s blog">
 <meta property="og:description" content="12345678910111213141516171819202122232425 在二维数组grid中，grid[i][j]代表位于某处的建筑物的高度。 我们被允许增加任何数量（不同建筑物的数量可能不同）的建筑物的高度。 高度 0 也被认为是建筑物。最后，从新数组的所有四个方向（即顶部，底部，左侧和右侧）观看的“天际线”必须与原始数组的天际线相同。 城市的天际线是从远处观看时，由所有建筑物形成的">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-11-18T16:26:42.005Z">
+<meta property="og:updated_time" content="2019-11-18T16:58:28.790Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="807. 保持城市天际线">
 <meta name="twitter:description" content="12345678910111213141516171819202122232425 在二维数组grid中，grid[i][j]代表位于某处的建筑物的高度。 我们被允许增加任何数量（不同建筑物的数量可能不同）的建筑物的高度。 高度 0 也被认为是建筑物。最后，从新数组的所有四个方向（即顶部，底部，左侧和右侧）观看的“天际线”必须与原始数组的天际线相同。 城市的天际线是从远处观看时，由所有建筑物形成的">
@@ -364,7 +364,7 @@
 
       
         <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"> 在二维数组grid中，grid[i][j]代表位于某处的建筑物的高度。 我们被允许增加任何数量（不同建筑物的数量可能不同）的建筑物的高度。 高度 0 也被认为是建筑物。</span><br><span class="line"></span><br><span class="line">最后，从新数组的所有四个方向（即顶部，底部，左侧和右侧）观看的“天际线”必须与原始数组的天际线相同。 城市的天际线是从远处观看时，由所有建筑物形成的矩形的外部轮廓。 请看下面的例子。</span><br><span class="line"></span><br><span class="line">建筑物高度可以增加的最大总和是多少？</span><br><span class="line"></span><br><span class="line">例子：</span><br><span class="line">输入： grid = [[3,0,8,4],[2,4,5,7],[9,2,6,3],[0,3,1,0]]</span><br><span class="line">输出： 35</span><br><span class="line">解释： </span><br><span class="line">The grid is:</span><br><span class="line">[ [3, 0, 8, 4], </span><br><span class="line">  [2, 4, 5, 7],</span><br><span class="line">  [9, 2, 6, 3],</span><br><span class="line">  [0, 3, 1, 0] ]</span><br><span class="line"></span><br><span class="line">从数组竖直方向（即顶部，底部）看“天际线”是：[9, 4, 8, 7]</span><br><span class="line">从水平水平方向（即左侧，右侧）看“天际线”是：[8, 7, 9, 3]</span><br><span class="line"></span><br><span class="line">在不影响天际线的情况下对建筑物进行增高后，新数组如下：</span><br><span class="line"></span><br><span class="line">gridNew = [ [8, 4, 8, 7],</span><br><span class="line">            [7, 4, 7, 7],</span><br><span class="line">            [9, 4, 8, 7],</span><br><span class="line">            [3, 3, 3, 3] ]</span><br></pre></td></tr></table></figure>
-<h4 id="解法一："><a href="#解法一：" class="headerlink" title="解法一："></a>解法一：</h4><p>对于没一行或没一列都存在一个边际值，而对于没一个做坐标点，它必须同时满足小于等于它所在的列和行的两个边际值，即其必须小于等于，所在行和列的边界值的最小值&lt;=min(边际值row,边际值col)，而增加的部分累计就是题目所求。基于这个思路，可得以下步骤:</p>
+<h4 id="解法一："><a href="#解法一：" class="headerlink" title="解法一："></a>解法一：</h4><p>对于每一行或每一列都存在一个边际值，而对于每一个做坐标点，它必须同时满足小于等于它所在的列和行的两个边际值，即其必须小于等于，所在行和列的边界值的最小值&lt;=min(边际值row,边际值col)，而增加的部分累计就是题目所求。基于这个思路，可得以下步骤:</p>
 <ol>
 <li>定义两个临时数组用于存储行和列的边际值，通过遍历坐标点，更新这些值.一次遍历就可以获取到所有的边际值，[i]相同对比更新hSize，[j]相同对比更新vMaxArr。</li>
 <li>再次遍历，累计增加值。</li>
@@ -411,6 +411,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/1249. 移除无效的括号.html" rel="prev" title="1249. 移除无效的括号">
+                1249. 移除无效的括号 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>

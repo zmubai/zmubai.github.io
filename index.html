@@ -243,6 +243,187 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/1249. 移除无效的括号.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zengbailiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/icon.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="liang's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/1249. 移除无效的括号.html" itemprop="url">1249. 移除无效的括号</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-19T00:00:00+08:00">
+                2019-11-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/1249. 移除无效的括号.html" class="leancloud_visitors" data-flag-title="1249. 移除无效的括号">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  624
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"> 给你一个由 &apos;(&apos;、&apos;)&apos; 和小写字母组成的字符串 s。</span><br><span class="line"></span><br><span class="line">你需要从字符串中删除最少数目的 &apos;(&apos; 或者 &apos;)&apos; （可以删除任意位置的括号)，使得剩下的「括号字符串」有效。</span><br><span class="line"></span><br><span class="line">请返回任意一个合法字符串。</span><br><span class="line"></span><br><span class="line">有效「括号字符串」应当符合以下 任意一条 要求：</span><br><span class="line"></span><br><span class="line">空字符串或只包含小写字母的字符串</span><br><span class="line">可以被写作 AB（A 连接 B）的字符串，其中 A 和 B 都是有效「括号字符串」</span><br><span class="line">可以被写作 (A) 的字符串，其中 A 是一个有效的「括号字符串」</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">示例 1：</span><br><span class="line"></span><br><span class="line">输入：s = &quot;lee(t(c)o)de)&quot;</span><br><span class="line">输出：&quot;lee(t(c)o)de&quot;</span><br><span class="line">解释：&quot;lee(t(co)de)&quot; , &quot;lee(t(c)ode)&quot; 也是一个可行答案。</span><br></pre></td></tr></table></figure>
+<h4 id="解1："><a href="#解1：" class="headerlink" title="解1："></a>解1：</h4><p>利用栈来处理括号的匹配问题。遍历字符串，遇到”(“入栈，遇到”)”,那么需要查看栈里面是否为空，分两种情况：</p>
+<ol>
+<li>如果栈不为空，那么存在匹配的”(“，那么出栈，继续遍历。</li>
+<li>如果栈为空，那么此”)”找不到匹配，此”)”，必然是需要删除的，把其标记到map中。可能不同的思路处理的方式不一样，有些处理方式可能把其放入栈中，最后的时候在拿出来，删除。</li>
+</ol>
+<p>最后获取到需要删除的map集合，创建临时字符串res，用于返回，遍历原字符串，并对比map是否存在，不存在的话，拼接到res中，遍历结束后返回res.</p>
+<p>map是为了提高对比的效率，空间换时间。看到有些题解，在第一次遍历的时候用特殊字符串例如*替换对应位置的字符，最后遍历的时候通过对比来判定，这样就不需要额外map来处理了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">string minRemoveToMakeValid(string s) &#123;</span><br><span class="line">    stack&lt;int&gt; st;</span><br><span class="line">    map&lt;int,int&gt; map;</span><br><span class="line">    for (int i = 0; i &lt; s.length(); i ++) &#123;</span><br><span class="line">        char c = s[i];</span><br><span class="line">        if (c == &apos;(&apos;) &#123;</span><br><span class="line">            st.push(i);</span><br><span class="line">        &#125;</span><br><span class="line">        else if(c == &apos;)&apos;)&#123;</span><br><span class="line">            if (!st.empty()) &#123;</span><br><span class="line">                st.pop();</span><br><span class="line">            &#125;</span><br><span class="line">            else&#123;</span><br><span class="line">                map[i] = 1;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    while (!st.empty()) &#123;</span><br><span class="line">        int i = st.top();</span><br><span class="line">        st.pop();</span><br><span class="line">        map[i] = 1;</span><br><span class="line">    &#125;</span><br><span class="line">    string res;</span><br><span class="line">    for (int i = 0; i &lt; s.length(); i ++) &#123;</span><br><span class="line">        if(map.find(i) == map.end())&#123;</span><br><span class="line">            res.append(s[i],1);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>括号匹配，利用了栈，是此题关键。有时候某些问题，使用合适的数据结构，队列，栈、树等等，能很好的处理。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/807. 保持城市天际线.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -367,7 +548,7 @@
         
           
             <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"> 在二维数组grid中，grid[i][j]代表位于某处的建筑物的高度。 我们被允许增加任何数量（不同建筑物的数量可能不同）的建筑物的高度。 高度 0 也被认为是建筑物。</span><br><span class="line"></span><br><span class="line">最后，从新数组的所有四个方向（即顶部，底部，左侧和右侧）观看的“天际线”必须与原始数组的天际线相同。 城市的天际线是从远处观看时，由所有建筑物形成的矩形的外部轮廓。 请看下面的例子。</span><br><span class="line"></span><br><span class="line">建筑物高度可以增加的最大总和是多少？</span><br><span class="line"></span><br><span class="line">例子：</span><br><span class="line">输入： grid = [[3,0,8,4],[2,4,5,7],[9,2,6,3],[0,3,1,0]]</span><br><span class="line">输出： 35</span><br><span class="line">解释： </span><br><span class="line">The grid is:</span><br><span class="line">[ [3, 0, 8, 4], </span><br><span class="line">  [2, 4, 5, 7],</span><br><span class="line">  [9, 2, 6, 3],</span><br><span class="line">  [0, 3, 1, 0] ]</span><br><span class="line"></span><br><span class="line">从数组竖直方向（即顶部，底部）看“天际线”是：[9, 4, 8, 7]</span><br><span class="line">从水平水平方向（即左侧，右侧）看“天际线”是：[8, 7, 9, 3]</span><br><span class="line"></span><br><span class="line">在不影响天际线的情况下对建筑物进行增高后，新数组如下：</span><br><span class="line"></span><br><span class="line">gridNew = [ [8, 4, 8, 7],</span><br><span class="line">            [7, 4, 7, 7],</span><br><span class="line">            [9, 4, 8, 7],</span><br><span class="line">            [3, 3, 3, 3] ]</span><br></pre></td></tr></table></figure>
-<h4 id="解法一："><a href="#解法一：" class="headerlink" title="解法一："></a>解法一：</h4><p>对于没一行或没一列都存在一个边际值，而对于没一个做坐标点，它必须同时满足小于等于它所在的列和行的两个边际值，即其必须小于等于，所在行和列的边界值的最小值&lt;=min(边际值row,边际值col)，而增加的部分累计就是题目所求。基于这个思路，可得以下步骤:</p>
+<h4 id="解法一："><a href="#解法一：" class="headerlink" title="解法一："></a>解法一：</h4><p>对于每一行或每一列都存在一个边际值，而对于每一个做坐标点，它必须同时满足小于等于它所在的列和行的两个边际值，即其必须小于等于，所在行和列的边界值的最小值&lt;=min(边际值row,边际值col)，而增加的部分累计就是题目所求。基于这个思路，可得以下步骤:</p>
 <ol>
 <li>定义两个临时数组用于存储行和列的边际值，通过遍历坐标点，更新这些值.一次遍历就可以获取到所有的边际值，[i]相同对比更新hSize，[j]相同对比更新vMaxArr。</li>
 <li>再次遍历，累计增加值。</li>
@@ -551,188 +732,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">char nextGreatestLetter(vector&lt;char&gt;&amp; letters, char target) &#123;</span><br><span class="line">    int big = -1;</span><br><span class="line">    int bigIndex = -1;</span><br><span class="line">        for(int i = 0; i &lt; letters.size(); i ++)&#123;</span><br><span class="line">            int len = letters[i] - target;</span><br><span class="line">            if(len &gt;= 0)</span><br><span class="line">            &#123;</span><br><span class="line">               if(len &lt; big|| big == -1)&#123;</span><br><span class="line">                   big = len;</span><br><span class="line">                   bigIndex = i;</span><br><span class="line">               &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        if(big)&#123;</span><br><span class="line">            return letters[big];</span><br><span class="line">        &#125;</span><br><span class="line">        else&#123;</span><br><span class="line">            return letters[0];</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="解2"><a href="#解2" class="headerlink" title="解2"></a>解2</h4><p>由于输入是有序数组，那么可能会想到二分。二分就查找比target大的元素。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">char nextGreatestLetter(vector&lt;char&gt;&amp; letters, char target) &#123;</span><br><span class="line">    int left = 0;</span><br><span class="line">    int right = (int)letters.size();</span><br><span class="line">    while (left &lt; right) &#123;</span><br><span class="line">        int mid = left + (right - left) / 2;</span><br><span class="line">        if (mid&gt; 0 &amp;&amp; letters[mid - 1] &lt;= target &amp;&amp; letters[mid]&gt; target) &#123;</span><br><span class="line">            return letters[mid];</span><br><span class="line">        &#125;</span><br><span class="line">        else&#123;</span><br><span class="line">            if (letters[mid]&lt;=target) &#123;</span><br><span class="line">            //注意这里的条件，已经明确的判断出mid不符合要求。所以left = mid + 1;</span><br><span class="line">            //mid，不符合要求，调整下限</span><br><span class="line">                left = mid + 1;</span><br><span class="line">            &#125;</span><br><span class="line">            else&#123;</span><br><span class="line">            //此分支代表, letters[mid]&gt;target,需要调整上限，但mid依然有可能符合要求。</span><br><span class="line">            //mid有可能符合要求，调整上限</span><br><span class="line">                right = mid;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return letters[0];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>二分条件判断后，调整上下限时候是有非常严谨的逻辑的，例如+1还是-1，是否= mid等。<br>另外有时候，二分是调整区间找坐标，有适合是给出特定的目标值，来查找坐标，情况很多。甚至二分的判断条件是一个函数，是一个以mid为入参的函数。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/1249. 移除无效的括号.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zengbailiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/icon.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="liang's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/1249. 移除无效的括号.html" itemprop="url">1249. 移除无效的括号</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-19T00:00:00+08:00">
-                2019-11-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/1249. 移除无效的括号.html" class="leancloud_visitors" data-flag-title="1249. 移除无效的括号">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  624
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"> 给你一个由 &apos;(&apos;、&apos;)&apos; 和小写字母组成的字符串 s。</span><br><span class="line"></span><br><span class="line">你需要从字符串中删除最少数目的 &apos;(&apos; 或者 &apos;)&apos; （可以删除任意位置的括号)，使得剩下的「括号字符串」有效。</span><br><span class="line"></span><br><span class="line">请返回任意一个合法字符串。</span><br><span class="line"></span><br><span class="line">有效「括号字符串」应当符合以下 任意一条 要求：</span><br><span class="line"></span><br><span class="line">空字符串或只包含小写字母的字符串</span><br><span class="line">可以被写作 AB（A 连接 B）的字符串，其中 A 和 B 都是有效「括号字符串」</span><br><span class="line">可以被写作 (A) 的字符串，其中 A 是一个有效的「括号字符串」</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">示例 1：</span><br><span class="line"></span><br><span class="line">输入：s = &quot;lee(t(c)o)de)&quot;</span><br><span class="line">输出：&quot;lee(t(c)o)de&quot;</span><br><span class="line">解释：&quot;lee(t(co)de)&quot; , &quot;lee(t(c)ode)&quot; 也是一个可行答案。</span><br></pre></td></tr></table></figure>
-<h4 id="解1："><a href="#解1：" class="headerlink" title="解1："></a>解1：</h4><p>利用栈来处理括号的匹配问题。遍历字符串，入到”(“入栈，遇到”)”,那么需要查看栈里面是否为空，分两种情况：</p>
-<ol>
-<li>如果栈不为空，那么存在匹配的”(“，那么出栈，继续遍历。</li>
-<li>如果栈为空，那么此”)”找不到匹配，此”)”，必然是需要删除的，把其标记到map中。可能不同的思路处理的方式不一样，有些处理方式可能把其放入栈中，最后的时候在拿出来，删除。</li>
-</ol>
-<p>最后获取到需要删除的map集合，创建临时字符串res，用于返回，遍历原字符串，并对比map是否存在，不存在的话，拼接到res中，遍历结束后返回res.</p>
-<p>map是为了提高对比的效率，空间换时间。看到有些题解，在第一次遍历的时候用特殊字符串例如*替换对应位置的字符，最后遍历的时候通过对比来判定，这样就不需要额外map来处理了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">string minRemoveToMakeValid(string s) &#123;</span><br><span class="line">    stack&lt;int&gt; st;</span><br><span class="line">    map&lt;int,int&gt; map;</span><br><span class="line">    for (int i = 0; i &lt; s.length(); i ++) &#123;</span><br><span class="line">        char c = s[i];</span><br><span class="line">        if (c == &apos;(&apos;) &#123;</span><br><span class="line">            st.push(i);</span><br><span class="line">        &#125;</span><br><span class="line">        else if(c == &apos;)&apos;)&#123;</span><br><span class="line">            if (!st.empty()) &#123;</span><br><span class="line">                st.pop();</span><br><span class="line">            &#125;</span><br><span class="line">            else&#123;</span><br><span class="line">                map[i] = 1;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    while (!st.empty()) &#123;</span><br><span class="line">        int i = st.top();</span><br><span class="line">        st.pop();</span><br><span class="line">        map[i] = 1;</span><br><span class="line">    &#125;</span><br><span class="line">    string res;</span><br><span class="line">    for (int i = 0; i &lt; s.length(); i ++) &#123;</span><br><span class="line">        if(map.find(i) == map.end())&#123;</span><br><span class="line">            res.append(s[i],1);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>括号匹配，利用了栈，是此题关键。有时候某些问题，使用合适的数据结构，队列，栈、树等等，能很好的处理。</p>
+<p>二分条件判断后，调整上下限时候是有非常严谨的逻辑的，例如+1还是-1，是否= mid等。<br>另外有时候，二分是调整区间找坐标，有时候是给出特定的目标值，来查找坐标，情况很多。甚至二分的判断条件是一个函数，是一个以mid为入参的函数。</p>
 
           
         
