@@ -243,6 +243,544 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/807. 保持城市天际线.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zengbailiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/icon.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="liang's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/807. 保持城市天际线.html" itemprop="url">807. 保持城市天际线</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-19T00:00:00+08:00">
+                2019-11-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/807. 保持城市天际线.html" class="leancloud_visitors" data-flag-title="807. 保持城市天际线">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  796
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"> 在二维数组grid中，grid[i][j]代表位于某处的建筑物的高度。 我们被允许增加任何数量（不同建筑物的数量可能不同）的建筑物的高度。 高度 0 也被认为是建筑物。</span><br><span class="line"></span><br><span class="line">最后，从新数组的所有四个方向（即顶部，底部，左侧和右侧）观看的“天际线”必须与原始数组的天际线相同。 城市的天际线是从远处观看时，由所有建筑物形成的矩形的外部轮廓。 请看下面的例子。</span><br><span class="line"></span><br><span class="line">建筑物高度可以增加的最大总和是多少？</span><br><span class="line"></span><br><span class="line">例子：</span><br><span class="line">输入： grid = [[3,0,8,4],[2,4,5,7],[9,2,6,3],[0,3,1,0]]</span><br><span class="line">输出： 35</span><br><span class="line">解释： </span><br><span class="line">The grid is:</span><br><span class="line">[ [3, 0, 8, 4], </span><br><span class="line">  [2, 4, 5, 7],</span><br><span class="line">  [9, 2, 6, 3],</span><br><span class="line">  [0, 3, 1, 0] ]</span><br><span class="line"></span><br><span class="line">从数组竖直方向（即顶部，底部）看“天际线”是：[9, 4, 8, 7]</span><br><span class="line">从水平水平方向（即左侧，右侧）看“天际线”是：[8, 7, 9, 3]</span><br><span class="line"></span><br><span class="line">在不影响天际线的情况下对建筑物进行增高后，新数组如下：</span><br><span class="line"></span><br><span class="line">gridNew = [ [8, 4, 8, 7],</span><br><span class="line">            [7, 4, 7, 7],</span><br><span class="line">            [9, 4, 8, 7],</span><br><span class="line">            [3, 3, 3, 3] ]</span><br></pre></td></tr></table></figure>
+<h4 id="解法一："><a href="#解法一：" class="headerlink" title="解法一："></a>解法一：</h4><p>对于没一行或没一列都存在一个边际值，而对于没一个做坐标点，它必须同时满足小于等于它所在的列和行的两个边际值，即其必须小于等于，所在行和列的边界值的最小值&lt;=min(边际值row,边际值col)，而增加的部分累计就是题目所求。基于这个思路，可得以下步骤:</p>
+<ol>
+<li>定义两个临时数组用于存储行和列的边际值，通过遍历坐标点，更新这些值.一次遍历就可以获取到所有的边际值，[i]相同对比更新hSize，[j]相同对比更新vMaxArr。</li>
+<li>再次遍历，累计增加值。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">int maxIncreaseKeepingSkyline(vector&lt;vector&lt;int&gt;&gt;&amp; grid) &#123;</span><br><span class="line">    long hSize = grid.size();</span><br><span class="line">    long vSize = grid[0].size();</span><br><span class="line">    vector&lt;int&gt; hMaxArr (hSize,0);</span><br><span class="line">    vector&lt;int&gt; vMaxArr (vSize,0);</span><br><span class="line">    //先获取 hMaxArr vMaxArr</span><br><span class="line">    for (int i = 0; i &lt; hSize ; i ++) &#123;</span><br><span class="line">        for (int j = 0 ; j &lt; vSize; j ++) &#123;</span><br><span class="line">            if(grid[i][j]&gt;hMaxArr[i])&#123;</span><br><span class="line">                hMaxArr[i] = grid[i][j];</span><br><span class="line">            &#125;</span><br><span class="line">            if (grid[i][j]&gt;vMaxArr[j]) &#123;</span><br><span class="line">                vMaxArr[j] = grid[i][j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    int res = 0;</span><br><span class="line">    for (int i = 0; i &lt; hSize ; i ++) &#123;</span><br><span class="line">        for (int j=0 ; j &lt; vSize; j ++) &#123;</span><br><span class="line">            int minLimit = hMaxArr[i] &gt; vMaxArr[j] ? vMaxArr[j] : hMaxArr[i];</span><br><span class="line">            int mayAdd = minLimit - grid[i][j];</span><br><span class="line">            if(mayAdd)&#123;</span><br><span class="line">                res += mayAdd;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return  res;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>这道题的问题思路比较直观。<br>不能超过边际线–》那么要知道每个坐标能到达的上限，其上限是什么？-》其上限就是其所在的行列边际值得最小值。 ==》解题开始，获取边际点，累计高，返回。</p>
+<p>这种能有清晰的求解思路的题，相对好解。而有些题目，理清题目，并不容易想到可论证的正确思路（也即是可行思路），例如贪心算法之类的（435. 无重叠区间）。so解题前要尽量快速思考出思路，不断假设，提供条件，换思路等，找到可行思路。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/744. 寻找比目标字母大的最小字母.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zengbailiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/icon.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="liang's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/744. 寻找比目标字母大的最小字母.html" itemprop="url">744. 寻找比目标字母大的最小字母</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-19T00:00:00+08:00">
+                2019-11-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/744. 寻找比目标字母大的最小字母.html" class="leancloud_visitors" data-flag-title="744. 寻找比目标字母大的最小字母">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  490
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> 给定一个只包含小写字母的有序数组letters 和一个目标字母 target，寻找有序数组里面比目标字母大的最小字母。</span><br><span class="line"></span><br><span class="line">数组里字母的顺序是循环的。举个例子，如果目标字母target = &apos;z&apos; 并且有序数组为 letters = [&apos;a&apos;, &apos;b&apos;]，则答案返回 &apos;a&apos;。</span><br></pre></td></tr></table></figure>
+<h4 id="解1"><a href="#解1" class="headerlink" title="解1:"></a>解1:</h4><p>遍历，然后对比target,记录比target大且差值最小的元素的下标bigIndex，如果存在那么返回letters[bigIndex]。如果没有比traget大的元素，那么根据题意，字母是循环的，那么返回letters[0]。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">char nextGreatestLetter(vector&lt;char&gt;&amp; letters, char target) &#123;</span><br><span class="line">    int big = -1;</span><br><span class="line">    int bigIndex = -1;</span><br><span class="line">        for(int i = 0; i &lt; letters.size(); i ++)&#123;</span><br><span class="line">            int len = letters[i] - target;</span><br><span class="line">            if(len &gt;= 0)</span><br><span class="line">            &#123;</span><br><span class="line">               if(len &lt; big|| big == -1)&#123;</span><br><span class="line">                   big = len;</span><br><span class="line">                   bigIndex = i;</span><br><span class="line">               &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        if(big)&#123;</span><br><span class="line">            return letters[big];</span><br><span class="line">        &#125;</span><br><span class="line">        else&#123;</span><br><span class="line">            return letters[0];</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="解2"><a href="#解2" class="headerlink" title="解2"></a>解2</h4><p>由于输入是有序数组，那么可能会想到二分。二分就查找比target大的元素。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">char nextGreatestLetter(vector&lt;char&gt;&amp; letters, char target) &#123;</span><br><span class="line">    int left = 0;</span><br><span class="line">    int right = (int)letters.size();</span><br><span class="line">    while (left &lt; right) &#123;</span><br><span class="line">        int mid = left + (right - left) / 2;</span><br><span class="line">        if (mid&gt; 0 &amp;&amp; letters[mid - 1] &lt;= target &amp;&amp; letters[mid]&gt; target) &#123;</span><br><span class="line">            return letters[mid];</span><br><span class="line">        &#125;</span><br><span class="line">        else&#123;</span><br><span class="line">            if (letters[mid]&lt;=target) &#123;</span><br><span class="line">            //注意这里的条件，已经明确的判断出mid不符合要求。所以left = mid + 1;</span><br><span class="line">            //mid，不符合要求，调整下限</span><br><span class="line">                left = mid + 1;</span><br><span class="line">            &#125;</span><br><span class="line">            else&#123;</span><br><span class="line">            //此分支代表, letters[mid]&gt;target,需要调整上限，但mid依然有可能符合要求。</span><br><span class="line">            //mid有可能符合要求，调整上限</span><br><span class="line">                right = mid;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return letters[0];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>二分条件判断后，调整上下限时候是有非常严谨的逻辑的，例如+1还是-1，是否= mid等。<br>另外有时候，二分是调整区间找坐标，有适合是给出特定的目标值，来查找坐标，情况很多。甚至二分的判断条件是一个函数，是一个以mid为入参的函数。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/1249. 移除无效的括号.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zengbailiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/icon.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="liang's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/1249. 移除无效的括号.html" itemprop="url">1249. 移除无效的括号</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-19T00:00:00+08:00">
+                2019-11-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/1249. 移除无效的括号.html" class="leancloud_visitors" data-flag-title="1249. 移除无效的括号">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  624
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"> 给你一个由 &apos;(&apos;、&apos;)&apos; 和小写字母组成的字符串 s。</span><br><span class="line"></span><br><span class="line">你需要从字符串中删除最少数目的 &apos;(&apos; 或者 &apos;)&apos; （可以删除任意位置的括号)，使得剩下的「括号字符串」有效。</span><br><span class="line"></span><br><span class="line">请返回任意一个合法字符串。</span><br><span class="line"></span><br><span class="line">有效「括号字符串」应当符合以下 任意一条 要求：</span><br><span class="line"></span><br><span class="line">空字符串或只包含小写字母的字符串</span><br><span class="line">可以被写作 AB（A 连接 B）的字符串，其中 A 和 B 都是有效「括号字符串」</span><br><span class="line">可以被写作 (A) 的字符串，其中 A 是一个有效的「括号字符串」</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">示例 1：</span><br><span class="line"></span><br><span class="line">输入：s = &quot;lee(t(c)o)de)&quot;</span><br><span class="line">输出：&quot;lee(t(c)o)de&quot;</span><br><span class="line">解释：&quot;lee(t(co)de)&quot; , &quot;lee(t(c)ode)&quot; 也是一个可行答案。</span><br></pre></td></tr></table></figure>
+<h4 id="解1："><a href="#解1：" class="headerlink" title="解1："></a>解1：</h4><p>利用栈来处理括号的匹配问题。遍历字符串，入到”(“入栈，遇到”)”,那么需要查看栈里面是否为空，分两种情况：</p>
+<ol>
+<li>如果栈不为空，那么存在匹配的”(“，那么出栈，继续遍历。</li>
+<li>如果栈为空，那么此”)”找不到匹配，此”)”，必然是需要删除的，把其标记到map中。可能不同的思路处理的方式不一样，有些处理方式可能把其放入栈中，最后的时候在拿出来，删除。</li>
+</ol>
+<p>最后获取到需要删除的map集合，创建临时字符串res，用于返回，遍历原字符串，并对比map是否存在，不存在的话，拼接到res中，遍历结束后返回res.</p>
+<p>map是为了提高对比的效率，空间换时间。看到有些题解，在第一次遍历的时候用特殊字符串例如*替换对应位置的字符，最后遍历的时候通过对比来判定，这样就不需要额外map来处理了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">string minRemoveToMakeValid(string s) &#123;</span><br><span class="line">    stack&lt;int&gt; st;</span><br><span class="line">    map&lt;int,int&gt; map;</span><br><span class="line">    for (int i = 0; i &lt; s.length(); i ++) &#123;</span><br><span class="line">        char c = s[i];</span><br><span class="line">        if (c == &apos;(&apos;) &#123;</span><br><span class="line">            st.push(i);</span><br><span class="line">        &#125;</span><br><span class="line">        else if(c == &apos;)&apos;)&#123;</span><br><span class="line">            if (!st.empty()) &#123;</span><br><span class="line">                st.pop();</span><br><span class="line">            &#125;</span><br><span class="line">            else&#123;</span><br><span class="line">                map[i] = 1;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    while (!st.empty()) &#123;</span><br><span class="line">        int i = st.top();</span><br><span class="line">        st.pop();</span><br><span class="line">        map[i] = 1;</span><br><span class="line">    &#125;</span><br><span class="line">    string res;</span><br><span class="line">    for (int i = 0; i &lt; s.length(); i ++) &#123;</span><br><span class="line">        if(map.find(i) == map.end())&#123;</span><br><span class="line">            res.append(s[i],1);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>括号匹配，利用了栈，是此题关键。有时候某些问题，使用合适的数据结构，队列，栈、树等等，能很好的处理。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/1123最深叶节点的最近公共祖先191115.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1489,680 +2027,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2019-07-17回了一趟学校.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zengbailiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/icon.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="liang's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019-07-17回了一趟学校.html" itemprop="url">回了一趟校园</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-14T00:00:00+08:00">
-                2019-07-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/记事/" itemprop="url" rel="index">
-                    <span itemprop="name">记事</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019-07-17回了一趟学校.html" class="leancloud_visitors" data-flag-title="回了一趟校园">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1,313
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="回了一趟学校"><a href="#回了一趟学校" class="headerlink" title="回了一趟学校"></a>回了一趟学校</h3><p>大概是五月份的时候回了趟学校。再次回去还是比较感慨，想去的地方很多，但时间缺有限，就选了几个比较有回忆又比较便捷的地方去走走。也许是因为大学时代值得回忆的事情太多了，又或者是怀念作为学生的时候的那份心情和青春，总之很难说清。但每每想到这些，总会非常感叹，有些事情，有些年纪只能经历一次，心态会伴随着年纪而变化，又或者其他的一些原因，总之过去的那个特定的阶段特定的事情和那份特定的心情，是后面阶段无法再重新获取的。这确实是个比较无奈的事情，但这应该是合理的，人生就应该要有不同的阶段。</p>
-<h5 id="13路车"><a href="#13路车" class="headerlink" title="13路车"></a>13路车</h5><p>有些事情还是没变，但变化总是在不断的发生。熟悉的13路车还在，还是要从东区走过20分钟的上山路才到尧山校区，我很享受在车上的感受，特别是坐窗旁的位置，吹着风，看着窗外的风景。但13路好像已经都变成了空调车，窗都没了。</p>
-<h5 id="尧山"><a href="#尧山" class="headerlink" title="尧山"></a>尧山</h5><p>再次上尧山， 还是爬着上。记得大一第一次爬好像是中秋节节日，那时候很多人，而再爬的当天的人很少，感觉比较冷清，可能是时间的问题吧。山上也有了不少变化，山顶走向盘山公路的路变了，中间被围起来私用了。下山的时候和朋友一起走盘山公路下山，我同样很喜欢尧山的盘山公路，有很长的一段泊油路，干净美丽。这里还是会见到小年轻，小情侣骑着小电瓶，游盘山公路。</p>
-<h5 id="尧山校区"><a href="#尧山校区" class="headerlink" title="尧山校区"></a>尧山校区</h5><p>傍晚回到了尧山校区，最让我震惊的是，食堂不允许使用现金了，其实早在第一天逛东区的时候，就发现这个坑爹的问题了，比较失望，无法再尝一遍食堂的味道，但同时发现了一个事情，因为学校的数字校园毕业了依然可以用，而且还能通过支付宝充值，我尝试充了一块钱，还真可以，但我没把我的校园卡带过来，还有我也不知道我的校园卡是否还能用了，也许我的校园卡还没消磁，还有就是学校系统确实还支持，这让留给了我一些待挖掘的事情，下次我可要验证下这个问题，真够有意思的。回到话题，晚上和朋友只能去商业街吃饭了，比较随性，但同样让我震惊的是，之前的商业街那么热闹，咋这么冷清。后面了解到，学校领导做了某些限制，更规范了，但这里面可能存在很多利益问题吧，反正没了之前的热闹了。遥想当年，哪里还是很热闹，买西瓜，买菠萝，买奶茶，哎，一去不复还。大学那几年，最开始有男生宿舍那边的阳光商业街，有靠近女生宿舍的职工宿舍楼下的店铺。特别是教职工楼下的奶茶店之类的店铺，那时候那些地方就有一些特殊的气氛，仿佛有一种爱情的荷尔蒙，是谈情说爱的地方，也是经常见到情侣的地方，当然更多的是虐狗的地方了。可悲的是，大学四年，我被虐足四年，还乐此不疲。<br>如今，阳光商业街没了，有了新商业街，现在新商业街又被搞萧条，职工楼下的小店也都禁止了营业，另外又在原阳光商业街哪里搞了一个新阳光商业街。对比这些吃吃喝喝的，仿佛当年更气氛更好，但他们没有经历过当年，所以就算真的如我所想的那样，对于他们来说最丰富有趣的依然是他们现在所感受到的。</p>
-<h5 id="花江"><a href="#花江" class="headerlink" title="花江"></a>花江</h5><p>还有的是，以前可以在学校旁的花江划竹筏，烧烤，现在由于建了新的教职工园区，在花江上搭了座桥，导致不能划竹筏了。那些年满是笑语的地方没了。另外那些烧烤场地，也无法烧烤了，看到这样，有点说不出味道。也许因为这些没有了，会失去一些趣味吧。不可否认可能是因为现在的娱乐方式变得跟以前不太一样了，才导致这些变化，但具体怎么样，就不太清楚了，毕竟现在已经是00后的大学时代了。最后，最后，让我不得不吐槽的是，学习的男女比例好像更均衡了，情侣比例好像更高了，虽然这是好事啊，但这让我失去了一种熟悉感。</p>
-<p><img src="/personImg/guet1.jpeg" alt="guet1.jpeg"></p>
-<p>这里承载了一生仅有的一次大学时光，也是我人生中的一段美好时光，怀念、感恩。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2019-07-14本地加密方案.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zengbailiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/icon.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="liang's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019-07-14本地加密方案.html" itemprop="url">iOS 本地数据安全存储方案探索</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-14T00:00:00+08:00">
-                2019-07-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/安全/" itemprop="url" rel="index">
-                    <span itemprop="name">安全</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019-07-14本地加密方案.html" class="leancloud_visitors" data-flag-title="iOS 本地数据安全存储方案探索">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1,063
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h3><p>一般app都支持本地记录登录状态，并支持离线的情况下加载用户数据，为了满足这样的场景，就需要把相关信息保存到本地。对于iOS持久化方面，无论使用userDefault、plist文件、归档、数据库等存储方式，都需要考虑一个问题，如何安全的存储数据？对于这个问题，可以对数据加密保存，至于选择哪种持久化方式，并不是那么重要。</p>
-<h5 id="加密方案"><a href="#加密方案" class="headerlink" title="加密方案"></a>加密方案</h5><p>说到对数据进行加密，那么肯定是要有一套安全的加密方案才行。以下是一些方案例子：<br>A. 一些摘要算法或编码处理。<br>B. 使用特定的秘钥执行某种对称加密。<br>C. 使用特定的公私钥执行某种非对称加密。<br>D. 某种自定义加密算法。<br>对于A，这只是一种把明文转为非明文的一种方式。摘要算法不可逆，但数据无法还原，不符合需求。编码处理，可以反编码还原明文，实际上数据并没有变得更安全，也是不符合需求。但采用编码的方式，还是比直接使用明文要好那么一点点。<br>对于B.使用公开的对称算法进行加解密，只要保证秘钥的安全，是可行的。<br>对于C.同B，但相对于对称加密，非对称加密效率较低，所以在保证秘钥安全的前提下，选择B，而不是选择C。但C的安全系数会比B高。两者都已经满足数据破解的成本超过其获取的价值的要求。<br>对于D，自定义算法，就要具体分析了， 破解难度因算法本身设计有关，但这个一般都是比较有实力的公司才这么搞吧，但一般都安全性比较高。是最好的方案之一，但其存在一定设计成本和测试成本。</p>
-<h5 id="从安全范围的角度去考虑"><a href="#从安全范围的角度去考虑" class="headerlink" title="从安全范围的角度去考虑"></a>从安全范围的角度去考虑</h5><p>到了这里，又面临了一个秘钥安全的问题，一般来说，我们可能会把秘钥硬编码到代码中，但我们的二进制文件存在一个字符串常量区，只要这个字符串在代码中被引用了，那么编译器就会把其写进字符串常量区。如果这样，稍微的分析下二进制文件，就可能把秘钥获取。所以秘钥硬编码是比较危险的。面对这个问题，可以通过把秘钥分拆成多个字符串，再通过某些处理生成真正的秘钥，来提高安全性。这里会存在一个更值得思考的问题，为了引出这个问题，先回归到方案的探索。</p>
-<p>到目前为止讨论到的都是本地怎么安全保存数据，到如何安全保存秘钥，都是围绕着单体方案去考虑，而没有从整体上去考虑。从安全范围的角度去考虑，如果在每一个客户端都是同样的加密算法，同样的秘钥，那么只要其中一个被破解，整个大厦立马倒塌。</p>
-<p>为此，可以给安卓和苹果分别分配不同的秘钥，这样就能把两个平台，这块的安全性隔离。既然有了这样的想法，那么前进一步，如果每个客户端都拥有不同的秘钥，并且是一种随机秘钥（随机安全性更高，当然可能伪随机，虽然伪随机实际上是通过算法来生成的，有规律，但其破解难度很大），那么就能把这块的安全性做到客户端隔离。</p>
-<h5 id="最终选择的方案："><a href="#最终选择的方案：" class="headerlink" title="最终选择的方案："></a>最终选择的方案：</h5><p>使用AES对称加密算法；使用随机算法生成本地秘钥，秘钥中添加时效性信息，并保存到keyChain中。</p>
-<p>优点：客户端隔离、对称加解密效率高，随机秘钥破解难度大。<br>缺点：由于客户端隔离，秘钥都不一样，数据无法统一分析，因此也影响了适用场景。</p>
-<p>demo:<a href="https://github.com/zmubai/LocalEncryptDemo" target="_blank" rel="noopener">LocalEncryptDemo</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2019-07-14安全思考.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zengbailiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/icon.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="liang's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019-07-14安全思考.html" itemprop="url">iOS 移动端 安全思考与总结</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-02T00:00:00+08:00">
-                2019-05-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/安全/" itemprop="url" rel="index">
-                    <span itemprop="name">安全</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019-07-14安全思考.html" class="leancloud_visitors" data-flag-title="iOS 移动端 安全思考与总结">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  6,577
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="iOS-移动端-安全思考"><a href="#iOS-移动端-安全思考" class="headerlink" title="iOS 移动端 安全思考"></a>iOS 移动端 安全思考</h3><p><img src="https://upload-images.jianshu.io/upload_images/1690665-9e69d9eb90759663.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="v2-510e2d2a1aae6e5ced9f1b142b33af0a_r (1).jpg"></p>
-<p>这是一遍安全知识总结的博客，并涉及相关知识的延伸，以作知识备忘和总结。</p>
-<ul>
-<li>安全相关的几个方面：</li>
-</ul>
-<ol>
-<li>敏感数据输入安全</li>
-<li>外部调用，和对外数据安全</li>
-<li>本地数据存储安全</li>
-<li>网络数据传输安全</li>
-<li>app代码安全</li>
-</ol>
-<h4 id="以下分别对每一点展开"><a href="#以下分别对每一点展开" class="headerlink" title="以下分别对每一点展开"></a>以下分别对每一点展开</h4><h3 id="1-敏感数据输入安全"><a href="#1-敏感数据输入安全" class="headerlink" title="1.敏感数据输入安全"></a>1.敏感数据输入安全</h3><ul>
-<li><p>textField密码模式与自定义键盘</p>
-<p>  敏感数据主要是指密码信息或者使用户的个人信息、交易信息等。当我们输入密码的时候一般会打开textField的密码输入模式，这时候是会强制使用系统键盘，并且密码输入后不可见。如果苹果对系统键盘没有做数据获取，那么这相对安全的，不存在数据泄漏。但这个代码不是开源的，所以也是不敢打包票的。所以我们常见的一些银行app会去实现私有键盘，同时会打乱数字字母的位置。这里面大概有两个考虑，一个是防止键盘数据监听，另一个是防止第三者通过观察用户输入手势猜测密码。</p>
-<p>  然而iOS是苹果的系统，如果苹果硬要监控数据，那么怎么都是没办法避免的，除非不用iOS系统。但这个本来就与苹果的立场相悖的。所以一些app实现私有键盘，个人认为主要是防止第三者通过观察用户输入手势的手段，猜测出密码。另外自定义键盘每个按钮点击的时候不显示视觉变化。如果在点击的时候样式发生变化，同时手机被录屏了，那么视频中就能看到密码输入的具体字符和顺序，导致密码泄露。</p>
-</li>
-<li><p>第三方键盘完全访问</p>
-<p>  另外使用第三方键盘，特别是在运行完全访问之后，存在安全风险。允许完全访问后，第三方键盘能把用户输入的数据发送到自家后台（就算开始不允许完全访问，后面再允许，之前的输入数据也会被上传。因为不允许完全访问的时候，第三方键盘能把输入数据保存到本地，当获取到完全访问的时候再把这部分数据上传）。收集这个数据能对键盘的输入体验进行优化，主要是自动更正功能和根据用户的习惯匹配出更高频率的词语。但风险是时刻存在的，这个需要用户对体验的优化与承受的风险之间做权衡。但保守策略，安全起见，最好还是不允许键盘的完全访问。link:<a href="https://spiim.com/blog/about-full-access.html" target="_blank" rel="noopener">iOS 8 第三方键盘“完全访问”的那些事</a></p>
-</li>
-<li><p>键盘缓存</p>
-<p>  当用户使用系统键盘，并开启自动更正功能的时候，系统就会把键盘的输入记录到系统的一个特定路径的文件中（/private/var/mobile/Library/Keyboard/dynamic-text.dat），并且该文件是明文存储。所以获取到文件内容，并加以分析，就有可能获取到用户的密码信息等。但这里有一个前提，必须是越狱手机才能获取，因为存在沙盒机制，应用是无法访问到该目录的文件的。基于这一点，使用自定义键盘就可以避免被输入被缓存。<br>link:<a href="https://www.ctolib.com/docs-ios-security-defense-c-keyboard-cache.html" target="_blank" rel="noopener">键盘缓存与安全键盘</a>    </p>
-</li>
-<li><p>安全策略：</p>
-<ol>
-<li>输入密码设置textField的密码输入模式。</li>
-<li>安全性更好的，实现私有键盘，每次打乱键值顺序，控件不实现点击效果。</li>
-<li>不允许第三方键盘的完全访问。</li>
-</ol>
-</li>
-</ul>
-<h3 id="2-外部调用，和对外数据安全"><a href="#2-外部调用，和对外数据安全" class="headerlink" title="2. 外部调用，和对外数据安全"></a>2. 外部调用，和对外数据安全<br></h3><ol>
-<li>外部调用是指，其他应用唤起app的行为。主要是通过scheme来唤起。通常app内部是有处理外部调用的逻辑的，并能根据scheme后面拼接的参数来跳转到不同的业务模块。那么这里就有可能存在逻辑漏洞，特别对于重要的涉及用户金钱或隐私的模块，需要有一套严谨的参数校验规则，避免漏洞发生。个人认为这种提供给外部的入口，都是app安全的一个隐患，所有必须要有一个严谨的权限校验规则。</li>
-<li><p>对外数据，指通过各种途径能被外部获知的数据。这里主要是app退到后台显示的截图，因为实在不知道这个归类到哪里，就归类到对外数据。系统截图是系统为了提供用户体验的手段，但可能无意中泄漏了重要信息。故这里要进行处理，第一种可以禁止截图，那么推到后台把keyWindows隐藏，那么系统的截图就变成黑色；另外一种就是手动替换截图，一般会对截图进行模糊化。</p>
-</li>
-<li><p>安全策略</p>
-<ol>
-<li>外部发起调用，需要有一套完善的鉴权机制。</li>
-<li>系统截图，需要手动替换。</li>
-</ol>
-</li>
-</ol>
-<h3 id="3-本地数据存储安全"><a href="#3-本地数据存储安全" class="headerlink" title="3. 本地数据存储安全"></a>3. 本地数据存储安全</h3><p>本地数据如果明文保存的话，是不安全的。虽然有沙盒机制的保护，但如果手机被越狱了，那么数据就暴露了。所以，重要信息需要进行加密保存。可以采用aes进行加密，base64编码后进行保存。这样就算数据被获取，也无法得到有用信息。由于这里使用aes加密，那么如何安全保存加密秘钥是一个重要的问题。因为如果秘钥被破解了，那么数据就被破解了。因为本地数据加解密都在本地进行，所以秘钥作用范围也仅限于本地数据。一般可以使用两种方式提供秘钥：第一种hardCode秘钥，第二种本地生成秘钥，再保存本地。下面对安全性方案进行讨论：</p>
-<ol>
-<li><p>hanrdCode秘钥：<br></p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//形如：</span><br><span class="line">static NSString *aesPriKey = @&quot;xxx0xxx0xxx0xxx0xxx0&quot;;</span><br></pre></td></tr></table></figure>
-<p> 这看起来好像没什么问题，但这种hardCode的方式，很容易被获取。获取方式：使用逆向技术对app进行砸壳（例如pp助手下载的app已经砸壳），并使用使用machOViewer<br> 查看APP的二进制文件，就能获取到字符串常量（前提是这个字符有被引用，否则编译器貌似会优化掉。但我们加密的秘钥怎么可能会不引用呢，测试的时候发现的现象，顺便记录下）。</p>
-</li>
-</ol>
-<p><img src="https://upload-images.jianshu.io/upload_images/1690665-28e536782b2bf45e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
-<p>如果写入到文件中，然后在运行过程中通过读文件的方式获取秘钥，那么也是不安全的，秘钥不能直接保存到文件中，但难道要把秘钥加密保存到文件中，那么用于加密的秘钥怎么保证安全，这就变成了鸡生蛋蛋生鸡的问题了。可以尝试直接对秘钥加盐然后编码存储到文件中，这样只要加盐规则和编码规则足够复杂也是相对安全的。</p>
-<ol start="2">
-<li><p>本地生成秘钥<br> 由于这个秘钥保存的问题，个人在开发中使用的方案是，本地生成随机秘钥，并把秘钥保存到系统keychain中,同时可以设置秘钥的有效时间。这样设计有两个好处，一个生成随机秘钥，能保证每台手机的秘钥不一样，这样能缩窄影响范围，第二个是由于时效性的存在，当然这个时效性只能引用于用户登录信息等功能，但它增加了秘钥破解的难度。除非破解了代码逻辑并成功获取到keychain的秘钥，同时破解苹果的加密算法，才有可能破解整套策略，所以是相对安全的。在这个过程中，我们甚至可以对生成的秘钥加盐，但我认为这个貌似没必要，如果加盐是常量字符串，反而能从分析二进制文件常量字符中顺藤摸瓜找到相关的加密逻辑，留下多余线索。</p>
-</li>
-<li><p>安全策略：    </p>
-<ol>
-<li>不使用常量字符串定义秘钥。如果确实是固定的秘钥，那么要使用一套混淆规则混淆秘钥，使用的时候再对秘钥进行反混淆，例如 salt1 +  原始秘钥 + salt2 再两次base64生成新的字符串作为常量保存。使用的时候，base64Decode两次再获取中间的元素秘钥。规则应该多变的，不要全部一致，否则这个混淆就没有意义了。</li>
-<li>本地秘钥随机生成（可以使用arc4random(),这里不要使用时间戳作为随机种子，因为时间戳是有规律的。但时间戳可以作为信息添加到秘钥中，作为有效时间的判断。）同时生成的秘钥以密码的形式保存到系统的keyChain中，这样苹果会对秘钥进行加密并保存到keyChain中。可采用aes128/192/256(秘钥长度分别为16/24/32byte,128/192/256bit) + base64编码的加密方案。</li>
-</ol>
-</li>
-</ol>
-<p><strong>aes的相关说明</strong></p>
-<p>aes是一种分组密码算法。   以下摘录维基百科对分组密码的一些重要描述,包括分组密码的概念，还有算法的设计原则中两个重要因素扩散和扰乱。其中还谈到每一轮都使用不同的子秘钥，这样会大大增加区块之间的关联性，让破解难度变高，而几种加密模式中ecb电密码本模式并没有使用这种设计思想去实现加密，下面会谈到多种加密模式。</p>
-<blockquote>
-<p>维基百科</p>
-<blockquote>
-<p>在密码学中，分组加密（英语：Block cipher），又称分块加密或块密码，是一种对称密钥算法。它将明文分成多个等长的模块（block），使用确定的算法和对称密钥对每组分别加密解密。</p>
-</blockquote>
-</blockquote>
-<blockquote>
-<blockquote>
-<p>迭代产生的密文在每一轮加密中使用不同的子密钥，而子密钥生成自原始密钥。</p>
-<p>设计原则:<br><strong>扩散（diffusion）</strong>和<strong>扰乱（confusion）</strong>是影响密码安全的主要因素。扩散的目的是让明文中的单个数字影响密文中的多个数字，从而使明文的统计特征在密文中消失，相当于明文的统计结构被扩散。扰乱是指让密钥与密文的统计信息之间的关系变得复杂，从而增加通过统计方法进行攻击的难度。扰乱可以通过各种代换算法实现。</p>
-</blockquote>
-</blockquote>
-<p><strong>分组密码工作模式</strong></p>
-<p>分组密码工作模式，常用模式有五种：电子密码本ECB、密码块链接CBC、填充密码块链接PCBC、密文反馈CFB、输出反馈OFB、计数器模式CTR。另外还有相关的很重要的几个概念，分别是加密向量IV和块填充模式PADDING。维基百科概关于分组密码工作模式的概要说的很精辟。</p>
-<blockquote>
-<p>维基百科 -分组密码工作模式</p>
-<blockquote>
-<p>密码学中，分组（block）密码的工作模式（mode of operation）允许使用同一个分组密码密钥对多于一块的数据进行加密，并保证其安全性。分组密码自身只能加密长度等于密码分组长度的单块数据，若要加密变长数据，则数据必须先被划分为一些单独的密码块。通常而言，最后一块数据也需要使用合适填充方式将数据扩展到匹配密码块大小的长度。一种工作模式描述了加密每一数据块的过程，并常常使用基于一个通常称为初始化向量的附加输入值以进行随机化，以保证安全[1]。</p>
-</blockquote>
-</blockquote>
-<p>对于AES来说，块的固定长度为128bit,秘钥长度为128/192/256bit（这个涉及到编码细节，例如不知道这个，就不知道秘钥的长度，可能导致编码错误）。由于块的长度固定为128，所以就存在最后一个块填充的问题，这涉及到块的填充模式PADDING,加密解密都需要用同样的的块填充模式去处理最后的块（涉及到编程细节，块填充模式的选择）。加密的时候是对明文切分成若干组，每组长度都等于128位。aes会对每一组进行多轮加密。其过程包括若干步骤，轮秘钥加、字节替换、行位移、列混合、轮秘钥加，并且根据秘钥的位数不同分别对应不同的轮数（位数/轮数）128/10，192/12,256/14。密码学的东西不太好啃，数学渣渣表示啃不动，需要比较好的数学基础才能比较畅顺的理解其加密过程的每个步骤，但我觉得十几步的加密过程和多轮的加密，应该是围绕扩散和扰乱两点出发，来提高算法的破解难度的。</p>
-<p><strong>ECB模式与CBC模式</strong></p>
-<p>挑选ECB和CBC模式分析，加深对分组密码工作模式的理解，直观对比两模式的差异，并简要说明下使用IV的原因。</p>
-<p>ECB模式：<br>把明文划分为长度相等的块128bit,并对每个块独立加密，最后拼接成为完整的加密密文。<br>由于每个块都是使用同一个秘钥独立加密，块与块之间没有关联性，对于同样的明文块（不管其在整个块集合中那个位置）加密产生的密文都是一样的，因此更有规律性，不能很好隐藏数据。</p>
-<p>CBC模式：<br>同样先划分块，加密的时候CBC每个明文块与前一个密文块进行异或后再进行加密。这样每个块都依赖其前面的块，内部是联动的，这样的话，存在明文系统的块，加密出来的结果也是不一样的，从这一点来看比ECB安全性更高。但这里存在一个问题，就是如果第一个块内容一样，那么对于共同的明文前缀加密出来的结果也是一样的，如果这样，反而变成了破解的一个入口。为了解决这种情况，这个时候上面提到的重要元素向量IV就派上用场了，第一个块加密加入向量的参与，主要确保每一个条消息独有的一个向量，那么就能保证密文的唯一性。缺点：由于块之间存在依赖导致其加密过程是串行的，并且消息必须被填充到块大小的整数倍。</p>
-<p>aes的加密原理：aes支持三种秘钥长度分别是128/192/256位，对应字符串长度为16/24/32。加密的时候是对明文切分成若干组，每组长度都等于128位。aes会对每一组进行多轮加密。其过程包括若干步骤，轮秘钥加、字节替换、行位移、列混合、轮秘钥加，并且根据秘钥的位数不同分别对应不同的轮数（位数/轮数）128/10，192/12,256/14。</p>
-<p><a href="https://zh.wikipedia.org/wiki/%E9%AB%98%E7%BA%A7%E5%8A%A0%E5%AF%86%E6%A0%87%E5%87%86" target="_blank" rel="noopener">维基百科-AES</a></p>
-<p><a href="https://zh.wikipedia.org/wiki/%E5%88%86%E7%BB%84%E5%AF%86%E7%A0%81%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F" target="_blank" rel="noopener">维基百科-分组密码工作模式</a></p>
-<p><strong>关于随机数</strong></p>
-<blockquote>
-<p>维基百科-随机数</p>
-<blockquote>
-<p>根据密码学原理，随机数的随机性检验可以分为三个标准：<br><strong>1.统计学伪随机性</strong>。统计学伪随机性指的是在给定的随机比特流样本中，1的数量大致等于0的数量，同理，“10”“01”“00”“11”四者数量大致相等。类似的标准被称为统计学随机性。满足这类要求的数字在人类“一眼看上去”是随机的。<br><strong>2.密码学安全伪随机性</strong>。其定义为，给定随机样本的一部分和随机算法，不能有效的演算出随机样本的剩余部分。<br><strong>3.真随机性</strong>。其定义为随机样本不可重现。实际上衹要给定边界条件，真随机数并不存在，可是如果产生一个真随机数样本的边界条件十分复杂且难以捕捉（比如计算机当地的本底辐射波动值），可以认为用这个方法演算出来了真随机数。但实际上，这也只是非常接近真随机数的伪随机数，一般认为，无论是本地辐射、物理噪音、抛硬币……等都是可被观察了解的，任何基于经典力学产生的随机数，都只是伪随机数。</p>
-</blockquote>
-</blockquote>
-<p>随机数分类：<br></p>
-<ol>
-<li>伪随机数：满足第一个条件的随机数。<br></li>
-<li>密码学安全的伪随机数：同时满足前两个条件的随机数。可以通过密码学安全伪随机数生成器计算得出。<br></li>
-<li>真随机数：同时满足三个条件的随机数。</li>
-</ol>
-<p><strong>重点是</strong>：随机数在密码学中非常重要，保密通信中大量运用的会话密钥的生成即需要真随机数的参与。如果一个随机数生成算法是有缺陷的，那么会话密钥可以直接被推算出来。真正的随机数是使用物理现象产生的：比如掷钱币、骰子、转轮、使用电子组件的噪音、核裂变等等。这样的随机数生成器叫做物理性随机数生成器，它们的缺点是技术要求比较高。<br>在实际应用中往往使用伪随机数就足够了。这些数列是“似乎”随机的数，实际上它们是通过一个固定的、可以重复的计算方法产生的。它们不真正地随机，因为它们实际上是可以计算出来的，但是它们具有类似于随机数的统计特征。这样的生成器叫做伪随机数生成器。<br>在真正关键性的应用中，比如在密码学中，人们一般使用真正的随机数。</p>
-<p><a href="https://zh.wikipedia.org/wiki/%E9%9A%8F%E6%9C%BA%E6%95%B0" target="_blank" rel="noopener">维基百科-随机数</a></p>
-<p><strong>关于加盐</strong></p>
-<blockquote>
-<p>维基百科-盐</p>
-<blockquote>
-<p>盐（Salt），在密码学中，是指在散列之前将散列内容（例如：密码）的任意固定位置插入特定的字符串。这个在散列中加入字符串的方式称为“加盐”。其作用是让加盐后的散列结果和没有加盐的结果不相同，在不同的应用情景中，这个处理可以增加额外的安全性。</p>
-</blockquote>
-</blockquote>
-<p>作用：提高数据安全性， 加盐后再通过散列算法得出特征值，不能直接通过彩虹表暴力破解出原数据，在验证用户密码的场景下，极大的提高了安全性。但同时因为要校验用户密码，所以需要保存这个盐值。</p>
-<p>以下为维基百科相关描述<br><br>通常情况下，当字段经过散列处理（如MD5），会生成一段散列值，而散列后的值一般是无法通过特定算法得到原始字段的。但是某些情况，比如一个大型的彩虹表，通过在表中搜索该MD5值，很有可能在极短的时间内找到该散列值对应的真实字段内容。<br>加盐后的散列值，可以极大的降低由于用户数据被盗而带来的密码泄漏风险，即使通过彩虹表寻找到了散列后的数值所对应的原始内容，但是由于经过了加盐，插入的字符串扰乱了真正的密码，使得获得真实密码的概率大大降低。</p>
-<p>所以在某些业务场景下可以考虑使用加盐的方式提高数据安全性。</p>
-<h3 id="4-网络数据传输安全"><a href="#4-网络数据传输安全" class="headerlink" title="4. 网络数据传输安全"></a>4. 网络数据传输安全</h3><p>移动数据通过网络传输主要是面临几个风险：1.窃听风险。2.篡改风险。3.冒充风险。<br>那么可以认为如果没有以上风险，传输就是安全的。s<br>在民用领域网络通信一般都是使用http，https，又或者使用socket的tcp udp通讯，另外还有一些私有协议（微信、qq）。对于敏感数据的传输，使用http是不安全的（除非先自己加密一遍再传输），而在不使用私有协议的前提下，为了保证安全性，一般会使用https。https依赖于第三方权威机构证书认证和非对称算法，能使clien和server相互确认身份，安全生成第三个随机数，并协商出用于对称加密的会话密秘钥，进行安全的对称加密传输（<a href="http://www.ruanyifeng.com/blog/2014/02/ssl_tls.html" target="_blank" rel="noopener">https原理说明</a>），我认为安全生成了会话秘钥后，在没有秘钥的情况下无法解开密文的，这样就能有效防止了窃听风险，篡改风险和冒充风险。首先无法解密就能避免窃听和冒充，而篡改，或者你可以把内容换掉，但这会导致解密失败，就算解密成功也是没有意义的内容，无关紧要。</p>
-<p>但在使用https的情况下，有几个点还是需要注意一下：</p>
-<ol>
-<li>https可以使用自签名证书，这种情况通过浏览器请求，地址栏开头一般会出现一个✘的图标，代表这个请求是不授信的，有些浏览器会提示风险并询问是否继续访问。但如果你在系统中添加了相关的根证书并设置信任，那么这个请求就会被认为是合法的。所以，往系统中添加证书需要慎重。</li>
-<li>客户端编码的时候，要根据服务器的证书情况（权威认证证书，还是自签名证书）设置合理的证书校验规则。编码涉及的点：1.是否校验域名；2.是否校验有效期；3.具体的校验策略。如果是使用AFNetWorking,涉及到的编码如下：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//配置请求Manager是创建安全策略对象</span><br><span class="line">//暂时忽略PinningMode的选择</span><br><span class="line">AFSecurityPolicy *securityPolicy = [AFSecurityPolicy policyWithPinningMode:xxxx];</span><br><span class="line"></span><br><span class="line">//是否校验域名，3.0版本默认为YES。</span><br><span class="line">securityPolicy.validatesDomainName=NO;</span><br><span class="line"></span><br><span class="line">//是否允许无效证书（包括不校验证书有效期）。假设你想通过设置这里，来跳过校验有效期的话，在AFSSLPinningModeNone和AFSSLPinningModePublicKey是有效的，但AFSSLPinningModeCertificate是无效的，AFSSLPinningModeCertificate是一定会去校验证书是否有效，然后再去验证证书链，这里还是存在一定的疑惑，或许我可以给作者提一个issue。</span><br><span class="line">securityPolicy.allowInvalidCertificates=NO;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p><strong>简述AFSecurityPolicy三种模式</strong></p>
-<ol>
-<li>AFSSLPinningModeNone<br>选择该模式，当设置allowInvalidCertificates为YES时，会去校验证书有效期，会使用系统内置的权威机构根证书去校验客户端证书是否合法。但如果allowInvalidCertificates设置为NO，不进行合法性校验校验，方法返回值直接返回YES）。</li>
-<li>AFSSLPinningModePublicKey<br>读取内嵌所有cer（DER编码）文件，并提取全部publicKey,判断客户端证书的publicKey是否被包含。<br>3.AFSSLPinningModeCertificate<br>读取内嵌所有cer（DER编码）文件，并判断端客户端证书内容是否被包含，只要证书链中其中一个证书被包含即可。因为客户端证书是由其上级证书签发的，而其上级证书是由服务器证书直接或者间接签发的，重点是上级证书能校验下级证书的合法性，换句话说如果客户端的上级证书被包含了，那么就能确认客户端证书的合法性。为了提高代码效率可以直接包含客户端证书或者客户端证书的上级证书。</li>
-</ol>
-<p><strong>小结：三种安全策略</strong></p>
-<ol>
-<li>allowInvalidCertificates = YES ;+ AFSSLPinningModeNone; + validatesDomainName = YES（必须为YES，否则不安全；这样可以防止数据被篡改，但可以被抓包，数据还是会泄漏。）; </li>
-<li>allowInvalidCertificates = NO；+ AFSSLPinningModePublicKey; + validatesDomainName = YES/NO（某些情况下，证书域名不匹配所有客户端请求，此时需要配置为NO）;</li>
-<li>AFSSLPinningModeCertificatev；+ alidatesDomainName = YES/NO（同上）;</li>
-</ol>
-<p>下图为越狱版支付宝包内容展示，可见里面内嵌了pem编码格式的证书，包含了base64格式的公钥。<br><img src="https://upload-images.jianshu.io/upload_images/1690665-b7286c7a9af90258.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//命令行查看证书内容：</span><br><span class="line">zmubaiMacBook:AlipayWallet.app zengbailiang$ cat opensdk_public.pem </span><br><span class="line">-----BEGIN PUBLIC KEY-----</span><br><span class="line">MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCtDVxvZhDT6FNaBqZ/Js2h7G7j</span><br><span class="line">v88UjsRlv2qDHpobSqzqe/PAbfmHZNvOOlR07l9k8GJMUp4v4z+hTy4pjypmB1St</span><br><span class="line">nt5nulRHIbcUSQ3LsT3rETJGVsGBEkvIeZXHFRDK5UmeUO9IgiviwAthgvLnDM9S</span><br><span class="line">ZOa9QCTROfibnpYWVQIDAQAB</span><br><span class="line">-----END PUBLIC KEY-----</span><br></pre></td></tr></table></figure>
-<p>参考链接：<br><a href="http://www.ruanyifeng.com/blog/2014/02/ssl_tls.html" target="_blank" rel="noopener">SSL/TLS协议运行机制的概述</a><br><a href="https://baike.baidu.com/item/X.509/2817050" target="_blank" rel="noopener">X.509公钥证书格式标准，对证书链的验证过程有很好的说明</a><br><a href="http://www.cocoachina.com/ios/20140916/9632.html" target="_blank" rel="noopener">AF证书校验部分源码说明</a></p>
-<h3 id="5-app代码安全"><a href="#5-app代码安全" class="headerlink" title="5. app代码安全"></a>5. app代码安全</h3><p>这部分主要是涉及到开发期的代码混淆、加固技术。逆向加固方面的知识了解的比较少，也就不做什么记录了。但仍然需要记录下一些主要的点。</p>
-<p>提高代码安全，增强逆向难道的一些手段</p>
-<ol>
-<li>类名、方法名、属性名混淆。（但混淆过度，可能导致审核被拒）</li>
-<li>重要函数使用c（依然能被hood，使用fishhook等工具），内联静态函数安全性更高。</li>
-<li>加密重要的字符串，避免砸壳后直接分析获取重要信息。（这方面有开源库）</li>
-<li>使用加固工具，或第三方加固服务（UAObfuscatedString编译插件、爱加密、360加固等。）</li>
-</ol>
-<p>相关文章参考：<br><a href="https://www.jianshu.com/p/bff550b3ead4" target="_blank" rel="noopener">对 iOS app 进行安全加固</a></p>
-<h4 id="总结：孙子兵法有言知己知彼，方可百战百胜。安全攻防就是这样的一个东西，要去了解哪些攻击破解手段，才能更好的实施应对手段。"><a href="#总结：孙子兵法有言知己知彼，方可百战百胜。安全攻防就是这样的一个东西，要去了解哪些攻击破解手段，才能更好的实施应对手段。" class="headerlink" title="总结：孙子兵法有言知己知彼，方可百战百胜。安全攻防就是这样的一个东西，要去了解哪些攻击破解手段，才能更好的实施应对手段。"></a>总结：孙子兵法有言知己知彼，方可百战百胜。安全攻防就是这样的一个东西，要去了解哪些攻击破解手段，才能更好的实施应对手段。</h4>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2217,7 +2081,7 @@
               
                 <a rel="external nofollow" href="/archives/">
               
-                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-count">40</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2300,7 +2164,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">52.6k</span>
+    <span title="Site words total count">54.5k</span>
   
 </div>
 

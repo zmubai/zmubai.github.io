@@ -243,6 +243,678 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2018-05-09-011.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zengbailiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/icon.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="liang's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018-05-09-011.html" itemprop="url">数组实现循环队列</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-09T00:00:00+08:00">
+                2018-05-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018-05-09-011.html" class="leancloud_visitors" data-flag-title="数组实现循环队列">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  991
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>循环队列作为一种常用的数据结构，它使头尾指针能够灵活的在容器头尾跳跃，实现循环存取的结构。线性队列，在不移动元素的情况下，随着数据的不断读写，会出现假上溢的情况（当尾部指针已经到了容器底部，线性队列就无法插入了，尽管存在已出队列的可以空间，），导致已出队列的可用空间无法再被利用。另外循环队列很适合作为缓存的处理。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line"></span><br><span class="line">  CycleQueue.m</span><br><span class="line">  CycleQueue</span><br><span class="line"></span><br><span class="line">  Created by zengbailiang on 2018/5/8.</span><br><span class="line">  Copyright © 2018年 zengbailiang. All rights reserved.</span><br><span class="line">  循环队列</span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line">#import &quot;CycleQueue.h&quot;</span><br><span class="line"></span><br><span class="line">#define CYCLE_QUEUE_MAX_SIZE 10</span><br><span class="line">#define CYCLE_QUEUE_ELEMENT int</span><br><span class="line"></span><br><span class="line">typedef struct kSCycleQueue</span><br><span class="line">&#123;</span><br><span class="line">    CYCLE_QUEUE_ELEMENT data[CYCLE_QUEUE_MAX_SIZE];</span><br><span class="line">    int fornt ,rear;</span><br><span class="line">&#125;*SCycleQueue;</span><br><span class="line"></span><br><span class="line">@implementation CycleQueue</span><br><span class="line"></span><br><span class="line">int queueInit(SCycleQueue *queue)</span><br><span class="line">&#123;</span><br><span class="line">    if ((*queue) == NULL) &#123;</span><br><span class="line">        (*queue) = (SCycleQueue)malloc(sizeof(struct kSCycleQueue));</span><br><span class="line"></span><br><span class="line">        /*初始化队列头和队列尾部，队列尾初始化为-1是为了添加原始的时候统一操作为后移*/</span><br><span class="line"></span><br><span class="line">        (*queue)-&gt;fornt = 0;</span><br><span class="line">        (*queue)-&gt;rear = -1;</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        return -1;</span><br><span class="line">    &#125;</span><br><span class="line">    return 1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bool canAdd(SCycleQueue *queue)</span><br><span class="line">&#123;</span><br><span class="line">    if((*queue) == NULL</span><br><span class="line">       ||(*queue)-&gt;fornt + (*queue) -&gt;rear + 1 == CYCLE_QUEUE_MAX_SIZE</span><br><span class="line">       ||((*queue)-&gt;rear != -1 &amp;&amp;  (*queue)-&gt;rear + 1 == (*queue)-&gt;fornt))</span><br><span class="line">    &#123;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int add(SCycleQueue *queue,CYCLE_QUEUE_ELEMENT e)</span><br><span class="line">&#123;</span><br><span class="line">    if (canAdd(queue)) &#123;</span><br><span class="line">        /*如果已经是在最后一个原始，那么跳到第0个原始添加，实现循环*/</span><br><span class="line">        if ((*queue) -&gt; rear == CYCLE_QUEUE_MAX_SIZE - 1) &#123;</span><br><span class="line">            (*queue) -&gt; rear = 0;</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            /*非最后一个元素后移即可*/</span><br><span class="line">            (*queue) -&gt; rear += 1;</span><br><span class="line">        &#125;</span><br><span class="line">        /*队尾添加元素*/</span><br><span class="line">        (*queue) -&gt;data[(*queue) -&gt;rear] = e;</span><br><span class="line">        return 1;</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int delete(SCycleQueue *queue,CYCLE_QUEUE_ELEMENT *e)</span><br><span class="line">&#123;</span><br><span class="line">    if ((*queue) == NULL) &#123;</span><br><span class="line">        return  -1;</span><br><span class="line">    &#125;</span><br><span class="line">    /*如果rear不等于-1就代表存在元素*/</span><br><span class="line">    else if((*queue)-&gt;fornt == 0 &amp;&amp; (*queue)-&gt;rear == -1)</span><br><span class="line">    &#123;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        (*e) = (*queue)-&gt;data[(*queue)-&gt;fornt];</span><br><span class="line">        (*queue)-&gt;data[(*queue)-&gt;fornt] = -1;</span><br><span class="line">        /*如果 fornt == rear，代表最后一个元素了，这个时候把标记复位用于上面的判断。*/</span><br><span class="line">        if ((*queue)-&gt;fornt == (*queue)-&gt;rear) &#123;</span><br><span class="line">            (*queue)-&gt;fornt = 0;</span><br><span class="line">            (*queue)-&gt;rear = -1;</span><br><span class="line">        &#125;</span><br><span class="line">        else if((*queue)-&gt;fornt == CYCLE_QUEUE_MAX_SIZE - 1)</span><br><span class="line">        &#123;</span><br><span class="line">            /*如果是最后一个元素出队列，那么队列头跳到容器第一个元素实现循环出队列*/</span><br><span class="line">            (*queue)-&gt;fornt = 0;</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            (*queue)-&gt;fornt += 1;</span><br><span class="line">        &#125;</span><br><span class="line">      return 1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (void)testt</span><br><span class="line">&#123;</span><br><span class="line">    test();</span><br><span class="line">    test1();</span><br><span class="line">    test2();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void test()</span><br><span class="line">&#123;</span><br><span class="line">    SCycleQueue queue;</span><br><span class="line">    queueInit(&amp;queue);</span><br><span class="line">    add(&amp;queue, 0);</span><br><span class="line">    add(&amp;queue, 1);</span><br><span class="line">    add(&amp;queue, 2);</span><br><span class="line">    add(&amp;queue, 3);</span><br><span class="line">    add(&amp;queue, 4);</span><br><span class="line">    add(&amp;queue, 5);</span><br><span class="line">    add(&amp;queue, 6);</span><br><span class="line">    add(&amp;queue, 7);</span><br><span class="line">    add(&amp;queue, 8);</span><br><span class="line">    /*加满*/</span><br><span class="line">    add(&amp;queue, 9);</span><br><span class="line">    CYCLE_QUEUE_ELEMENT e;</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    /*容器底部已满，循环到头部开始添加*/</span><br><span class="line">    add(&amp;queue, 10);</span><br><span class="line">    add(&amp;queue, 11);</span><br><span class="line">    add(&amp;queue, 12);</span><br><span class="line">    add(&amp;queue, 13);</span><br><span class="line">    add(&amp;queue, 14);</span><br><span class="line">&#125;</span><br><span class="line">void test1()</span><br><span class="line">&#123;</span><br><span class="line">    SCycleQueue queue;</span><br><span class="line">    queueInit(&amp;queue);</span><br><span class="line">    add(&amp;queue, 0);</span><br><span class="line">    add(&amp;queue, 1);</span><br><span class="line">    add(&amp;queue, 2);</span><br><span class="line">    add(&amp;queue, 3);</span><br><span class="line">    add(&amp;queue, 4);</span><br><span class="line">    add(&amp;queue, 5);</span><br><span class="line">    add(&amp;queue, 6);</span><br><span class="line">    add(&amp;queue, 7);</span><br><span class="line">    add(&amp;queue, 8);</span><br><span class="line">    add(&amp;queue, 9);</span><br><span class="line">    CYCLE_QUEUE_ELEMENT e;</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    /*全部出队列，标记复位*/</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    add(&amp;queue, 6);</span><br><span class="line">    add(&amp;queue, 7);</span><br><span class="line">    add(&amp;queue, 8);</span><br><span class="line">    add(&amp;queue, 9);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void test2()</span><br><span class="line">&#123;</span><br><span class="line">    SCycleQueue queue;</span><br><span class="line">    queueInit(&amp;queue);</span><br><span class="line">    add(&amp;queue, 0);</span><br><span class="line">    add(&amp;queue, 1);</span><br><span class="line">    add(&amp;queue, 2);</span><br><span class="line">    add(&amp;queue, 3);</span><br><span class="line">    add(&amp;queue, 4);</span><br><span class="line">    add(&amp;queue, 5);</span><br><span class="line">    add(&amp;queue, 6);</span><br><span class="line">    add(&amp;queue, 7);</span><br><span class="line">    add(&amp;queue, 8);</span><br><span class="line">    add(&amp;queue, 9);</span><br><span class="line">    CYCLE_QUEUE_ELEMENT e;</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line"></span><br><span class="line">    /*font = 5*/</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    add(&amp;queue, 15);</span><br><span class="line">    add(&amp;queue, 16);</span><br><span class="line">    add(&amp;queue, 11);</span><br><span class="line">    add(&amp;queue, 12);</span><br><span class="line">    add(&amp;queue, 13);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line"></span><br><span class="line">    /*循环到容器头出队列*/</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2018-05-12-01.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zengbailiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/icon.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="liang's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018-05-12-01.html" itemprop="url">iOS 指纹解锁 检测指纹信息变更</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-09T00:00:00+08:00">
+                2018-05-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/blog/" itemprop="url" rel="index">
+                    <span itemprop="name">blog</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018-05-12-01.html" class="leancloud_visitors" data-flag-title="iOS 指纹解锁 检测指纹信息变更">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,303
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>通过LAContext evaluatedPolicyDomainState属性可以获取到当前data类型的指纹信息数据，当指纹增加或者删除，该data就会发生变化，通过记录这个TouchIdData与最新的data做对比就能判断指纹信息是否变更，从而定制app功能。</p>
+<h3 id="存在的疑问："><a href="#存在的疑问：" class="headerlink" title="存在的疑问："></a>存在的疑问：</h3><ol>
+<li>TouchIdData可能为空吗？<br>官方文档说明：<blockquote>
+<p>Discussion<br>This property returns a value only when the canEvaluatePolicy(<em>:error:) method succeeds for a biometric policy or the evaluatePolicy(</em>:localizedReason:reply:) method is called and a successful biometric authentication is performed. Otherwise, nil is returned.<br>只有当canEvaluatePolicy方法执行并返回YES或者evaluatePolicy执行并指纹识别通过，这个属性才能有值，否则为空。</p>
+</blockquote>
+</li>
+<li>TouchIdData能否获取具体的指纹信息？<blockquote>
+<p>The returned data is an opaque structure. It can be used to compare with other values returned by this property to determine whether the authorized database has been updated. However, the nature of the change cannot be determined from this data.<br>返回的数据是一个不透明的结构。它可以用来与此属性返回的其他值进行比较，以确定是否更新了授权数据库。然而，变化的性质不能从这些数据中确定。</p>
+</blockquote>
+</li>
+</ol>
+<ol start="3">
+<li>在指纹信息没有修改的时候，不同app获取到的TouchIdData是一样的吗?<br>实测不同的app，在指纹没有变化的情况下TouchIdData是不一样的。但这个是不能打包票的，如果苹果修改了这部分的算法，返回一个相同值也是有可能的。</li>
+</ol>
+<ol start="4">
+<li>添加一个新指纹，再删除刚添加的那个指纹，TouchIdData相对一轮操作之前变化了吗？<br>实测TouchIdData没有变化，也就是说TouchIdData是面向结果的，而不是面向过程的，只要最终结果指纹集合一样，TouchIdData就一样。</li>
+</ol>
+<p>代码实现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br></pre></td><td class="code"><pre><span class="line">    static var IDENTIFY:String? = nil</span><br><span class="line">    static let SERVICE = &quot;TOUCHID_SERVICE&quot;</span><br><span class="line">    static let ACCOUNT_PREFIX = &quot;TOUCHID_PERFIX&quot;</span><br><span class="line">    open class func setCurrentTouchIdDataIdentity(identity:String )</span><br><span class="line">    &#123;</span><br><span class="line">        //设定当前身份用于存储data</span><br><span class="line">        TouchIdManager.IDENTIFY = identity</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">//获取当前时刻的data</span><br><span class="line">  class func currentOriTouchIdData() -&gt; Data?&#123;</span><br><span class="line">        let context = LAContext()</span><br><span class="line">        var error:NSError? = nil;</span><br><span class="line">//先使用canEvaluatePolicy方法进行评估</span><br><span class="line">        if context.canEvaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, error: &amp;error) &#123;</span><br><span class="line">            </span><br><span class="line">            return context.evaluatedPolicyDomainState</span><br><span class="line">        &#125;</span><br><span class="line">        print(&quot;errorMsg:&quot; + self.errorMessageForFails(errorCode:(error?.code)! ))</span><br><span class="line">        return nil</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//使用keychain保存当前身份的data</span><br><span class="line">open class func setCurrentIdentityTouchIdData()-&gt; Bool</span><br><span class="line">    &#123;</span><br><span class="line">        if self.currentTouchIdDataIdentity() == nil</span><br><span class="line">        &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            if self.currentOriTouchIdData() != nil</span><br><span class="line">            &#123;</span><br><span class="line">                //storage by keychain</span><br><span class="line">                SAMKeychain.setPasswordData(self.currentOriTouchIdData()!, forService:SERVICE, account: ACCOUNT_PREFIX + self.currentTouchIdDataIdentity()!)</span><br><span class="line">                return true;</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                return false;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//获取当前身份的上一次存储的data，用于对比</span><br><span class="line"> class func currentIdentityTouchIdData()-&gt;Data?</span><br><span class="line">    &#123;</span><br><span class="line">        guard (self.currentTouchIdDataIdentity() != nil) else &#123;</span><br><span class="line">            return nil;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        return  SAMKeychain.passwordData(forService: TouchIdManager.SERVICE, account: TouchIdManager.ACCOUNT_PREFIX + self.currentTouchIdDataIdentity()!)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//检测以这个身份设置开始到当前时刻指纹信息是否变更</span><br><span class="line">open class func touchIdInfoDidChange()-&gt;Bool</span><br><span class="line">    &#123;</span><br><span class="line">        let data = self.currentOriTouchIdData()</span><br><span class="line">        if data == nil &amp;&amp; self.isErrorTouchIDLockout() &#123;</span><br><span class="line">            //lock after unlock failed many times,and the fingerprint is not changed.</span><br><span class="line">            return false</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            let oldData = self.currentIdentityTouchIdData()</span><br><span class="line">            </span><br><span class="line">            if oldData == nil</span><br><span class="line">            &#123;</span><br><span class="line">                //never set</span><br><span class="line">                return false</span><br><span class="line">            &#125;</span><br><span class="line">            else if oldData == data</span><br><span class="line">            &#123;</span><br><span class="line">                //not change</span><br><span class="line">                return false</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                return true</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//检测当前是否为biometryLockout状态</span><br><span class="line">    class func isErrorTouchIDLockout()-&gt;Bool</span><br><span class="line">    &#123;</span><br><span class="line">        let context = LAContext()</span><br><span class="line">        var error:NSError?</span><br><span class="line">        context.canEvaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, error: &amp;error)</span><br><span class="line">        </span><br><span class="line">        guard error != nil else &#123;</span><br><span class="line">            return false</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        if error!.code == LAError.biometryLockout.rawValue &#123;</span><br><span class="line">            return true</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            return false</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="指纹识别的两种LAPolicy："><a href="#指纹识别的两种LAPolicy：" class="headerlink" title="指纹识别的两种LAPolicy："></a>指纹识别的两种LAPolicy：</h3><ul>
+<li>deviceOwnerAuthenticationWithBiometrics<br>这个类型不能弹出密码解锁界面，但能更精准的反馈用户操作的状态：如指纹识别三次失败等。</li>
+<li>deviceOwnerAuthentication<br>对识别行为的结果做了简化，无法判断具体状态。但能弹出密码解锁界面。<br>结合两者可以使指纹解锁做的更友善一点。</li>
+<li>最终效果[正常流程]：指纹识别错误三次回调失败-&gt;再点击再识别错误两次-&gt;弹出密码解锁界面-&gt;密码错误5次-&gt;锁定1分钟-&gt;再输错-&gt;锁定五分钟。</li>
+</ul>
+<p>代码实现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line">open class func showTouchId(title:String,fallbackTitle:String?, fallbackBlock:TouchIdFallBackBlokc?,resultBlock:TouchIdResultBlock?)</span><br><span class="line">   &#123;</span><br><span class="line">       let context = LAContext();</span><br><span class="line">       context.localizedFallbackTitle = fallbackTitle</span><br><span class="line">       var useableError:NSError?</span><br><span class="line">       if context.canEvaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, error: &amp;useableError) &#123;</span><br><span class="line">           context.evaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, localizedReason: title) &#123; (success, error) in</span><br><span class="line">               DispatchQueue.main.async &#123;</span><br><span class="line">                   if success</span><br><span class="line">                   &#123;</span><br><span class="line">                       if resultBlock != nil</span><br><span class="line">                       &#123;</span><br><span class="line">                           resultBlock!(true,success,error)</span><br><span class="line">                       &#125;</span><br><span class="line">                   &#125;</span><br><span class="line">                   else</span><br><span class="line">                   &#123;</span><br><span class="line">                       guard let error = error else</span><br><span class="line">                       &#123;</span><br><span class="line">                           return;</span><br><span class="line">                       &#125;</span><br><span class="line">                       </span><br><span class="line">                       print(&quot;errorMsg:&quot; + self.errorMessageForFails(errorCode: error._code))</span><br><span class="line">                       </span><br><span class="line">                       if error._code == LAError.userFallback.rawValue</span><br><span class="line">                       &#123;</span><br><span class="line">                           if fallbackBlock != nil</span><br><span class="line">                           &#123;</span><br><span class="line">                               fallbackBlock!()</span><br><span class="line">                           &#125;</span><br><span class="line">                       &#125;</span><br><span class="line">                       else if error._code == LAError.biometryLockout.rawValue</span><br><span class="line">                       &#123;</span><br><span class="line">                           //try to show password interface</span><br><span class="line">                           self.tryShowTouchIdOrPwdInterface(title: title, resultBlock: resultBlock)</span><br><span class="line">                       &#125;</span><br><span class="line">                       else</span><br><span class="line">                       &#123;</span><br><span class="line">                           if resultBlock != nil</span><br><span class="line">                           &#123;</span><br><span class="line">                               resultBlock!(true,success,error)</span><br><span class="line">                           &#125;</span><br><span class="line">                       &#125;</span><br><span class="line">                   &#125;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       else</span><br><span class="line">       &#123;</span><br><span class="line">           print(&quot;errorMsg:&quot; + self.errorMessageForFails(errorCode:(useableError?.code)! ))</span><br><span class="line">           </span><br><span class="line">           if useableError?.code == LAError.biometryLockout.rawValue</span><br><span class="line">           &#123;</span><br><span class="line">               //try to show password interface</span><br><span class="line">               self.tryShowTouchIdOrPwdInterface(title: title, resultBlock: resultBlock)</span><br><span class="line">           &#125;</span><br><span class="line">           else</span><br><span class="line">           &#123;</span><br><span class="line">               if resultBlock != nil</span><br><span class="line">               &#123;</span><br><span class="line">                   resultBlock!(false,false,useableError)</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   class func tryShowTouchIdOrPwdInterface(title:String,resultBlock:TouchIdResultBlock?)</span><br><span class="line">   &#123;</span><br><span class="line">       let context = LAContext();</span><br><span class="line">       context.localizedFallbackTitle = &quot;&quot;</span><br><span class="line">       var useableError:NSError?</span><br><span class="line">       if context.canEvaluatePolicy(LAPolicy.deviceOwnerAuthentication, error: &amp;useableError) &#123;</span><br><span class="line">           context.evaluatePolicy(LAPolicy.deviceOwnerAuthentication, localizedReason: title) &#123; (success, error) in</span><br><span class="line">               </span><br><span class="line">               DispatchQueue.main.async &#123;</span><br><span class="line">                   if resultBlock != nil</span><br><span class="line">                   &#123;</span><br><span class="line">                       resultBlock!(true,success,error)</span><br><span class="line">                   &#125;</span><br><span class="line">               &#125;</span><br><span class="line">               </span><br><span class="line">               guard let error = error else</span><br><span class="line">               &#123;</span><br><span class="line">                   return;</span><br><span class="line">               &#125;</span><br><span class="line">               print(&quot;errorMsg:&quot; + self.errorMessageForFails(errorCode: error._code))</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       else</span><br><span class="line">       &#123;</span><br><span class="line">           print(&quot;errorMsg:&quot; + self.errorMessageForFails(errorCode:(useableError?.code)! ))</span><br><span class="line">           </span><br><span class="line">           if resultBlock != nil</span><br><span class="line">           &#123;</span><br><span class="line">               resultBlock!(false,false,useableError)</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<p>测试demo:     </p>
+<p>swift:<a href="https://github.com/zmubai/TouchIDTest-swift" target="_blank" rel="noopener">https://github.com/zmubai/TouchIDTest-swift</a></p>
+<p>object-c:<a href="https://github.com/zmubai/TouchIDTest-OC" target="_blank" rel="noopener">https://github.com/zmubai/TouchIDTest-OC</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2018-05-05-01.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zengbailiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/icon.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="liang's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018-05-05-01.html" itemprop="url">git的文件系统与底层原理 (1)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-05T00:00:00+08:00">
+                2018-05-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/git/" itemprop="url" rel="index">
+                    <span itemprop="name">git</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018-05-05-01.html" class="leancloud_visitors" data-flag-title="git的文件系统与底层原理 (1)">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,102
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p> 由于工作中使用git作为版本管理，之前对git的了解不多，特别是底层方面的原理方面的知识。为了能更好的使用git，有必要学习并梳理下相关知识。</p>
+<p>步入正题：</p>
+<h3 id="git的文件结构"><a href="#git的文件结构" class="headerlink" title="git的文件结构"></a>git的文件结构</h3><p>执行git init 初始化后，会在.git文件夹下会创建多个目录，每个文件夹功能划分的很清晰。<br><img src="https://upload-images.jianshu.io/upload_images/1690665-6458ddc5b28b057a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/720" alt="git目录结构.png"></p>
+<h3 id="git的存储方式"><a href="#git的存储方式" class="headerlink" title="git的存储方式"></a>git的存储方式</h3><p>Git 是一套内容寻址文件系统.通过键值对的方式存储和查找。</p>
+<p>下面操作一遍，直观的看到整个过程，以便理解。</p>
+<h5 id="首先，创建一个内容对象"><a href="#首先，创建一个内容对象" class="headerlink" title="首先，创建一个内容对象"></a>首先，创建一个内容对象</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ echo &quot;小明的文件&quot; | git hash-object -w --stdin</span><br><span class="line">5c98f8a9221e5336f68c7575cd238b48875137c6</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>命令/参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>     echo</td>
+<td>将字符串输出到终端</td>
+<td></td>
+</tr>
+<tr>
+<td>     git hash-object</td>
+<td>创建一个blob（二进制大对象）,<br>可指定其他类型，不一定是blob。</td>
+<td></td>
+</tr>
+<tr>
+<td>     –stdin</td>
+<td>从标准终端中读取输入，代替从文件读取，<br>这里读取的是由echo命令输出到终端的字符串。</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>-w</td>
+<td>把blob对象写入数据库</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>参考：<a href="https://git-scm.com/docs/git-hash-object" target="_blank" rel="noopener">https://git-scm.com/docs/git-hash-object</a></p>
+<h5 id="查看刚才存储的数据"><a href="#查看刚才存储的数据" class="headerlink" title="查看刚才存储的数据"></a>查看刚才存储的数据</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ find .git/objects -type f</span><br><span class="line">.git/objects/5c/98f8a9221e5336f68c7575cd238b48875137c6</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>命令/参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>find</td>
+<td>查找目录下文件</td>
+<td></td>
+</tr>
+<tr>
+<td>-type f</td>
+<td>指定查类型为普通文件</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>参考：<a href="http://man.linuxde.net/find" target="_blank" rel="noopener">http://man.linuxde.net/find</a></p>
+<p>可以见到文件名称为数字和字母组成的字符串。这个是根据文件内容和头信息（Header），通过SHA-1算法计算得出的40位十六进制校验和。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>校验和</td>
+<td>5c98f8a9221e5336f68c7575cd238b48875137c6</td>
+<td></td>
+</tr>
+<tr>
+<td>存储路径</td>
+<td>5c/98f8a9221e5336f68c7575cd238b48875137c6<br>以校验和前两位作为子路径创建文件夹，<br>以校验和后38位作为文件名生成文件。</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><em>SHA-1是一种加密哈希函数（cryptographic hash function）。SHA-1将文件中的内容通过其hash算法生成一个160bit的报文摘要，即40个十六进制数字（每个十六进制数字占4位）。它几乎可以保证，如果两个文件的SHA-1值是相同的，那么它们确是完全相同的内容（类似于生活中的指纹识别）；SHA-1主要有两种用途，一个是加密，一个是数据完整性校验。Linux kernel开创者和Git的开发者——Linus说，Git使用了SHA-1并非是为了安全性，而是为了数据的完整性。理论上SHA-1会在2^51攻击下实现哈希碰撞，所以也不是完全的安全。</em></p>
+<h5 id="通过校验和作为键值-解读文件"><a href="#通过校验和作为键值-解读文件" class="headerlink" title="通过校验和作为键值 解读文件"></a>通过校验和作为键值 解读文件</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git cat-file -p 5c98f8a9221e5336f68c7575cd238b48875137c6</span><br><span class="line">小明的文件</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>命令/参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>git cat-file</td>
+<td>读取对象信息</td>
+<td></td>
+</tr>
+<tr>
+<td>-p</td>
+<td>根据对象的类型打印其信息</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>参考：<a href="https://git-scm.com/docs/git-cat-file" target="_blank" rel="noopener">https://git-scm.com/docs/git-cat-file</a></p>
+<p>以上，说明了git的数据存储的基本方式。主要是使用SHA-1算法根据其内容和头信息生成唯一的40位校验和，并使用校验和作为key做文件存取。</p>
+<p>模拟bolb对象存储流程<br><img src="https://upload-images.jianshu.io/upload_images/1690665-a9e4427dc58379b1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="bolb存储流程图.png"></p>
+<p>以上，说明了git的数据存储的基本方式。主要步骤：</p>
+<ol>
+<li>使用SHA-1算法根据其原始内容和头信息（头信息格式”blob #{content.length}\0”）生成唯一的40位校验和。</li>
+<li>以校验和前两位创建文件夹、校验和后38位作为文件名。</li>
+<li>对拼接后的内容压缩后存储。        </li>
+</ol>
+<hr>
+<p>下面是创建文件，修改文件，恢复文件的相关过程。</p>
+<h5 id="重新创建一个仓库并创建一个文件"><a href="#重新创建一个仓库并创建一个文件" class="headerlink" title="重新创建一个仓库并创建一个文件"></a>重新创建一个仓库并创建一个文件</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ echo &apos;小明该吃午饭了&apos; &gt; test.txt</span><br><span class="line">$ git hash-object -w test.txt</span><br><span class="line">efbd70f46da0d1852de88c58aebc86616beecdaf</span><br></pre></td></tr></table></figure>
+<h5 id="修改文件再保存"><a href="#修改文件再保存" class="headerlink" title="修改文件再保存"></a>修改文件再保存</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ echo &quot;小明打算去吃个泡面&quot; &gt; test.txt</span><br><span class="line">$ git hash-object -w test.txt</span><br><span class="line">26aab56c7d1f9bd962b28f78ce61f021b221d317</span><br></pre></td></tr></table></figure>
+<h5 id="查看已保存的内容"><a href="#查看已保存的内容" class="headerlink" title="查看已保存的内容"></a>查看已保存的内容</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ find .git/objects -type f</span><br><span class="line">.git/objects/26/aab56c7d1f9bd962b28f78ce61f021b221d317</span><br><span class="line">.git/objects/ef/bd70f46da0d1852de88c58aebc86616beecdaf</span><br></pre></td></tr></table></figure>
+<h5 id="恢复到第一个版本"><a href="#恢复到第一个版本" class="headerlink" title="恢复到第一个版本"></a>恢复到第一个版本</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git cat-file -p efbd70f46da0d1852de88c58aebc86616beecdaf &gt; .git/test.txt</span><br><span class="line">$ cat .git/test.txt</span><br><span class="line">小明该吃午饭了</span><br></pre></td></tr></table></figure>
+<p>git会记录每个版本的修改，根据校验和可恢复到相应的版本。</p>
+<hr>
+<p><strong>小结：</strong>这个过程中包括文件创建、文件修改、文件恢复，跟我们平时工作中使用的高级命令功能很相似。git会把整个过程转化为底层操作，同时对用户透明。</p>
+<p><strong>相关引用参考：</strong></p>
+<p><a href="http://smilejay.com/2012/08/git-commit-sha-1/" target="_blank" rel="noopener">http://smilejay.com/2012/08/git-commit-sha-1/</a></p>
+<p><a href="https://git-scm.com/book/zh/v1/Git-%E5%86%85%E9%83%A8%E5%8E%9F%E7%90%86-Git-%E5%AF%B9%E8%B1%A1" target="_blank" rel="noopener">https://git-scm.com/book/zh/v1/Git-%E5%86%85%E9%83%A8%E5%8E%9F%E7%90%86-Git-%E5%AF%B9%E8%B1%A1</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2018-04-23-0.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1767,7 +2439,7 @@ let temp1 = item1
               
                 <a rel="external nofollow" href="/archives/">
               
-                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-count">40</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1850,7 +2522,7 @@ let temp1 = item1
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">52.6k</span>
+    <span title="Site words total count">54.5k</span>
   
 </div>
 
