@@ -243,6 +243,446 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2018-06-27-01-leetcode.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zengbailiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/icon.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="liang's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018-06-27-01-leetcode.html" itemprop="url">算法-两数之和</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-27T00:00:00+08:00">
+                2018-06-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018-06-27-01-leetcode.html" class="leancloud_visitors" data-flag-title="算法-两数之和">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  668
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><blockquote>
+<p>给定一个整数数组和一个目标值，找出数组中和为目标值的两个数。</p>
+</blockquote>
+<p>你可以假设每个输入只对应一种答案，且同样的元素不能被重复利用。</p>
+<pre><code>示例:
+给定 nums = [2, 7, 11, 15], target = 9
+因为 nums[0] + nums[1] = 2 + 7 = 9
+所以返回 [0, 1]
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Note: The returned array must be malloced, assume caller calls free().</span><br><span class="line"> */</span><br><span class="line"> //面向过程的解法；这是最直接的思路。</span><br><span class="line">int* twoSum(int* nums, int numsSize, int target) &#123;</span><br><span class="line">    int *a=(int *)malloc(2*sizeof(int));</span><br><span class="line">    //外层index从0开始遍历</span><br><span class="line">    int index = 0;</span><br><span class="line">    while (index &lt; numsSize - 1) &#123;</span><br><span class="line">    //内层从外层当前下标index的下一个元素开始遍历即i= index + 1</span><br><span class="line">        int i = index + 1;</span><br><span class="line">        while (i &lt; numsSize) &#123;</span><br><span class="line">        //判断两个元素之和是否等于target,如果相等，保存值并返回。</span><br><span class="line">            if (*(nums + i) + *(nums + index) == target) &#123;</span><br><span class="line">                *(a + 0)= index;</span><br><span class="line">                *(a + 1) = i;</span><br><span class="line">                return a;</span><br><span class="line">            &#125;</span><br><span class="line">            i ++;</span><br><span class="line">        &#125;</span><br><span class="line">        index ++;</span><br><span class="line">    &#125;</span><br><span class="line">    return a;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">//思路升级</span><br><span class="line">//c++ 哈希map  空间换时间</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;int&gt; twoSum(vector&lt;int&gt;&amp; nums, int target) &#123;</span><br><span class="line">        map&lt;int,int&gt; valueMap;</span><br><span class="line">        for (int i = 0 ; i &lt; nums.size(); i++) &#123;</span><br><span class="line">            int searchValue = target - nums[i];</span><br><span class="line">            map&lt;int,int&gt;::iterator it ;</span><br><span class="line">            //通过value查找是否存在，该操作时间复杂度为O(1);</span><br><span class="line">            it = valueMap.find(searchValue);</span><br><span class="line">            if (it != valueMap.end()) &#123;</span><br><span class="line">                vector&lt;int&gt; collect;</span><br><span class="line">                collect.push_back(valueMap[searchValue]);</span><br><span class="line">                collect.push_back(i);</span><br><span class="line">                return collect;</span><br><span class="line">            &#125;</span><br><span class="line">            valueMap.insert(pair&lt;int, int&gt;(nums[i],i));</span><br><span class="line">        &#125;</span><br><span class="line">        vector&lt;int&gt; collect;</span><br><span class="line">        return collect; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>小结：</p>
+<ol>
+<li>该题难度不大，直接使用面向过程的方法就能求解。</li>
+<li>该问题步骤分解中，因为已知和以及其中一个加数求另外一个加数，转换到程序中就是一个查找的问题-&gt;一个已知集合查找特定值得问题.</li>
+</ol>
+<p>一个已知集合查找特定值得问题，会直接导致两种思路：</p>
+<ol>
+<li>遍历查找-&gt;优化遍历方法</li>
+<li>空间换时间-&gt;哈希查找(这里会产生一种数据结构，它会把一个数值和数值的索引存储【起到存储的作用】，并能快速通过索引查找到对应的数值。另外由于不存在相同索引，所以可以【存储同一索引最后状态的值】,这个性质可以对某类问题做优化，例如最长不重复字符子串问题，通过值替换能保存相同字符的最后位置j(当前位置)，假设被替换前的值为i ，那么当前子串长度len = j - i )。</li>
+</ol>
+<p>思维路线：<br>-&gt;常规思路是否可解；<br>-&gt;是否存查找问题-&gt;是否可以使用空间换时间(哈希查找，备忘录等)</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2018-06-22-01.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zengbailiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/icon.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="liang's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018-06-22-01.html" itemprop="url">ffmpeg iOS平台编译</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-22T00:00:00+08:00">
+                2018-06-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ffmpeg/" itemprop="url" rel="index">
+                    <span itemprop="name">ffmpeg</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018-06-22-01.html" class="leancloud_visitors" data-flag-title="ffmpeg iOS平台编译">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,232
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="一、编译过程"><a href="#一、编译过程" class="headerlink" title="一、编译过程"></a>一、编译过程</h3><ul>
+<li>1.下载源码</li>
+<li>2.预先编译作为插件的库fdk-aac，x264等。</li>
+<li>3.安装yasm</li>
+<li>4.安装编译工具</li>
+<li>5.编写脚本</li>
+<li>6.执行脚本<br><img src="https://upload-images.jianshu.io/upload_images/1690665-644b8174001f2013.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="ffmpeg-ios流程.png"></li>
+</ul>
+<h3 id="二、脚本注解-包含fdk-x264库的集成，如果不包含编译，需要移除configure相关编译参数"><a href="#二、脚本注解-包含fdk-x264库的集成，如果不包含编译，需要移除configure相关编译参数" class="headerlink" title="二、脚本注解(包含fdk,x264库的集成，如果不包含编译，需要移除configure相关编译参数)"></a>二、脚本注解(包含fdk,x264库的集成，如果不包含编译，需要移除configure相关编译参数)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line"></span><br><span class="line"># directories</span><br><span class="line">#赋值源码版本</span><br><span class="line">SOURCE=&quot;ffmpeg-4.0.1&quot;</span><br><span class="line">#FAT文件夹名称</span><br><span class="line">FAT=&quot;FFmpeg-iOS&quot;</span><br><span class="line">#文件夹名称</span><br><span class="line">SCRATCH=&quot;scratch&quot;</span><br><span class="line"># must be an absolute path</span><br><span class="line">#THIN路径</span><br><span class="line">THIN=`pwd`/&quot;thin&quot;</span><br><span class="line">#架构类型数组</span><br><span class="line">ARCHS=&quot;arm64 armv7&quot;</span><br><span class="line"></span><br><span class="line"># absolute path to x264 library</span><br><span class="line">X264=`pwd`/x264-ios</span><br><span class="line"></span><br><span class="line"># absolute path to fdk-aac library</span><br><span class="line">FDK_AAC=`pwd`/fdk-aac-ios</span><br><span class="line"></span><br><span class="line">#编译选项</span><br><span class="line">CONFIGURE_FLAGS=&quot;--enable-gpl --disable-shared --disable-stripping --disable-ffmpeg --disable-ffplay  --disable-ffprobe --disable-avdevice --disable-indevs --disable-filters --disable-devices --disable-parsers --disable-postproc --disable-debug --disable-asm --disable-yasm --disable-doc --disable-bsfs --disable-muxers --disable-demuxers --disable-ffplay --disable-ffprobe  --disable-indevs --disable-outdevs --enable-cross-compile --enable-filter=aresample --enable-bsf=aac_adtstoasc --enable-small --enable-dct --enable-dwt --enable-lsp --enable-mdct --enable-rdft --enable-fft --enable-static --enable-version3 --enable-nonfree --disable-encoders --enable-encoder=pcm_s16le --enable-encoder=aac --enable-encoder=libx264 --enable-encoder=mp2 --disable-decoders --enable-decoder=aac --enable-decoder=mp3 --enable-decoder=h264 --enable-decoder=pcm_s16le --disable-parsers --enable-parser=aac --enable-parser=mpeg4video --enable-parser=mpegvideo --enable-parser=mpegaudio --enable-parser=aac --disable-muxers --enable-muxer=flv --enable-muxer=mp4 --enable-muxer=wav --enable-muxer=adts --disable-demuxers --enable-demuxer=flv --enable-demuxer=mpegvideo --enable-demuxer=mpegtsraw --enable-demuxer=mpegts --enable-demuxer=mpegps --enable-demuxer=h264 --enable-demuxer=y4m --enable-demuxer=wav --enable-demuxer=aac --enable-demuxer=hls --enable-demuxer=mov --enable-demuxer=m4v --disable-protocols --enable-protocol=rtmp --enable-protocol=http --enable-protocol=file --enable-libx264 --enable-libfdk-aac --enable-libfdk_aac --enable-encoder=libfdk_aac&quot;</span><br><span class="line"></span><br><span class="line">COMPILE=&quot;y&quot;</span><br><span class="line">LIPO=&quot;y&quot;</span><br><span class="line"></span><br><span class="line">#支持的iOS最低版本</span><br><span class="line">DEPLOYMENT_TARGET=&quot;8.0&quot;</span><br><span class="line"></span><br><span class="line">#赋值部分结束</span><br><span class="line"></span><br><span class="line">if [ &quot;$*&quot; ]</span><br><span class="line">then</span><br><span class="line">    if [ &quot;$*&quot; = &quot;lipo&quot; ]</span><br><span class="line">    then</span><br><span class="line">        # skip compile</span><br><span class="line">        COMPILE=</span><br><span class="line">    else</span><br><span class="line">        ARCHS=&quot;$*&quot;</span><br><span class="line">        if [ $# -eq 1 ]</span><br><span class="line">        then</span><br><span class="line">            # skip lipo</span><br><span class="line">            LIPO=</span><br><span class="line">        fi</span><br><span class="line">    fi</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">if [ &quot;$COMPILE&quot; ]</span><br><span class="line">then</span><br><span class="line">#是否安装yasm，x86汇编反汇编器 支持16位、32位、64位</span><br><span class="line">    if [ ! `which yasm` ]</span><br><span class="line">    then</span><br><span class="line">        echo &apos;Yasm not found&apos;</span><br><span class="line">        #是否安装brew软件包管理工具</span><br><span class="line">        if [ ! `which brew` ]</span><br><span class="line">        then</span><br><span class="line">            echo &apos;Homebrew not found. Trying to install...&apos;</span><br><span class="line">                        ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot; \</span><br><span class="line">                || exit 1</span><br><span class="line">        fi</span><br><span class="line">        echo &apos;Trying to install Yasm...&apos;</span><br><span class="line">        brew install yasm || exit 1</span><br><span class="line">    fi</span><br><span class="line">    #是否已经安装ffmpeg编译工具</span><br><span class="line">    if [ ! `which gas-preprocessor.pl` ]</span><br><span class="line">    then</span><br><span class="line">        echo &apos;gas-preprocessor.pl not found. Trying to install...&apos;</span><br><span class="line">        (curl -L https://github.com/libav/gas-preprocessor/raw/master/gas-preprocessor.pl \</span><br><span class="line">            -o /usr/local/bin/gas-preprocessor.pl \</span><br><span class="line">            &amp;&amp; chmod +x /usr/local/bin/gas-preprocessor.pl) \</span><br><span class="line">            || exit 1</span><br><span class="line">    fi</span><br><span class="line"></span><br><span class="line">    if [ ! -r $SOURCE ]</span><br><span class="line">    then</span><br><span class="line">        echo &apos;FFmpeg source not found. Trying to download...&apos;</span><br><span class="line">        #尝试下载对于的ffmpeg源码并解压，如果失败就退出</span><br><span class="line">        curl http://www.ffmpeg.org/releases/$SOURCE.tar.bz2 | tar xj \</span><br><span class="line">            || exit 1</span><br><span class="line">    fi</span><br><span class="line"></span><br><span class="line">#赋值当前路径</span><br><span class="line">    CWD=`pwd`</span><br><span class="line">    #遍历需要编译的架构</span><br><span class="line">    for ARCH in $ARCHS</span><br><span class="line">    do</span><br><span class="line">        echo &quot;building $ARCH...&quot;</span><br><span class="line">        #创建/scratch/$ARCH目录</span><br><span class="line">        mkdir -p &quot;$SCRATCH/$ARCH&quot;</span><br><span class="line">        #进入目录</span><br><span class="line">        cd &quot;$SCRATCH/$ARCH&quot;</span><br><span class="line"></span><br><span class="line">        CFLAGS=&quot;-arch $ARCH&quot;</span><br><span class="line">        if [ &quot;$ARCH&quot; = &quot;i386&quot; -o &quot;$ARCH&quot; = &quot;x86_64&quot; ]</span><br><span class="line">        then</span><br><span class="line">        #如果是模拟器</span><br><span class="line">            PLATFORM=&quot;iPhoneSimulator&quot;</span><br><span class="line">            #编译参数 最低系统版本</span><br><span class="line">            CFLAGS=&quot;$CFLAGS -mios-simulator-version-min=$DEPLOYMENT_TARGET&quot;</span><br><span class="line">        else</span><br><span class="line">            #如果是真机</span><br><span class="line">            PLATFORM=&quot;iPhoneOS&quot;</span><br><span class="line">            CFLAGS=&quot;$CFLAGS -mios-version-min=$DEPLOYMENT_TARGET&quot;</span><br><span class="line">            if [ &quot;$ARCH&quot; = &quot;arm64&quot; ]</span><br><span class="line">            then</span><br><span class="line">                EXPORT=&quot;GASPP_FIX_XCODE5=1&quot;</span><br><span class="line">            fi</span><br><span class="line">        fi</span><br><span class="line"></span><br><span class="line">        #PLATFORM变量转换为小写并赋值给XCRUN_SDK</span><br><span class="line">        XCRUN_SDK=`echo $PLATFORM | tr &apos;[:upper:]&apos; &apos;[:lower:]&apos;`</span><br><span class="line">        CC=&quot;xcrun -sdk $XCRUN_SDK clang&quot;</span><br><span class="line">        CXXFLAGS=&quot;$CFLAGS&quot;</span><br><span class="line">        LDFLAGS=&quot;$CFLAGS&quot;</span><br><span class="line">        if [ &quot;$X264&quot; ]</span><br><span class="line">        then</span><br><span class="line">        #指定头文件路径</span><br><span class="line">            CFLAGS=&quot;$CFLAGS -I$X264/include&quot;</span><br><span class="line">            #指定库路径</span><br><span class="line">            LDFLAGS=&quot;$LDFLAGS -L$X264/lib&quot;</span><br><span class="line">        fi</span><br><span class="line">        if [ &quot;$FDK_AAC&quot; ]</span><br><span class="line">        then</span><br><span class="line">            CFLAGS=&quot;$CFLAGS -I$FDK_AAC/include&quot;</span><br><span class="line">            LDFLAGS=&quot;$LDFLAGS -L$FDK_AAC/lib&quot;</span><br><span class="line">        fi</span><br><span class="line"></span><br><span class="line">        #修改configure编译参数</span><br><span class="line">        TMPDIR=$&#123;TMPDIR/%\/&#125; $CWD/$SOURCE/configure \</span><br><span class="line">            --target-os=darwin \</span><br><span class="line">            --arch=$ARCH \</span><br><span class="line">            --cc=&quot;$CC&quot; \</span><br><span class="line">            $CONFIGURE_FLAGS \</span><br><span class="line">            --extra-cflags=&quot;$CFLAGS&quot; \</span><br><span class="line">            --extra-ldflags=&quot;$LDFLAGS&quot; \</span><br><span class="line">            --prefix=&quot;$THIN/$ARCH&quot; \</span><br><span class="line">        || exit 1</span><br><span class="line">        #清除之前编译的可执行文件及配置文件。 </span><br><span class="line">        echo &apos;build-ffmpeg:make clean&apos;</span><br><span class="line">        make clean</span><br><span class="line">        echo &apos;build-ffmpeg:make&apos;</span><br><span class="line">        #make || exit 1</span><br><span class="line">        echo &apos;build-ffmpeg:make install&apos;</span><br><span class="line">        #make install $EXPORT || exit 1</span><br><span class="line">        make -j3 install $EXPORT || exit 1</span><br><span class="line">        cd $CWD</span><br><span class="line">    done</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if [ &quot;$LIPO&quot; ]</span><br><span class="line">then</span><br><span class="line">    echo &quot;building fat binaries...&quot;</span><br><span class="line">    mkdir -p $FAT/lib</span><br><span class="line">    set - $ARCHS</span><br><span class="line">    CWD=`pwd`</span><br><span class="line">    cd $THIN/$1/lib</span><br><span class="line">    for LIB in *.a</span><br><span class="line">    do</span><br><span class="line">        cd $CWD</span><br><span class="line">        echo lipo -create `find $THIN -name $LIB` -output $FAT/lib/$LIB 1&gt;&amp;2</span><br><span class="line">        #合并.a库</span><br><span class="line">        lipo -create `find $THIN -name $LIB` -output $FAT/lib/$LIB || exit 1</span><br><span class="line">    done</span><br><span class="line"></span><br><span class="line">    cd $CWD</span><br><span class="line">    cp -rf $THIN/$1/include $FAT</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">echo Done</span><br></pre></td></tr></table></figure>
+<h3 id="三、相关命令"><a href="#三、相关命令" class="headerlink" title="三、相关命令"></a>三、相关命令</h3><table>
+<thead>
+<tr>
+<th>命令/参数</th>
+<th>说明 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>which</td>
+<td>查看可执行文件的位置</td>
+</tr>
+<tr>
+<td>curl</td>
+<td>下载相关资源</td>
+</tr>
+<tr>
+<td>tar xj</td>
+<td>解压相关资源</td>
+</tr>
+<tr>
+<td>make</td>
+<td>对源代码包进行编译</td>
+</tr>
+<tr>
+<td>make install</td>
+<td>安装编译后的代码包</td>
+</tr>
+<tr>
+<td>configure</td>
+<td>生成makefile文件，并可在后面指定相关编译选项</td>
+</tr>
+</tbody>
+</table>
+<h4 id="configure-编译选项，可用-configure-–help查看"><a href="#configure-编译选项，可用-configure-–help查看" class="headerlink" title="configure 编译选项，可用 ./configure –help查看"></a>configure 编译选项，可用 ./configure –help查看</h4><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明 [默认]</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>–target-os</td>
+<td>compiler targets OS []</td>
+</tr>
+<tr>
+<td>–prefix=PREFIX</td>
+<td>install in PREFIX [/usr/local]</td>
+</tr>
+<tr>
+<td>–cc=CC</td>
+<td>use C compiler CC [gcc]</td>
+</tr>
+<tr>
+<td>–extra-cflags=ECFLAGS</td>
+<td>指定头文件路径 add ECFLAGS to CFLAGS []</td>
+</tr>
+<tr>
+<td>–extra-ldflags=ELDFLAGS</td>
+<td>指定库文件路径 add ELDFLAGS to LDFLAGS []</td>
+</tr>
+</tbody>
+</table>
+<p>参考：<br>configure/make/make install的作用<br><a href="https://www.linuxidc.com/Linux/2011-02/32211.htm" target="_blank" rel="noopener">https://www.linuxidc.com/Linux/2011-02/32211.htm</a></p>
+<p>CFLAGS LDFLAGS详解<br><a href="https://blog.csdn.net/xinyuan510214/article/details/50457433" target="_blank" rel="noopener">https://blog.csdn.net/xinyuan510214/article/details/50457433</a></p>
+<p><a href="https://blog.csdn.net/shenhuxi_yu/article/details/79788760" target="_blank" rel="noopener">https://blog.csdn.net/shenhuxi_yu/article/details/79788760</a></p>
+<p><a href="https://www.jianshu.com/p/e590f041c5f6" target="_blank" rel="noopener">https://www.jianshu.com/p/e590f041c5f6</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2018-05-12-01.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1905,491 +2345,11 @@ let temp1 = item1
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2018-03-17-3.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zengbailiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/icon.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="liang's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018-03-17-3.html" itemprop="url">iOS 网络数据处理技巧，提高程序健壮性</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-19T00:00:00+08:00">
-                2018-02-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/net-data/" itemprop="url" rel="index">
-                    <span itemprop="name">net data</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018-03-17-3.html" class="leancloud_visitors" data-flag-title="iOS 网络数据处理技巧，提高程序健壮性">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  874
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>作为一名移动开发者，免不了跟网络数据打交道。在需求开发的过程中，我们会通过接口文档约定好前后端交互的数据结构，基于这个，我们能顺利地实现前端的数据交互，顺利的把数据送往后台。如果我们严格遵守双方约定，就可以大大的减少数据问题。但是，数据这东西无法保证百分百准确，为了避免数据错误导致更大的程序错误，我们必须对数据做严格校验，从而保证程序的健壮性。</p>
-</blockquote>
-<pre><code>/*
-//示例数据结构：
-{
-    &quot;data&quot;:{
-        &quot;status&quot;:200,
-        &quot;result&quot;:{
-            &quot;list&quot;:Array[20],
-            &quot;all_page&quot;:20
-        }
-    },
-    &quot;status&quot;:0
-}
-*/
-</code></pre><h3 id="网络数据健壮性处理"><a href="#网络数据健壮性处理" class="headerlink" title="网络数据健壮性处理"></a>网络数据健壮性处理</h3><h5 id="逐层判断"><a href="#逐层判断" class="headerlink" title="逐层判断"></a>逐层判断</h5><p>从外到里一层一层的判断，确保每一步操作成功了才进行下一步操作。</p>
-<pre><code>+ (NSDictionary *)resultWithResponseDictionary:(NSDictionary*)responseDictionary
-{
-    NSAssert([responseDictionary isKindOfClass:[NSDictionary class]], @&quot;responseDictionary should be dictionary class&quot;);
-
-    if (![responseDictionary isKindOfClass:[NSDictionary class]]) return nil;
-
-    NSDictionary *data = [responseDictionary valueForKey:@&quot;data&quot;];
-    if (![data isKindOfClass:[NSDictionary class]])  return nil;
-
-    NSDictionary *result = [data valueForKey:@&quot;result&quot;];
-    if (![result isKindOfClass:[NSDictionary class]]) {
-        return nil;
-    }
-    else
-    {
-        return result;
-    }
-}
-
-+ (NSArray *)getListWithResponseDictionary:(NSDictionary*)responseDictionary
-{
-    NSDictionary *result = [self resultWithResponseDictionary:responseDictionary];
-
-    NSArray *list  = [result valueForKey:@&quot;list&quot;];
-
-    return [list isKindOfClass:[NSArray class]]?list:nil;
-}
-</code></pre><h5 id="字段类型判断"><a href="#字段类型判断" class="headerlink" title="字段类型判断"></a>字段类型判断</h5><p>因为OC是动态语言，对象的真实类型在运行的时候才能确定，如果不添加类型判断，在网络数据处理的场景下，可能会出现对象真实类型与期待类型不一致的情况，导致方法调用失败，程序异常崩溃。例如，预期的是一个NSString对象，调用了NSString类独有的substringFromIndex方法，运行的时候却是一个NSNumber对象，继续调用substringFromIndex方法，就会产生一个运行时崩溃。另一种情况，调用的是共同父类的方法 ，NSNumber对象执行方法不会发生异常，但这时程序已经存在风险了，因为对象类型已经不符程序预期。可通过- (BOOL)isKindOfClass:(Class)aClass对类型进行判断。</p>
-<h5 id="非空判断"><a href="#非空判断" class="headerlink" title="非空判断"></a>非空判断</h5><p>空对象调用方法是不会产生异常的，而操作空对象就可能出现异常，例如数组操作、字典操作等。如：</p>
-<pre><code>//测试代码
- NSMutableDictionary *dic = @{}.mutableCopy;
-    [dic setObject:nil forKey:@&quot;age&quot;];
-
-异常：
-*** Terminating app due to uncaught exception &apos;NSInvalidArgumentException&apos;, reason: &apos;*** -[__NSDictionaryM setObject:forKey:]: object cannot be nil (key: age)&apos;
-
-//测试代码
-  [@[].mutableCopy addObject:nil];
-
-异常：
-*** Terminating app due to uncaught exception &apos;NSInvalidArgumentException&apos;, reason: &apos;*** -[__NSArrayM insertObject:atIndex:]: object cannot be nil&apos;
-</code></pre><p>为了避免类似的问题，需要在操作对象前添加必要的非空判断。</p>
-<h5 id="单个字段逻辑合法性判断"><a href="#单个字段逻辑合法性判断" class="headerlink" title="单个字段逻辑合法性判断"></a>单个字段逻辑合法性判断</h5><p>对于一些有意义的字段，这些字段有其合法的取值区间，那么操作该数据时需要先判断其数据是否合法，例如：年龄age， 其合法性校验age&gt;0 。</p>
-<h5 id="字段间逻辑合法性判断"><a href="#字段间逻辑合法性判断" class="headerlink" title="字段间逻辑合法性判断"></a>字段间逻辑合法性判断</h5><p>有一些字段之间存在逻辑关系，特别是提交数据给后台的时候，我们更需要在提交之前做一次数据间逻辑合法性的校验。如 x、y、z字段之间有如下关系：z = 2x + y。那么提交数据前就需要判断下其是否符逻辑z = 2x + y。</p>
-<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>1、2、3点在网络数据处理中是非常有必要的，而4、5点加强了对数据逻辑的校验，更加贴近业务。同时，4、5点一般采取断言的方式进行处理。在开发测试的过程中，如果存在问题，我们期待通过断言及时发现问题。</p>
-<p>end~</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2018-03-17-5.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zengbailiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/icon.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="liang's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018-03-17-5.html" itemprop="url">iOS m3u8本地缓存播放(控制下载并发、暂停恢复)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-11T00:00:00+08:00">
-                2017-10-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/m3u8/" itemprop="url" rel="index">
-                    <span itemprop="name">m3u8</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018-03-17-5.html" class="leancloud_visitors" data-flag-title="iOS m3u8本地缓存播放(控制下载并发、暂停恢复)">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  3,402
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">目录</span><br><span class="line">一、m3u8缓存播放的整个流程</span><br><span class="line">二、控制媒体下载的并发数</span><br><span class="line">三、控制单个媒体的切片下载并发数</span><br><span class="line">四、下载的中断和恢复</span><br><span class="line">五、注意的问题与思路延伸</span><br></pre></td></tr></table></figure>
-<h3 id="一、m3u8缓存播放的整个流程"><a href="#一、m3u8缓存播放的整个流程" class="headerlink" title="一、m3u8缓存播放的整个流程"></a>一、m3u8缓存播放的整个流程</h3><ol>
-<li>下载m3u8文件</li>
-<li>解析m3u8文件获取视频切片单元的信息。</li>
-<li>根据2.获取的视频切片信息中的切片链接下载切片并保持到本地。</li>
-<li>根据获取的切片信息与本地服务器的配置信息，拼接出切片的本地地址、生成新的m3u8文件并保存到本地。</li>
-<li>开启本地服务器，使用本地url播放本地m3u8文件。</li>
-</ol>
-<p>附上：时序图，具体可看demo</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1690665-3f245e01576dfac2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
-<h3 id="二、控制媒体下载的并发数"><a href="#二、控制媒体下载的并发数" class="headerlink" title="二、控制媒体下载的并发数"></a>二、控制媒体下载的并发数</h3><pre><code>这里使用信号量来控制并发数
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">- (void)downloadVideoWithUrlString:(NSString *)urlStr downloadProgressHandler:(ZBLM3u8ManagerDownloadProgressHandler)downloadProgressHandler downloadSuccessBlock:(ZBLM3u8ManagerDownloadSuccessBlock) downloadSuccessBlock</span><br><span class="line">&#123;</span><br><span class="line">    dispatch_async(_downloadQueue, ^&#123;</span><br><span class="line">        dispatch_semaphore_wait(_movieSemaphore, DISPATCH_TIME_FOREVER);</span><br><span class="line">        __weak __typeof(self) weakself = self;</span><br><span class="line">        [[self downloadContainerWithUrlString:urlStr] startDownloadWithUrlString:urlStr  downloadProgressHandler:^(float progress) &#123;</span><br><span class="line">            downloadProgressHandler(progress);</span><br><span class="line">        &#125; completaionHandler:^(NSString *locaLUrl, NSError *error) &#123;</span><br><span class="line">            if (!error) &#123;</span><br><span class="line">                [weakself.downloadContainerDictionary removeObjectForKey:[ZBLM3u8Setting uuidWithUrl:urlStr]];</span><br><span class="line">                NSLog(@&quot;下载完成:%@&quot;,urlStr);</span><br><span class="line">                downloadSuccessBlock(locaLUrl);</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                NSLog(@&quot;下载失败:%@&quot;,error);</span><br><span class="line">                [self resumeDownload];</span><br><span class="line">            &#125;</span><br><span class="line">            NSLog(@&quot;%@&quot;,weakself.downloadContainerDictionary.allKeys);</span><br><span class="line">            dispatch_semaphore_signal(_movieSemaphore);</span><br><span class="line">        &#125;];</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<pre><code>//这里可以设置_movieSemaphore的的初始值为具体的可同时下载数。Example:_movieSemaphore = dispatch_semaphore_create(1),意味着同一时间只允许下载一个视频，等同于视频的串行下载。
-</code></pre><h3 id="三、控制单个媒体的切片下载并发数"><a href="#三、控制单个媒体的切片下载并发数" class="headerlink" title="三、控制单个媒体的切片下载并发数"></a>三、控制单个媒体的切片下载并发数</h3><pre><code>开始的时候，考虑使用AFURLSessionManager中的operationQueue.maxConcurrentOperationCount来控制并发。但这是行不通的。因为这个queue是用于回调而不是用于下载队列。
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> The operation queue on which delegate callbacks are run.</span><br><span class="line"> */</span><br><span class="line">@property (readonly, nonatomic, strong) NSOperationQueue *operationQueue;</span><br></pre></td></tr></table></figure>
-<p>再看AF中初始化<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">- (instancetype)initWithSessionConfiguration:(NSURLSessionConfiguration *)configuration &#123;</span><br><span class="line">    self = [super init];</span><br><span class="line">    if (!self) &#123;</span><br><span class="line">        return nil;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (!configuration) &#123;</span><br><span class="line">        configuration = [NSURLSessionConfiguration defaultSessionConfiguration];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    self.sessionConfiguration = configuration;</span><br><span class="line"></span><br><span class="line">    self.operationQueue = [[NSOperationQueue alloc] init];</span><br><span class="line">    self.operationQueue.maxConcurrentOperationCount = 1;</span><br><span class="line"></span><br><span class="line">    self.session = [NSURLSession sessionWithConfiguration:self.sessionConfiguration delegate:self delegateQueue:self.operationQueue];</span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
-<pre><code>这个queue确实是用于回调，而我是需要控制下载并发。这似乎不满足。而且实测中也发现确实不行。那么，只能在任务发起哪里做并发控制，同样，这里还是采用信号量。这里的控制相对复杂一点、因为后面的任务恢复、失败任务重新创建也要做控制。
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">- (void)startDownload</span><br><span class="line">&#123;</span><br><span class="line">    //因为这是外部调用的方法，操作的执行要放到异步线程中。避免因为并发控制中的等待而堵塞外部线程</span><br><span class="line">    dispatch_async(self.downloadQueue, ^&#123;</span><br><span class="line">        if (!_fileDownloadInfos.count) &#123;</span><br><span class="line">            _completaionHandler(nil);</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        NSLog(@&quot;downloadInfoCount:%ld&quot;,(long)_fileDownloadInfos.count);</span><br><span class="line">        </span><br><span class="line">        [_fileDownloadInfos enumerateObjectsUsingBlock:^(ZBLM3u8FileDownloadInfo * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) &#123;</span><br><span class="line">            //控制切片下载并发</span><br><span class="line">            dispatch_semaphore_wait(self.tsSemaphore, DISPATCH_TIME_FOREVER);</span><br><span class="line">            if ([ZBLM3u8FileManager exitItemWithPath:obj.filePath]) &#123;</span><br><span class="line">                obj.success = YES;</span><br><span class="line">                [self verifyDownloadCountAndCallbackByDownloadSuccess:YES];</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                //如果收到中断信号，中断下载流程释放信号量并返回</span><br><span class="line">                if (self.suspend) &#123;</span><br><span class="line">                    obj.beStopCreateTask = YES;</span><br><span class="line">                    dispatch_semaphore_signal(self.tsSemaphore);</span><br><span class="line">                    NSLog(@&quot;suspend and return! don not createDownloadTask!&quot;);</span><br><span class="line">                    return ;</span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                &#123;</span><br><span class="line">                    //真正的创建下载任务</span><br><span class="line">                    [self createDownloadTaskWithIndex:idx];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;];</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//信号量在每个任务的回调后都会释放一次</span><br><span class="line">- (void)verifyDownloadCountAndCallbackByDownloadSuccess:(BOOL) isSuccess</span><br><span class="line">&#123;</span><br><span class="line">    dispatch_semaphore_signal(self.tsSemaphore);</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p>这里也看到信号量的控制问题，必须理清信号量的获得和释放时机，一次获得必须有一次释放。不释放或者重复释放，都会导致并发的控制不准。如果这样，那这里的并发控制就没有意义了。</p>
-</li>
-<li><p>要做到准确获取和释放，重点在于理清程序的执行路径。在每一条执行路径中都必须释放信号量。这个跟锁的使用也是一样的。</p>
-</li>
-<li>调试现象：如果程序不像预料中运行，又没有什么错误，那很有可能就是堵塞了。锁没有释放或者信号量的处理有问题。<br>处理步骤：点击xcode调试栏的暂停按钮，查看程序的调用栈，分析每个线程的运行情况，找到堵塞具体执行代码。根据具体的逻辑修正问题。</li>
-</ul>
-<h3 id="四、下载的中断和恢复"><a href="#四、下载的中断和恢复" class="headerlink" title="四、下载的中断和恢复"></a>四、下载的中断和恢复</h3><pre><code>这里有几个小问题：根据判断NSURLSessionTask 提供的3个方法可以做一些中断和恢复处理
-</code></pre><ul>
-<li><p>(void)suspend;</p>
-<pre><code>挂起任务，但只能挂起执行中的任务。对于已经创建而且执行resum方法但并没真正执行的任务无效（这里非常坑）。
-</code></pre><p>通常我们使用这个方法的时候会判断下任务的具体状态，如果是task.state == NSURLSessionTaskStateRunning采取执行 [task suspend]。但这个判断是不准确的。如果一个任务创建并执行resume但并没真正执行，它的状态也是为NSURLSessionTaskStateRunning。如果这个时候程序收到中断消息，对状态为NSURLSessionTaskStateRunning 的任务全部执行suspend操作，你会发现有些任务不听话，继续执行。到底什么搞鬼…<br>我的理解是这样的，这些不听话的任务正是那些添加到下载队列中等待执行的任务，而在等待状态下收到suspend消息是不管用的。但它接收cannel消息是管用的。那么问题的解决就是找出这些等待的任务。<br>处理办法：通过判断接收字节数来区分状态。现在我只面向你接收的字节数，而不管你真开启还是假开启了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">switch (obj.downloadTask.state) &#123;</span><br><span class="line">                case NSURLSessionTaskStateRunning:</span><br><span class="line">                &#123;</span><br><span class="line">                    //等待中，假开启状态，</span><br><span class="line">                    if (obj.downloadTask.countOfBytesReceived &lt;= 0) &#123;</span><br><span class="line">                        [obj.downloadTask cancel];</span><br><span class="line">                    &#125;</span><br><span class="line">                    else</span><br><span class="line">                    &#123;</span><br><span class="line">                    //正在下载，真开启状态，</span><br><span class="line">                        [obj.downloadTask suspend];</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                    break;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>(void)resume;<br>官方文档是这么说明的：Resumes the task, if it is suspended.意思是指只能发起被挂起的任务。<br>存在两种情况：<br>1.新创建的任务并没有执行resume，此时状态为：NSURLSessionTaskStateSuspended<br>2.执行suspend方法后被手动挂起的任务，状态同为NSURLSessionTaskStateSuspended。<br>同时这里提供了额外信息：状态为NSURLSessionTaskStateCompleted的任务是不能通过resume重新发起的。而在某些情况下我们需要对这种状态的任务重新发起，包括手动cannel的、执行失败的。这种情况下只能根据具体的情况，重新创建任务并发起。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">if (obj.downloadTask.error &amp;&amp; </span><br><span class="line">    obj.downloadTask.state == NSURLSessionTaskStateCompleted)</span><br><span class="line">&#123;</span><br><span class="line">              //下载失败的任务重新创建</span><br><span class="line">                [self createDownloadTaskWithIndex:idx];</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>(void)cancel;<br>官方文档说明：</p>
-<blockquote>
-<p>This method returns immediately, marking the task as being canceled. Once a task is marked as being canceled, URLSession:task:didCompleteWithError: will be sent to the task delegate, passing an error in the domain NSURLErrorDomain with the code NSURLErrorCancelled. A task may, under some circumstances, send messages to its delegate before the cancelation is acknowledged.<br>This method may be called on a task that is suspended.</p>
-</blockquote>
-<p>简而言之：调用这个方法可以cannel任意状态的任务包括挂起的任务。并执行didCompleteWithError回调（AF中会执行回调并返回错误NSURLErrorCancelled），状态被标记为NSURLSessionTaskStateCompleted。故上面恢复失败任务的时候，通过task.state和task.error共同判断。</p>
-</li>
-</ul>
-<h5 id="总结下任务生命周期中的任务状态变化："><a href="#总结下任务生命周期中的任务状态变化：" class="headerlink" title="总结下任务生命周期中的任务状态变化："></a>总结下任务生命周期中的任务状态变化：</h5><ol>
-<li>创建成功：…Suspended</li>
-<li>执行resume:…Running（可以通过判断countOfBytesReceived来区分任务处于等待还是下载中）</li>
-<li>执行suspend：…Suspended</li>
-<li>执行cannel：(中间状态…Canceling）-&gt;…Completed（可以结合task.error判断任务执行结果）</li>
-</ol>
-<h5 id="回归正题："><a href="#回归正题：" class="headerlink" title="回归正题："></a>回归正题：</h5><pre><code>视频单元的中断和恢复，中断就是调用suspend方法挂起正在执行的任务，cannel掉等待的任务，代码跟上面说明方法的时候非常雷同。这里着重说明下恢复。如果单单恢复其实很简单，恢复挂起的任务和重新创建错误的任务。这只是从程序的角度看待，要使一个程序有更高的可用性，应在功能实现的同时做的更加的合理。应优先恢复挂起的任务、然后重新创建错误的任务。这样做都是为了承前启后更快的把一个下载任务完成。而且这个视频切片是讲究有序的，所以我们恢复的时候也要遵从FIFO的原则。
-</code></pre><h3 id="五、注意的问题与思路延伸"><a href="#五、注意的问题与思路延伸" class="headerlink" title="五、注意的问题与思路延伸"></a>五、注意的问题与思路延伸</h3><ol>
-<li><p>解析m3u8注意的问题<br>   这里的解析格式太多，很容易出现问题，应使用try/catch来保证程序的健壮性。</p>
-</li>
-<li><p>根据url获取原始m3u8文件信息，这个操作太耗时了。为了提高程序的效率，获取到原始m3u8文件后应做本地持久化并用于二次下载。如果整个流程下载成功，可以选择删除该文件，或者不操作。由于是纯文本文件，少量的文件冗余是允许的。</p>
-</li>
-<li><p>文件的操作通过开启一个同步队列来处。可以设定low优先级避免占用太高的cpu资源。其实高cpu占用会伴随着另外一个问题，手机的发热量。</p>
-</li>
-<li><p>key的处理问题<br>   如果存在key的下载，需要把key下载到本地，约定好key的名称和新建m3u8文件中的key链接。这样本地播放就能正常加解密。<br>例如下载到本地的key保存为…/key。那么链接应该是http:localhost:port/…/key</p>
-</li>
-<li><p>中断的优先级<br>   程序的中断操作拥有最高优先级的，因为要任何状态下都能中断下载。无论是为了程序的流畅性、网络变为移动信号避免使用用户的移动流量等发出中断命令，都必须立即响应。</p>
-</li>
-<li><p>切片数量的全局分配<br>   多个视频同时下载，多个切片同时并发。如果要做到控制全局的切片并发数而不是单个视频的切片并发数。这就要设计一个算法在全局Manger哪里做分配和回收。</p>
-</li>
-<li><p>保证app流程，监控网速开启和中断下载<br>   下载视频的功能应该要保证app本身网络请求的正常运行。<br>app如何获取到网络的带宽，好像只能通过下载文件方式来推算。可在应用请求空闲时通过短时间下载一个可用源来计算带宽，同时监控app 实时网络吞吐，适当的开关下载。虽然很难做到实时，但是在切换网络的时候进行带宽重测、又或者地理位置变化一定距离后进行带宽重测、又或者定时作带宽重测。还有就是考虑wifi状态下才进行下载。</p>
-</li>
-<li><p>切换网络后请求失去连接，恢复下载的问题<br>   因为网络切换本地ip变化，发起的请求会失去连接。如果通过downloadTask是没办法做到恢复下载的。虽然可以用resumeData来恢复下载，但是这个只能在cannel操作的时候获取，至于失去连接的情况下是没办法获取到的（系统提供的api中没有在失败回调哪里返回resumeData的）。这个时候需要自己创建文件句柄，使用dataTask做到文件续下。初始化dataTask的时候设定请求头’Accept-Ranges’参数为文件的已下载字节数（需要服务器支持），就可以获取到未下载的部分数据。</p>
-</li>
-<li><p>并发中锁的处理<br>   要理清那些代码可能存在并发，那些操作要保证原子性。难就难在一个方法中会存在部分代码块是并发执行的，这有利于效率的提高；部分些代码要原子操作。最优的做法就是对原子操作用锁来保证，没有任何多余的代码加入到同步操作中，这样也是效率最高的。而拿捏不准的情况下，可以锁定更多的代码，至少这样不会因为并发而导致问题，但这样就牺牲了效率和及时性。当一个简单的系统，要做到最优好像并不难，但是一个复杂的系统做到最优就非常难了或者是要花费非常大的精力。</p>
-</li>
-<li><p>是否需要全部切片下载完成才能播放<br>  其实并不需要全部下载完成就能播放的。一个车子开起来只要保证后面的能源供应充足就能一直正常运作。首先保证key 先下载下来，而且要保证有序下载，然后下载一定量的切片文件，这个时候就可以组装m3u8文件到本地，发起播放。只要后面下载的切片能满足播放器的播放，就不会出现问题。但如果供应不足视频就会停了，播放不了，尽管后面文件下载下来了，还是不能自动恢复，仿佛失去了缓冲功能。这里就是跟直接请求服务器的差别了，直接请求服务器，因为文件本身是存在的，发起的请求是存在的，如果网速慢，播放器的反应是缓冲；而本地服务播放就不同了，如果文件在播放前没有下载下来，发起的请求立马就挂了，这个请求不存在，当然就不存在缓冲。</p>
-</li>
-<li><p>线程多开占用资源，每个线程占用512K到1M空间。建议使用单线程下载，且稳定性高。</p>
-</li>
-</ol>
-<p>dome链接：<a href="https://github.com/zmubai/ZBLM3U8DownLoadTest" target="_blank" rel="noopener">https://github.com/zmubai/ZBLM3U8DownLoadTest</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2439,7 +2399,7 @@ let temp1 = item1
               
                 <a rel="external nofollow" href="/archives/">
               
-                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2522,7 +2482,7 @@ let temp1 = item1
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">54.5k</span>
+    <span title="Site words total count">56.0k</span>
   
 </div>
 

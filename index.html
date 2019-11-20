@@ -243,6 +243,373 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/435. 无重叠区间的副本.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zengbailiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/icon.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="liang's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/435. 无重叠区间的副本.html" itemprop="url">435. 无重叠区间</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-21T00:00:00+08:00">
+                2019-11-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/435. 无重叠区间的副本.html" class="leancloud_visitors" data-flag-title="435. 无重叠区间">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  803
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"> 给定一个区间的集合，找到需要移除区间的最小数量，使剩余区间互不重叠。</span><br><span class="line"></span><br><span class="line">注意:</span><br><span class="line"></span><br><span class="line">可以认为区间的终点总是大于它的起点。</span><br><span class="line">区间 [1,2] 和 [2,3] 的边界相互“接触”，但没有相互重叠。</span><br><span class="line">示例 1:</span><br><span class="line"></span><br><span class="line">输入: [ [1,2], [2,3], [3,4], [1,3] ]</span><br><span class="line"></span><br><span class="line">输出: 1</span><br><span class="line"></span><br><span class="line">解释: 移除 [1,3] 后，剩下的区间没有重叠。</span><br><span class="line">示例 2:</span><br><span class="line"></span><br><span class="line">输入: [ [1,2], [1,2], [1,2] ]</span><br><span class="line"></span><br><span class="line">输出: 2</span><br><span class="line"></span><br><span class="line">解释: 你需要移除两个 [1,2] 来使剩下的区间没有重叠。</span><br></pre></td></tr></table></figure>
+<h4 id="解"><a href="#解" class="headerlink" title="解:"></a>解:</h4><p>步骤：</p>
+<ol>
+<li>根据上限，进行升序排序。</li>
+<li>遍历，选择一个区间a，与当前区间b（指向当前遍历的index）检测是否存在重叠。如果重叠重叠，那么选择上限较小的区间，并把其下标保存（更新区间a）,舍弃数+1。遍历结束返回结果。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">static bool intervalsCompAsc(vector&lt;int&gt;a,vector&lt;int&gt;b)&#123;</span><br><span class="line">    if (a[0]&lt;b[0]) &#123;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">    return false;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int eraseOverlapIntervals(vector&lt;vector&lt;int&gt;&gt;&amp; intervals) &#123;</span><br><span class="line">    if (intervals.size() &lt;= 0) &#123;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">    int len = 0;</span><br><span class="line">    sort(intervals.begin(), intervals.end(), intervalsComp);</span><br><span class="line">    /*贪心策略，选择区间上限更小的，为后面提供更多的空间。</span><br><span class="line">     1.没有重叠，继续下一轮循环。</span><br><span class="line">     2.如果有重叠，那么舍弃上限大的，选择上限小的。</span><br><span class="line">     **/</span><br><span class="line">    int last = 0;</span><br><span class="line">    // cout&lt;&lt;intervals[0][0]&lt;&lt;&quot;&quot;;</span><br><span class="line">    for (int i = 1 ; i &lt; intervals.size(); ++i) &#123;</span><br><span class="line">        if (intervals[last][1]&lt;=intervals[i][0]) &#123;</span><br><span class="line">            last = i;</span><br><span class="line">            continue;</span><br><span class="line">        &#125;</span><br><span class="line">        else&#123;</span><br><span class="line">            // cout&lt;&lt;intervals[i][0]&lt;&lt;&quot;&quot;;</span><br><span class="line">            len ++;</span><br><span class="line">            last = intervals[last][1] &lt;= intervals[i][1] ? last : i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return len;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里用到了贪心思想，选择较小的上限，可以理解为为后面腾出更多的空间，这样就能容纳更多的区间。而问题来了，这贪心思想并不直观，内部逻辑的正确性，并不能直观感知，需要通过数学归纳证明。只有完全理解题解的思路，论证正确性，才能算是真正的完事。找了很多文章找到一遍较好的文章，先记录下来。<a href="https://www.52cs.com/archives/527" target="_blank" rel="noopener">区间调度问题详解</a></p>
+<p>小结下，算法解题的几个阶段：</p>
+<ol>
+<li>审题阶段。有些题目不好看懂，结合例子，需要花费片刻，理清题意。</li>
+<li>寻找思路阶段。理清题意的前提下，去思考思路。有些题目，并不容易找到解题的关键，就会卡住。但如果没有一个可论证的思路，很难进入编码阶段，通常的暴露解法，至少也是一个可论证思路。所以这个阶段，是很重要的。练习的目的，很大程度是提高这个阶段的的能力。</li>
+<li>编码阶段 。有了思路，考验编码能力，考验抽象逻辑代码化的能力，特别有些递归等思路不好实现，有些需要依赖合适的数据结构才能实现。例如用循环实现完全二叉树的后续遍历。</li>
+<li>检查修正测试阶段 。检测代码的健壮性，正确性。</li>
+<li>优化阶段 。优化时间，优化空间。</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/435. 无重叠区间.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zengbailiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/icon.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="liang's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/435. 无重叠区间.html" itemprop="url">1262. 可被三整除的最大和</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-21T00:00:00+08:00">
+                2019-11-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/435. 无重叠区间.html" class="leancloud_visitors" data-flag-title="1262. 可被三整除的最大和">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  774
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">给你一个整数数组 nums，请你找出并返回能被三整除的元素最大和。</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">示例 1：</span><br><span class="line"></span><br><span class="line">输入：nums = [3,6,5,1,8]</span><br><span class="line">输出：18</span><br><span class="line">解释：选出数字 3, 6, 1 和 8，它们的和是 18（可被 3 整除的最大和）。</span><br><span class="line">示例 2：</span><br><span class="line"></span><br><span class="line">输入：nums = [4]</span><br><span class="line">输出：0</span><br><span class="line">解释：4 不能被 3 整除，所以无法选出数字，返回 0。</span><br></pre></td></tr></table></figure>
+<h4 id="解"><a href="#解" class="headerlink" title="解:"></a>解:</h4><p>1.用sum累加所有数。同时使用两个数组，把余数为2和1的分别填充到其中，并对这两数组降序排序（因为要和最大，大的优先使用）。那么有了这两个基础上，结合问题，这个时候计算sum的余数，存在3中情况：</p>
+<ol>
+<li>余数为0,直接返回sum.</li>
+<li>余数为1，那么又存在两种情况，分别为减去余数为1数组中的最后一个或余数为2数组的最后两个，使sum最大，前提是其他们元素数量满足。</li>
+<li>余数为2，那么又存在两种情况，分别为减去余数为2数组中的最后一个或余数为1数组的最后两个，使sum最大，前提是其他们元素数量满足。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">static bool compDesc(int a,int b)&#123;</span><br><span class="line">    return a &gt; b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int adjustSum(int rem ,int sum,vector&lt;int&gt; v1,vector&lt;int&gt; v2)&#123;</span><br><span class="line">    if (rem == 1) &#123;</span><br><span class="line">        if (v1.size() == 0) &#123;</span><br><span class="line">            return sum - v2[v2.size() - 1] - v2[v2.size() - 2];</span><br><span class="line">        &#125;</span><br><span class="line">        else if(v2.size()&lt;2)&#123;</span><br><span class="line">            return sum - v1[v1.size() - 1];</span><br><span class="line">        &#125;</span><br><span class="line">        else&#123;</span><br><span class="line">            int del = min(v2[v2.size() - 1] + v2[v2.size() - 2], v1[v1.size() - 1]);</span><br><span class="line">            return sum - del;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    else if(rem == 2)&#123;</span><br><span class="line">        if (v1.size()&lt;2) &#123;</span><br><span class="line">            return sum - v2[v2.size() - 1];</span><br><span class="line">        &#125;</span><br><span class="line">        else if (v2.size() == 0)&#123;</span><br><span class="line">            return sum - v1[v1.size() - 1] - v1[v1.size() - 2];</span><br><span class="line">        &#125;</span><br><span class="line">        else&#123;</span><br><span class="line">            int del = min(v2[v2.size() - 1],v1[v1.size() - 1] + v1[v1.size() - 2]);</span><br><span class="line">            return sum - del;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line">int maxSumDivThree(vector&lt;int&gt;&amp; nums) &#123;</span><br><span class="line">    vector&lt;int&gt; v1;</span><br><span class="line">    vector&lt;int&gt; v2;</span><br><span class="line">    int sum =0;</span><br><span class="line">    for (int i = 0; i &lt; nums.size(); ++i) &#123;</span><br><span class="line">        sum += nums[i];</span><br><span class="line">        int r = nums[i] % 3;</span><br><span class="line">        if(r == 1)&#123;</span><br><span class="line">            v1.push_back(nums[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        else if (r == 2)&#123;</span><br><span class="line">            v2.push_back(nums[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    sort(v1.begin(), v1.end(), compDesc);</span><br><span class="line">    sort(v2.begin(), v2.end(), compDesc);</span><br><span class="line">    if (sum % 3 == 1) &#123;</span><br><span class="line">        return adjustSum(1,sum, v1, v2);</span><br><span class="line">    &#125;</span><br><span class="line">    else if (sum % 3 == 2)&#123;</span><br><span class="line">        return adjustSum(2,sum, v1, v2);</span><br><span class="line">    &#125;</span><br><span class="line">    return sum;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>难点思路的思考，如何使值最大。就会涉及到最后几个元素的取舍问题。我的想法是，用两个数组存储余1和余2，那么最后可能余1数组可能存在两种情况一个1 或两个1，因为满足3个1就可以加入到和中，余2数组也一样，剩下一个2或两个2.但这里就存在很多种组合了，而且余2和余1中的元素没有直接的大小关系，有可能还要退回去拿出之前加入的元素，这又把情况变得很复杂，最后也没想出解决的办法。这大概跟思维的方式和习惯有关系。如果发现死胡同后，这是后换个思路很重要。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/1249. 移除无效的括号.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1664,374 +2031,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2019-10-31leetcode658找到 K 个最接近的元素.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zengbailiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/icon.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="liang's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019-10-31leetcode658找到 K 个最接近的元素.html" itemprop="url">658. 找到 K 个最接近的元素</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-31T00:00:00+08:00">
-                2019-10-31
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019-10-31leetcode658找到 K 个最接近的元素.html" class="leancloud_visitors" data-flag-title="658. 找到 K 个最接近的元素">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  853
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>给定一个排序好的数组，两个整数 k 和 x，从数组中找到最靠近 x（两数之差最小）的 k 个数。返回的结果必须要是按升序排好的。如果有两个数与 x 的差值一样，优先选择数值较小的那个数。</p>
-<p>示例 1:</p>
-<p>输入: [1,2,3,4,5], k=4, x=3<br>输出: [1,2,3,4]</p>
-<h4 id="解法一："><a href="#解法一：" class="headerlink" title="解法一："></a>解法一：</h4><p>找到k个最接近的元素，实际上是返回原数组的一个子数组。那么可以通过两头向中间获取原数组的元素，然后跟x对比，舍弃差值较大的。直到舍弃size - k 个元素为止。然后通过一个数组返回这些帅选过后的元素。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;int&gt; findClosestElements(vector&lt;int&gt;&amp; arr, int k, int x) &#123;</span><br><span class="line">    vector&lt;int&gt; res(k,0);</span><br><span class="line">    int len = arr.size();</span><br><span class="line">    int left = 0;</span><br><span class="line">    int right = len - 1;</span><br><span class="line">    while(len &gt; k)&#123;</span><br><span class="line">        if(abs(arr[left] - x) &gt; abs(arr[right] - x))&#123;</span><br><span class="line">            left ++;</span><br><span class="line">        &#125;</span><br><span class="line">        else&#123;</span><br><span class="line">            right --;</span><br><span class="line">        &#125;</span><br><span class="line">        len --;</span><br><span class="line">    &#125;</span><br><span class="line">    ///新数值index从0开始</span><br><span class="line">    int index = 0;</span><br><span class="line">    for(int i = left; i &lt;= right; i ++)&#123;</span><br><span class="line">        res[index++] = arr[i];</span><br><span class="line">    &#125;</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="后记："><a href="#后记：" class="headerlink" title="后记："></a>后记：</h5><p>1.把问题转化为查找子数组。确定了这一点，然后想到解法一的思路。分析题目，对信息进行有效的解读，非常有利于思路的推进，或者找到新的思路。例如此题转化为查找子数组。</p>
-<h4 id="解法二："><a href="#解法二：" class="headerlink" title="解法二："></a>解法二：</h4><p>采用二分法，查找最合适的子数组的起始坐标。二分开始的范围为(0,size - k),保证右边只至少存在k个元素。然后二分，获取arr[mid] - x,arr[mid + k ] -x 的值来比较，判断arr[mid]是否被舍弃，如果舍弃那么 left = mid +1,反之right = mid.最后达到临界条件left = right。然后获取 left .. left + k(不包含)下标的元素集合返回。</p>
-<p>比较难理解的点分析：<br>当abs(arr[mid] - x) &gt; abs(arr[mid + k] - x)时，舍弃mid这个点,start = mid + 1，这个很好理解。<br>但当abs(arr[mid] - x) &gt;= abs(arr[mid + k] - x)是，end = mid，这个就不太好理解了。根据对比条件可得，要舍弃[mid+k]这个点。那么就算end作为start，那么返回的区间就是[mid, mid + k -1]。从个角度来看，这个二分的过程，实际上是确定start的过程，由始至终目标start都在[start,end]这个区间中，然后不断二分，逼近最合适的start。这样好像就理解了这个解法的关键点了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;int&gt; findClosestElements(vector&lt;int&gt;&amp; arr, int k, int x) &#123;</span><br><span class="line">    vector&lt;int&gt; res(k,0);</span><br><span class="line">    int start = 0;</span><br><span class="line">     //end的初始值，设定二分开始区间为(0,size -k),所以下面用到mid + k 是不会越界的;</span><br><span class="line">    int end = arr.size() - k;</span><br><span class="line">    int mid;</span><br><span class="line">    while (start &lt; end) &#123;</span><br><span class="line">        mid = start + (end - start)/2;</span><br><span class="line">        if(abs(arr[mid] - x) &gt; abs(arr[mid + k] - x))&#123;</span><br><span class="line">        ///这里是mid这个点已经不符合要求，舍弃，调整start</span><br><span class="line">            start = mid + 1;</span><br><span class="line">        &#125;</span><br><span class="line">        else&#123;</span><br><span class="line">        ///这是是</span><br><span class="line">            end = mid;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    int index = 0;</span><br><span class="line">    for (int i = start; i &lt; start + k; i ++) &#123;</span><br><span class="line">        res[index++] = arr[i];</span><br><span class="line">    &#125;</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>后记：二分法并不是想象中的那么简单。某些场景下并不是那么好理解。就如此题的，目的是获取目标起始坐标，二分的区间也是起始坐标所在的区间。而比较的条件是能确定区间移动方向的两个边界值的比较。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2019-07-20iOS  证书校验的几种嵌入方式，公钥证书pem的读取.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zengbailiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/icon.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="liang's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019-07-20iOS  证书校验的几种嵌入方式，公钥证书pem的读取.html" itemprop="url">iOS  证书校验的几种嵌入方式，公钥证书pem的读取</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-20T00:00:00+08:00">
-                2019-07-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/安全/" itemprop="url" rel="index">
-                    <span itemprop="name">安全</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019-07-20iOS  证书校验的几种嵌入方式，公钥证书pem的读取.html" class="leancloud_visitors" data-flag-title="iOS  证书校验的几种嵌入方式，公钥证书pem的读取">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  654
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="嵌入的几种方式"><a href="#嵌入的几种方式" class="headerlink" title="嵌入的几种方式"></a>嵌入的几种方式</h4><p>使用公有协议https进行网络传输，为了避免数据被抓包，需要实现客户端的证书校验功能。而证书校验可能存在几种实现的方式。分别如下：<br>A. 直接把客户端证书cer,嵌入到bundle中。<br>B. 提取客户端证书的公钥，生成pem格式文件，嵌入到bundle中。<br>C. 把cer证书pem格式的文本硬编码到代码中。<br>D. 把pem格式公钥硬编码到代码中。</p>
-<h4 id="差别分析"><a href="#差别分析" class="headerlink" title="差别分析"></a>差别分析</h4><p>实际上，以上的实现方式都能实现证书校验的功能，只是对应的证书数据解析哪一步的代码处理有点差异。让我感到疑惑的是，为什么会存在这几种方式，特别是A和B。</p>
-<p>使用B而不使用A的原因猜测：</p>
-<ol>
-<li>开发团队可能不愿意泄漏过多的证书信息，只是为了实现功能必要的嵌入公钥信息。</li>
-<li>证书信息不常驻内存，存在频繁读取的场景，此时考虑效率，只使用必要的公钥信息。</li>
-</ol>
-<p>而C,D与A，B没有多大区别，主要是转成了base64硬编码到代码中。从安全性的角度来说，可能比直接把文件嵌入安全一点。文件直接砸壳就能拿到，很直接。而硬编码需要分析二进制，并且还要在一堆字符串查找，不那么直接。</p>
-<h4 id="公钥证书pem的读取"><a href="#公钥证书pem的读取" class="headerlink" title="公钥证书pem的读取"></a>公钥证书pem的读取</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// 从公钥证书文件中获取到公钥的SecKeyRef指针。 Base64String-&gt;NSData</span><br><span class="line">+ (id)publicSecKeyFromKeyBits:(NSData *)givenData &#123;</span><br><span class="line">    NSMutableDictionary *options = [NSMutableDictionary dictionary];</span><br><span class="line">    options[(__bridge id)kSecAttrKeyType] = (__bridge id) kSecAttrKeyTypeRSA;</span><br><span class="line">    options[(__bridge id)kSecAttrKeyClass] = (__bridge id) kSecAttrKeyClassPublic;</span><br><span class="line"></span><br><span class="line">    NSError *error = nil;</span><br><span class="line">    CFErrorRef ee = (__bridge CFErrorRef)error;</span><br><span class="line">    ///但这个方法在iOS10才支持。</span><br><span class="line">    id ret = (__bridge_transfer id)SecKeyCreateWithData((__bridge CFDataRef)givenData, (__bridge CFDictionaryRef)options, &amp;ee);</span><br><span class="line">    if (error) &#123;</span><br><span class="line">        return nil;</span><br><span class="line">    &#125;</span><br><span class="line">    return ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>此方法存在一个比较明显的缺点，只支持iOS10及其以上。我看到一些嵌入pem格式的公钥证书的app是支持到8.0的，但没能找到能支持低版本的生成SecKeyRef的方法，也许其作用并不是用来做证书校验的。</p>
-<h4 id="小技巧"><a href="#小技巧" class="headerlink" title="小技巧"></a>小技巧</h4><p>在后台不能提供客户端证书的情况下，可以在浏览器使用对应的域名下得网址进行请求，把证书拿到。macOS可以这么操作：1.请求相应的地址，2点击地址栏左边的小锁头，3点击证书，4出现证书详情的时候，点击拖动证书图标保存到本地。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2081,7 +2085,7 @@
               
                 <a rel="external nofollow" href="/archives/">
               
-                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2164,7 +2168,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">54.5k</span>
+    <span title="Site words total count">56.0k</span>
   
 </div>
 
