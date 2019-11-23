@@ -243,6 +243,197 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2018-03-17-4.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zengbailiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/icon.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="liang's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018-03-17-4.html" itemprop="url">iOS 网络数据-减少重复的字典取值操作、直接获取目的字段</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-22T00:00:00+08:00">
+                2018-02-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/net-data/" itemprop="url" rel="index">
+                    <span itemprop="name">net data</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018-03-17-4.html" class="leancloud_visitors" data-flag-title="iOS 网络数据-减少重复的字典取值操作、直接获取目的字段">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,165
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>当我们处理接口数据的时候，有些情况仅仅需要获取一个或多个字段，来进行状态判断或数据显示。在写这部分代码的时候，或多或少会有一种重复感，但它又不是一成不变的重复，而是其模式相同，大量的字典取值操作，又或者多层的字典取值。这里能否实现一个功能，减少重复操作，一步到位，又或者提高下效率，让这部分代码逻辑变得简洁统一。我想可以自己定义一个取值协议，通过这个协议对数据进行解析，获取目的字段。这样就方便多了，只要根据协议解析就就可以省去很多重复操作。</p>
+</blockquote>
+<h5 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h5><p>获取到后台数据的时候，接口回调回来的是一个字典对象，如果不是，那么需要进行一层处理转换成字典对象。然后，我们只需要对这个字典对象一层一层的解析，直到获取并返回目的字段的值。在解析的过程中，添加必要的健壮性处理，如果无法满足下一步解析的条件，结束解析并返回错误信息。</p>
+<h5 id="协议设定"><a href="#协议设定" class="headerlink" title="协议设定"></a>协议设定</h5><p>传入特定结构的字符串作为解析的依据。而这个字符串的结构规则就是协议的内容。</p>
+<ol>
+<li>把”{“作为字典类型的标记</li>
+<li>把”[“作为数组类型的标记</li>
+<li>在”{“、”[“前添加各自的字段名keyName</li>
+<li>由左到右解析</li>
+</ol>
+<p>例如：@”keyName0{KeyName1{dstKeyName{“<br>第一层字段名为keyName0，类型为字典，所以先解析出一个字典对象value0。通过value0和第二层字段名KeyName1，解析出一个value1。如此类推，通过value1获取目的字段dstKeyName的值dstValue。<br>其正确的数据结构：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;keyName0&quot;:&#123;</span><br><span class="line">        &quot;KeyName1&quot;:&#123;</span><br><span class="line">            &quot;dstKeyName&quot;:&#123;</span><br><span class="line">               //keys &amp; values</span><br><span class="line">              &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h5><p>能获取下一层的必须是一个字典对象，就是说协议字符串目的字段之前所有字段的类型标记都为”{“。还有一点，我们可以在目的字段后面添加类型标记，这样的话，就可以根据这个类型标记来判断目的字段的值的类型是否与期待的一致。可以添加NSString、NSNumber类型的符号如NSString对应@，Number对应$等，约定好添加逻辑处理即可。</p>
+<p>测试代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">NSString *path = [[NSBundle mainBundle]pathForResource:@&quot;json&quot; ofType:@&quot;txt&quot;];</span><br><span class="line">    NSString *jsonString = [[NSString alloc]initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];</span><br><span class="line">    NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];</span><br><span class="line">    NSError *jsonError = nil;</span><br><span class="line">    NSDictionary *testDictionary = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&amp;jsonError];</span><br><span class="line">    if (jsonError) &#123;</span><br><span class="line">        NSLog(@&quot;error0：%@ &quot;,jsonError);</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    NSNumber *status = [SafeDataProcessor getObjectWithFormmateString:@&quot;data&#123;status&quot; data:testDictionary];</span><br><span class="line">    //直接获取page字段</span><br><span class="line">    NSNumber *page = [SafeDataProcessor getObjectWithFormmateString:@&quot;data&#123;result&#123;all_page&quot; data:testDictionary];</span><br><span class="line">    </span><br><span class="line">    //先获取result字段，再获取list字段</span><br><span class="line">    NSDictionary *result = [SafeDataProcessor getObjectWithFormmateString:@&quot;data&#123;result&#123;&quot; data:testDictionary];</span><br><span class="line">    NSArray *list = [SafeDataProcessor getObjectWithFormmateString:@&quot;list[&quot; data:result];</span><br><span class="line">    </span><br><span class="line">    NSLog(@&quot;\n statu:%@,\n page:%@,\n list:%@,\n result:%@,\n &quot;,status,page,list,result);</span><br></pre></td></tr></table></figure></p>
+<p>调试结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">2018-02-22 10:57:25.093365+0800 SafeNetDataProcessor[2882:123596] </span><br><span class="line"> statu:200,</span><br><span class="line"> page:20,</span><br><span class="line"> list:(</span><br><span class="line">        &#123;</span><br><span class="line">        &quot;check_reply_info&quot; =         &#123;</span><br><span class="line">            num = 6;</span><br><span class="line">            type = 1;</span><br><span class="line">        &#125;;</span><br><span class="line">        content = &quot;\U5b66\U4e60\U4e0d\U662f\U7ed9\U8001\U5e08\U5b66\U7684\Uff0c\U662f\U7ed9\U4f60\U81ea\U5df1\U5b66\U7684\U3002&quot;;</span><br><span class="line">        &quot;create_time&quot; = 1518361773;</span><br><span class="line">        floor = 1;</span><br><span class="line">        groupid = &quot;-1&quot;;</span><br><span class="line">        &quot;light_count&quot; = 1992;</span><br><span class="line">        pid = 259696;</span><br><span class="line">        puid = 25941704;</span><br><span class="line">        quote =         (</span><br><span class="line">        );</span><br><span class="line">        &quot;quote_deleted&quot; = 0;</span><br><span class="line">        smallcontent = &quot;\U5b66\U4e60\U4e0d\U662f\U7ed9...&quot;;</span><br><span class="line">        time = &quot;8\U5c0f\U65f6\U524d&quot;;</span><br><span class="line">        togglecontent = &quot;&quot;;</span><br><span class="line">        &quot;update_info&quot; = 0;</span><br><span class="line">        userImg = &quot;http://i1.hoopchina.com.cn/user/665/256623943989665/256623943989665-1518360162.jpeg@45h_45w_2e&quot;;</span><br><span class="line">        userName = &quot;\U4e8c\U53f7\U8001\U6d41\U6c13&quot;;</span><br><span class="line">        &quot;user_banned&quot; = 0;</span><br><span class="line">        via = 9;</span><br><span class="line">    &#125;,</span><br></pre></td></tr></table></figure></p>
+<h5 id="功能的优缺点分析"><a href="#功能的优缺点分析" class="headerlink" title="功能的优缺点分析"></a>功能的优缺点分析</h5><p>优点：这个功能的优点很明显，就是把分散的处理集中了，输入结构字符串和网络返回值，即可获取目的字段的值，中间的健壮性处理和取值操作都可以省掉了，从这个角度看，减少了编码工作，提高了效率；同时，统一的健壮性处理，只要保证内部处理正确稳定，那么该部分处理就是稳定安全的。对比原来，每次都要手写一次，难保每次都是正确的，特别拷贝大段代码进行修改，这样的操作容易出现低级错误。</p>
+<p>缺点：根据字符串来解析，所以会有额外的字符串操作处理，使程序的执行效率变低。</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>从程序运行的角度来看，效率最高的的固然是最贴近需求，无多余操作的代码。但从软件开发的角度来看，程序本身执行效率很重要，但是程序健壮性、编码效率和编码质量也同样重要。</p>
+<p>demo地址:<br><a href="https://github.com/zmubai/SafeDataProcessor" target="_blank" rel="noopener">https://github.com/zmubai/SafeDataProcessor</a></p>
+<p>end~</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2018-03-17-3.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -764,7 +955,7 @@
               
                 <a rel="external nofollow" href="/archives/">
               
-                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-count">43</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -847,7 +1038,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">56.0k</span>
+    <span title="Site words total count">56.8k</span>
   
 </div>
 
