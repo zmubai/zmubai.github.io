@@ -80,18 +80,18 @@
 
 
 
-<meta name="description" content="1234567891011 给定一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？找出所有满足条件且不重复的三元组。注意：答案中不可以包含重复的三元组。例如, 给定数组 nums = [-1, 0, 1, 2, -1, -4]，满足要求的三元组集合为：[  [-1, 0, 1],  [-1, -1, 2]] 解1：根据题目和">
+<meta name="description" content="1234567891011 给定一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？找出所有满足条件且不重复的三元组。注意：答案中不可以包含重复的三元组。例如, 给定数组 nums = [-1, 0, 1, 2, -1, -4]，满足要求的三元组集合为：[  [-1, 0, 1],  [-1, -1, 2]] 解：根据题目和例">
 <meta name="keywords" content="leetcode">
 <meta property="og:type" content="article">
 <meta property="og:title" content="15. 三数之和">
 <meta property="og:url" content="https://zengbailiang.cn/15. 三数之和.html">
 <meta property="og:site_name" content="liang&#39;s blog">
-<meta property="og:description" content="1234567891011 给定一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？找出所有满足条件且不重复的三元组。注意：答案中不可以包含重复的三元组。例如, 给定数组 nums = [-1, 0, 1, 2, -1, -4]，满足要求的三元组集合为：[  [-1, 0, 1],  [-1, -1, 2]] 解1：根据题目和">
+<meta property="og:description" content="1234567891011 给定一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？找出所有满足条件且不重复的三元组。注意：答案中不可以包含重复的三元组。例如, 给定数组 nums = [-1, 0, 1, 2, -1, -4]，满足要求的三元组集合为：[  [-1, 0, 1],  [-1, -1, 2]] 解：根据题目和例">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-11-23T12:45:42.417Z">
+<meta property="og:updated_time" content="2019-11-23T13:03:01.378Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="15. 三数之和">
-<meta name="twitter:description" content="1234567891011 给定一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？找出所有满足条件且不重复的三元组。注意：答案中不可以包含重复的三元组。例如, 给定数组 nums = [-1, 0, 1, 2, -1, -4]，满足要求的三元组集合为：[  [-1, 0, 1],  [-1, -1, 2]] 解1：根据题目和">
+<meta name="twitter:description" content="1234567891011 给定一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？找出所有满足条件且不重复的三元组。注意：答案中不可以包含重复的三元组。例如, 给定数组 nums = [-1, 0, 1, 2, -1, -4]，满足要求的三元组集合为：[  [-1, 0, 1],  [-1, -1, 2]] 解：根据题目和例">
 
 
 
@@ -338,7 +338,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  754
+                  753
                 </span>
               
 
@@ -364,11 +364,10 @@
 
       
         <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> 给定一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？找出所有满足条件且不重复的三元组。</span><br><span class="line"></span><br><span class="line">注意：答案中不可以包含重复的三元组。</span><br><span class="line"></span><br><span class="line">例如, 给定数组 nums = [-1, 0, 1, 2, -1, -4]，</span><br><span class="line"></span><br><span class="line">满足要求的三元组集合为：</span><br><span class="line">[</span><br><span class="line">  [-1, 0, 1],</span><br><span class="line">  [-1, -1, 2]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-<h4 id="解1："><a href="#解1：" class="headerlink" title="解1："></a>解1：</h4><p>根据题目和例子，结果集是不允许重复的解，但数组中的元素可以重复利用。首先把问题由三个数和为0 转化为,求两个数和为第三个数相反数的问题，并在处理过程中，跳过重复的情况。</p>
+<h4 id="解："><a href="#解：" class="headerlink" title="解："></a>解：</h4><p>根据题目和例子，结果集是不允许重复的解，但数组中的元素可以重复利用。首先把问题由三个数和为0 转化为,求两个数和为第三个数相反数的问题，并在处理过程中，跳过重复的情况。</p>
 <p>步骤：排序数组，从左边i遍历数组，左边i作为最小值。再开启两个下标left,right从两边查找，查找和为nums[i]的相反数。其中如果nums[i]&gt;0,那么就代表右边不可能存在解的可能，可以退出遍历。</p>
 <p>而对于每一此遍历，会去查找以num[i]做为最小值的所有非重复解。当找到其中一个解后，做一些处理避免重复后，继续移动两个下标，查找下一组解。所以遍历结束后，可得所有解。</p>
-<p>#####重复处理：</p>
-<ol>
+<h5 id="重复处理："><a href="#重复处理：" class="headerlink" title="重复处理："></a>重复处理：</h5><ol>
 <li>比较重要的去重处理是由两个部分组成。首先循环外判断num[i] 与num[i-1]，由于每一次遍历都会求得以num[i]作为最小值的全部解，所以这里相等就代表重复，跳过。</li>
 <li>同理对于同一个num[i]，因为a +b +c  = 0,任意两个数确定都代表第三个数确定，所以循环内跳过所有相同的nums[left]和nums[right]。</li>
 </ol>
@@ -563,7 +562,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#解1："><span class="nav-number">1.</span> <span class="nav-text">解1：</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#解："><span class="nav-number">1.</span> <span class="nav-text">解：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#重复处理："><span class="nav-number">1.1.</span> <span class="nav-text">重复处理：</span></a></li></ol></li></ol></div>
             
 
           </div>
