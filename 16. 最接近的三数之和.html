@@ -80,18 +80,18 @@
 
 
 
-<meta name="description" content="123 给定一个只包含小写字母的有序数组letters 和一个目标字母 target，寻找有序数组里面比目标字母大的最小字母。数组里字母的顺序是循环的。举个例子，如果目标字母target = &amp;apos;z&amp;apos; 并且有序数组为 letters = [&amp;apos;a&amp;apos;, &amp;apos;b&amp;apos;]，则答案返回 &amp;apos;a&amp;apos;。 解1:遍历，然后对比target,记录比">
+<meta name="description" content="12345 给定一个包括 n 个整数的数组 nums 和 一个目标值 target。找出 nums 中的三个整数，使得它们的和与 target 最接近。返回这三个数的和。假定每组输入只存在唯一答案。例如，给定数组 nums = [-1，2，1，-4], 和 target = 1.与 target 最接近的三个数的和为 2. (-1 + 2 + 1 = 2). 解1：比暴力法好一点，在最内层做了二分">
 <meta name="keywords" content="leetcode">
 <meta property="og:type" content="article">
-<meta property="og:title" content="744. 寻找比目标字母大的最小字母">
-<meta property="og:url" content="https://zengbailiang.cn/744. 寻找比目标字母大的最小字母.html">
+<meta property="og:title" content="16. 最接近的三数之和">
+<meta property="og:url" content="https://zengbailiang.cn/16. 最接近的三数之和.html">
 <meta property="og:site_name" content="liang&#39;s blog">
-<meta property="og:description" content="123 给定一个只包含小写字母的有序数组letters 和一个目标字母 target，寻找有序数组里面比目标字母大的最小字母。数组里字母的顺序是循环的。举个例子，如果目标字母target = &amp;apos;z&amp;apos; 并且有序数组为 letters = [&amp;apos;a&amp;apos;, &amp;apos;b&amp;apos;]，则答案返回 &amp;apos;a&amp;apos;。 解1:遍历，然后对比target,记录比">
+<meta property="og:description" content="12345 给定一个包括 n 个整数的数组 nums 和 一个目标值 target。找出 nums 中的三个整数，使得它们的和与 target 最接近。返回这三个数的和。假定每组输入只存在唯一答案。例如，给定数组 nums = [-1，2，1，-4], 和 target = 1.与 target 最接近的三个数的和为 2. (-1 + 2 + 1 = 2). 解1：比暴力法好一点，在最内层做了二分">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-11-18T16:57:17.817Z">
+<meta property="og:updated_time" content="2019-11-25T16:00:43.090Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="744. 寻找比目标字母大的最小字母">
-<meta name="twitter:description" content="123 给定一个只包含小写字母的有序数组letters 和一个目标字母 target，寻找有序数组里面比目标字母大的最小字母。数组里字母的顺序是循环的。举个例子，如果目标字母target = &amp;apos;z&amp;apos; 并且有序数组为 letters = [&amp;apos;a&amp;apos;, &amp;apos;b&amp;apos;]，则答案返回 &amp;apos;a&amp;apos;。 解1:遍历，然后对比target,记录比">
+<meta name="twitter:title" content="16. 最接近的三数之和">
+<meta name="twitter:description" content="12345 给定一个包括 n 个整数的数组 nums 和 一个目标值 target。找出 nums 中的三个整数，使得它们的和与 target 最接近。返回这三个数的和。假定每组输入只存在唯一答案。例如，给定数组 nums = [-1，2，1，-4], 和 target = 1.与 target 最接近的三个数的和为 2. (-1 + 2 + 1 = 2). 解1：比暴力法好一点，在最内层做了二分">
 
 
 
@@ -121,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="https://zengbailiang.cn/744. 寻找比目标字母大的最小字母.html"/>
+  <link rel="canonical" href="https://zengbailiang.cn/16. 最接近的三数之和.html"/>
 
 
 
 
 
-  <title>744. 寻找比目标字母大的最小字母 | liang's blog</title>
+  <title>16. 最接近的三数之和 | liang's blog</title>
   
 
 
@@ -244,7 +244,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/744. 寻找比目标字母大的最小字母.html">
+    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/16. 最接近的三数之和.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="zengbailiang">
@@ -261,7 +261,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">744. 寻找比目标字母大的最小字母</h1>
+          <h1 class="post-title" itemprop="name headline">16. 最接近的三数之和</h1>
         
 
         <div class="post-meta">
@@ -273,8 +273,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-19T00:00:00+08:00">
-                2019-11-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-25T00:00:00+08:00">
+                2019-11-25
               </time>
             
 
@@ -313,7 +313,7 @@
 
           
           
-             <span id="/744. 寻找比目标字母大的最小字母.html" class="leancloud_visitors" data-flag-title="744. 寻找比目标字母大的最小字母">
+             <span id="/16. 最接近的三数之和.html" class="leancloud_visitors" data-flag-title="16. 最接近的三数之和">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -338,7 +338,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  490
+                  699
                 </span>
               
 
@@ -363,12 +363,11 @@
       
 
       
-        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> 给定一个只包含小写字母的有序数组letters 和一个目标字母 target，寻找有序数组里面比目标字母大的最小字母。</span><br><span class="line"></span><br><span class="line">数组里字母的顺序是循环的。举个例子，如果目标字母target = &apos;z&apos; 并且有序数组为 letters = [&apos;a&apos;, &apos;b&apos;]，则答案返回 &apos;a&apos;。</span><br></pre></td></tr></table></figure>
-<h4 id="解1"><a href="#解1" class="headerlink" title="解1:"></a>解1:</h4><p>遍历，然后对比target,记录比target大且差值最小的元素的下标bigIndex，如果存在那么返回letters[bigIndex]。如果没有比traget大的元素，那么根据题意，字母是循环的，那么返回letters[0]。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">char nextGreatestLetter(vector&lt;char&gt;&amp; letters, char target) &#123;</span><br><span class="line">    int big = -1;</span><br><span class="line">    int bigIndex = -1;</span><br><span class="line">        for(int i = 0; i &lt; letters.size(); i ++)&#123;</span><br><span class="line">            int len = letters[i] - target;</span><br><span class="line">            if(len &gt;= 0)</span><br><span class="line">            &#123;</span><br><span class="line">               if(len &lt; big|| big == -1)&#123;</span><br><span class="line">                   big = len;</span><br><span class="line">                   bigIndex = i;</span><br><span class="line">               &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        if(big)&#123;</span><br><span class="line">            return letters[big];</span><br><span class="line">        &#125;</span><br><span class="line">        else&#123;</span><br><span class="line">            return letters[0];</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="解2"><a href="#解2" class="headerlink" title="解2"></a>解2</h4><p>由于输入是有序数组，那么可能会想到二分。二分就查找比target大的元素。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">char nextGreatestLetter(vector&lt;char&gt;&amp; letters, char target) &#123;</span><br><span class="line">    int left = 0;</span><br><span class="line">    int right = (int)letters.size();</span><br><span class="line">    while (left &lt; right) &#123;</span><br><span class="line">        int mid = left + (right - left) / 2;</span><br><span class="line">        if (mid&gt; 0 &amp;&amp; letters[mid - 1] &lt;= target &amp;&amp; letters[mid]&gt; target) &#123;</span><br><span class="line">            return letters[mid];</span><br><span class="line">        &#125;</span><br><span class="line">        else&#123;</span><br><span class="line">            if (letters[mid]&lt;=target) &#123;</span><br><span class="line">            //注意这里的条件，已经明确的判断出mid不符合要求。所以left = mid + 1;</span><br><span class="line">            //mid，不符合要求，调整下限</span><br><span class="line">                left = mid + 1;</span><br><span class="line">            &#125;</span><br><span class="line">            else&#123;</span><br><span class="line">            //此分支代表, letters[mid]&gt;target,需要调整上限，但mid依然有可能符合要求。</span><br><span class="line">            //mid有可能符合要求，调整上限</span><br><span class="line">                right = mid;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return letters[0];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>二分条件判断后，调整上下限时候是有非常严谨的逻辑的，例如+1还是-1，是否= mid等。<br>另外有时候，二分是调整区间找坐标，有时候是给出特定的目标值，来查找坐标，情况很多。甚至二分的判断条件是一个函数，是一个以mid为入参的函数。</p>
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> 给定一个包括 n 个整数的数组 nums 和 一个目标值 target。找出 nums 中的三个整数，使得它们的和与 target 最接近。返回这三个数的和。假定每组输入只存在唯一答案。</span><br><span class="line"></span><br><span class="line">例如，给定数组 nums = [-1，2，1，-4], 和 target = 1.</span><br><span class="line"></span><br><span class="line">与 target 最接近的三个数的和为 2. (-1 + 2 + 1 = 2).</span><br></pre></td></tr></table></figure>
+<h4 id="解1："><a href="#解1：" class="headerlink" title="解1："></a>解1：</h4><p>比暴力法好一点，在最内层做了二分。时间复杂度依然很高 n2 *longn。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">int threeSumClosest(vector&lt;int&gt;&amp; nums, int target) &#123;</span><br><span class="line">    sort(nums.begin(),nums.end());</span><br><span class="line">    ///这个初始化是有问题的,对于lastBiger和smaller没有问题，但对于res是可能存在问题，有可能他是最大值的三倍，但刚好是最接近target的，如果这样程序就会错误。这里大概可以设置为MAX_INT 或 MIN_INT。</span><br><span class="line">    int undefine = nums[nums.size() - 1] * 3;</span><br><span class="line">    int res = undefine;</span><br><span class="line">    for (int i = 0 ; i &lt; nums.size() - 2; ++ i) &#123;</span><br><span class="line">        for (int j = i+1; j &lt; nums.size() - 1; ++j) &#123;</span><br><span class="line">            int dstValue = target - nums[i] - nums[j];</span><br><span class="line">            int left = j + 1;</span><br><span class="line">            int right = (int)nums.size() - 1;</span><br><span class="line">            int lastBigger = undefine;</span><br><span class="line">            int lastSmaller = undefine;</span><br><span class="line">            while (left &lt;= right) &#123;</span><br><span class="line">                int mid = left + (right - left)/2;</span><br><span class="line">                if (nums[mid] == dstValue) &#123;</span><br><span class="line">                    cout&lt;&lt;i&lt;&lt;&quot;*&quot;;</span><br><span class="line">                    cout&lt;&lt;j&lt;&lt;&quot;*&quot;;</span><br><span class="line">                    cout&lt;&lt;mid&lt;&lt;&quot;*&quot;;</span><br><span class="line">                    return target;</span><br><span class="line">                &#125;</span><br><span class="line">                else if(nums[mid] &gt; dstValue)&#123;</span><br><span class="line">                    lastBigger = nums[mid];</span><br><span class="line">                    right --;</span><br><span class="line">                &#125;</span><br><span class="line">                else&#123;</span><br><span class="line">                    lastSmaller = nums[mid];</span><br><span class="line">                    left++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            int v3;</span><br><span class="line">            if(lastBigger != undefine &amp;&amp; lastSmaller != undefine)&#123;</span><br><span class="line">                int v0 = nums[i] + nums[j] + lastBigger;</span><br><span class="line">                int v1 = nums[i] + nums[j] + lastSmaller;</span><br><span class="line">                v3 = abs(target - v0) &lt; abs(target- v1) ? v0:v1;</span><br><span class="line">            &#125;</span><br><span class="line">            else if (lastSmaller == undefine)&#123;</span><br><span class="line">                v3 = nums[i] + nums[j] + lastBigger;</span><br><span class="line">            &#125;</span><br><span class="line">            else if(lastBigger == undefine)&#123;</span><br><span class="line">                v3 = nums[i] + nums[j] + lastSmaller;</span><br><span class="line">            &#125;</span><br><span class="line">            if (res == undefine) &#123;</span><br><span class="line">                res = v3;</span><br><span class="line">            &#125;</span><br><span class="line">            else&#123;</span><br><span class="line">                res = abs(target - res) &lt; abs(target- v3) ? res:v3;</span><br><span class="line">            &#125;</span><br><span class="line">            // cout &lt;&lt;res &lt;&lt;&quot;&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return  res;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="解2"><a href="#解2" class="headerlink" title="解2"></a>解2</h4><p>首先排序是肯定需要的，思考解决方法的时候，比较重要的就是提供更多有利的假设，同时这些假设是能实现的，在各种条件能够被满足的情况下，探索题解，如果依然找不到方法，可见是思路不对或被卡主了。言归正传，在建立排序后，执行循环遍历，然后使用前后下标比较，获取更接近目标值的解。其中前后下标的移动依据和与目标值得大小关系，由于数组已经排序，所以如果比tager大，那么后下标左移，相反左下标右移动，这样和的大小才能更靠近tager。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">int threeSumClosest(vector&lt;int&gt;&amp; nums, int target) &#123;</span><br><span class="line">    sort(nums.begin(), nums.end());</span><br><span class="line">    int res = nums[0] + nums[1] + nums[2];</span><br><span class="line">    for (int i = 0; i &lt; nums.size() - 2; ++ i) &#123;</span><br><span class="line">        int left = i + 1;</span><br><span class="line">        int right = (int)nums.size() - 1;</span><br><span class="line">        while (left &lt; right) &#123;</span><br><span class="line">            int r = nums[i] + nums[left] + nums[right];</span><br><span class="line">            res = abs(target - res) &lt; abs(target - r)?res:r;</span><br><span class="line">            if (r &gt; target) &#123;</span><br><span class="line">                --right;</span><br><span class="line">            &#125;</span><br><span class="line">            else if(r &lt; target)&#123;</span><br><span class="line">                ++left;</span><br><span class="line">            &#125;</span><br><span class="line">            else&#123;</span><br><span class="line">                return target;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -399,8 +398,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/1123最深叶节点的最近公共祖先191115.html" rel="next" title="leetcode 1123 最深叶节点的最近公共祖先">
-                <i class="fa fa-chevron-left"></i> leetcode 1123 最深叶节点的最近公共祖先
+              <a href="/15. 三数之和.html" rel="next" title="15. 三数之和">
+                <i class="fa fa-chevron-left"></i> 15. 三数之和
               </a>
             
           </div>
@@ -408,10 +407,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/807. 保持城市天际线.html" rel="prev" title="807. 保持城市天际线">
-                807. 保持城市天际线 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -557,7 +552,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#解1"><span class="nav-number">1.</span> <span class="nav-text">解1:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解2"><span class="nav-number">2.</span> <span class="nav-text">解2</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#解1："><span class="nav-number">1.</span> <span class="nav-text">解1：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解2"><span class="nav-number">2.</span> <span class="nav-text">解2</span></a></li></ol></div>
             
 
           </div>
