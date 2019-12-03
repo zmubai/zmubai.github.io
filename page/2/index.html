@@ -243,6 +243,199 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/887. 鸡蛋掉落 191112.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zengbailiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/icon.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="liang's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/887. 鸡蛋掉落 191112.html" itemprop="url">leetcode 887. 鸡蛋掉落</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-12T00:00:00+08:00">
+                2019-11-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/887. 鸡蛋掉落 191112.html" class="leancloud_visitors" data-flag-title="leetcode 887. 鸡蛋掉落">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,267
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">887. 鸡蛋掉落</span><br><span class="line">你将获得 K 个鸡蛋，并可以使用一栋从 1 到 N  共有 N 层楼的建筑。</span><br><span class="line"></span><br><span class="line">每个蛋的功能都是一样的，如果一个蛋碎了，你就不能再把它掉下去。</span><br><span class="line"></span><br><span class="line">你知道存在楼层 F ，满足 0 &lt;= F &lt;= N 任何从高于 F 的楼层落下的鸡蛋都会碎，从 F 楼层或比它低的楼层落下的鸡蛋都不会破。</span><br><span class="line"></span><br><span class="line">每次移动，你可以取一个鸡蛋（如果你有完整的鸡蛋）并把它从任一楼层 X 扔下（满足 1 &lt;= X &lt;= N）。</span><br><span class="line"></span><br><span class="line">你的目标是确切地知道 F 的值是多少。</span><br><span class="line"></span><br><span class="line">无论 F 的初始值如何，你确定 F 的值的最小移动次数是多少？</span><br><span class="line"></span><br><span class="line">示例 1：</span><br><span class="line"></span><br><span class="line">输入：K = 1, N = 2</span><br><span class="line">输出：2</span><br><span class="line">解释：</span><br><span class="line">鸡蛋从 1 楼掉落。如果它碎了，我们肯定知道 F = 0 。</span><br><span class="line">否则，鸡蛋从 2 楼掉落。如果它碎了，我们肯定知道 F = 1 。</span><br><span class="line">如果它没碎，那么我们肯定知道 F = 2 。</span><br><span class="line">因此，在最坏的情况下我们需要移动 2 次以确定 F 是多少。</span><br></pre></td></tr></table></figure>
+<h4 id="解法一："><a href="#解法一：" class="headerlink" title="解法一："></a>解法一：</h4><p>动态规划。<br>dp[i][j]表示i个鸡蛋 ,j层需要的次数。<br>当某个时刻楼层为x,仍下鸡蛋，会出现两种情况<br>1.鸡蛋碎了，那么调整范围dp[i-1][x-1]。<br>2.鸡蛋没碎，那么调整范围dp[i][j-x]。</p>
+<p>那么dp方程为:<br>dp[i][j] = min(dp[i][j],1 + max(dp[i-1][x-1],dp[i][j-x]))(+1是因为计算上这本次扔鸡蛋)<br>主要步骤：</p>
+<ol>
+<li>dp[i][j] 赋值保险值。例如100层，保险值就是100。等于j。</li>
+<li>计算dp[i][j] = min(dp[i][j],1 + max(dp[i-1][x-1],dp[i][j-x]))。</li>
+<li>返回dp[K][N]。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">// Time Limit Exceeded</span><br><span class="line">int superEggDrop(int K, int N) &#123;</span><br><span class="line">    vector&lt;vector&lt;int&gt;&gt; dp(K + 1, vector&lt;int&gt;(N + 1));</span><br><span class="line">    for (int i = 1; i &lt;= N; i ++) &#123;</span><br><span class="line">        dp[1][i] = i;</span><br><span class="line">    &#125;</span><br><span class="line">    //2 - K 个鸡蛋</span><br><span class="line">    for (int i = 2;i &lt;= K; ++i)&#123;</span><br><span class="line">        // 1 - N 层</span><br><span class="line">        for (int j = 1; j &lt;= N; ++j) &#123;</span><br><span class="line">            //赋值最大次数</span><br><span class="line">            dp[i][j] = j;</span><br><span class="line">            //鸡蛋有可能在任何一层砸碎</span><br><span class="line">            for (int x = 1; x &lt; j; ++x) &#123;</span><br><span class="line">                dp[i][j] = min(dp[i][j], 1 + max(dp[i][j - x], dp[i -1][x -1]));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return dp[K][N];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此方法会超时，需要优化。下面采取二分优化。</p>
+<h4 id="解法二"><a href="#解法二" class="headerlink" title="解法二:"></a>解法二:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">int superEggDrop(int K, int N) &#123;</span><br><span class="line">    vector&lt;vector&lt;int&gt;&gt; dp (K+1,vector&lt;int&gt;(N+1));</span><br><span class="line">    //赋基础值</span><br><span class="line">    for (int i = 1 ; i &lt;= N; ++i) &#123;</span><br><span class="line">        dp[1][i] = i;</span><br><span class="line">    &#125;</span><br><span class="line">    //2 - K egg</span><br><span class="line">    for (int i = 2; i &lt;= K; ++i) &#123;</span><br><span class="line">        // 1 - N floor</span><br><span class="line">        for (int j = 1; j &lt;= N; ++j) &#123;</span><br><span class="line">            //赋保险值</span><br><span class="line">            dp[i][j] = j;</span><br><span class="line">            int left = 1;</span><br><span class="line">            int right = j;</span><br><span class="line">            //二分查找临界点</span><br><span class="line">            while (left&lt;right) &#123;</span><br><span class="line">                int mid = left + (right - left)/2;</span><br><span class="line">                if (dp[i - 1][mid -1] &lt; dp[i][j - mid]) &#123;</span><br><span class="line">                    //mid 过小 向右偏移</span><br><span class="line">                    left = mid + 1;</span><br><span class="line">                &#125;</span><br><span class="line">                else&#123;</span><br><span class="line">                    //mid 过大，向左偏移</span><br><span class="line">                    right = mid;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            ///为什么最后right是临界点呢（ring保留mid,不让某些值缺失，但临界值为什么不能发生在left。。。；根据判断条件left&lt;right。可以理解为left一直增大，直到=&gt;right，那么退出循环，此时right就是临界值。这个过程如何一定保证right为临界值！！！），这里有点没想通。</span><br><span class="line">            dp[i][j] = min(dp[i][j], 1 + max(dp[i-1][right-1],dp[i][j-right]));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return dp[K][N];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="解法三"><a href="#解法三" class="headerlink" title="解法三"></a>解法三</h4><p>再次优化，理论上楼层越多临界点越大，so临界点是一致递增的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">int superEggDrop(int K, int N) &#123;</span><br><span class="line">    vector&lt;vector&lt;int&gt;&gt; dp (K+1,vector&lt;int&gt;(N+1));</span><br><span class="line">    //赋基础值</span><br><span class="line">    for (int i = 1 ; i &lt;= N; ++i) &#123;</span><br><span class="line">        dp[1][i] = i;</span><br><span class="line">    &#125;</span><br><span class="line">    //2 - K egg</span><br><span class="line">    for (int i = 2; i &lt;= K; ++i) &#123;</span><br><span class="line">        // 1 - N floor</span><br><span class="line">        int s = 1;</span><br><span class="line">        for (int j = 1; j &lt;= N; ++j) &#123;</span><br><span class="line">            //赋保险值</span><br><span class="line">            dp[i][j] = j;</span><br><span class="line">            //随着楼层的增加 s会变大。（使用s递增，比解法二的临界值好理解很多，且很容易确定准确性）</span><br><span class="line">            while (dp[i - 1][s -1] &lt; dp[i][j - s]) &#123;</span><br><span class="line">                s++;</span><br><span class="line">            &#125;</span><br><span class="line">            dp[i][j] = min(dp[i][j], 1 + max(dp[i-1][s-1],dp[i][j-s]));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return dp[K][N];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这种类型的题目，求最值得问题，很可能用到动态规划。且随着变量的递增，后面的结果依赖于之前的过程。抽象出dp方程比较重要。<br>例如本题就比较难抽象，要完全理清题意，准确无误的抽象不容易：</p>
+<p>dp[i][j] = min(dp[i][j],1 + max(dp[i-1][x-1],dp[i][j-x]))</p>
+<ol>
+<li>dp[i][j],i egg ;j floor</li>
+<li>dp[i][j],保险值等于j</li>
+<li>每次扔鸡蛋分两种情况，所以有max(dp[i-1][x-1],dp[i][j-x])，max是为了取最坏情况次数。加上当次扔鸡蛋， 所以有1 + max(dp[i-1][x-1],dp[i][j-x])</li>
+<li>最终有dp[i][j] = min(dp[i][j],1 + max(dp[i-1][x-1],dp[i][j-x]))</li>
+</ol>
+<p>一般来说，有了初步的解题思路，再一步一步优化。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/715. Range 模块191109.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1133,184 +1326,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2019-07-17回了一趟学校.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zengbailiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/icon.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="liang's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019-07-17回了一趟学校.html" itemprop="url">回了一趟校园</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-14T00:00:00+08:00">
-                2019-07-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/记事/" itemprop="url" rel="index">
-                    <span itemprop="name">记事</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019-07-17回了一趟学校.html" class="leancloud_visitors" data-flag-title="回了一趟校园">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1,313
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="回了一趟学校"><a href="#回了一趟学校" class="headerlink" title="回了一趟学校"></a>回了一趟学校</h3><p>大概是五月份的时候回了趟学校。再次回去还是比较感慨，想去的地方很多，但时间缺有限，就选了几个比较有回忆又比较便捷的地方去走走。也许是因为大学时代值得回忆的事情太多了，又或者是怀念作为学生的时候的那份心情和青春，总之很难说清。但每每想到这些，总会非常感叹，有些事情，有些年纪只能经历一次，心态会伴随着年纪而变化，又或者其他的一些原因，总之过去的那个特定的阶段特定的事情和那份特定的心情，是后面阶段无法再重新获取的。这确实是个比较无奈的事情，但这应该是合理的，人生就应该要有不同的阶段。</p>
-<h5 id="13路车"><a href="#13路车" class="headerlink" title="13路车"></a>13路车</h5><p>有些事情还是没变，但变化总是在不断的发生。熟悉的13路车还在，还是要从东区走过20分钟的上山路才到尧山校区，我很享受在车上的感受，特别是坐窗旁的位置，吹着风，看着窗外的风景。但13路好像已经都变成了空调车，窗都没了。</p>
-<h5 id="尧山"><a href="#尧山" class="headerlink" title="尧山"></a>尧山</h5><p>再次上尧山， 还是爬着上。记得大一第一次爬好像是中秋节节日，那时候很多人，而再爬的当天的人很少，感觉比较冷清，可能是时间的问题吧。山上也有了不少变化，山顶走向盘山公路的路变了，中间被围起来私用了。下山的时候和朋友一起走盘山公路下山，我同样很喜欢尧山的盘山公路，有很长的一段泊油路，干净美丽。这里还是会见到小年轻，小情侣骑着小电瓶，游盘山公路。</p>
-<h5 id="尧山校区"><a href="#尧山校区" class="headerlink" title="尧山校区"></a>尧山校区</h5><p>傍晚回到了尧山校区，最让我震惊的是，食堂不允许使用现金了，其实早在第一天逛东区的时候，就发现这个坑爹的问题了，比较失望，无法再尝一遍食堂的味道，但同时发现了一个事情，因为学校的数字校园毕业了依然可以用，而且还能通过支付宝充值，我尝试充了一块钱，还真可以，但我没把我的校园卡带过来，还有我也不知道我的校园卡是否还能用了，也许我的校园卡还没消磁，还有就是学校系统确实还支持，这让留给了我一些待挖掘的事情，下次我可要验证下这个问题，真够有意思的。回到话题，晚上和朋友只能去商业街吃饭了，比较随性，但同样让我震惊的是，之前的商业街那么热闹，咋这么冷清。后面了解到，学校领导做了某些限制，更规范了，但这里面可能存在很多利益问题吧，反正没了之前的热闹了。遥想当年，哪里还是很热闹，买西瓜，买菠萝，买奶茶，哎，一去不复还。大学那几年，最开始有男生宿舍那边的阳光商业街，有靠近女生宿舍的职工宿舍楼下的店铺。特别是教职工楼下的奶茶店之类的店铺，那时候那些地方就有一些特殊的气氛，仿佛有一种爱情的荷尔蒙，是谈情说爱的地方，也是经常见到情侣的地方，当然更多的是虐狗的地方了。可悲的是，大学四年，我被虐足四年，还乐此不疲。<br>如今，阳光商业街没了，有了新商业街，现在新商业街又被搞萧条，职工楼下的小店也都禁止了营业，另外又在原阳光商业街哪里搞了一个新阳光商业街。对比这些吃吃喝喝的，仿佛当年更气氛更好，但他们没有经历过当年，所以就算真的如我所想的那样，对于他们来说最丰富有趣的依然是他们现在所感受到的。</p>
-<h5 id="花江"><a href="#花江" class="headerlink" title="花江"></a>花江</h5><p>还有的是，以前可以在学校旁的花江划竹筏，烧烤，现在由于建了新的教职工园区，在花江上搭了座桥，导致不能划竹筏了。那些年满是笑语的地方没了。另外那些烧烤场地，也无法烧烤了，看到这样，有点说不出味道。也许因为这些没有了，会失去一些趣味吧。不可否认可能是因为现在的娱乐方式变得跟以前不太一样了，才导致这些变化，但具体怎么样，就不太清楚了，毕竟现在已经是00后的大学时代了。最后，最后，让我不得不吐槽的是，学习的男女比例好像更均衡了，情侣比例好像更高了，虽然这是好事啊，但这让我失去了一种熟悉感。</p>
-<p><img src="/personImg/guet1.jpeg" alt="guet1.jpeg"></p>
-<p>这里承载了一生仅有的一次大学时光，也是我人生中的一段美好时光，怀念、感恩。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2019-07-14本地加密方案.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1442,6 +1457,184 @@
 <h5 id="最终选择的方案："><a href="#最终选择的方案：" class="headerlink" title="最终选择的方案："></a>最终选择的方案：</h5><p>使用AES对称加密算法；使用随机算法生成本地秘钥，秘钥中添加时效性信息，并保存到keyChain中。</p>
 <p>优点：客户端隔离、对称加解密效率高，随机秘钥破解难度大。<br>缺点：由于客户端隔离，秘钥都不一样，数据无法统一分析，因此也影响了适用场景。</p>
 <p>demo:<a href="https://github.com/zmubai/LocalEncryptDemo" target="_blank" rel="noopener">LocalEncryptDemo</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2019-07-17回了一趟学校.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zengbailiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/icon.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="liang's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019-07-17回了一趟学校.html" itemprop="url">回了一趟校园</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-14T00:00:00+08:00">
+                2019-07-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/记事/" itemprop="url" rel="index">
+                    <span itemprop="name">记事</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019-07-17回了一趟学校.html" class="leancloud_visitors" data-flag-title="回了一趟校园">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,313
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="回了一趟学校"><a href="#回了一趟学校" class="headerlink" title="回了一趟学校"></a>回了一趟学校</h3><p>大概是五月份的时候回了趟学校。再次回去还是比较感慨，想去的地方很多，但时间缺有限，就选了几个比较有回忆又比较便捷的地方去走走。也许是因为大学时代值得回忆的事情太多了，又或者是怀念作为学生的时候的那份心情和青春，总之很难说清。但每每想到这些，总会非常感叹，有些事情，有些年纪只能经历一次，心态会伴随着年纪而变化，又或者其他的一些原因，总之过去的那个特定的阶段特定的事情和那份特定的心情，是后面阶段无法再重新获取的。这确实是个比较无奈的事情，但这应该是合理的，人生就应该要有不同的阶段。</p>
+<h5 id="13路车"><a href="#13路车" class="headerlink" title="13路车"></a>13路车</h5><p>有些事情还是没变，但变化总是在不断的发生。熟悉的13路车还在，还是要从东区走过20分钟的上山路才到尧山校区，我很享受在车上的感受，特别是坐窗旁的位置，吹着风，看着窗外的风景。但13路好像已经都变成了空调车，窗都没了。</p>
+<h5 id="尧山"><a href="#尧山" class="headerlink" title="尧山"></a>尧山</h5><p>再次上尧山， 还是爬着上。记得大一第一次爬好像是中秋节节日，那时候很多人，而再爬的当天的人很少，感觉比较冷清，可能是时间的问题吧。山上也有了不少变化，山顶走向盘山公路的路变了，中间被围起来私用了。下山的时候和朋友一起走盘山公路下山，我同样很喜欢尧山的盘山公路，有很长的一段泊油路，干净美丽。这里还是会见到小年轻，小情侣骑着小电瓶，游盘山公路。</p>
+<h5 id="尧山校区"><a href="#尧山校区" class="headerlink" title="尧山校区"></a>尧山校区</h5><p>傍晚回到了尧山校区，最让我震惊的是，食堂不允许使用现金了，其实早在第一天逛东区的时候，就发现这个坑爹的问题了，比较失望，无法再尝一遍食堂的味道，但同时发现了一个事情，因为学校的数字校园毕业了依然可以用，而且还能通过支付宝充值，我尝试充了一块钱，还真可以，但我没把我的校园卡带过来，还有我也不知道我的校园卡是否还能用了，也许我的校园卡还没消磁，还有就是学校系统确实还支持，这让留给了我一些待挖掘的事情，下次我可要验证下这个问题，真够有意思的。回到话题，晚上和朋友只能去商业街吃饭了，比较随性，但同样让我震惊的是，之前的商业街那么热闹，咋这么冷清。后面了解到，学校领导做了某些限制，更规范了，但这里面可能存在很多利益问题吧，反正没了之前的热闹了。遥想当年，哪里还是很热闹，买西瓜，买菠萝，买奶茶，哎，一去不复还。大学那几年，最开始有男生宿舍那边的阳光商业街，有靠近女生宿舍的职工宿舍楼下的店铺。特别是教职工楼下的奶茶店之类的店铺，那时候那些地方就有一些特殊的气氛，仿佛有一种爱情的荷尔蒙，是谈情说爱的地方，也是经常见到情侣的地方，当然更多的是虐狗的地方了。可悲的是，大学四年，我被虐足四年，还乐此不疲。<br>如今，阳光商业街没了，有了新商业街，现在新商业街又被搞萧条，职工楼下的小店也都禁止了营业，另外又在原阳光商业街哪里搞了一个新阳光商业街。对比这些吃吃喝喝的，仿佛当年更气氛更好，但他们没有经历过当年，所以就算真的如我所想的那样，对于他们来说最丰富有趣的依然是他们现在所感受到的。</p>
+<h5 id="花江"><a href="#花江" class="headerlink" title="花江"></a>花江</h5><p>还有的是，以前可以在学校旁的花江划竹筏，烧烤，现在由于建了新的教职工园区，在花江上搭了座桥，导致不能划竹筏了。那些年满是笑语的地方没了。另外那些烧烤场地，也无法烧烤了，看到这样，有点说不出味道。也许因为这些没有了，会失去一些趣味吧。不可否认可能是因为现在的娱乐方式变得跟以前不太一样了，才导致这些变化，但具体怎么样，就不太清楚了，毕竟现在已经是00后的大学时代了。最后，最后，让我不得不吐槽的是，学习的男女比例好像更均衡了，情侣比例好像更高了，虽然这是好事啊，但这让我失去了一种熟悉感。</p>
+<p><img src="/personImg/guet1.jpeg" alt="guet1.jpeg"></p>
+<p>这里承载了一生仅有的一次大学时光，也是我人生中的一段美好时光，怀念、感恩。</p>
 
           
         
@@ -2022,215 +2215,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2019-01-01-2018总结泛篇.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zengbailiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/icon.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="liang's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019-01-01-2018总结泛篇.html" itemprop="url">2018年终总结泛篇</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-01T00:00:00+08:00">
-                2019-01-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/总结/" itemprop="url" rel="index">
-                    <span itemprop="name">总结</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019-01-01-2018总结泛篇.html" class="leancloud_visitors" data-flag-title="2018年终总结泛篇">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1,883
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="2018年的不足"><a href="#2018年的不足" class="headerlink" title="2018年的不足"></a>2018年的不足</h3><p>2018年对自己而言是比较失意的一年，但也未尝没有收获。尽力而为，果上随缘可以概况了这一年的总基调。虽然内心如此想，但尽力真的很难，个人的劣根性，懒惰、目光不够长远，低估自己等等不足，为这一年带来了很多挫折。</p>
-<p>就各个不足回顾下：</p>
-<ol>
-<li><p>懒惰：也不知道是不是懒惰，就是如果让你来啃教科书，或者让你去看部电影,或者睡懒觉，那个舒服，其他人的选择尚不清楚，但我想有一部分人会选择舒服的方式去消磨掉时间，就这样舒服成为了懒惰的一大原因。另外一个是，即使深知如此，依然很难摆脱这个劣根性，很难，就算你有一定的目标，但这种长远的考虑，在短期内没有收获，意志就会被慢慢消磨。查阅网上资料，发现实坚持真的不容易，也有一些通过奖励的方式去辅助等等。总之，这方面，自己做的很差，一定程度上的原因有贪图安逸、目标不够坚定、缺乏长期规划、实际可行的执行方案等。</p>
-</li>
-<li><p>目光短浅：虽然我试图想象，我把这些要做的事情全部做完，会变成怎么样，是否与自己的初衷相符，或者是否达到自己目标的预期，等等。但未来是很不明显的，当所掌握的信息极其的有限，很有可能会在这极其有限的信息中做出不那么正确的判断，在基于这样的判断下预期很难想象。这样就导致，中途可能会变换目标，或者使本来执行的事情搁置或放弃。另外目标短浅，就当前比较突出的是缺乏短期计划、中期计划、长期计划。</p>
-</li>
-<li><p>低估自己：如果没有上面两大缺点，或者上面两大缺点没有那么大，可能就不会过分的低估自己。这里面实际是存在些矛盾。客观来说，一些看似遥不可及的东西，也许通过一些努力，慢慢靠近也并非所想的难以靠近，通常来说这些东西本来就是需要努力去获取的，而差距和鸿沟需要努力去一步一步填补的。一个一直努力的人，和一个吊儿郎当的人差距是很大的，即使两个人的资质相差不大。当你有想法的时候，却发现能力不够，是悔恨浪费的时光，还是坦然面对过去，努力迎接未来?就算此刻努力，却有更多的患得患失，因为最好的时机已经错过，你没有在最该走这条路的时候走好，是挣扎还是要放弃呢？如果一些你本来能做到的事情，到最后却没法做到，一定会很悔恨与不甘吧。过去低估自己，现在是否还要低估自己？2018年对自我的认识依然不够，性格上依然有很大的问题，导致一些判断和考虑错误。其实这里并不是低估自己，而是人的潜力是很大的，忽略这一点，就如低估自己一样。</p>
-</li>
-</ol>
-<h3 id="收获："><a href="#收获：" class="headerlink" title="收获："></a>收获：</h3><p>失败后的失落会让你面对现实，也许是这样的经历比较锻炼心智，让人变得成熟，大概是类似吃一堑长一智。经历过才印象深刻，才把这回事当成一回事。所以从这一点看，老人家说的很多是良言善语，只是我们的经历不够，难以深刻体会，依然要继续走弯路，直到吃了苦，才真正的明白个中的意思。这个也许是个生物特征的东西，很难改变，调整思维或者更早去经历，都是对的。但我更多的是那种把回事不当回事的人，所以啊，吃了不少暗亏。而这个收获就是经历后、体会过之后，思想的改变。在这个阶段，总之对比以前的自己，我更喜欢现在的自己。因此我对自己说过，经历过生活的洗礼后，要变得越来越喜欢自己。这个也是作为检测自己的一个标准。</p>
-<h3 id="2019目标："><a href="#2019目标：" class="headerlink" title="2019目标："></a>2019目标：</h3><ol>
-<li>定好学习目标与计划，持续提高。</li>
-<li>改善懒惰。</li>
-<li>目光放长远点，职业/生活/理财等。</li>
-<li>对自己的认识，依然要不断改善，要努力积极向上。</li>
-</ol>
-<h5 id="比较重要的几点记录下来："><a href="#比较重要的几点记录下来：" class="headerlink" title="比较重要的几点记录下来："></a>比较重要的几点记录下来：</h5><ol>
-<li><p>对于比较重要的事情，一定要考虑周全，查询一切可以查询的资料，把一件事情当做打仗来看，分清双方形势，考虑冒进/稳妥/更稳妥的三套以上的方案，同时要分清楚自己的情况与事件的关系。来自外界的意见要以主观为主加以分析，思前想后，分清主次，稳妥为主，否则可能会出现捡了芝麻丢了西瓜，甚至竹篮打水一场空的尴尬境地。</p>
-</li>
-<li><p>一直以来，都有不少与人争论的场合，通常对于一个问题，不同的人可能会有不同的意见，达成共识有时候并不是一件容易的事情。2019非原则问题，尽量避免争论。当然要继续保持包容和开放的心去接纳不同的意见。尊重事实，而不是奉承。这里其实有一个值得深思的问题，导致辩论的一大原因可能不是因为坚持自己的意见，甚至不是因为还是觉得自己的意见正确。而是来自人性的一部分，也许跟性格也是相关的。如果被别人纠正，意味着自己的不对，意味者局部性的不如人，也许是个性中的好强，这样内心就会难受，所以会出于这种理由要继续辩解并固执己见。这不过是一个个人的看法，实际上如何，原因应该很多样化，但如果自己本身去探究下为何会这样，大概多少能理解别人为何如此了。至少我要做到以事实为准，以更合理的为准，包容与接纳，减少争论。</p>
-</li>
-<li><p>君子之交淡如水，给与各自恰当的距离与空间，让大家都保持一种舒适的状态，这个是要往后学习与实践的。</p>
-</li>
-<li><p>情商需要提高，结合场景多思考合适的回答，形成思维回路，加强矛盾场景的锻炼。</p>
-</li>
-<li><p>提高专注度，做自己的事情，外界信息，要为自己所用，而不是要被外界影响。</p>
-</li>
-<li><p>今日事今日毕。改善拖延症，要做的事就是一个队列，如果拖，有些事就变得不了了之了，所有要改善拖延症。</p>
-</li>
-<li><p>踏实向上，加强时间管理，缄默慎言。</p>
-</li>
-</ol>
-<h4 id="修心养性方面："><a href="#修心养性方面：" class="headerlink" title="修心养性方面："></a>修心养性方面：</h4><ol>
-<li>可以的话2019要去多出去看看风景，留下多点关于旅途的回忆。</li>
-<li>要学会照顾自己，品味生活。</li>
-</ol>
-<h3 id="小结："><a href="#小结：" class="headerlink" title="小结："></a>小结：</h3><p>以上感觉总结的很泛，但也是一些心里话，记录下来。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2285,7 +2269,7 @@
               
                 <a rel="external nofollow" href="/archives/">
               
-                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-count">46</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2368,7 +2352,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">58.2k</span>
+    <span title="Site words total count">58.6k</span>
   
 </div>
 

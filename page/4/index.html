@@ -243,6 +243,186 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2018-06-07-01-leetcode.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zengbailiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/icon.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="liang's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018-06-07-01-leetcode.html" itemprop="url">算法-两最长回文子串</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-01T00:00:00+08:00">
+                2018-07-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018-06-07-01-leetcode.html" class="leancloud_visitors" data-flag-title="算法-两最长回文子串">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  828
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h4><p>给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为1000。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">示例 1：</span><br><span class="line"></span><br><span class="line">输入: &quot;babad&quot;</span><br><span class="line">输出: &quot;bab&quot;</span><br><span class="line">注意: &quot;aba&quot;也是一个有效答案。</span><br><span class="line">示例 2：</span><br><span class="line"></span><br><span class="line">输入: &quot;cbbd&quot;</span><br><span class="line">输出: &quot;bb&quot;</span><br></pre></td></tr></table></figure></p>
+<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><ol>
+<li>暴力法。2层循环嵌套，遍历所有子串。在判断子串是否为回文并对比保存最大的起止下标。通过前后同时截取字符串对比的方式来判断子串是否为回文。如果相等，就向两边靠拢，直对比的下标相等并且值也相等位置。如果不相等，子串非回文。</li>
+<li>中心扩展算法。回文字符串有一个特点，就是左右对称。如果是奇数长度的回文字符串，中间的字符作为对称点，如aba中的a。如果是偶数长度的回文字符串，会以中间两个字符作为对称点,如abba中的bb。那么比较的时候，找到中心点，两边扩展对比就可以了。直到打破对称，通过暂存的历史最长回文子串的起止坐标比对当前长度，如果当前子串的长度较大，更新起止坐标。由于存在奇偶两种长度，对应的中心点不一样，但两种模式都可能产生回问子串，所有匹配的时候两种模式都要进行匹配，并取同一个中心点的两种模式中长度更长的更新起止坐标，这个是编码时需要处理的细节问题。</li>
+</ol>
+<h4 id="编码细节问题"><a href="#编码细节问题" class="headerlink" title="编码细节问题"></a>编码细节问题</h4><p>1.为了获取最后的子串，需要通过暂存起止坐标startIndex、endIndex。<br>2.默认奇数匹配方式，通过判断当前元素与其后面的元素是否相等来决定是否满足偶数匹配。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">char* longestPalindrome(char* s) &#123;</span><br><span class="line"></span><br><span class="line">    int startIndex = 0 ;</span><br><span class="line">    int endIndex = 0;</span><br><span class="line"></span><br><span class="line">    int len = strlen(s);</span><br><span class="line">    for (int i = 0; i &lt; len; i ++) &#123;</span><br><span class="line">        int frontIndex = i ;</span><br><span class="line">        int nextIndex = i;</span><br><span class="line"></span><br><span class="line">        bool evenSerech = true;</span><br><span class="line">        //满足偶数匹配方式</span><br><span class="line">        if (s[i] == s[nextIndex + 1]) &#123;</span><br><span class="line">            evenSerech = true;</span><br><span class="line">        &#125;</span><br><span class="line">        while (frontIndex &gt; -1 &amp;&amp; nextIndex &lt; len &amp;&amp; s[frontIndex] == s[nextIndex]) &#123;</span><br><span class="line">            frontIndex --;</span><br><span class="line">            nextIndex ++;</span><br><span class="line">        &#125;</span><br><span class="line">        int current = --nextIndex  + 1 - ++frontIndex ;</span><br><span class="line">        if (current &gt; (endIndex + 1 - startIndex)) &#123;</span><br><span class="line">            startIndex = frontIndex;</span><br><span class="line">            endIndex = nextIndex;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        if (evenSerech) &#123;</span><br><span class="line">            frontIndex = i ;</span><br><span class="line">            nextIndex = i + 1;</span><br><span class="line">            while (frontIndex &gt; -1 &amp;&amp; nextIndex &lt; len &amp;&amp; s[frontIndex] == s[nextIndex]) &#123;</span><br><span class="line">                frontIndex --;</span><br><span class="line">                nextIndex ++;</span><br><span class="line">            &#125;</span><br><span class="line">            int current = --nextIndex  + 1 -  ++frontIndex ;</span><br><span class="line">            if (current &gt; (endIndex + 1 - startIndex)) &#123;</span><br><span class="line">                startIndex = frontIndex;</span><br><span class="line">                endIndex = nextIndex;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    char *p = (char*)malloc(sizeof(char*) * (endIndex + 1 - startIndex));</span><br><span class="line">    int j = 0;</span><br><span class="line">    for (int i = startIndex; i &lt;= endIndex; i ++) &#123;</span><br><span class="line">        p[j ++] = s[i];</span><br><span class="line">    &#125;</span><br><span class="line">    return p;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>小结：需要认真的分析回文的特点，回文串分偶数长度与奇数长度两种情况（认真审题并分析题目所求,不能忽略了一些必要的点，这一点很重要，卡时间比较多的是想通过修改起止指针的位置来适配偶数的模式，发现怎么都不能同时适配奇偶两种情况，如果是两类情况不能简单的统一处理的话，要变回单独处理）。另外这题能反转字符串取相同子串的方法（有坑）、动态规划和Manacher 算法来处理，后面再学习学习。</p>
+<p>待完善L(‘ω’)┘三└(‘ω’)｣….</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2018-06-30-01-leetcode.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1245,6 +1425,181 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2018-05-09-011.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zengbailiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/icon.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="liang's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018-05-09-011.html" itemprop="url">数组实现循环队列</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-09T00:00:00+08:00">
+                2018-05-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018-05-09-011.html" class="leancloud_visitors" data-flag-title="数组实现循环队列">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  991
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>循环队列作为一种常用的数据结构，它使头尾指针能够灵活的在容器头尾跳跃，实现循环存取的结构。线性队列，在不移动元素的情况下，随着数据的不断读写，会出现假上溢的情况（当尾部指针已经到了容器底部，线性队列就无法插入了，尽管存在已出队列的可以空间，），导致已出队列的可用空间无法再被利用。另外循环队列很适合作为缓存的处理。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line"></span><br><span class="line">  CycleQueue.m</span><br><span class="line">  CycleQueue</span><br><span class="line"></span><br><span class="line">  Created by zengbailiang on 2018/5/8.</span><br><span class="line">  Copyright © 2018年 zengbailiang. All rights reserved.</span><br><span class="line">  循环队列</span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line">#import &quot;CycleQueue.h&quot;</span><br><span class="line"></span><br><span class="line">#define CYCLE_QUEUE_MAX_SIZE 10</span><br><span class="line">#define CYCLE_QUEUE_ELEMENT int</span><br><span class="line"></span><br><span class="line">typedef struct kSCycleQueue</span><br><span class="line">&#123;</span><br><span class="line">    CYCLE_QUEUE_ELEMENT data[CYCLE_QUEUE_MAX_SIZE];</span><br><span class="line">    int fornt ,rear;</span><br><span class="line">&#125;*SCycleQueue;</span><br><span class="line"></span><br><span class="line">@implementation CycleQueue</span><br><span class="line"></span><br><span class="line">int queueInit(SCycleQueue *queue)</span><br><span class="line">&#123;</span><br><span class="line">    if ((*queue) == NULL) &#123;</span><br><span class="line">        (*queue) = (SCycleQueue)malloc(sizeof(struct kSCycleQueue));</span><br><span class="line"></span><br><span class="line">        /*初始化队列头和队列尾部，队列尾初始化为-1是为了添加原始的时候统一操作为后移*/</span><br><span class="line"></span><br><span class="line">        (*queue)-&gt;fornt = 0;</span><br><span class="line">        (*queue)-&gt;rear = -1;</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        return -1;</span><br><span class="line">    &#125;</span><br><span class="line">    return 1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bool canAdd(SCycleQueue *queue)</span><br><span class="line">&#123;</span><br><span class="line">    if((*queue) == NULL</span><br><span class="line">       ||(*queue)-&gt;fornt + (*queue) -&gt;rear + 1 == CYCLE_QUEUE_MAX_SIZE</span><br><span class="line">       ||((*queue)-&gt;rear != -1 &amp;&amp;  (*queue)-&gt;rear + 1 == (*queue)-&gt;fornt))</span><br><span class="line">    &#123;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int add(SCycleQueue *queue,CYCLE_QUEUE_ELEMENT e)</span><br><span class="line">&#123;</span><br><span class="line">    if (canAdd(queue)) &#123;</span><br><span class="line">        /*如果已经是在最后一个原始，那么跳到第0个原始添加，实现循环*/</span><br><span class="line">        if ((*queue) -&gt; rear == CYCLE_QUEUE_MAX_SIZE - 1) &#123;</span><br><span class="line">            (*queue) -&gt; rear = 0;</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            /*非最后一个元素后移即可*/</span><br><span class="line">            (*queue) -&gt; rear += 1;</span><br><span class="line">        &#125;</span><br><span class="line">        /*队尾添加元素*/</span><br><span class="line">        (*queue) -&gt;data[(*queue) -&gt;rear] = e;</span><br><span class="line">        return 1;</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int delete(SCycleQueue *queue,CYCLE_QUEUE_ELEMENT *e)</span><br><span class="line">&#123;</span><br><span class="line">    if ((*queue) == NULL) &#123;</span><br><span class="line">        return  -1;</span><br><span class="line">    &#125;</span><br><span class="line">    /*如果rear不等于-1就代表存在元素*/</span><br><span class="line">    else if((*queue)-&gt;fornt == 0 &amp;&amp; (*queue)-&gt;rear == -1)</span><br><span class="line">    &#123;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        (*e) = (*queue)-&gt;data[(*queue)-&gt;fornt];</span><br><span class="line">        (*queue)-&gt;data[(*queue)-&gt;fornt] = -1;</span><br><span class="line">        /*如果 fornt == rear，代表最后一个元素了，这个时候把标记复位用于上面的判断。*/</span><br><span class="line">        if ((*queue)-&gt;fornt == (*queue)-&gt;rear) &#123;</span><br><span class="line">            (*queue)-&gt;fornt = 0;</span><br><span class="line">            (*queue)-&gt;rear = -1;</span><br><span class="line">        &#125;</span><br><span class="line">        else if((*queue)-&gt;fornt == CYCLE_QUEUE_MAX_SIZE - 1)</span><br><span class="line">        &#123;</span><br><span class="line">            /*如果是最后一个元素出队列，那么队列头跳到容器第一个元素实现循环出队列*/</span><br><span class="line">            (*queue)-&gt;fornt = 0;</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            (*queue)-&gt;fornt += 1;</span><br><span class="line">        &#125;</span><br><span class="line">      return 1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (void)testt</span><br><span class="line">&#123;</span><br><span class="line">    test();</span><br><span class="line">    test1();</span><br><span class="line">    test2();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void test()</span><br><span class="line">&#123;</span><br><span class="line">    SCycleQueue queue;</span><br><span class="line">    queueInit(&amp;queue);</span><br><span class="line">    add(&amp;queue, 0);</span><br><span class="line">    add(&amp;queue, 1);</span><br><span class="line">    add(&amp;queue, 2);</span><br><span class="line">    add(&amp;queue, 3);</span><br><span class="line">    add(&amp;queue, 4);</span><br><span class="line">    add(&amp;queue, 5);</span><br><span class="line">    add(&amp;queue, 6);</span><br><span class="line">    add(&amp;queue, 7);</span><br><span class="line">    add(&amp;queue, 8);</span><br><span class="line">    /*加满*/</span><br><span class="line">    add(&amp;queue, 9);</span><br><span class="line">    CYCLE_QUEUE_ELEMENT e;</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    /*容器底部已满，循环到头部开始添加*/</span><br><span class="line">    add(&amp;queue, 10);</span><br><span class="line">    add(&amp;queue, 11);</span><br><span class="line">    add(&amp;queue, 12);</span><br><span class="line">    add(&amp;queue, 13);</span><br><span class="line">    add(&amp;queue, 14);</span><br><span class="line">&#125;</span><br><span class="line">void test1()</span><br><span class="line">&#123;</span><br><span class="line">    SCycleQueue queue;</span><br><span class="line">    queueInit(&amp;queue);</span><br><span class="line">    add(&amp;queue, 0);</span><br><span class="line">    add(&amp;queue, 1);</span><br><span class="line">    add(&amp;queue, 2);</span><br><span class="line">    add(&amp;queue, 3);</span><br><span class="line">    add(&amp;queue, 4);</span><br><span class="line">    add(&amp;queue, 5);</span><br><span class="line">    add(&amp;queue, 6);</span><br><span class="line">    add(&amp;queue, 7);</span><br><span class="line">    add(&amp;queue, 8);</span><br><span class="line">    add(&amp;queue, 9);</span><br><span class="line">    CYCLE_QUEUE_ELEMENT e;</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    /*全部出队列，标记复位*/</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    add(&amp;queue, 6);</span><br><span class="line">    add(&amp;queue, 7);</span><br><span class="line">    add(&amp;queue, 8);</span><br><span class="line">    add(&amp;queue, 9);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void test2()</span><br><span class="line">&#123;</span><br><span class="line">    SCycleQueue queue;</span><br><span class="line">    queueInit(&amp;queue);</span><br><span class="line">    add(&amp;queue, 0);</span><br><span class="line">    add(&amp;queue, 1);</span><br><span class="line">    add(&amp;queue, 2);</span><br><span class="line">    add(&amp;queue, 3);</span><br><span class="line">    add(&amp;queue, 4);</span><br><span class="line">    add(&amp;queue, 5);</span><br><span class="line">    add(&amp;queue, 6);</span><br><span class="line">    add(&amp;queue, 7);</span><br><span class="line">    add(&amp;queue, 8);</span><br><span class="line">    add(&amp;queue, 9);</span><br><span class="line">    CYCLE_QUEUE_ELEMENT e;</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line"></span><br><span class="line">    /*font = 5*/</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    add(&amp;queue, 15);</span><br><span class="line">    add(&amp;queue, 16);</span><br><span class="line">    add(&amp;queue, 11);</span><br><span class="line">    add(&amp;queue, 12);</span><br><span class="line">    add(&amp;queue, 13);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line"></span><br><span class="line">    /*循环到容器头出队列*/</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2018-05-12-01.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1395,181 +1750,6 @@
 <p>测试demo:     </p>
 <p>swift:<a href="https://github.com/zmubai/TouchIDTest-swift" target="_blank" rel="noopener">https://github.com/zmubai/TouchIDTest-swift</a></p>
 <p>object-c:<a href="https://github.com/zmubai/TouchIDTest-OC" target="_blank" rel="noopener">https://github.com/zmubai/TouchIDTest-OC</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2018-05-09-011.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zengbailiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/icon.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="liang's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018-05-09-011.html" itemprop="url">数组实现循环队列</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-09T00:00:00+08:00">
-                2018-05-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据结构/" itemprop="url" rel="index">
-                    <span itemprop="name">数据结构</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018-05-09-011.html" class="leancloud_visitors" data-flag-title="数组实现循环队列">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  991
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>循环队列作为一种常用的数据结构，它使头尾指针能够灵活的在容器头尾跳跃，实现循环存取的结构。线性队列，在不移动元素的情况下，随着数据的不断读写，会出现假上溢的情况（当尾部指针已经到了容器底部，线性队列就无法插入了，尽管存在已出队列的可以空间，），导致已出队列的可用空间无法再被利用。另外循环队列很适合作为缓存的处理。</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line"></span><br><span class="line">  CycleQueue.m</span><br><span class="line">  CycleQueue</span><br><span class="line"></span><br><span class="line">  Created by zengbailiang on 2018/5/8.</span><br><span class="line">  Copyright © 2018年 zengbailiang. All rights reserved.</span><br><span class="line">  循环队列</span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line">#import &quot;CycleQueue.h&quot;</span><br><span class="line"></span><br><span class="line">#define CYCLE_QUEUE_MAX_SIZE 10</span><br><span class="line">#define CYCLE_QUEUE_ELEMENT int</span><br><span class="line"></span><br><span class="line">typedef struct kSCycleQueue</span><br><span class="line">&#123;</span><br><span class="line">    CYCLE_QUEUE_ELEMENT data[CYCLE_QUEUE_MAX_SIZE];</span><br><span class="line">    int fornt ,rear;</span><br><span class="line">&#125;*SCycleQueue;</span><br><span class="line"></span><br><span class="line">@implementation CycleQueue</span><br><span class="line"></span><br><span class="line">int queueInit(SCycleQueue *queue)</span><br><span class="line">&#123;</span><br><span class="line">    if ((*queue) == NULL) &#123;</span><br><span class="line">        (*queue) = (SCycleQueue)malloc(sizeof(struct kSCycleQueue));</span><br><span class="line"></span><br><span class="line">        /*初始化队列头和队列尾部，队列尾初始化为-1是为了添加原始的时候统一操作为后移*/</span><br><span class="line"></span><br><span class="line">        (*queue)-&gt;fornt = 0;</span><br><span class="line">        (*queue)-&gt;rear = -1;</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        return -1;</span><br><span class="line">    &#125;</span><br><span class="line">    return 1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bool canAdd(SCycleQueue *queue)</span><br><span class="line">&#123;</span><br><span class="line">    if((*queue) == NULL</span><br><span class="line">       ||(*queue)-&gt;fornt + (*queue) -&gt;rear + 1 == CYCLE_QUEUE_MAX_SIZE</span><br><span class="line">       ||((*queue)-&gt;rear != -1 &amp;&amp;  (*queue)-&gt;rear + 1 == (*queue)-&gt;fornt))</span><br><span class="line">    &#123;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int add(SCycleQueue *queue,CYCLE_QUEUE_ELEMENT e)</span><br><span class="line">&#123;</span><br><span class="line">    if (canAdd(queue)) &#123;</span><br><span class="line">        /*如果已经是在最后一个原始，那么跳到第0个原始添加，实现循环*/</span><br><span class="line">        if ((*queue) -&gt; rear == CYCLE_QUEUE_MAX_SIZE - 1) &#123;</span><br><span class="line">            (*queue) -&gt; rear = 0;</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            /*非最后一个元素后移即可*/</span><br><span class="line">            (*queue) -&gt; rear += 1;</span><br><span class="line">        &#125;</span><br><span class="line">        /*队尾添加元素*/</span><br><span class="line">        (*queue) -&gt;data[(*queue) -&gt;rear] = e;</span><br><span class="line">        return 1;</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int delete(SCycleQueue *queue,CYCLE_QUEUE_ELEMENT *e)</span><br><span class="line">&#123;</span><br><span class="line">    if ((*queue) == NULL) &#123;</span><br><span class="line">        return  -1;</span><br><span class="line">    &#125;</span><br><span class="line">    /*如果rear不等于-1就代表存在元素*/</span><br><span class="line">    else if((*queue)-&gt;fornt == 0 &amp;&amp; (*queue)-&gt;rear == -1)</span><br><span class="line">    &#123;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        (*e) = (*queue)-&gt;data[(*queue)-&gt;fornt];</span><br><span class="line">        (*queue)-&gt;data[(*queue)-&gt;fornt] = -1;</span><br><span class="line">        /*如果 fornt == rear，代表最后一个元素了，这个时候把标记复位用于上面的判断。*/</span><br><span class="line">        if ((*queue)-&gt;fornt == (*queue)-&gt;rear) &#123;</span><br><span class="line">            (*queue)-&gt;fornt = 0;</span><br><span class="line">            (*queue)-&gt;rear = -1;</span><br><span class="line">        &#125;</span><br><span class="line">        else if((*queue)-&gt;fornt == CYCLE_QUEUE_MAX_SIZE - 1)</span><br><span class="line">        &#123;</span><br><span class="line">            /*如果是最后一个元素出队列，那么队列头跳到容器第一个元素实现循环出队列*/</span><br><span class="line">            (*queue)-&gt;fornt = 0;</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            (*queue)-&gt;fornt += 1;</span><br><span class="line">        &#125;</span><br><span class="line">      return 1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (void)testt</span><br><span class="line">&#123;</span><br><span class="line">    test();</span><br><span class="line">    test1();</span><br><span class="line">    test2();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void test()</span><br><span class="line">&#123;</span><br><span class="line">    SCycleQueue queue;</span><br><span class="line">    queueInit(&amp;queue);</span><br><span class="line">    add(&amp;queue, 0);</span><br><span class="line">    add(&amp;queue, 1);</span><br><span class="line">    add(&amp;queue, 2);</span><br><span class="line">    add(&amp;queue, 3);</span><br><span class="line">    add(&amp;queue, 4);</span><br><span class="line">    add(&amp;queue, 5);</span><br><span class="line">    add(&amp;queue, 6);</span><br><span class="line">    add(&amp;queue, 7);</span><br><span class="line">    add(&amp;queue, 8);</span><br><span class="line">    /*加满*/</span><br><span class="line">    add(&amp;queue, 9);</span><br><span class="line">    CYCLE_QUEUE_ELEMENT e;</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    /*容器底部已满，循环到头部开始添加*/</span><br><span class="line">    add(&amp;queue, 10);</span><br><span class="line">    add(&amp;queue, 11);</span><br><span class="line">    add(&amp;queue, 12);</span><br><span class="line">    add(&amp;queue, 13);</span><br><span class="line">    add(&amp;queue, 14);</span><br><span class="line">&#125;</span><br><span class="line">void test1()</span><br><span class="line">&#123;</span><br><span class="line">    SCycleQueue queue;</span><br><span class="line">    queueInit(&amp;queue);</span><br><span class="line">    add(&amp;queue, 0);</span><br><span class="line">    add(&amp;queue, 1);</span><br><span class="line">    add(&amp;queue, 2);</span><br><span class="line">    add(&amp;queue, 3);</span><br><span class="line">    add(&amp;queue, 4);</span><br><span class="line">    add(&amp;queue, 5);</span><br><span class="line">    add(&amp;queue, 6);</span><br><span class="line">    add(&amp;queue, 7);</span><br><span class="line">    add(&amp;queue, 8);</span><br><span class="line">    add(&amp;queue, 9);</span><br><span class="line">    CYCLE_QUEUE_ELEMENT e;</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    /*全部出队列，标记复位*/</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    add(&amp;queue, 6);</span><br><span class="line">    add(&amp;queue, 7);</span><br><span class="line">    add(&amp;queue, 8);</span><br><span class="line">    add(&amp;queue, 9);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void test2()</span><br><span class="line">&#123;</span><br><span class="line">    SCycleQueue queue;</span><br><span class="line">    queueInit(&amp;queue);</span><br><span class="line">    add(&amp;queue, 0);</span><br><span class="line">    add(&amp;queue, 1);</span><br><span class="line">    add(&amp;queue, 2);</span><br><span class="line">    add(&amp;queue, 3);</span><br><span class="line">    add(&amp;queue, 4);</span><br><span class="line">    add(&amp;queue, 5);</span><br><span class="line">    add(&amp;queue, 6);</span><br><span class="line">    add(&amp;queue, 7);</span><br><span class="line">    add(&amp;queue, 8);</span><br><span class="line">    add(&amp;queue, 9);</span><br><span class="line">    CYCLE_QUEUE_ELEMENT e;</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line"></span><br><span class="line">    /*font = 5*/</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    add(&amp;queue, 15);</span><br><span class="line">    add(&amp;queue, 16);</span><br><span class="line">    add(&amp;queue, 11);</span><br><span class="line">    add(&amp;queue, 12);</span><br><span class="line">    add(&amp;queue, 13);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line"></span><br><span class="line">    /*循环到容器头出队列*/</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">    delete(&amp;queue, &amp;e);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
 
           
         
@@ -2114,190 +2294,6 @@ https://blog.csdn.net/fuchaosz/article/details/52170105
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2018-03-21-0.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zengbailiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/icon.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="liang's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018-03-21-0.html" itemprop="url">算法-两个有序数组找交集</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-21T00:00:00+08:00">
-                2018-03-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018-03-21-0.html" class="leancloud_visitors" data-flag-title="算法-两个有序数组找交集">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1,162
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p> 有两个长度分别为m,n的升序数组,其中n&gt; m*m,求这两个数组的交集,要求其复杂度尽可能低。<br> 如：<br> 数组a :-10,6,7<br> 数组b:-15,1,3,4,5,6,7,8,9,10,15<br> 输出：6，7</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/1690665-6539524f70453f4b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="时间复杂度对比曲线.png"></p>
-<p><strong>思路分析</strong>：最直接的思路，两层循环嵌套，找出两者的交集。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">void intersection0(int *a,int lenA,int *b,int lenB)</span><br><span class="line">&#123;</span><br><span class="line">    for (int i = 0 ; i &lt; lenA; i ++) &#123;</span><br><span class="line">         int num = *(a + i);</span><br><span class="line">        for (int j = index ; j &lt; lenB; j ++) &#123;</span><br><span class="line">            int temp = *(b + j);</span><br><span class="line">            if (num == temp) &#123;</span><br><span class="line">                printf(&quot;%d &quot;,num);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><strong>时间复杂度分析：</strong><br>最好的情况为：m + （1 + 2 + … + m = m + m^2 /2+m/2  渐进为m^2 ;<br>最坏的情况为：m + m <em>(m </em>m) =  m^3 +m ；渐进为m^3；<br>平均复杂度为：m^3</p>
-<p><strong>优化：</strong><br>由于本身是一个升序的数列，当第一个元素查找到的时候，其下标为index，那么把index+1作为下一个元素的查找起始下标；如果第一个元素没有找到，记录B数组第一个比他大的元素的index作为下一个元素的查找起始下标。通过把查找范围不断缩小，查找的效率就会有所提高。优化后的代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">void intersection0(int *a,int lenA,int *b,int lenB)</span><br><span class="line">&#123;</span><br><span class="line">    for (int i = 0 ; i &lt; lenA; i ++) &#123;</span><br><span class="line">        int num = *(a + i);</span><br><span class="line">        int index = 0;</span><br><span class="line">        for (int j = index ; j &lt; lenB; j ++) &#123;</span><br><span class="line">            int temp = *(b + j);</span><br><span class="line">            if (num == temp) &#123;</span><br><span class="line">                index = j + 1;//记录下标，作为下一元素的起始查找下标。</span><br><span class="line">                printf(&quot;%d &quot;,num);</span><br><span class="line">            &#125;</span><br><span class="line">            else if (temp &gt; num)</span><br><span class="line">            &#123;</span><br><span class="line">                index = j;//记录下标，作为下一元素的起始查找下标。</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>优化后的时间复杂度分析：</strong><br>最好的情况为：m + m = 2m  渐进为m；<br>最坏的情况为：m + 1 + 2+ 3…+ m 渐进为 m^2 ；<br>平均时间复杂度为：m^2  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">//另外一种写法,时间复杂度跟上面的一样</span><br><span class="line">void intersection1(int *a,int len0,int *b,int len1)</span><br><span class="line">&#123;</span><br><span class="line">    int i ,j;</span><br><span class="line">    i = 0;</span><br><span class="line">    j = 0;</span><br><span class="line">    while (i &lt;= len0 - 1 &amp;&amp; j &lt;= len1 - 1) &#123;</span><br><span class="line">        if (*(a + i) == *(b + j)) &#123;</span><br><span class="line">            i ++;</span><br><span class="line">            j ++;</span><br><span class="line">        &#125;</span><br><span class="line">        else if (*(a + i) &gt; *(b + j))</span><br><span class="line">        &#123;</span><br><span class="line">            j ++;</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            i ++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="分析与改进"><a href="#分析与改进" class="headerlink" title="分析与改进"></a>分析与改进</h4><p>可见上面的算法都是m的平方阶或立方阶，并不理想。因为a数组遍历是必须的，问题就转变为提高在b数组中查找效率。复杂度计算应该为m(??)这样的形式，可不可以实现m(logm)这样的线性对数阶呢。比较简单的是使用二分查找。同时为了在查找的过程中不断收窄比较范围，使用双向间隔查找的方式。</p>
-<p>具体过程：<br>先查找a[0]并收窄查找下限，然后查找a[lenA - 1- 0]并收窄查找上限，然后进入下一轮。另外b数组的元素分布比较均匀的话，可以使用<strong>插值查找</strong>，效率会比二分法高不少。插值查找关键步骤mid = low + (height - low ) *(key - b[low])/(b[height]-b[low] )。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line">void intersection(int *a,int len0,int *b,int len1)</span><br><span class="line">&#123;</span><br><span class="line">    int low = 0;</span><br><span class="line">    int height = len1 - 1;</span><br><span class="line">    </span><br><span class="line">    int tempLow = low;</span><br><span class="line">    int tempHeight = height;</span><br><span class="line">    </span><br><span class="line">    int mid;</span><br><span class="line">    </span><br><span class="line">    //双向间隔遍历查找</span><br><span class="line">    for (int i = 0 ; i &lt;= len0/2; i ++) &#123;</span><br><span class="line">        </span><br><span class="line">        //如果是同于个元素结束,考虑i执行了++，就是上轮的右边等于当前的左边</span><br><span class="line">        if(i == len0  - i)</span><br><span class="line">        &#123;</span><br><span class="line">            break;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        low = tempLow;</span><br><span class="line">        height = tempHeight;</span><br><span class="line">        mid = (low + height)/2;</span><br><span class="line">        //左边开始查找,并调整下限</span><br><span class="line">        int  num = *(a + i);</span><br><span class="line">        while (height &gt;= low) &#123;</span><br><span class="line">             printf(&quot;mid %d\n&quot;,mid);</span><br><span class="line">            int temp = *(b + mid);</span><br><span class="line">            if (num == temp) &#123;</span><br><span class="line">                tempLow = mid;//调整下限</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">            else if (low == height)</span><br><span class="line">            &#123;</span><br><span class="line">                tempLow = mid;//调整下限</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">            else if (num &lt; temp)</span><br><span class="line">            &#123;</span><br><span class="line">                height = mid - 1;</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                low = mid + 1;</span><br><span class="line">            &#125;</span><br><span class="line">            mid = (low + height)/2;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        printf(&quot;-------右边-----\n&quot;);</span><br><span class="line">        //如果是同于个元素结束</span><br><span class="line">        if(i == len0 - 1 - i)</span><br><span class="line">        &#123;</span><br><span class="line">            break;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        low = tempLow;</span><br><span class="line">        height = tempHeight;</span><br><span class="line">        mid = (low + height)/2;</span><br><span class="line">        //右边开始查找,并调整上限</span><br><span class="line">        int  num1 = *(a + len0 - 1 - i);</span><br><span class="line">        while (height &gt;=low) &#123;</span><br><span class="line">            int temp = *(b + mid);</span><br><span class="line">            if (num1 == temp) &#123;</span><br><span class="line">                tempHeight = mid;//调整上限</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">            else if (low == height)</span><br><span class="line">            &#123;</span><br><span class="line">                tempHeight = mid;//调整上限</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">            else if (num1 &lt; temp)</span><br><span class="line">            &#123;</span><br><span class="line">                height = mid - 1;</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                low = mid + 1;</span><br><span class="line">            &#125;</span><br><span class="line">            mid = (low + height)/2;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>但是，这样输出的顺序也是间隔的。所以，如果要求输出是升序的话，这个输出的时候就要处理下，左边遍历的可以马上输出，右边遍历的需要存储起来，处理结束后，再顺序输出。</p>
-<p>参考资料：<br>插值查找:<br><a href="https://blog.csdn.net/wangyunyun00/article/details/23464359" target="_blank" rel="noopener">https://blog.csdn.net/wangyunyun00/article/details/23464359</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2352,7 +2348,7 @@ https://blog.csdn.net/fuchaosz/article/details/52170105
               
                 <a rel="external nofollow" href="/archives/">
               
-                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-count">46</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2435,7 +2431,7 @@ https://blog.csdn.net/fuchaosz/article/details/52170105
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">58.2k</span>
+    <span title="Site words total count">58.6k</span>
   
 </div>
 

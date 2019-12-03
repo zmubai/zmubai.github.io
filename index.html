@@ -243,6 +243,186 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/238. 除自身以外数组的乘积.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zengbailiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/icon.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="liang's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/238. 除自身以外数组的乘积.html" itemprop="url">238. 除自身以外数组的乘积</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-03T00:00:00+08:00">
+                2019-12-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/238. 除自身以外数组的乘积.html" class="leancloud_visitors" data-flag-title="238. 除自身以外数组的乘积">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  483
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> 给定长度为 n 的整数数组 nums，其中 n &gt; 1，返回输出数组 output ，其中 output[i] 等于 nums 中除 nums[i] 之外其余各元素的乘积。</span><br><span class="line"></span><br><span class="line">示例:</span><br><span class="line"></span><br><span class="line">输入: [1,2,3,4]</span><br><span class="line">输出: [24,12,8,6]</span><br><span class="line">说明: 请不要使用除法，且在 O(n) 时间复杂度内完成此题。</span><br></pre></td></tr></table></figure>
+<h4 id="解："><a href="#解：" class="headerlink" title="解："></a>解：</h4><ol>
+<li>暴力法。两层循环。 时间复杂度为O(n^2)。</li>
+<li>除自身外的乘积，等于其左边元素的乘积 和 其右边元素的乘积 的 乘积。使用两个临时数组分别保存对应下标其左边的元素积和右边元素的积。由于只是遍历两次，并没有循环嵌套，所以时间复杂度为O(n)。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;int&gt; productExceptSelf(vector&lt;int&gt;&amp; nums) &#123;</span><br><span class="line">    vector&lt;int&gt; res (nums.size() ,1);</span><br><span class="line">    int temp = 1;</span><br><span class="line">    for (int i = 0; i &lt; nums.size(); ++ i) &#123;</span><br><span class="line">        res[i] = temp;</span><br><span class="line">        temp *= nums[i];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    temp = 1;</span><br><span class="line">    for (int i = (int)nums.size() - 1; i &gt;= 0; -- i) &#123;</span><br><span class="line">        res[i] *= temp;</span><br><span class="line">        temp *= nums[i];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">//优化版本，使用一个循环即可</span><br><span class="line">vector&lt;int&gt; productExceptSelf(vector&lt;int&gt;&amp; nums) &#123;</span><br><span class="line">    int size = (int)nums.size();</span><br><span class="line">    vector&lt;int&gt; res (size, 1);</span><br><span class="line">    int left = 1;</span><br><span class="line">    int right = 1;</span><br><span class="line">    </span><br><span class="line">    for (int i = 0; i &lt; size; i ++) &#123;</span><br><span class="line">        res[i] *= left;</span><br><span class="line">        left *= nums[i];</span><br><span class="line">        int j = size - 1 - i;</span><br><span class="line">        res[j] *= right;</span><br><span class="line">        right *= nums[j];</span><br><span class="line">    &#125;</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面此思路不太好想到。我的初始思路是这样的，最后一个测试案例超时了，O(n^2)。顺便记录一下，作为一个对比的参照。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;int&gt; productExceptSelf(vector&lt;int&gt;&amp; nums) &#123;</span><br><span class="line">    if (nums.size() &lt;= 0) &#123;</span><br><span class="line">        return nums;</span><br><span class="line">    &#125;</span><br><span class="line">    vector&lt;int&gt; res (nums.size() , 0);</span><br><span class="line">    if (nums.size() &lt; 2) &#123;</span><br><span class="line">        res[0] = nums[0];</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">    res[0] = 1;</span><br><span class="line">    res[1] = nums[0];</span><br><span class="line">    for (int i = 1; i &lt; nums.size(); i ++) &#123;</span><br><span class="line">        for (int j = 0; j &lt;= i; j ++) &#123;</span><br><span class="line">            if(i == j &amp;&amp; i &lt; nums.size()) &#123;</span><br><span class="line">                if(j + 1 &lt; nums.size()) &#123;</span><br><span class="line">                    res[j+1]  = res[j] * nums[i];</span><br><span class="line">                &#125;</span><br><span class="line">                continue;</span><br><span class="line">            &#125;</span><br><span class="line">            else &#123;</span><br><span class="line">                res[j] *= nums[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/33. 搜索旋转排序数组.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -782,6 +962,186 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/435. 无重叠区间.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zengbailiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/icon.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="liang's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/435. 无重叠区间.html" itemprop="url">1262. 可被三整除的最大和</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-21T00:00:00+08:00">
+                2019-11-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/435. 无重叠区间.html" class="leancloud_visitors" data-flag-title="1262. 可被三整除的最大和">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  774
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">给你一个整数数组 nums，请你找出并返回能被三整除的元素最大和。</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">示例 1：</span><br><span class="line"></span><br><span class="line">输入：nums = [3,6,5,1,8]</span><br><span class="line">输出：18</span><br><span class="line">解释：选出数字 3, 6, 1 和 8，它们的和是 18（可被 3 整除的最大和）。</span><br><span class="line">示例 2：</span><br><span class="line"></span><br><span class="line">输入：nums = [4]</span><br><span class="line">输出：0</span><br><span class="line">解释：4 不能被 3 整除，所以无法选出数字，返回 0。</span><br></pre></td></tr></table></figure>
+<h4 id="解"><a href="#解" class="headerlink" title="解:"></a>解:</h4><p>1.用sum累加所有数。同时使用两个数组，把余数为2和1的分别填充到其中，并对这两数组降序排序（因为要和最大，大的优先使用）。那么有了这两个基础上，结合问题，这个时候计算sum的余数，存在3中情况：</p>
+<ol>
+<li>余数为0,直接返回sum.</li>
+<li>余数为1，那么又存在两种情况，分别为减去余数为1数组中的最后一个或余数为2数组的最后两个，使sum最大，前提是其他们元素数量满足。</li>
+<li>余数为2，那么又存在两种情况，分别为减去余数为2数组中的最后一个或余数为1数组的最后两个，使sum最大，前提是其他们元素数量满足。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">static bool compDesc(int a,int b)&#123;</span><br><span class="line">    return a &gt; b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int adjustSum(int rem ,int sum,vector&lt;int&gt; v1,vector&lt;int&gt; v2)&#123;</span><br><span class="line">    if (rem == 1) &#123;</span><br><span class="line">        if (v1.size() == 0) &#123;</span><br><span class="line">            return sum - v2[v2.size() - 1] - v2[v2.size() - 2];</span><br><span class="line">        &#125;</span><br><span class="line">        else if(v2.size()&lt;2)&#123;</span><br><span class="line">            return sum - v1[v1.size() - 1];</span><br><span class="line">        &#125;</span><br><span class="line">        else&#123;</span><br><span class="line">            int del = min(v2[v2.size() - 1] + v2[v2.size() - 2], v1[v1.size() - 1]);</span><br><span class="line">            return sum - del;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    else if(rem == 2)&#123;</span><br><span class="line">        if (v1.size()&lt;2) &#123;</span><br><span class="line">            return sum - v2[v2.size() - 1];</span><br><span class="line">        &#125;</span><br><span class="line">        else if (v2.size() == 0)&#123;</span><br><span class="line">            return sum - v1[v1.size() - 1] - v1[v1.size() - 2];</span><br><span class="line">        &#125;</span><br><span class="line">        else&#123;</span><br><span class="line">            int del = min(v2[v2.size() - 1],v1[v1.size() - 1] + v1[v1.size() - 2]);</span><br><span class="line">            return sum - del;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line">int maxSumDivThree(vector&lt;int&gt;&amp; nums) &#123;</span><br><span class="line">    vector&lt;int&gt; v1;</span><br><span class="line">    vector&lt;int&gt; v2;</span><br><span class="line">    int sum =0;</span><br><span class="line">    for (int i = 0; i &lt; nums.size(); ++i) &#123;</span><br><span class="line">        sum += nums[i];</span><br><span class="line">        int r = nums[i] % 3;</span><br><span class="line">        if(r == 1)&#123;</span><br><span class="line">            v1.push_back(nums[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        else if (r == 2)&#123;</span><br><span class="line">            v2.push_back(nums[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    sort(v1.begin(), v1.end(), compDesc);</span><br><span class="line">    sort(v2.begin(), v2.end(), compDesc);</span><br><span class="line">    if (sum % 3 == 1) &#123;</span><br><span class="line">        return adjustSum(1,sum, v1, v2);</span><br><span class="line">    &#125;</span><br><span class="line">    else if (sum % 3 == 2)&#123;</span><br><span class="line">        return adjustSum(2,sum, v1, v2);</span><br><span class="line">    &#125;</span><br><span class="line">    return sum;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>难点思路的思考，如何使值最大。就会涉及到最后几个元素的取舍问题。我的想法是，用两个数组存储余1和余2，那么最后可能余1数组可能存在两种情况一个1 或两个1，因为满足3个1就可以加入到和中，余2数组也一样，剩下一个2或两个2.但这里就存在很多种组合了，而且余2和余1中的元素没有直接的大小关系，有可能还要退回去拿出之前加入的元素，这又把情况变得很复杂，最后也没想出解决的办法。这大概跟思维的方式和习惯有关系。如果发现死胡同后，这是后换个思路很重要。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/435. 无重叠区间的副本.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -921,186 +1281,6 @@
 <li>检查修正测试阶段 。检测代码的健壮性，正确性。</li>
 <li>优化阶段 。优化时间，优化空间。</li>
 </ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/435. 无重叠区间.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zengbailiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/icon.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="liang's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/435. 无重叠区间.html" itemprop="url">1262. 可被三整除的最大和</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-21T00:00:00+08:00">
-                2019-11-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/435. 无重叠区间.html" class="leancloud_visitors" data-flag-title="1262. 可被三整除的最大和">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  774
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">给你一个整数数组 nums，请你找出并返回能被三整除的元素最大和。</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">示例 1：</span><br><span class="line"></span><br><span class="line">输入：nums = [3,6,5,1,8]</span><br><span class="line">输出：18</span><br><span class="line">解释：选出数字 3, 6, 1 和 8，它们的和是 18（可被 3 整除的最大和）。</span><br><span class="line">示例 2：</span><br><span class="line"></span><br><span class="line">输入：nums = [4]</span><br><span class="line">输出：0</span><br><span class="line">解释：4 不能被 3 整除，所以无法选出数字，返回 0。</span><br></pre></td></tr></table></figure>
-<h4 id="解"><a href="#解" class="headerlink" title="解:"></a>解:</h4><p>1.用sum累加所有数。同时使用两个数组，把余数为2和1的分别填充到其中，并对这两数组降序排序（因为要和最大，大的优先使用）。那么有了这两个基础上，结合问题，这个时候计算sum的余数，存在3中情况：</p>
-<ol>
-<li>余数为0,直接返回sum.</li>
-<li>余数为1，那么又存在两种情况，分别为减去余数为1数组中的最后一个或余数为2数组的最后两个，使sum最大，前提是其他们元素数量满足。</li>
-<li>余数为2，那么又存在两种情况，分别为减去余数为2数组中的最后一个或余数为1数组的最后两个，使sum最大，前提是其他们元素数量满足。</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">static bool compDesc(int a,int b)&#123;</span><br><span class="line">    return a &gt; b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int adjustSum(int rem ,int sum,vector&lt;int&gt; v1,vector&lt;int&gt; v2)&#123;</span><br><span class="line">    if (rem == 1) &#123;</span><br><span class="line">        if (v1.size() == 0) &#123;</span><br><span class="line">            return sum - v2[v2.size() - 1] - v2[v2.size() - 2];</span><br><span class="line">        &#125;</span><br><span class="line">        else if(v2.size()&lt;2)&#123;</span><br><span class="line">            return sum - v1[v1.size() - 1];</span><br><span class="line">        &#125;</span><br><span class="line">        else&#123;</span><br><span class="line">            int del = min(v2[v2.size() - 1] + v2[v2.size() - 2], v1[v1.size() - 1]);</span><br><span class="line">            return sum - del;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    else if(rem == 2)&#123;</span><br><span class="line">        if (v1.size()&lt;2) &#123;</span><br><span class="line">            return sum - v2[v2.size() - 1];</span><br><span class="line">        &#125;</span><br><span class="line">        else if (v2.size() == 0)&#123;</span><br><span class="line">            return sum - v1[v1.size() - 1] - v1[v1.size() - 2];</span><br><span class="line">        &#125;</span><br><span class="line">        else&#123;</span><br><span class="line">            int del = min(v2[v2.size() - 1],v1[v1.size() - 1] + v1[v1.size() - 2]);</span><br><span class="line">            return sum - del;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line">int maxSumDivThree(vector&lt;int&gt;&amp; nums) &#123;</span><br><span class="line">    vector&lt;int&gt; v1;</span><br><span class="line">    vector&lt;int&gt; v2;</span><br><span class="line">    int sum =0;</span><br><span class="line">    for (int i = 0; i &lt; nums.size(); ++i) &#123;</span><br><span class="line">        sum += nums[i];</span><br><span class="line">        int r = nums[i] % 3;</span><br><span class="line">        if(r == 1)&#123;</span><br><span class="line">            v1.push_back(nums[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        else if (r == 2)&#123;</span><br><span class="line">            v2.push_back(nums[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    sort(v1.begin(), v1.end(), compDesc);</span><br><span class="line">    sort(v2.begin(), v2.end(), compDesc);</span><br><span class="line">    if (sum % 3 == 1) &#123;</span><br><span class="line">        return adjustSum(1,sum, v1, v2);</span><br><span class="line">    &#125;</span><br><span class="line">    else if (sum % 3 == 2)&#123;</span><br><span class="line">        return adjustSum(2,sum, v1, v2);</span><br><span class="line">    &#125;</span><br><span class="line">    return sum;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-<p>难点思路的思考，如何使值最大。就会涉及到最后几个元素的取舍问题。我的想法是，用两个数组存储余1和余2，那么最后可能余1数组可能存在两种情况一个1 或两个1，因为满足3个1就可以加入到和中，余2数组也一样，剩下一个2或两个2.但这里就存在很多种组合了，而且余2和余1中的元素没有直接的大小关系，有可能还要退回去拿出之前加入的元素，这又把情况变得很复杂，最后也没想出解决的办法。这大概跟思维的方式和习惯有关系。如果发现死胡同后，这是后换个思路很重要。</p>
 
           
         
@@ -1330,6 +1510,183 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/744. 寻找比目标字母大的最小字母.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zengbailiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/icon.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="liang's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/744. 寻找比目标字母大的最小字母.html" itemprop="url">744. 寻找比目标字母大的最小字母</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-19T00:00:00+08:00">
+                2019-11-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/744. 寻找比目标字母大的最小字母.html" class="leancloud_visitors" data-flag-title="744. 寻找比目标字母大的最小字母">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  490
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> 给定一个只包含小写字母的有序数组letters 和一个目标字母 target，寻找有序数组里面比目标字母大的最小字母。</span><br><span class="line"></span><br><span class="line">数组里字母的顺序是循环的。举个例子，如果目标字母target = &apos;z&apos; 并且有序数组为 letters = [&apos;a&apos;, &apos;b&apos;]，则答案返回 &apos;a&apos;。</span><br></pre></td></tr></table></figure>
+<h4 id="解1"><a href="#解1" class="headerlink" title="解1:"></a>解1:</h4><p>遍历，然后对比target,记录比target大且差值最小的元素的下标bigIndex，如果存在那么返回letters[bigIndex]。如果没有比traget大的元素，那么根据题意，字母是循环的，那么返回letters[0]。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">char nextGreatestLetter(vector&lt;char&gt;&amp; letters, char target) &#123;</span><br><span class="line">    int big = -1;</span><br><span class="line">    int bigIndex = -1;</span><br><span class="line">        for(int i = 0; i &lt; letters.size(); i ++)&#123;</span><br><span class="line">            int len = letters[i] - target;</span><br><span class="line">            if(len &gt;= 0)</span><br><span class="line">            &#123;</span><br><span class="line">               if(len &lt; big|| big == -1)&#123;</span><br><span class="line">                   big = len;</span><br><span class="line">                   bigIndex = i;</span><br><span class="line">               &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        if(big)&#123;</span><br><span class="line">            return letters[big];</span><br><span class="line">        &#125;</span><br><span class="line">        else&#123;</span><br><span class="line">            return letters[0];</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="解2"><a href="#解2" class="headerlink" title="解2"></a>解2</h4><p>由于输入是有序数组，那么可能会想到二分。二分就查找比target大的元素。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">char nextGreatestLetter(vector&lt;char&gt;&amp; letters, char target) &#123;</span><br><span class="line">    int left = 0;</span><br><span class="line">    int right = (int)letters.size();</span><br><span class="line">    while (left &lt; right) &#123;</span><br><span class="line">        int mid = left + (right - left) / 2;</span><br><span class="line">        if (mid&gt; 0 &amp;&amp; letters[mid - 1] &lt;= target &amp;&amp; letters[mid]&gt; target) &#123;</span><br><span class="line">            return letters[mid];</span><br><span class="line">        &#125;</span><br><span class="line">        else&#123;</span><br><span class="line">            if (letters[mid]&lt;=target) &#123;</span><br><span class="line">            //注意这里的条件，已经明确的判断出mid不符合要求。所以left = mid + 1;</span><br><span class="line">            //mid，不符合要求，调整下限</span><br><span class="line">                left = mid + 1;</span><br><span class="line">            &#125;</span><br><span class="line">            else&#123;</span><br><span class="line">            //此分支代表, letters[mid]&gt;target,需要调整上限，但mid依然有可能符合要求。</span><br><span class="line">            //mid有可能符合要求，调整上限</span><br><span class="line">                right = mid;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return letters[0];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>二分条件判断后，调整上下限时候是有非常严谨的逻辑的，例如+1还是-1，是否= mid等。<br>另外有时候，二分是调整区间找坐标，有时候是给出特定的目标值，来查找坐标，情况很多。甚至二分的判断条件是一个函数，是一个以mid为入参的函数。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/807. 保持城市天际线.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1462,183 +1819,6 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">int maxIncreaseKeepingSkyline(vector&lt;vector&lt;int&gt;&gt;&amp; grid) &#123;</span><br><span class="line">    long hSize = grid.size();</span><br><span class="line">    long vSize = grid[0].size();</span><br><span class="line">    vector&lt;int&gt; hMaxArr (hSize,0);</span><br><span class="line">    vector&lt;int&gt; vMaxArr (vSize,0);</span><br><span class="line">    //先获取 hMaxArr vMaxArr</span><br><span class="line">    for (int i = 0; i &lt; hSize ; i ++) &#123;</span><br><span class="line">        for (int j = 0 ; j &lt; vSize; j ++) &#123;</span><br><span class="line">            if(grid[i][j]&gt;hMaxArr[i])&#123;</span><br><span class="line">                hMaxArr[i] = grid[i][j];</span><br><span class="line">            &#125;</span><br><span class="line">            if (grid[i][j]&gt;vMaxArr[j]) &#123;</span><br><span class="line">                vMaxArr[j] = grid[i][j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    int res = 0;</span><br><span class="line">    for (int i = 0; i &lt; hSize ; i ++) &#123;</span><br><span class="line">        for (int j=0 ; j &lt; vSize; j ++) &#123;</span><br><span class="line">            int minLimit = hMaxArr[i] &gt; vMaxArr[j] ? vMaxArr[j] : hMaxArr[i];</span><br><span class="line">            int mayAdd = minLimit - grid[i][j];</span><br><span class="line">            if(mayAdd)&#123;</span><br><span class="line">                res += mayAdd;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return  res;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
 <p>这道题的问题思路比较直观。<br>不能超过边际线–》那么要知道每个坐标能到达的上限，其上限是什么？-》其上限就是其所在的行列边际值得最小值。 ==》解题开始，获取边际点，累计高，返回。</p>
 <p>这种能有清晰的求解思路的题，相对好解。而有些题目，理清题目，并不容易想到可论证的正确思路（也即是可行思路），例如贪心算法之类的（435. 无重叠区间）。so解题前要尽量快速思考出思路，不断假设，提供条件，换思路等，找到可行思路。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/744. 寻找比目标字母大的最小字母.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zengbailiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/icon.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="liang's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/744. 寻找比目标字母大的最小字母.html" itemprop="url">744. 寻找比目标字母大的最小字母</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-19T00:00:00+08:00">
-                2019-11-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/744. 寻找比目标字母大的最小字母.html" class="leancloud_visitors" data-flag-title="744. 寻找比目标字母大的最小字母">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  490
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> 给定一个只包含小写字母的有序数组letters 和一个目标字母 target，寻找有序数组里面比目标字母大的最小字母。</span><br><span class="line"></span><br><span class="line">数组里字母的顺序是循环的。举个例子，如果目标字母target = &apos;z&apos; 并且有序数组为 letters = [&apos;a&apos;, &apos;b&apos;]，则答案返回 &apos;a&apos;。</span><br></pre></td></tr></table></figure>
-<h4 id="解1"><a href="#解1" class="headerlink" title="解1:"></a>解1:</h4><p>遍历，然后对比target,记录比target大且差值最小的元素的下标bigIndex，如果存在那么返回letters[bigIndex]。如果没有比traget大的元素，那么根据题意，字母是循环的，那么返回letters[0]。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">char nextGreatestLetter(vector&lt;char&gt;&amp; letters, char target) &#123;</span><br><span class="line">    int big = -1;</span><br><span class="line">    int bigIndex = -1;</span><br><span class="line">        for(int i = 0; i &lt; letters.size(); i ++)&#123;</span><br><span class="line">            int len = letters[i] - target;</span><br><span class="line">            if(len &gt;= 0)</span><br><span class="line">            &#123;</span><br><span class="line">               if(len &lt; big|| big == -1)&#123;</span><br><span class="line">                   big = len;</span><br><span class="line">                   bigIndex = i;</span><br><span class="line">               &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        if(big)&#123;</span><br><span class="line">            return letters[big];</span><br><span class="line">        &#125;</span><br><span class="line">        else&#123;</span><br><span class="line">            return letters[0];</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="解2"><a href="#解2" class="headerlink" title="解2"></a>解2</h4><p>由于输入是有序数组，那么可能会想到二分。二分就查找比target大的元素。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">char nextGreatestLetter(vector&lt;char&gt;&amp; letters, char target) &#123;</span><br><span class="line">    int left = 0;</span><br><span class="line">    int right = (int)letters.size();</span><br><span class="line">    while (left &lt; right) &#123;</span><br><span class="line">        int mid = left + (right - left) / 2;</span><br><span class="line">        if (mid&gt; 0 &amp;&amp; letters[mid - 1] &lt;= target &amp;&amp; letters[mid]&gt; target) &#123;</span><br><span class="line">            return letters[mid];</span><br><span class="line">        &#125;</span><br><span class="line">        else&#123;</span><br><span class="line">            if (letters[mid]&lt;=target) &#123;</span><br><span class="line">            //注意这里的条件，已经明确的判断出mid不符合要求。所以left = mid + 1;</span><br><span class="line">            //mid，不符合要求，调整下限</span><br><span class="line">                left = mid + 1;</span><br><span class="line">            &#125;</span><br><span class="line">            else&#123;</span><br><span class="line">            //此分支代表, letters[mid]&gt;target,需要调整上限，但mid依然有可能符合要求。</span><br><span class="line">            //mid有可能符合要求，调整上限</span><br><span class="line">                right = mid;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return letters[0];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>二分条件判断后，调整上下限时候是有非常严谨的逻辑的，例如+1还是-1，是否= mid等。<br>另外有时候，二分是调整区间找坐标，有时候是给出特定的目标值，来查找坐标，情况很多。甚至二分的判断条件是一个函数，是一个以mid为入参的函数。</p>
 
           
         
@@ -1850,199 +2030,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/887. 鸡蛋掉落 191112.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zengbailiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/icon.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="liang's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/887. 鸡蛋掉落 191112.html" itemprop="url">leetcode 887. 鸡蛋掉落</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-12T00:00:00+08:00">
-                2019-11-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/887. 鸡蛋掉落 191112.html" class="leancloud_visitors" data-flag-title="leetcode 887. 鸡蛋掉落">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1,267
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">887. 鸡蛋掉落</span><br><span class="line">你将获得 K 个鸡蛋，并可以使用一栋从 1 到 N  共有 N 层楼的建筑。</span><br><span class="line"></span><br><span class="line">每个蛋的功能都是一样的，如果一个蛋碎了，你就不能再把它掉下去。</span><br><span class="line"></span><br><span class="line">你知道存在楼层 F ，满足 0 &lt;= F &lt;= N 任何从高于 F 的楼层落下的鸡蛋都会碎，从 F 楼层或比它低的楼层落下的鸡蛋都不会破。</span><br><span class="line"></span><br><span class="line">每次移动，你可以取一个鸡蛋（如果你有完整的鸡蛋）并把它从任一楼层 X 扔下（满足 1 &lt;= X &lt;= N）。</span><br><span class="line"></span><br><span class="line">你的目标是确切地知道 F 的值是多少。</span><br><span class="line"></span><br><span class="line">无论 F 的初始值如何，你确定 F 的值的最小移动次数是多少？</span><br><span class="line"></span><br><span class="line">示例 1：</span><br><span class="line"></span><br><span class="line">输入：K = 1, N = 2</span><br><span class="line">输出：2</span><br><span class="line">解释：</span><br><span class="line">鸡蛋从 1 楼掉落。如果它碎了，我们肯定知道 F = 0 。</span><br><span class="line">否则，鸡蛋从 2 楼掉落。如果它碎了，我们肯定知道 F = 1 。</span><br><span class="line">如果它没碎，那么我们肯定知道 F = 2 。</span><br><span class="line">因此，在最坏的情况下我们需要移动 2 次以确定 F 是多少。</span><br></pre></td></tr></table></figure>
-<h4 id="解法一："><a href="#解法一：" class="headerlink" title="解法一："></a>解法一：</h4><p>动态规划。<br>dp[i][j]表示i个鸡蛋 ,j层需要的次数。<br>当某个时刻楼层为x,仍下鸡蛋，会出现两种情况<br>1.鸡蛋碎了，那么调整范围dp[i-1][x-1]。<br>2.鸡蛋没碎，那么调整范围dp[i][j-x]。</p>
-<p>那么dp方程为:<br>dp[i][j] = min(dp[i][j],1 + max(dp[i-1][x-1],dp[i][j-x]))(+1是因为计算上这本次扔鸡蛋)<br>主要步骤：</p>
-<ol>
-<li>dp[i][j] 赋值保险值。例如100层，保险值就是100。等于j。</li>
-<li>计算dp[i][j] = min(dp[i][j],1 + max(dp[i-1][x-1],dp[i][j-x]))。</li>
-<li>返回dp[K][N]。</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">// Time Limit Exceeded</span><br><span class="line">int superEggDrop(int K, int N) &#123;</span><br><span class="line">    vector&lt;vector&lt;int&gt;&gt; dp(K + 1, vector&lt;int&gt;(N + 1));</span><br><span class="line">    for (int i = 1; i &lt;= N; i ++) &#123;</span><br><span class="line">        dp[1][i] = i;</span><br><span class="line">    &#125;</span><br><span class="line">    //2 - K 个鸡蛋</span><br><span class="line">    for (int i = 2;i &lt;= K; ++i)&#123;</span><br><span class="line">        // 1 - N 层</span><br><span class="line">        for (int j = 1; j &lt;= N; ++j) &#123;</span><br><span class="line">            //赋值最大次数</span><br><span class="line">            dp[i][j] = j;</span><br><span class="line">            //鸡蛋有可能在任何一层砸碎</span><br><span class="line">            for (int x = 1; x &lt; j; ++x) &#123;</span><br><span class="line">                dp[i][j] = min(dp[i][j], 1 + max(dp[i][j - x], dp[i -1][x -1]));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return dp[K][N];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>此方法会超时，需要优化。下面采取二分优化。</p>
-<h4 id="解法二"><a href="#解法二" class="headerlink" title="解法二:"></a>解法二:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">int superEggDrop(int K, int N) &#123;</span><br><span class="line">    vector&lt;vector&lt;int&gt;&gt; dp (K+1,vector&lt;int&gt;(N+1));</span><br><span class="line">    //赋基础值</span><br><span class="line">    for (int i = 1 ; i &lt;= N; ++i) &#123;</span><br><span class="line">        dp[1][i] = i;</span><br><span class="line">    &#125;</span><br><span class="line">    //2 - K egg</span><br><span class="line">    for (int i = 2; i &lt;= K; ++i) &#123;</span><br><span class="line">        // 1 - N floor</span><br><span class="line">        for (int j = 1; j &lt;= N; ++j) &#123;</span><br><span class="line">            //赋保险值</span><br><span class="line">            dp[i][j] = j;</span><br><span class="line">            int left = 1;</span><br><span class="line">            int right = j;</span><br><span class="line">            //二分查找临界点</span><br><span class="line">            while (left&lt;right) &#123;</span><br><span class="line">                int mid = left + (right - left)/2;</span><br><span class="line">                if (dp[i - 1][mid -1] &lt; dp[i][j - mid]) &#123;</span><br><span class="line">                    //mid 过小 向右偏移</span><br><span class="line">                    left = mid + 1;</span><br><span class="line">                &#125;</span><br><span class="line">                else&#123;</span><br><span class="line">                    //mid 过大，向左偏移</span><br><span class="line">                    right = mid;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            ///为什么最后right是临界点呢（ring保留mid,不让某些值缺失，但临界值为什么不能发生在left。。。；根据判断条件left&lt;right。可以理解为left一直增大，直到=&gt;right，那么退出循环，此时right就是临界值。这个过程如何一定保证right为临界值！！！），这里有点没想通。</span><br><span class="line">            dp[i][j] = min(dp[i][j], 1 + max(dp[i-1][right-1],dp[i][j-right]));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return dp[K][N];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="解法三"><a href="#解法三" class="headerlink" title="解法三"></a>解法三</h4><p>再次优化，理论上楼层越多临界点越大，so临界点是一致递增的。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">int superEggDrop(int K, int N) &#123;</span><br><span class="line">    vector&lt;vector&lt;int&gt;&gt; dp (K+1,vector&lt;int&gt;(N+1));</span><br><span class="line">    //赋基础值</span><br><span class="line">    for (int i = 1 ; i &lt;= N; ++i) &#123;</span><br><span class="line">        dp[1][i] = i;</span><br><span class="line">    &#125;</span><br><span class="line">    //2 - K egg</span><br><span class="line">    for (int i = 2; i &lt;= K; ++i) &#123;</span><br><span class="line">        // 1 - N floor</span><br><span class="line">        int s = 1;</span><br><span class="line">        for (int j = 1; j &lt;= N; ++j) &#123;</span><br><span class="line">            //赋保险值</span><br><span class="line">            dp[i][j] = j;</span><br><span class="line">            //随着楼层的增加 s会变大。（使用s递增，比解法二的临界值好理解很多，且很容易确定准确性）</span><br><span class="line">            while (dp[i - 1][s -1] &lt; dp[i][j - s]) &#123;</span><br><span class="line">                s++;</span><br><span class="line">            &#125;</span><br><span class="line">            dp[i][j] = min(dp[i][j], 1 + max(dp[i-1][s-1],dp[i][j-s]));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return dp[K][N];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这种类型的题目，求最值得问题，很可能用到动态规划。且随着变量的递增，后面的结果依赖于之前的过程。抽象出dp方程比较重要。<br>例如本题就比较难抽象，要完全理清题意，准确无误的抽象不容易：</p>
-<p>dp[i][j] = min(dp[i][j],1 + max(dp[i-1][x-1],dp[i][j-x]))</p>
-<ol>
-<li>dp[i][j],i egg ;j floor</li>
-<li>dp[i][j],保险值等于j</li>
-<li>每次扔鸡蛋分两种情况，所以有max(dp[i-1][x-1],dp[i][j-x])，max是为了取最坏情况次数。加上当次扔鸡蛋， 所以有1 + max(dp[i-1][x-1],dp[i][j-x])</li>
-<li>最终有dp[i][j] = min(dp[i][j],1 + max(dp[i-1][x-1],dp[i][j-x]))</li>
-</ol>
-<p>一般来说，有了初步的解题思路，再一步一步优化。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2097,7 +2084,7 @@
               
                 <a rel="external nofollow" href="/archives/">
               
-                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-count">46</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2180,7 +2167,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">58.2k</span>
+    <span title="Site words total count">58.6k</span>
   
 </div>
 
