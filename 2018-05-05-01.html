@@ -1,377 +1,209 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next mist use-motion" lang="zh-Hans">
-<head>
-  <meta charset="UTF-8"/>
-<meta name="google-site-verification" content="xdxP4Om7Pxp3OMC73kRMv2emRoA91RXOEPaKMivB_zg" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-<meta name="theme-color" content="#222">
-
-
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="git," />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="由于工作中使用git作为版本管理，之前对git的了解不多，特别是底层方面的原理方面的知识。为了能更好的使用git，有必要学习并梳理下相关知识。 步入正题： git的文件结构执行git init 初始化后，会在.git文件夹下会创建多个目录，每个文件夹功能划分的很清晰。 git的存储方式Git 是一套内容寻址文件系统.通过键值对的方式存储和查找。 下面操作一遍，直观的看到整个过程，以便理解。 首先">
-<meta name="keywords" content="git">
-<meta property="og:type" content="article">
-<meta property="og:title" content="git的文件系统与底层原理 (1)">
-<meta property="og:url" content="https://zengbailiang.cn/2018-05-05-01.html">
-<meta property="og:site_name" content="liang&#39;s blog">
-<meta property="og:description" content="由于工作中使用git作为版本管理，之前对git的了解不多，特别是底层方面的原理方面的知识。为了能更好的使用git，有必要学习并梳理下相关知识。 步入正题： git的文件结构执行git init 初始化后，会在.git文件夹下会创建多个目录，每个文件夹功能划分的很清晰。 git的存储方式Git 是一套内容寻址文件系统.通过键值对的方式存储和查找。 下面操作一遍，直观的看到整个过程，以便理解。 首先">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1690665-6458ddc5b28b057a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/720">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1690665-a9e4427dc58379b1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-07-22T08:53:49.298Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="git的文件系统与底层原理 (1)">
-<meta name="twitter:description" content="由于工作中使用git作为版本管理，之前对git的了解不多，特别是底层方面的原理方面的知识。为了能更好的使用git，有必要学习并梳理下相关知识。 步入正题： git的文件结构执行git init 初始化后，会在.git文件夹下会创建多个目录，每个文件夹功能划分的很清晰。 git的存储方式Git 是一套内容寻址文件系统.通过键值对的方式存储和查找。 下面操作一遍，直观的看到整个过程，以便理解。 首先">
-<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/1690665-6458ddc5b28b057a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/720">
-
-
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Mist',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
-
-
-
-  <link rel="canonical" href="https://zengbailiang.cn/2018-05-05-01.html"/>
-
-
-
-
-
-  <title>git的文件系统与底层原理 (1) | liang's blog</title>
-  
-
-
-
-
-
-
-
-
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-  
+<html>
+  <head>
+      <script>
+  var _hmt = _hmt || []
+  ;(function() {
+    var hm = document.createElement('script')
+    hm.src = 'https://hm.baidu.com/hm.js?5a0acc897fd96474a2c8f4deac84611a'
+    var s = document.getElementsByTagName('script')[0]
+    s.parentNode.insertBefore(hm, s)
+  })()
+</script> 
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="知行合一" />
     
-  
-
-  <div class="container sidebar-position-left page-post-detail">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
+    <title>
+      git的文件系统与底层原理 (1) - liang&#39;s blog
+    </title>
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/style/style.css">
+  </head>
+  <body>
     
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">liang's blog</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <div id="post-toc" class="animated hiddenToc hide">
+      <span class="title">Toc</span>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#git的文件结构"><span class="toc-text">git的文件结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#git的存储方式"><span class="toc-text">git的存储方式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#首先，创建一个内容对象"><span class="toc-text">首先，创建一个内容对象</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#查看刚才存储的数据"><span class="toc-text">查看刚才存储的数据</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#通过校验和作为键值-解读文件"><span class="toc-text">通过校验和作为键值 解读文件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#重新创建一个仓库并创建一个文件"><span class="toc-text">重新创建一个仓库并创建一个文件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#修改文件再保存"><span class="toc-text">修改文件再保存</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#查看已保存的内容"><span class="toc-text">查看已保存的内容</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#恢复到第一个版本"><span class="toc-text">恢复到第一个版本</span></a></li></ol></li></ol></li></ol>
     </div>
-      
-        <p class="site-subtitle"></p>
-      
-  </div>
-
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
-  </div>
-</div>
-
-<nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            关于
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-
-      
-    </ul>
-  
-
-  
-</nav>
-
-
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-
-  <div id="posts" class="posts-expand">
     
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2018-05-05-01.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zengbailiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/icon.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="liang's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">git的文件系统与底层原理 (1)</h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-05T00:00:00+08:00">
-                2018-05-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/git/" itemprop="url" rel="index">
-                    <span itemprop="name">git</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018-05-05-01.html" class="leancloud_visitors" data-flag-title="git的文件系统与底层原理 (1)">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1,102
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
+    <div id="fixed-menu-wrap">
+      <span class="iconfont icon-sousuo search-box menu-reset"></span>
+      <span class="icon-toc menu-reset">Toc</span>
+      <span class="iconfont icon-arrowup menu-reset"></span>
+    </div>
+    <div id="fixed-menu">
+      <span class="iconfont icon-menu-"></span>
+    </div>
+    <div id="progress">
+      <div class="line"></div>
+    </div>
+    <div id="search-shade" class="animated hiddenSearch hide">
+      <div class="input-wrap">
+        <span class="iconfont icon-sousuo search-box"></span>
+        <input type="text" placeholder="Search" />
+        <span class="iconfont icon-close"></span>
+      </div>
+      <div class="search-result">
+        <div class="meta">
+          <span><b id="result-count">0</b> results found</span>
+          <img src="/images/logo.jpeg" />
         </div>
-      </header>
-    
+        <ul id="result-box"></ul>
+      </div>
+    </div>
+    <div id="menu-mask" class="animated hideMenuMask hide">
+      <span class="iconfont icon-close"></span>
+      <div class="nav">
+        
+        <a href="/" class="">
+          Home
+        </a>
+        
+        <a href="/archives" class="">
+          Archives
+        </a>
+        
+        <a href="/categories" class="">
+          Categories
+        </a>
+        
+        <a href="/tags" class="">
+          Tags
+        </a>
+        
+        <a href="/friends" class="">
+          Friends
+        </a>
+        
+        <a href="/about" class="">
+          About
+        </a>
+        
+      </div>
+    </div>
+    <div id="header">
+      <div class="intro">
+        <a href="/" class="logo" style="background-image: url('/images/logo.jpeg')"></a>
+        <div class="author">liang</div>
+      </div>
+      <div class="nav">
+        <span class="iconfont icon-menu menu-icon"></span>
+        <a href="#" class="search-box">
+          <span class="iconfont icon-sousuo"></span>
+        </a>
+      </div>
+    </div>
+    <div id="side" class="animated bounceInLeft">
+      <div class="shrink">
+        <a href="/" class="logo" style="background-image: url('/images/logo.jpeg')"></a>
+        <span class="iconfont icon-menu toggle-icon"></span>
+        <a href="#" class="search-box">
+          <span class="iconfont icon-sousuo"></span>
+        </a>
+      </div>
+      <div class="magnify">
+        <div class="about">
+          <div class="author">liang</div>
+          <a href="/" class="logo" style="background-image: url('/images/logo.jpeg')"></a>
+        </div>
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+        <div class="nav">
+          
+          <a href="/" class="">
+            Home
+          </a>
+          
+          <a href="/archives" class="">
+            Archives
+          </a>
+          
+          <a href="/categories" class="">
+            Categories
+          </a>
+          
+          <a href="/tags" class="">
+            Tags
+          </a>
+          
+          <a href="/friends" class="">
+            Friends
+          </a>
+          
+          <a href="/about" class="">
+            About
+          </a>
+          
+          <a href="#" class="search-box">
+            <span class="iconfont icon-sousuo"></span>
+          </a>
+        </div>
+        <div class="bottom">
+          <div class="follow">
+            
+            <a href="https://github.com/zmubai" target="_block">
+              <span class="iconfont icon-github"></span>
+            </a>
+             
+            <a href="/atom.xml" target="_block">
+              <span class="iconfont icon-rss"></span>
+            </a>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="container">
+      <div class="main animated bounceInRight delay-0.7s">
+        <article class="post-entry">
+    <div class="header">
+      
+      <div class="title">git的文件系统与底层原理 (1)</div>
+      <div class="meta">
+        <span class="item">
+          <span class="iconfont icon-time-circle"></span>
+          <span>2018/05/05</span>
+        </span>
 
-      
-      
+        
 
-      
-        <p> 由于工作中使用git作为版本管理，之前对git的了解不多，特别是底层方面的原理方面的知识。为了能更好的使用git，有必要学习并梳理下相关知识。</p>
+         
+        <span class="item">
+          <span class="iconfont icon-folder"></span>
+          <span>
+              
+                
+                  <a href="/categories/git">git</a>
+                
+              
+          </span>
+        </span>
+        
+        
+         
+          <span class="item">
+            <span class="iconfont icon-tag1"></span>
+            <span>
+                
+                  
+                    <a href="/tags/git">git</a>
+                  
+                
+            </span>
+          </span>
+         
+      </div>
+      <div>
+      </div>
+    </div>
+    <p> 由于工作中使用git作为版本管理，之前对git的了解不多，特别是底层方面的原理方面的知识。为了能更好的使用git，有必要学习并梳理下相关知识。</p>
 <p>步入正题：</p>
-<h3 id="git的文件结构"><a href="#git的文件结构" class="headerlink" title="git的文件结构"></a>git的文件结构</h3><p>执行git init 初始化后，会在.git文件夹下会创建多个目录，每个文件夹功能划分的很清晰。<br><img src="https://upload-images.jianshu.io/upload_images/1690665-6458ddc5b28b057a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/720" alt="git目录结构.png"></p>
-<h3 id="git的存储方式"><a href="#git的存储方式" class="headerlink" title="git的存储方式"></a>git的存储方式</h3><p>Git 是一套内容寻址文件系统.通过键值对的方式存储和查找。</p>
+<h3 id="git的文件结构">git的文件结构<a class="post-anchor" href="#git的文件结构"></a></h3><p>执行git init 初始化后，会在.git文件夹下会创建多个目录，每个文件夹功能划分的很清晰。<br><a href="https://upload-images.jianshu.io/upload_images/1690665-6458ddc5b28b057a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/720" data-caption="git目录结构.png" data-fancybox="images"><img src="https://upload-images.jianshu.io/upload_images/1690665-6458ddc5b28b057a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/720" alt="git目录结构.png"></a></p>
+<h3 id="git的存储方式">git的存储方式<a class="post-anchor" href="#git的存储方式"></a></h3><p>Git 是一套内容寻址文件系统.通过键值对的方式存储和查找。</p>
 <p>下面操作一遍，直观的看到整个过程，以便理解。</p>
-<h5 id="首先，创建一个内容对象"><a href="#首先，创建一个内容对象" class="headerlink" title="首先，创建一个内容对象"></a>首先，创建一个内容对象</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ echo &quot;小明的文件&quot; | git hash-object -w --stdin</span><br><span class="line">5c98f8a9221e5336f68c7575cd238b48875137c6</span><br></pre></td></tr></table></figure>
+<h5 id="首先，创建一个内容对象">首先，创建一个内容对象<a class="post-anchor" href="#首先，创建一个内容对象"></a></h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ echo &quot;小明的文件&quot; | git hash-object -w --stdin</span><br><span class="line">5c98f8a9221e5336f68c7575cd238b48875137c6</span><br></pre></td></tr></table></figure>
 <table>
 <thead>
 <tr>
@@ -405,7 +237,7 @@
 </tbody>
 </table>
 <p>参考：<a href="https://git-scm.com/docs/git-hash-object" target="_blank" rel="noopener">https://git-scm.com/docs/git-hash-object</a></p>
-<h5 id="查看刚才存储的数据"><a href="#查看刚才存储的数据" class="headerlink" title="查看刚才存储的数据"></a>查看刚才存储的数据</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ find .git/objects -type f</span><br><span class="line">.git/objects/5c/98f8a9221e5336f68c7575cd238b48875137c6</span><br></pre></td></tr></table></figure>
+<h5 id="查看刚才存储的数据">查看刚才存储的数据<a class="post-anchor" href="#查看刚才存储的数据"></a></h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ find .git/objects -type f</span><br><span class="line">.git/objects/5c/98f8a9221e5336f68c7575cd238b48875137c6</span><br></pre></td></tr></table></figure>
 <table>
 <thead>
 <tr>
@@ -451,7 +283,7 @@
 </tbody>
 </table>
 <p><em>SHA-1是一种加密哈希函数（cryptographic hash function）。SHA-1将文件中的内容通过其hash算法生成一个160bit的报文摘要，即40个十六进制数字（每个十六进制数字占4位）。它几乎可以保证，如果两个文件的SHA-1值是相同的，那么它们确是完全相同的内容（类似于生活中的指纹识别）；SHA-1主要有两种用途，一个是加密，一个是数据完整性校验。Linux kernel开创者和Git的开发者——Linus说，Git使用了SHA-1并非是为了安全性，而是为了数据的完整性。理论上SHA-1会在2^51攻击下实现哈希碰撞，所以也不是完全的安全。</em></p>
-<h5 id="通过校验和作为键值-解读文件"><a href="#通过校验和作为键值-解读文件" class="headerlink" title="通过校验和作为键值 解读文件"></a>通过校验和作为键值 解读文件</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git cat-file -p 5c98f8a9221e5336f68c7575cd238b48875137c6</span><br><span class="line">小明的文件</span><br></pre></td></tr></table></figure>
+<h5 id="通过校验和作为键值-解读文件">通过校验和作为键值 解读文件<a class="post-anchor" href="#通过校验和作为键值-解读文件"></a></h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git cat-file -p 5c98f8a9221e5336f68c7575cd238b48875137c6</span><br><span class="line">小明的文件</span><br></pre></td></tr></table></figure>
 <table>
 <thead>
 <tr>
@@ -475,7 +307,7 @@
 </table>
 <p>参考：<a href="https://git-scm.com/docs/git-cat-file" target="_blank" rel="noopener">https://git-scm.com/docs/git-cat-file</a></p>
 <p>以上，说明了git的数据存储的基本方式。主要是使用SHA-1算法根据其内容和头信息生成唯一的40位校验和，并使用校验和作为key做文件存取。</p>
-<p>模拟bolb对象存储流程<br><img src="https://upload-images.jianshu.io/upload_images/1690665-a9e4427dc58379b1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="bolb存储流程图.png"></p>
+<p>模拟bolb对象存储流程<br><a href="https://upload-images.jianshu.io/upload_images/1690665-a9e4427dc58379b1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-caption="bolb存储流程图.png" data-fancybox="images"><img src="https://upload-images.jianshu.io/upload_images/1690665-a9e4427dc58379b1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="bolb存储流程图.png"></a></p>
 <p>以上，说明了git的数据存储的基本方式。主要步骤：</p>
 <ol>
 <li>使用SHA-1算法根据其原始内容和头信息（头信息格式”blob #{content.length}\0”）生成唯一的40位校验和。</li>
@@ -484,10 +316,10 @@
 </ol>
 <hr>
 <p>下面是创建文件，修改文件，恢复文件的相关过程。</p>
-<h5 id="重新创建一个仓库并创建一个文件"><a href="#重新创建一个仓库并创建一个文件" class="headerlink" title="重新创建一个仓库并创建一个文件"></a>重新创建一个仓库并创建一个文件</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ echo &apos;小明该吃午饭了&apos; &gt; test.txt</span><br><span class="line">$ git hash-object -w test.txt</span><br><span class="line">efbd70f46da0d1852de88c58aebc86616beecdaf</span><br></pre></td></tr></table></figure>
-<h5 id="修改文件再保存"><a href="#修改文件再保存" class="headerlink" title="修改文件再保存"></a>修改文件再保存</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ echo &quot;小明打算去吃个泡面&quot; &gt; test.txt</span><br><span class="line">$ git hash-object -w test.txt</span><br><span class="line">26aab56c7d1f9bd962b28f78ce61f021b221d317</span><br></pre></td></tr></table></figure>
-<h5 id="查看已保存的内容"><a href="#查看已保存的内容" class="headerlink" title="查看已保存的内容"></a>查看已保存的内容</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ find .git/objects -type f</span><br><span class="line">.git/objects/26/aab56c7d1f9bd962b28f78ce61f021b221d317</span><br><span class="line">.git/objects/ef/bd70f46da0d1852de88c58aebc86616beecdaf</span><br></pre></td></tr></table></figure>
-<h5 id="恢复到第一个版本"><a href="#恢复到第一个版本" class="headerlink" title="恢复到第一个版本"></a>恢复到第一个版本</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git cat-file -p efbd70f46da0d1852de88c58aebc86616beecdaf &gt; .git/test.txt</span><br><span class="line">$ cat .git/test.txt</span><br><span class="line">小明该吃午饭了</span><br></pre></td></tr></table></figure>
+<h5 id="重新创建一个仓库并创建一个文件">重新创建一个仓库并创建一个文件<a class="post-anchor" href="#重新创建一个仓库并创建一个文件"></a></h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ echo &apos;小明该吃午饭了&apos; &gt; test.txt</span><br><span class="line">$ git hash-object -w test.txt</span><br><span class="line">efbd70f46da0d1852de88c58aebc86616beecdaf</span><br></pre></td></tr></table></figure>
+<h5 id="修改文件再保存">修改文件再保存<a class="post-anchor" href="#修改文件再保存"></a></h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ echo &quot;小明打算去吃个泡面&quot; &gt; test.txt</span><br><span class="line">$ git hash-object -w test.txt</span><br><span class="line">26aab56c7d1f9bd962b28f78ce61f021b221d317</span><br></pre></td></tr></table></figure>
+<h5 id="查看已保存的内容">查看已保存的内容<a class="post-anchor" href="#查看已保存的内容"></a></h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ find .git/objects -type f</span><br><span class="line">.git/objects/26/aab56c7d1f9bd962b28f78ce61f021b221d317</span><br><span class="line">.git/objects/ef/bd70f46da0d1852de88c58aebc86616beecdaf</span><br></pre></td></tr></table></figure>
+<h5 id="恢复到第一个版本">恢复到第一个版本<a class="post-anchor" href="#恢复到第一个版本"></a></h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git cat-file -p efbd70f46da0d1852de88c58aebc86616beecdaf &gt; .git/test.txt</span><br><span class="line">$ cat .git/test.txt</span><br><span class="line">小明该吃午饭了</span><br></pre></td></tr></table></figure>
 <p>git会记录每个版本的修改，根据校验和可恢复到相应的版本。</p>
 <hr>
 <p><strong>小结：</strong>这个过程中包括文件创建、文件修改、文件恢复，跟我们平时工作中使用的高级命令功能很相似。git会把整个过程转化为底层操作，同时对用户透明。</p>
@@ -495,513 +327,112 @@
 <p><a href="http://smilejay.com/2012/08/git-commit-sha-1/" target="_blank" rel="noopener">http://smilejay.com/2012/08/git-commit-sha-1/</a></p>
 <p><a href="https://git-scm.com/book/zh/v1/Git-%E5%86%85%E9%83%A8%E5%8E%9F%E7%90%86-Git-%E5%AF%B9%E8%B1%A1" target="_blank" rel="noopener">https://git-scm.com/book/zh/v1/Git-%E5%86%85%E9%83%A8%E5%8E%9F%E7%90%86-Git-%E5%AF%B9%E8%B1%A1</a></p>
 
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/git/" rel="tag"># git</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2018-04-23-0.html" rel="next" title="git 常用操作汇总">
-                <i class="fa fa-chevron-left"></i> git 常用操作汇总
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018-05-12-01.html" rel="prev" title="iOS 指纹解锁 检测指纹信息变更">
-                iOS 指纹解锁 检测指纹信息变更 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
 
   
-
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <div class="post-reward">
+    <div id="reward-button">打赏</div>
+      <div id="qr">
+        <div class="wrap">
             
-              <img class="site-author-image" itemprop="image"
-                src="/images/icon.jpg"
-                alt="zengbailiang" />
-            
-              <p class="site-author-name" itemprop="name">zengbailiang</p>
-              <p class="site-description motion-element" itemprop="description">知行合一</p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a rel="external nofollow" href="/archives/">
-              
-                  <span class="site-state-item-count">46</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">14</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">22</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-            <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/zmubai" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
+            <div class="bg-wrap">
+              <a href="/images/zhifubao.png" target="_block" class="bg" style="background-image:url('/images/zhifubao.png')"></a>
+              支付宝
             </div>
-          
-
-          
-          
-
-          
-          
-
-          
-
+            
+            
+            <div class="bg-wrap">
+                <a href="/images/weixin.png" target="_block" class="bg" style="background-image:url('/images/weixin.png')"></a>
+              微信
+            </div>
+            
         </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#git的文件结构"><span class="nav-number">1.</span> <span class="nav-text">git的文件结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git的存储方式"><span class="nav-number">2.</span> <span class="nav-text">git的存储方式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#首先，创建一个内容对象"><span class="nav-number">2.0.1.</span> <span class="nav-text">首先，创建一个内容对象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#查看刚才存储的数据"><span class="nav-number">2.0.2.</span> <span class="nav-text">查看刚才存储的数据</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#通过校验和作为键值-解读文件"><span class="nav-number">2.0.3.</span> <span class="nav-text">通过校验和作为键值 解读文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#重新创建一个仓库并创建一个文件"><span class="nav-number">2.0.4.</span> <span class="nav-text">重新创建一个仓库并创建一个文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#修改文件再保存"><span class="nav-number">2.0.5.</span> <span class="nav-text">修改文件再保存</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#查看已保存的内容"><span class="nav-number">2.0.6.</span> <span class="nav-text">查看已保存的内容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#恢复到第一个版本"><span class="nav-number">2.0.7.</span> <span class="nav-text">恢复到第一个版本</span></a></li></ol></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
+      </div>
     </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">zengbailiang</span>
-
   
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
-      <i class="fa fa-area-chart"></i>
-    </span>
-    
-      <span class="post-meta-item-text">Site words total count&#58;</span>
-    
-    <span title="Site words total count">58.6k</span>
-  
-</div>
-
-
-  <div class="powered-by">由 <a rel="external nofollow" class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
-
-
-
-
+  <div class="post-guide">
+    <div class="item left">
         
-
-
-
-
-
-
-
+          <a href="/2018-05-12-01.html">iOS 指纹解锁 检测指纹信息变更</a>
         
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
+    </div>
+    <div class="item right">
         
-      </div>
-    
-
-    
-
+          <a href="/2018-04-23-0.html">git 常用操作汇总</a>
+        
+    </div>
   </div>
 
   
 
+  <div class="post-copyright">
+    <div class="auth">
+      本文作者：<a href="https://zengbailiang.cn">liang</a>
+    </div>
+    <div class="link">
+      永久链接：<a href="https://zengbailiang.cn/2018-05-05-01.html">https://zengbailiang.cn/2018-05-05-01.html</a>
+    </div>
+    <div class="declare">
+      版权声明：本文首发于<a href="https://zengbailiang.cn">liang</a>的博客，转载请注明出处！
+    </div>
+  </div>
+
+  <div id="comment"></div>
+
+  
+  
+</article>
+        <footer>
+          <div class="copyright">
+            ©2019
+            <a href="https://zengbailiang.cn">liang</a> Powered by <a href="https://hexo.io">Hexo</a> |
+            <a href="https://github.com/shixiaohu2206/hexo-theme-huhu">hexo-theme-huhu</a>
+          </div>
+          
+        </footer>
+      </div>
+    </div>
+  </body>
+  
+</html>
 <script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-  
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-  <script>AV.initialize("7VSaCuGNNUXrDp0aOK65w7PQ-gzGzoHsz", "l1D8p6eriduqG6aqx1f8H7ia");</script>
-  <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
-
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for(var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
+                  window.HUHU_CONFIG = JSON.parse("{\"share\":[\"weibo\",\"weixin\",\"qqkongjian\",\"QQ\",\"douban\",\"facebook\",\"twitter\",\"google\"],\"service_worker\":{\"open\":false}}")
+                </script> <script type="text/javascript">window.addEventListener('load', function() {
+    
+    window.loadJs = function(d, m, a) {
+      var c = document.getElementsByTagName('head')[0] || document.head || document.documentElement
+      var b = document.createElement('script')
+      b.defer = true
+      b.setAttribute('type', 'text/javascript')
+      b.setAttribute('charset', 'UTF-8')
+      b.setAttribute('async', 'true')
+      b.setAttribute('src', d)
+      m && b.setAttribute('data-main', '/scripts/app-built')
+      if (typeof a === 'function') {
+        if (window.attachEvent) {
+          b.onreadystatechange = function() {
+            var e = b.readyState
+            if (e === 'loaded' || e === 'complete') {
+              b.onreadystatechange = null
+              a()
             }
           }
-        })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
-        });
-    }
-
-    function addCount(Counter) {
-      var $visitors = $(".leancloud_visitors");
-      var url = $visitors.attr('id').trim();
-      var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
-
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
-          if (results.length > 0) {
-            var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            counter.save(null, {
-              success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
-          } else {
-            var newcounter = new Counter();
-            /* Set ACL */
-            var acl = new AV.ACL();
-            acl.setPublicReadAccess(true);
-            acl.setPublicWriteAccess(true);
-            newcounter.setACL(acl);
-            /* End Set ACL */
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
-          }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
+        } else {
+          b.onload = a
         }
-      });
-    }
-
-    $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
       }
-    });
-  </script>
-
-
-
-  
-
-  
-
-  
-  
-
-  
-
-  
-
-  
-
-</body>
-</html>
+      c.appendChild(b)
+    }
+    window.loadJs && window.loadJs('https://cdn.bootcss.com/require.js/2.3.6/require.min.js', true, function() {require.config({"paths":{"util":"util","share":"share","search":"search","registerSW":"registerSW","valine":"cdn/Valine.min","av":["https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min"],"pjax":["https://cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min"],"jquery":["https://cdn.bootcss.com/jquery/3.4.1/jquery.min"],"confirm":["https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min"],"fancybox":["https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min"],"chart":["https://cdn.bootcss.com/Chart.js/2.8.0-rc.1/Chart.bundle.min"]},"map":{"*":{"css":"https://cdn.bootcss.com/require-css/0.1.10/css.min.js"}},"shim":{"fancybox":{"deps":["css!https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.css"]},"confirm":{"deps":["css!https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min.css"]},"chart":{"deps":["css!https://cdn.bootcss.com/Chart.js/2.8.0-rc.1/Chart.min.css"]}},"waitSeconds":3})})
+  })</script> <script type="text/javascript">
+                  ;(function() {
+                    var bp = document.createElement('script')
+                    var curProtocol = window.location.protocol.split(':')[0]
+                    if (curProtocol === 'https') {
+                      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'
+                    } else {
+                      bp.src = 'http://push.zhanzhang.baidu.com/push.js'
+                    }
+                    var s = document.getElementsByTagName('script')[0]
+                    s.parentNode.insertBefore(bp, s)
+                  })()
+                </script> 

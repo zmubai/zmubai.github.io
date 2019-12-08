@@ -1,372 +1,205 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next mist use-motion" lang="zh-Hans">
-<head>
-  <meta charset="UTF-8"/>
-<meta name="google-site-verification" content="xdxP4Om7Pxp3OMC73kRMv2emRoA91RXOEPaKMivB_zg" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-<meta name="theme-color" content="#222">
-
-
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="m3u8," />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="123456目录一、m3u8缓存播放的整个流程二、控制媒体下载的并发数三、控制单个媒体的切片下载并发数四、下载的中断和恢复五、注意的问题与思路延伸 一、m3u8缓存播放的整个流程 下载m3u8文件 解析m3u8文件获取视频切片单元的信息。 根据2.获取的视频切片信息中的切片链接下载切片并保持到本地。 根据获取的切片信息与本地服务器的配置信息，拼接出切片的本地地址、生成新的m3u8文件并保存到本地。">
-<meta name="keywords" content="m3u8">
-<meta property="og:type" content="article">
-<meta property="og:title" content="iOS m3u8本地缓存播放(控制下载并发、暂停恢复)">
-<meta property="og:url" content="https://zengbailiang.cn/2018-03-17-5.html">
-<meta property="og:site_name" content="liang&#39;s blog">
-<meta property="og:description" content="123456目录一、m3u8缓存播放的整个流程二、控制媒体下载的并发数三、控制单个媒体的切片下载并发数四、下载的中断和恢复五、注意的问题与思路延伸 一、m3u8缓存播放的整个流程 下载m3u8文件 解析m3u8文件获取视频切片单元的信息。 根据2.获取的视频切片信息中的切片链接下载切片并保持到本地。 根据获取的切片信息与本地服务器的配置信息，拼接出切片的本地地址、生成新的m3u8文件并保存到本地。">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1690665-3f245e01576dfac2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-07-22T08:53:47.282Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS m3u8本地缓存播放(控制下载并发、暂停恢复)">
-<meta name="twitter:description" content="123456目录一、m3u8缓存播放的整个流程二、控制媒体下载的并发数三、控制单个媒体的切片下载并发数四、下载的中断和恢复五、注意的问题与思路延伸 一、m3u8缓存播放的整个流程 下载m3u8文件 解析m3u8文件获取视频切片单元的信息。 根据2.获取的视频切片信息中的切片链接下载切片并保持到本地。 根据获取的切片信息与本地服务器的配置信息，拼接出切片的本地地址、生成新的m3u8文件并保存到本地。">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1690665-3f245e01576dfac2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-
-
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Mist',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
-
-
-
-  <link rel="canonical" href="https://zengbailiang.cn/2018-03-17-5.html"/>
-
-
-
-
-
-  <title>iOS m3u8本地缓存播放(控制下载并发、暂停恢复) | liang's blog</title>
-  
-
-
-
-
-
-
-
-
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-  
+<html>
+  <head>
+      <script>
+  var _hmt = _hmt || []
+  ;(function() {
+    var hm = document.createElement('script')
+    hm.src = 'https://hm.baidu.com/hm.js?5a0acc897fd96474a2c8f4deac84611a'
+    var s = document.getElementsByTagName('script')[0]
+    s.parentNode.insertBefore(hm, s)
+  })()
+</script> 
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="知行合一" />
     
-  
-
-  <div class="container sidebar-position-left page-post-detail">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
+    <title>
+      iOS m3u8本地缓存播放(控制下载并发、暂停恢复) - liang&#39;s blog
+    </title>
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/style/style.css">
+  </head>
+  <body>
     
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">liang's blog</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <div id="post-toc" class="animated hiddenToc hide">
+      <span class="title">Toc</span>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、m3u8缓存播放的整个流程"><span class="toc-text">一、m3u8缓存播放的整个流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、控制媒体下载的并发数"><span class="toc-text">二、控制媒体下载的并发数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、控制单个媒体的切片下载并发数"><span class="toc-text">三、控制单个媒体的切片下载并发数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四、下载的中断和恢复"><span class="toc-text">四、下载的中断和恢复</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#总结下任务生命周期中的任务状态变化："><span class="toc-text">总结下任务生命周期中的任务状态变化：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#回归正题："><span class="toc-text">回归正题：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#五、注意的问题与思路延伸"><span class="toc-text">五、注意的问题与思路延伸</span></a></li></ol>
     </div>
-      
-        <p class="site-subtitle"></p>
-      
-  </div>
-
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
-  </div>
-</div>
-
-<nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            关于
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-
-      
-    </ul>
-  
-
-  
-</nav>
-
-
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-
-  <div id="posts" class="posts-expand">
     
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2018-03-17-5.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zengbailiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/icon.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="liang's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">iOS m3u8本地缓存播放(控制下载并发、暂停恢复)</h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-11T00:00:00+08:00">
-                2017-10-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/m3u8/" itemprop="url" rel="index">
-                    <span itemprop="name">m3u8</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018-03-17-5.html" class="leancloud_visitors" data-flag-title="iOS m3u8本地缓存播放(控制下载并发、暂停恢复)">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  3,402
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
+    <div id="fixed-menu-wrap">
+      <span class="iconfont icon-sousuo search-box menu-reset"></span>
+      <span class="icon-toc menu-reset">Toc</span>
+      <span class="iconfont icon-arrowup menu-reset"></span>
+    </div>
+    <div id="fixed-menu">
+      <span class="iconfont icon-menu-"></span>
+    </div>
+    <div id="progress">
+      <div class="line"></div>
+    </div>
+    <div id="search-shade" class="animated hiddenSearch hide">
+      <div class="input-wrap">
+        <span class="iconfont icon-sousuo search-box"></span>
+        <input type="text" placeholder="Search" />
+        <span class="iconfont icon-close"></span>
+      </div>
+      <div class="search-result">
+        <div class="meta">
+          <span><b id="result-count">0</b> results found</span>
+          <img src="/images/logo.jpeg" />
         </div>
-      </header>
-    
+        <ul id="result-box"></ul>
+      </div>
+    </div>
+    <div id="menu-mask" class="animated hideMenuMask hide">
+      <span class="iconfont icon-close"></span>
+      <div class="nav">
+        
+        <a href="/" class="">
+          Home
+        </a>
+        
+        <a href="/archives" class="">
+          Archives
+        </a>
+        
+        <a href="/categories" class="">
+          Categories
+        </a>
+        
+        <a href="/tags" class="">
+          Tags
+        </a>
+        
+        <a href="/friends" class="">
+          Friends
+        </a>
+        
+        <a href="/about" class="">
+          About
+        </a>
+        
+      </div>
+    </div>
+    <div id="header">
+      <div class="intro">
+        <a href="/" class="logo" style="background-image: url('/images/logo.jpeg')"></a>
+        <div class="author">liang</div>
+      </div>
+      <div class="nav">
+        <span class="iconfont icon-menu menu-icon"></span>
+        <a href="#" class="search-box">
+          <span class="iconfont icon-sousuo"></span>
+        </a>
+      </div>
+    </div>
+    <div id="side" class="animated bounceInLeft">
+      <div class="shrink">
+        <a href="/" class="logo" style="background-image: url('/images/logo.jpeg')"></a>
+        <span class="iconfont icon-menu toggle-icon"></span>
+        <a href="#" class="search-box">
+          <span class="iconfont icon-sousuo"></span>
+        </a>
+      </div>
+      <div class="magnify">
+        <div class="about">
+          <div class="author">liang</div>
+          <a href="/" class="logo" style="background-image: url('/images/logo.jpeg')"></a>
+        </div>
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+        <div class="nav">
+          
+          <a href="/" class="">
+            Home
+          </a>
+          
+          <a href="/archives" class="">
+            Archives
+          </a>
+          
+          <a href="/categories" class="">
+            Categories
+          </a>
+          
+          <a href="/tags" class="">
+            Tags
+          </a>
+          
+          <a href="/friends" class="">
+            Friends
+          </a>
+          
+          <a href="/about" class="">
+            About
+          </a>
+          
+          <a href="#" class="search-box">
+            <span class="iconfont icon-sousuo"></span>
+          </a>
+        </div>
+        <div class="bottom">
+          <div class="follow">
+            
+            <a href="https://github.com/zmubai" target="_block">
+              <span class="iconfont icon-github"></span>
+            </a>
+             
+            <a href="/atom.xml" target="_block">
+              <span class="iconfont icon-rss"></span>
+            </a>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="container">
+      <div class="main animated bounceInRight delay-0.7s">
+        <article class="post-entry">
+    <div class="header">
+      
+      <div class="title">iOS m3u8本地缓存播放(控制下载并发、暂停恢复)</div>
+      <div class="meta">
+        <span class="item">
+          <span class="iconfont icon-time-circle"></span>
+          <span>2017/10/11</span>
+        </span>
 
-      
-      
+        
 
-      
-        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">目录</span><br><span class="line">一、m3u8缓存播放的整个流程</span><br><span class="line">二、控制媒体下载的并发数</span><br><span class="line">三、控制单个媒体的切片下载并发数</span><br><span class="line">四、下载的中断和恢复</span><br><span class="line">五、注意的问题与思路延伸</span><br></pre></td></tr></table></figure>
-<h3 id="一、m3u8缓存播放的整个流程"><a href="#一、m3u8缓存播放的整个流程" class="headerlink" title="一、m3u8缓存播放的整个流程"></a>一、m3u8缓存播放的整个流程</h3><ol>
+         
+        <span class="item">
+          <span class="iconfont icon-folder"></span>
+          <span>
+              
+                
+                  <a href="/categories/m3u8">m3u8</a>
+                
+              
+          </span>
+        </span>
+        
+        
+         
+          <span class="item">
+            <span class="iconfont icon-tag1"></span>
+            <span>
+                
+                  
+                    <a href="/tags/m3u8">m3u8</a>
+                  
+                
+            </span>
+          </span>
+         
+      </div>
+      <div>
+      </div>
+    </div>
+    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">目录</span><br><span class="line">一、m3u8缓存播放的整个流程</span><br><span class="line">二、控制媒体下载的并发数</span><br><span class="line">三、控制单个媒体的切片下载并发数</span><br><span class="line">四、下载的中断和恢复</span><br><span class="line">五、注意的问题与思路延伸</span><br></pre></td></tr></table></figure>
+<h3 id="一、m3u8缓存播放的整个流程">一、m3u8缓存播放的整个流程<a class="post-anchor" href="#一、m3u8缓存播放的整个流程"></a></h3><ol>
 <li>下载m3u8文件</li>
 <li>解析m3u8文件获取视频切片单元的信息。</li>
 <li>根据2.获取的视频切片信息中的切片链接下载切片并保持到本地。</li>
@@ -374,11 +207,11 @@
 <li>开启本地服务器，使用本地url播放本地m3u8文件。</li>
 </ol>
 <p>附上：时序图，具体可看demo</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1690665-3f245e01576dfac2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
-<h3 id="二、控制媒体下载的并发数"><a href="#二、控制媒体下载的并发数" class="headerlink" title="二、控制媒体下载的并发数"></a>二、控制媒体下载的并发数</h3><pre><code>这里使用信号量来控制并发数
+<p><a href="http://upload-images.jianshu.io/upload_images/1690665-3f245e01576dfac2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-caption="image.png" data-fancybox="images"><img src="http://upload-images.jianshu.io/upload_images/1690665-3f245e01576dfac2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></a></p>
+<h3 id="二、控制媒体下载的并发数">二、控制媒体下载的并发数<a class="post-anchor" href="#二、控制媒体下载的并发数"></a></h3><pre><code>这里使用信号量来控制并发数
 </code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">- (void)downloadVideoWithUrlString:(NSString *)urlStr downloadProgressHandler:(ZBLM3u8ManagerDownloadProgressHandler)downloadProgressHandler downloadSuccessBlock:(ZBLM3u8ManagerDownloadSuccessBlock) downloadSuccessBlock</span><br><span class="line">&#123;</span><br><span class="line">    dispatch_async(_downloadQueue, ^&#123;</span><br><span class="line">        dispatch_semaphore_wait(_movieSemaphore, DISPATCH_TIME_FOREVER);</span><br><span class="line">        __weak __typeof(self) weakself = self;</span><br><span class="line">        [[self downloadContainerWithUrlString:urlStr] startDownloadWithUrlString:urlStr  downloadProgressHandler:^(float progress) &#123;</span><br><span class="line">            downloadProgressHandler(progress);</span><br><span class="line">        &#125; completaionHandler:^(NSString *locaLUrl, NSError *error) &#123;</span><br><span class="line">            if (!error) &#123;</span><br><span class="line">                [weakself.downloadContainerDictionary removeObjectForKey:[ZBLM3u8Setting uuidWithUrl:urlStr]];</span><br><span class="line">                NSLog(@&quot;下载完成:%@&quot;,urlStr);</span><br><span class="line">                downloadSuccessBlock(locaLUrl);</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                NSLog(@&quot;下载失败:%@&quot;,error);</span><br><span class="line">                [self resumeDownload];</span><br><span class="line">            &#125;</span><br><span class="line">            NSLog(@&quot;%@&quot;,weakself.downloadContainerDictionary.allKeys);</span><br><span class="line">            dispatch_semaphore_signal(_movieSemaphore);</span><br><span class="line">        &#125;];</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <pre><code>//这里可以设置_movieSemaphore的的初始值为具体的可同时下载数。Example:_movieSemaphore = dispatch_semaphore_create(1),意味着同一时间只允许下载一个视频，等同于视频的串行下载。
-</code></pre><h3 id="三、控制单个媒体的切片下载并发数"><a href="#三、控制单个媒体的切片下载并发数" class="headerlink" title="三、控制单个媒体的切片下载并发数"></a>三、控制单个媒体的切片下载并发数</h3><pre><code>开始的时候，考虑使用AFURLSessionManager中的operationQueue.maxConcurrentOperationCount来控制并发。但这是行不通的。因为这个queue是用于回调而不是用于下载队列。
+</code></pre><h3 id="三、控制单个媒体的切片下载并发数">三、控制单个媒体的切片下载并发数<a class="post-anchor" href="#三、控制单个媒体的切片下载并发数"></a></h3><pre><code>开始的时候，考虑使用AFURLSessionManager中的operationQueue.maxConcurrentOperationCount来控制并发。但这是行不通的。因为这个queue是用于回调而不是用于下载队列。
 </code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> The operation queue on which delegate callbacks are run.</span><br><span class="line"> */</span><br><span class="line">@property (readonly, nonatomic, strong) NSOperationQueue *operationQueue;</span><br></pre></td></tr></table></figure>
 <p>再看AF中初始化<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">- (instancetype)initWithSessionConfiguration:(NSURLSessionConfiguration *)configuration &#123;</span><br><span class="line">    self = [super init];</span><br><span class="line">    if (!self) &#123;</span><br><span class="line">        return nil;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (!configuration) &#123;</span><br><span class="line">        configuration = [NSURLSessionConfiguration defaultSessionConfiguration];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    self.sessionConfiguration = configuration;</span><br><span class="line"></span><br><span class="line">    self.operationQueue = [[NSOperationQueue alloc] init];</span><br><span class="line">    self.operationQueue.maxConcurrentOperationCount = 1;</span><br><span class="line"></span><br><span class="line">    self.session = [NSURLSession sessionWithConfiguration:self.sessionConfiguration delegate:self delegateQueue:self.operationQueue];</span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
 <pre><code>这个queue确实是用于回调，而我是需要控制下载并发。这似乎不满足。而且实测中也发现确实不行。那么，只能在任务发起哪里做并发控制，同样，这里还是采用信号量。这里的控制相对复杂一点、因为后面的任务恢复、失败任务重新创建也要做控制。
@@ -390,7 +223,7 @@
 </li>
 <li>调试现象：如果程序不像预料中运行，又没有什么错误，那很有可能就是堵塞了。锁没有释放或者信号量的处理有问题。<br>处理步骤：点击xcode调试栏的暂停按钮，查看程序的调用栈，分析每个线程的运行情况，找到堵塞具体执行代码。根据具体的逻辑修正问题。</li>
 </ul>
-<h3 id="四、下载的中断和恢复"><a href="#四、下载的中断和恢复" class="headerlink" title="四、下载的中断和恢复"></a>四、下载的中断和恢复</h3><pre><code>这里有几个小问题：根据判断NSURLSessionTask 提供的3个方法可以做一些中断和恢复处理
+<h3 id="四、下载的中断和恢复">四、下载的中断和恢复<a class="post-anchor" href="#四、下载的中断和恢复"></a></h3><pre><code>这里有几个小问题：根据判断NSURLSessionTask 提供的3个方法可以做一些中断和恢复处理
 </code></pre><ul>
 <li><p>(void)suspend;</p>
 <pre><code>挂起任务，但只能挂起执行中的任务。对于已经创建而且执行resum方法但并没真正执行的任务无效（这里非常坑）。
@@ -408,14 +241,14 @@
 <p>简而言之：调用这个方法可以cannel任意状态的任务包括挂起的任务。并执行didCompleteWithError回调（AF中会执行回调并返回错误NSURLErrorCancelled），状态被标记为NSURLSessionTaskStateCompleted。故上面恢复失败任务的时候，通过task.state和task.error共同判断。</p>
 </li>
 </ul>
-<h5 id="总结下任务生命周期中的任务状态变化："><a href="#总结下任务生命周期中的任务状态变化：" class="headerlink" title="总结下任务生命周期中的任务状态变化："></a>总结下任务生命周期中的任务状态变化：</h5><ol>
+<h5 id="总结下任务生命周期中的任务状态变化：">总结下任务生命周期中的任务状态变化：<a class="post-anchor" href="#总结下任务生命周期中的任务状态变化："></a></h5><ol>
 <li>创建成功：…Suspended</li>
 <li>执行resume:…Running（可以通过判断countOfBytesReceived来区分任务处于等待还是下载中）</li>
 <li>执行suspend：…Suspended</li>
 <li>执行cannel：(中间状态…Canceling）-&gt;…Completed（可以结合task.error判断任务执行结果）</li>
 </ol>
-<h5 id="回归正题："><a href="#回归正题：" class="headerlink" title="回归正题："></a>回归正题：</h5><pre><code>视频单元的中断和恢复，中断就是调用suspend方法挂起正在执行的任务，cannel掉等待的任务，代码跟上面说明方法的时候非常雷同。这里着重说明下恢复。如果单单恢复其实很简单，恢复挂起的任务和重新创建错误的任务。这只是从程序的角度看待，要使一个程序有更高的可用性，应在功能实现的同时做的更加的合理。应优先恢复挂起的任务、然后重新创建错误的任务。这样做都是为了承前启后更快的把一个下载任务完成。而且这个视频切片是讲究有序的，所以我们恢复的时候也要遵从FIFO的原则。
-</code></pre><h3 id="五、注意的问题与思路延伸"><a href="#五、注意的问题与思路延伸" class="headerlink" title="五、注意的问题与思路延伸"></a>五、注意的问题与思路延伸</h3><ol>
+<h5 id="回归正题：">回归正题：<a class="post-anchor" href="#回归正题："></a></h5><pre><code>视频单元的中断和恢复，中断就是调用suspend方法挂起正在执行的任务，cannel掉等待的任务，代码跟上面说明方法的时候非常雷同。这里着重说明下恢复。如果单单恢复其实很简单，恢复挂起的任务和重新创建错误的任务。这只是从程序的角度看待，要使一个程序有更高的可用性，应在功能实现的同时做的更加的合理。应优先恢复挂起的任务、然后重新创建错误的任务。这样做都是为了承前启后更快的把一个下载任务完成。而且这个视频切片是讲究有序的，所以我们恢复的时候也要遵从FIFO的原则。
+</code></pre><h3 id="五、注意的问题与思路延伸">五、注意的问题与思路延伸<a class="post-anchor" href="#五、注意的问题与思路延伸"></a></h3><ol>
 <li><p>解析m3u8注意的问题<br>   这里的解析格式太多，很容易出现问题，应使用try/catch来保证程序的健壮性。</p>
 </li>
 <li><p>根据url获取原始m3u8文件信息，这个操作太耗时了。为了提高程序的效率，获取到原始m3u8文件后应做本地持久化并用于二次下载。如果整个流程下载成功，可以选择删除该文件，或者不操作。由于是纯文本文件，少量的文件冗余是允许的。</p>
@@ -441,509 +274,110 @@
 </ol>
 <p>dome链接：<a href="https://github.com/zmubai/ZBLM3U8DownLoadTest" target="_blank" rel="noopener">https://github.com/zmubai/ZBLM3U8DownLoadTest</a></p>
 
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/m3u8/" rel="tag"># m3u8</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018-03-17-3.html" rel="prev" title="iOS 网络数据处理技巧，提高程序健壮性">
-                iOS 网络数据处理技巧，提高程序健壮性 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
 
   
-
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <div class="post-reward">
+    <div id="reward-button">打赏</div>
+      <div id="qr">
+        <div class="wrap">
             
-              <img class="site-author-image" itemprop="image"
-                src="/images/icon.jpg"
-                alt="zengbailiang" />
-            
-              <p class="site-author-name" itemprop="name">zengbailiang</p>
-              <p class="site-description motion-element" itemprop="description">知行合一</p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a rel="external nofollow" href="/archives/">
-              
-                  <span class="site-state-item-count">46</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">14</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">22</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-            <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/zmubai" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
+            <div class="bg-wrap">
+              <a href="/images/zhifubao.png" target="_block" class="bg" style="background-image:url('/images/zhifubao.png')"></a>
+              支付宝
             </div>
-          
-
-          
-          
-
-          
-          
-
-          
-
+            
+            
+            <div class="bg-wrap">
+                <a href="/images/weixin.png" target="_block" class="bg" style="background-image:url('/images/weixin.png')"></a>
+              微信
+            </div>
+            
         </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、m3u8缓存播放的整个流程"><span class="nav-number">1.</span> <span class="nav-text">一、m3u8缓存播放的整个流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、控制媒体下载的并发数"><span class="nav-number">2.</span> <span class="nav-text">二、控制媒体下载的并发数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、控制单个媒体的切片下载并发数"><span class="nav-number">3.</span> <span class="nav-text">三、控制单个媒体的切片下载并发数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、下载的中断和恢复"><span class="nav-number">4.</span> <span class="nav-text">四、下载的中断和恢复</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#总结下任务生命周期中的任务状态变化："><span class="nav-number">4.0.1.</span> <span class="nav-text">总结下任务生命周期中的任务状态变化：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#回归正题："><span class="nav-number">4.0.2.</span> <span class="nav-text">回归正题：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五、注意的问题与思路延伸"><span class="nav-number">5.</span> <span class="nav-text">五、注意的问题与思路延伸</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
+      </div>
     </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">zengbailiang</span>
-
   
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
-      <i class="fa fa-area-chart"></i>
-    </span>
-    
-      <span class="post-meta-item-text">Site words total count&#58;</span>
-    
-    <span title="Site words total count">58.6k</span>
-  
-</div>
-
-
-  <div class="powered-by">由 <a rel="external nofollow" class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
-
-
-
-
+  <div class="post-guide">
+    <div class="item left">
         
-
-
-
-
-
-
-
+          <a href="/2018-03-17-3.html">iOS 网络数据处理技巧，提高程序健壮性</a>
         
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
+    </div>
+    <div class="item right">
         
-      </div>
-    
-
-    
-
+    </div>
   </div>
 
   
 
+  <div class="post-copyright">
+    <div class="auth">
+      本文作者：<a href="https://zengbailiang.cn">liang</a>
+    </div>
+    <div class="link">
+      永久链接：<a href="https://zengbailiang.cn/2018-03-17-5.html">https://zengbailiang.cn/2018-03-17-5.html</a>
+    </div>
+    <div class="declare">
+      版权声明：本文首发于<a href="https://zengbailiang.cn">liang</a>的博客，转载请注明出处！
+    </div>
+  </div>
+
+  <div id="comment"></div>
+
+  
+  
+</article>
+        <footer>
+          <div class="copyright">
+            ©2019
+            <a href="https://zengbailiang.cn">liang</a> Powered by <a href="https://hexo.io">Hexo</a> |
+            <a href="https://github.com/shixiaohu2206/hexo-theme-huhu">hexo-theme-huhu</a>
+          </div>
+          
+        </footer>
+      </div>
+    </div>
+  </body>
+  
+</html>
 <script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-  
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-  <script>AV.initialize("7VSaCuGNNUXrDp0aOK65w7PQ-gzGzoHsz", "l1D8p6eriduqG6aqx1f8H7ia");</script>
-  <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
-
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for(var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
+                  window.HUHU_CONFIG = JSON.parse("{\"share\":[\"weibo\",\"weixin\",\"qqkongjian\",\"QQ\",\"douban\",\"facebook\",\"twitter\",\"google\"],\"service_worker\":{\"open\":false}}")
+                </script> <script type="text/javascript">window.addEventListener('load', function() {
+    
+    window.loadJs = function(d, m, a) {
+      var c = document.getElementsByTagName('head')[0] || document.head || document.documentElement
+      var b = document.createElement('script')
+      b.defer = true
+      b.setAttribute('type', 'text/javascript')
+      b.setAttribute('charset', 'UTF-8')
+      b.setAttribute('async', 'true')
+      b.setAttribute('src', d)
+      m && b.setAttribute('data-main', '/scripts/app-built')
+      if (typeof a === 'function') {
+        if (window.attachEvent) {
+          b.onreadystatechange = function() {
+            var e = b.readyState
+            if (e === 'loaded' || e === 'complete') {
+              b.onreadystatechange = null
+              a()
             }
           }
-        })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
-        });
-    }
-
-    function addCount(Counter) {
-      var $visitors = $(".leancloud_visitors");
-      var url = $visitors.attr('id').trim();
-      var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
-
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
-          if (results.length > 0) {
-            var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            counter.save(null, {
-              success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
-          } else {
-            var newcounter = new Counter();
-            /* Set ACL */
-            var acl = new AV.ACL();
-            acl.setPublicReadAccess(true);
-            acl.setPublicWriteAccess(true);
-            newcounter.setACL(acl);
-            /* End Set ACL */
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
-          }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
+        } else {
+          b.onload = a
         }
-      });
-    }
-
-    $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
       }
-    });
-  </script>
-
-
-
-  
-
-  
-
-  
-  
-
-  
-
-  
-
-  
-
-</body>
-</html>
+      c.appendChild(b)
+    }
+    window.loadJs && window.loadJs('https://cdn.bootcss.com/require.js/2.3.6/require.min.js', true, function() {require.config({"paths":{"util":"util","share":"share","search":"search","registerSW":"registerSW","valine":"cdn/Valine.min","av":["https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min"],"pjax":["https://cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min"],"jquery":["https://cdn.bootcss.com/jquery/3.4.1/jquery.min"],"confirm":["https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min"],"fancybox":["https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min"],"chart":["https://cdn.bootcss.com/Chart.js/2.8.0-rc.1/Chart.bundle.min"]},"map":{"*":{"css":"https://cdn.bootcss.com/require-css/0.1.10/css.min.js"}},"shim":{"fancybox":{"deps":["css!https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.css"]},"confirm":{"deps":["css!https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min.css"]},"chart":{"deps":["css!https://cdn.bootcss.com/Chart.js/2.8.0-rc.1/Chart.min.css"]}},"waitSeconds":3})})
+  })</script> <script type="text/javascript">
+                  ;(function() {
+                    var bp = document.createElement('script')
+                    var curProtocol = window.location.protocol.split(':')[0]
+                    if (curProtocol === 'https') {
+                      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'
+                    } else {
+                      bp.src = 'http://push.zhanzhang.baidu.com/push.js'
+                    }
+                    var s = document.getElementsByTagName('script')[0]
+                    s.parentNode.insertBefore(bp, s)
+                  })()
+                </script> 

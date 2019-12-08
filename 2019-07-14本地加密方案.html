@@ -1,884 +1,318 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next mist use-motion" lang="zh-Hans">
-<head>
-  <meta charset="UTF-8"/>
-<meta name="google-site-verification" content="xdxP4Om7Pxp3OMC73kRMv2emRoA91RXOEPaKMivB_zg" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-<meta name="theme-color" content="#222">
-
-
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="安全," />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="前言：一般app都支持本地记录登录状态，并支持离线的情况下加载用户数据，为了满足这样的场景，就需要把相关信息保存到本地。对于iOS持久化方面，无论使用userDefault、plist文件、归档、数据库等存储方式，都需要考虑一个问题，如何安全的存储数据？对于这个问题，可以对数据加密保存，至于选择哪种持久化方式，并不是那么重要。 加密方案说到对数据进行加密，那么肯定是要有一套安全的加密方案才行。以下">
-<meta name="keywords" content="安全">
-<meta property="og:type" content="article">
-<meta property="og:title" content="iOS 本地数据安全存储方案探索">
-<meta property="og:url" content="https://zengbailiang.cn/2019-07-14本地加密方案.html">
-<meta property="og:site_name" content="liang&#39;s blog">
-<meta property="og:description" content="前言：一般app都支持本地记录登录状态，并支持离线的情况下加载用户数据，为了满足这样的场景，就需要把相关信息保存到本地。对于iOS持久化方面，无论使用userDefault、plist文件、归档、数据库等存储方式，都需要考虑一个问题，如何安全的存储数据？对于这个问题，可以对数据加密保存，至于选择哪种持久化方式，并不是那么重要。 加密方案说到对数据进行加密，那么肯定是要有一套安全的加密方案才行。以下">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-20T01:03:38.049Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS 本地数据安全存储方案探索">
-<meta name="twitter:description" content="前言：一般app都支持本地记录登录状态，并支持离线的情况下加载用户数据，为了满足这样的场景，就需要把相关信息保存到本地。对于iOS持久化方面，无论使用userDefault、plist文件、归档、数据库等存储方式，都需要考虑一个问题，如何安全的存储数据？对于这个问题，可以对数据加密保存，至于选择哪种持久化方式，并不是那么重要。 加密方案说到对数据进行加密，那么肯定是要有一套安全的加密方案才行。以下">
-
-
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Mist',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
-
-
-
-  <link rel="canonical" href="https://zengbailiang.cn/2019-07-14本地加密方案.html"/>
-
-
-
-
-
-  <title>iOS 本地数据安全存储方案探索 | liang's blog</title>
-  
-
-
-
-
-
-
-
-
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-  
+<html>
+  <head>
+      <script>
+  var _hmt = _hmt || []
+  ;(function() {
+    var hm = document.createElement('script')
+    hm.src = 'https://hm.baidu.com/hm.js?5a0acc897fd96474a2c8f4deac84611a'
+    var s = document.getElementsByTagName('script')[0]
+    s.parentNode.insertBefore(hm, s)
+  })()
+</script> 
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="知行合一" />
     
-  
-
-  <div class="container sidebar-position-left page-post-detail">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
+    <title>
+      iOS 本地数据安全存储方案探索 - liang&#39;s blog
+    </title>
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/style/style.css">
+  </head>
+  <body>
     
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">liang's blog</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <div id="post-toc" class="animated hiddenToc hide">
+      <span class="title">Toc</span>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言："><span class="toc-text">前言：</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#加密方案"><span class="toc-text">加密方案</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#从安全范围的角度去考虑"><span class="toc-text">从安全范围的角度去考虑</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#最终选择的方案："><span class="toc-text">最终选择的方案：</span></a></li></ol></li></ol></li></ol>
     </div>
-      
-        <p class="site-subtitle"></p>
-      
-  </div>
-
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
-  </div>
-</div>
-
-<nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            关于
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-
-      
-    </ul>
-  
-
-  
-</nav>
-
-
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-
-  <div id="posts" class="posts-expand">
     
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2019-07-14本地加密方案.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zengbailiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/icon.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="liang's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">iOS 本地数据安全存储方案探索</h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-14T00:00:00+08:00">
-                2019-07-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/安全/" itemprop="url" rel="index">
-                    <span itemprop="name">安全</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019-07-14本地加密方案.html" class="leancloud_visitors" data-flag-title="iOS 本地数据安全存储方案探索">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1,063
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
+    <div id="fixed-menu-wrap">
+      <span class="iconfont icon-sousuo search-box menu-reset"></span>
+      <span class="icon-toc menu-reset">Toc</span>
+      <span class="iconfont icon-arrowup menu-reset"></span>
+    </div>
+    <div id="fixed-menu">
+      <span class="iconfont icon-menu-"></span>
+    </div>
+    <div id="progress">
+      <div class="line"></div>
+    </div>
+    <div id="search-shade" class="animated hiddenSearch hide">
+      <div class="input-wrap">
+        <span class="iconfont icon-sousuo search-box"></span>
+        <input type="text" placeholder="Search" />
+        <span class="iconfont icon-close"></span>
+      </div>
+      <div class="search-result">
+        <div class="meta">
+          <span><b id="result-count">0</b> results found</span>
+          <img src="/images/logo.jpeg" />
         </div>
-      </header>
-    
+        <ul id="result-box"></ul>
+      </div>
+    </div>
+    <div id="menu-mask" class="animated hideMenuMask hide">
+      <span class="iconfont icon-close"></span>
+      <div class="nav">
+        
+        <a href="/" class="">
+          Home
+        </a>
+        
+        <a href="/archives" class="">
+          Archives
+        </a>
+        
+        <a href="/categories" class="">
+          Categories
+        </a>
+        
+        <a href="/tags" class="">
+          Tags
+        </a>
+        
+        <a href="/friends" class="">
+          Friends
+        </a>
+        
+        <a href="/about" class="">
+          About
+        </a>
+        
+      </div>
+    </div>
+    <div id="header">
+      <div class="intro">
+        <a href="/" class="logo" style="background-image: url('/images/logo.jpeg')"></a>
+        <div class="author">liang</div>
+      </div>
+      <div class="nav">
+        <span class="iconfont icon-menu menu-icon"></span>
+        <a href="#" class="search-box">
+          <span class="iconfont icon-sousuo"></span>
+        </a>
+      </div>
+    </div>
+    <div id="side" class="animated bounceInLeft">
+      <div class="shrink">
+        <a href="/" class="logo" style="background-image: url('/images/logo.jpeg')"></a>
+        <span class="iconfont icon-menu toggle-icon"></span>
+        <a href="#" class="search-box">
+          <span class="iconfont icon-sousuo"></span>
+        </a>
+      </div>
+      <div class="magnify">
+        <div class="about">
+          <div class="author">liang</div>
+          <a href="/" class="logo" style="background-image: url('/images/logo.jpeg')"></a>
+        </div>
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+        <div class="nav">
+          
+          <a href="/" class="">
+            Home
+          </a>
+          
+          <a href="/archives" class="">
+            Archives
+          </a>
+          
+          <a href="/categories" class="">
+            Categories
+          </a>
+          
+          <a href="/tags" class="">
+            Tags
+          </a>
+          
+          <a href="/friends" class="">
+            Friends
+          </a>
+          
+          <a href="/about" class="">
+            About
+          </a>
+          
+          <a href="#" class="search-box">
+            <span class="iconfont icon-sousuo"></span>
+          </a>
+        </div>
+        <div class="bottom">
+          <div class="follow">
+            
+            <a href="https://github.com/zmubai" target="_block">
+              <span class="iconfont icon-github"></span>
+            </a>
+             
+            <a href="/atom.xml" target="_block">
+              <span class="iconfont icon-rss"></span>
+            </a>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="container">
+      <div class="main animated bounceInRight delay-0.7s">
+        <article class="post-entry">
+    <div class="header">
+      
+      <div class="title">iOS 本地数据安全存储方案探索</div>
+      <div class="meta">
+        <span class="item">
+          <span class="iconfont icon-time-circle"></span>
+          <span>2019/07/14</span>
+        </span>
 
-      
-      
+        
 
-      
-        <h3 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h3><p>一般app都支持本地记录登录状态，并支持离线的情况下加载用户数据，为了满足这样的场景，就需要把相关信息保存到本地。对于iOS持久化方面，无论使用userDefault、plist文件、归档、数据库等存储方式，都需要考虑一个问题，如何安全的存储数据？对于这个问题，可以对数据加密保存，至于选择哪种持久化方式，并不是那么重要。</p>
-<h5 id="加密方案"><a href="#加密方案" class="headerlink" title="加密方案"></a>加密方案</h5><p>说到对数据进行加密，那么肯定是要有一套安全的加密方案才行。以下是一些方案例子：<br>A. 一些摘要算法或编码处理。<br>B. 使用特定的秘钥执行某种对称加密。<br>C. 使用特定的公私钥执行某种非对称加密。<br>D. 某种自定义加密算法。<br>对于A，这只是一种把明文转为非明文的一种方式。摘要算法不可逆，但数据无法还原，不符合需求。编码处理，可以反编码还原明文，实际上数据并没有变得更安全，也是不符合需求。但采用编码的方式，还是比直接使用明文要好那么一点点。<br>对于B.使用公开的对称算法进行加解密，只要保证秘钥的安全，是可行的。<br>对于C.同B，但相对于对称加密，非对称加密效率较低，所以在保证秘钥安全的前提下，选择B，而不是选择C。但C的安全系数会比B高。两者都已经满足数据破解的成本超过其获取的价值的要求。<br>对于D，自定义算法，就要具体分析了， 破解难度因算法本身设计有关，但这个一般都是比较有实力的公司才这么搞吧，但一般都安全性比较高。是最好的方案之一，但其存在一定设计成本和测试成本。</p>
-<h5 id="从安全范围的角度去考虑"><a href="#从安全范围的角度去考虑" class="headerlink" title="从安全范围的角度去考虑"></a>从安全范围的角度去考虑</h5><p>到了这里，又面临了一个秘钥安全的问题，一般来说，我们可能会把秘钥硬编码到代码中，但我们的二进制文件存在一个字符串常量区，只要这个字符串在代码中被引用了，那么编译器就会把其写进字符串常量区。如果这样，稍微的分析下二进制文件，就可能把秘钥获取。所以秘钥硬编码是比较危险的。面对这个问题，可以通过把秘钥分拆成多个字符串，再通过某些处理生成真正的秘钥，来提高安全性。这里会存在一个更值得思考的问题，为了引出这个问题，先回归到方案的探索。</p>
+         
+        <span class="item">
+          <span class="iconfont icon-folder"></span>
+          <span>
+              
+                
+                  <a href="/categories/安全">安全</a>
+                
+              
+          </span>
+        </span>
+        
+        
+         
+          <span class="item">
+            <span class="iconfont icon-tag1"></span>
+            <span>
+                
+                  
+                    <a href="/tags/安全">安全</a>
+                  
+                
+            </span>
+          </span>
+         
+      </div>
+      <div>
+      </div>
+    </div>
+    <h3 id="前言：">前言：<a class="post-anchor" href="#前言："></a></h3><p>一般app都支持本地记录登录状态，并支持离线的情况下加载用户数据，为了满足这样的场景，就需要把相关信息保存到本地。对于iOS持久化方面，无论使用userDefault、plist文件、归档、数据库等存储方式，都需要考虑一个问题，如何安全的存储数据？对于这个问题，可以对数据加密保存，至于选择哪种持久化方式，并不是那么重要。</p>
+<h5 id="加密方案">加密方案<a class="post-anchor" href="#加密方案"></a></h5><p>说到对数据进行加密，那么肯定是要有一套安全的加密方案才行。以下是一些方案例子：<br>A. 一些摘要算法或编码处理。<br>B. 使用特定的秘钥执行某种对称加密。<br>C. 使用特定的公私钥执行某种非对称加密。<br>D. 某种自定义加密算法。<br>对于A，这只是一种把明文转为非明文的一种方式。摘要算法不可逆，但数据无法还原，不符合需求。编码处理，可以反编码还原明文，实际上数据并没有变得更安全，也是不符合需求。但采用编码的方式，还是比直接使用明文要好那么一点点。<br>对于B.使用公开的对称算法进行加解密，只要保证秘钥的安全，是可行的。<br>对于C.同B，但相对于对称加密，非对称加密效率较低，所以在保证秘钥安全的前提下，选择B，而不是选择C。但C的安全系数会比B高。两者都已经满足数据破解的成本超过其获取的价值的要求。<br>对于D，自定义算法，就要具体分析了， 破解难度因算法本身设计有关，但这个一般都是比较有实力的公司才这么搞吧，但一般都安全性比较高。是最好的方案之一，但其存在一定设计成本和测试成本。</p>
+<h5 id="从安全范围的角度去考虑">从安全范围的角度去考虑<a class="post-anchor" href="#从安全范围的角度去考虑"></a></h5><p>到了这里，又面临了一个秘钥安全的问题，一般来说，我们可能会把秘钥硬编码到代码中，但我们的二进制文件存在一个字符串常量区，只要这个字符串在代码中被引用了，那么编译器就会把其写进字符串常量区。如果这样，稍微的分析下二进制文件，就可能把秘钥获取。所以秘钥硬编码是比较危险的。面对这个问题，可以通过把秘钥分拆成多个字符串，再通过某些处理生成真正的秘钥，来提高安全性。这里会存在一个更值得思考的问题，为了引出这个问题，先回归到方案的探索。</p>
 <p>到目前为止讨论到的都是本地怎么安全保存数据，到如何安全保存秘钥，都是围绕着单体方案去考虑，而没有从整体上去考虑。从安全范围的角度去考虑，如果在每一个客户端都是同样的加密算法，同样的秘钥，那么只要其中一个被破解，整个大厦立马倒塌。</p>
 <p>为此，可以给安卓和苹果分别分配不同的秘钥，这样就能把两个平台，这块的安全性隔离。既然有了这样的想法，那么前进一步，如果每个客户端都拥有不同的秘钥，并且是一种随机秘钥（随机安全性更高，当然可能伪随机，虽然伪随机实际上是通过算法来生成的，有规律，但其破解难度很大），那么就能把这块的安全性做到客户端隔离。</p>
-<h5 id="最终选择的方案："><a href="#最终选择的方案：" class="headerlink" title="最终选择的方案："></a>最终选择的方案：</h5><p>使用AES对称加密算法；使用随机算法生成本地秘钥，秘钥中添加时效性信息，并保存到keyChain中。</p>
+<h5 id="最终选择的方案：">最终选择的方案：<a class="post-anchor" href="#最终选择的方案："></a></h5><p>使用AES对称加密算法；使用随机算法生成本地秘钥，秘钥中添加时效性信息，并保存到keyChain中。</p>
 <p>优点：客户端隔离、对称加解密效率高，随机秘钥破解难度大。<br>缺点：由于客户端隔离，秘钥都不一样，数据无法统一分析，因此也影响了适用场景。</p>
 <p>demo:<a href="https://github.com/zmubai/LocalEncryptDemo" target="_blank" rel="noopener">LocalEncryptDemo</a></p>
 
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/安全/" rel="tag"># 安全</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2019-07-17回了一趟学校.html" rel="next" title="回了一趟校园">
-                <i class="fa fa-chevron-left"></i> 回了一趟校园
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019-07-20iOS  证书校验的几种嵌入方式，公钥证书pem的读取.html" rel="prev" title="iOS  证书校验的几种嵌入方式，公钥证书pem的读取">
-                iOS  证书校验的几种嵌入方式，公钥证书pem的读取 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
 
   
-
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <div class="post-reward">
+    <div id="reward-button">打赏</div>
+      <div id="qr">
+        <div class="wrap">
             
-              <img class="site-author-image" itemprop="image"
-                src="/images/icon.jpg"
-                alt="zengbailiang" />
-            
-              <p class="site-author-name" itemprop="name">zengbailiang</p>
-              <p class="site-description motion-element" itemprop="description">知行合一</p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a rel="external nofollow" href="/archives/">
-              
-                  <span class="site-state-item-count">46</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">14</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">22</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-            <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/zmubai" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
+            <div class="bg-wrap">
+              <a href="/images/zhifubao.png" target="_block" class="bg" style="background-image:url('/images/zhifubao.png')"></a>
+              支付宝
             </div>
-          
-
-          
-          
-
-          
-          
-
-          
-
+            
+            
+            <div class="bg-wrap">
+                <a href="/images/weixin.png" target="_block" class="bg" style="background-image:url('/images/weixin.png')"></a>
+              微信
+            </div>
+            
         </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言："><span class="nav-number">1.</span> <span class="nav-text">前言：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#加密方案"><span class="nav-number">1.0.1.</span> <span class="nav-text">加密方案</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#从安全范围的角度去考虑"><span class="nav-number">1.0.2.</span> <span class="nav-text">从安全范围的角度去考虑</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#最终选择的方案："><span class="nav-number">1.0.3.</span> <span class="nav-text">最终选择的方案：</span></a></li></ol></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
+      </div>
     </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">zengbailiang</span>
-
   
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
-      <i class="fa fa-area-chart"></i>
-    </span>
-    
-      <span class="post-meta-item-text">Site words total count&#58;</span>
-    
-    <span title="Site words total count">58.6k</span>
-  
-</div>
-
-
-  <div class="powered-by">由 <a rel="external nofollow" class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
-
-
-
-
+  <div class="post-guide">
+    <div class="item left">
         
-
-
-
-
-
-
-
+          <a href="/2019-07-20iOS  证书校验的几种嵌入方式，公钥证书pem的读取.html">iOS  证书校验的几种嵌入方式，公钥证书pem的读取</a>
         
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
+    </div>
+    <div class="item right">
         
-      </div>
-    
-
-    
-
+          <a href="/2019-07-17回了一趟学校.html">回了一趟校园</a>
+        
+    </div>
   </div>
 
   
 
+  <div class="post-copyright">
+    <div class="auth">
+      本文作者：<a href="https://zengbailiang.cn">liang</a>
+    </div>
+    <div class="link">
+      永久链接：<a href="https://zengbailiang.cn/2019-07-14本地加密方案.html">https://zengbailiang.cn/2019-07-14本地加密方案.html</a>
+    </div>
+    <div class="declare">
+      版权声明：本文首发于<a href="https://zengbailiang.cn">liang</a>的博客，转载请注明出处！
+    </div>
+  </div>
+
+  <div id="comment"></div>
+
+  
+  
+</article>
+        <footer>
+          <div class="copyright">
+            ©2019
+            <a href="https://zengbailiang.cn">liang</a> Powered by <a href="https://hexo.io">Hexo</a> |
+            <a href="https://github.com/shixiaohu2206/hexo-theme-huhu">hexo-theme-huhu</a>
+          </div>
+          
+        </footer>
+      </div>
+    </div>
+  </body>
+  
+</html>
 <script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-  
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-  <script>AV.initialize("7VSaCuGNNUXrDp0aOK65w7PQ-gzGzoHsz", "l1D8p6eriduqG6aqx1f8H7ia");</script>
-  <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
-
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for(var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
+                  window.HUHU_CONFIG = JSON.parse("{\"share\":[\"weibo\",\"weixin\",\"qqkongjian\",\"QQ\",\"douban\",\"facebook\",\"twitter\",\"google\"],\"service_worker\":{\"open\":false}}")
+                </script> <script type="text/javascript">window.addEventListener('load', function() {
+    
+    window.loadJs = function(d, m, a) {
+      var c = document.getElementsByTagName('head')[0] || document.head || document.documentElement
+      var b = document.createElement('script')
+      b.defer = true
+      b.setAttribute('type', 'text/javascript')
+      b.setAttribute('charset', 'UTF-8')
+      b.setAttribute('async', 'true')
+      b.setAttribute('src', d)
+      m && b.setAttribute('data-main', '/scripts/app-built')
+      if (typeof a === 'function') {
+        if (window.attachEvent) {
+          b.onreadystatechange = function() {
+            var e = b.readyState
+            if (e === 'loaded' || e === 'complete') {
+              b.onreadystatechange = null
+              a()
             }
           }
-        })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
-        });
-    }
-
-    function addCount(Counter) {
-      var $visitors = $(".leancloud_visitors");
-      var url = $visitors.attr('id').trim();
-      var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
-
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
-          if (results.length > 0) {
-            var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            counter.save(null, {
-              success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
-          } else {
-            var newcounter = new Counter();
-            /* Set ACL */
-            var acl = new AV.ACL();
-            acl.setPublicReadAccess(true);
-            acl.setPublicWriteAccess(true);
-            newcounter.setACL(acl);
-            /* End Set ACL */
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
-          }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
+        } else {
+          b.onload = a
         }
-      });
-    }
-
-    $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
       }
-    });
-  </script>
-
-
-
-  
-
-  
-
-  
-  
-
-  
-
-  
-
-  
-
-</body>
-</html>
+      c.appendChild(b)
+    }
+    window.loadJs && window.loadJs('https://cdn.bootcss.com/require.js/2.3.6/require.min.js', true, function() {require.config({"paths":{"util":"util","share":"share","search":"search","registerSW":"registerSW","valine":"cdn/Valine.min","av":["https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min"],"pjax":["https://cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min"],"jquery":["https://cdn.bootcss.com/jquery/3.4.1/jquery.min"],"confirm":["https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min"],"fancybox":["https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min"],"chart":["https://cdn.bootcss.com/Chart.js/2.8.0-rc.1/Chart.bundle.min"]},"map":{"*":{"css":"https://cdn.bootcss.com/require-css/0.1.10/css.min.js"}},"shim":{"fancybox":{"deps":["css!https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.css"]},"confirm":{"deps":["css!https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min.css"]},"chart":{"deps":["css!https://cdn.bootcss.com/Chart.js/2.8.0-rc.1/Chart.min.css"]}},"waitSeconds":3})})
+  })</script> <script type="text/javascript">
+                  ;(function() {
+                    var bp = document.createElement('script')
+                    var curProtocol = window.location.protocol.split(':')[0]
+                    if (curProtocol === 'https') {
+                      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'
+                    } else {
+                      bp.src = 'http://push.zhanzhang.baidu.com/push.js'
+                    }
+                    var s = document.getElementsByTagName('script')[0]
+                    s.parentNode.insertBefore(bp, s)
+                  })()
+                </script> 

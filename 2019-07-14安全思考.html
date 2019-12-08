@@ -1,373 +1,204 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next mist use-motion" lang="zh-Hans">
-<head>
-  <meta charset="UTF-8"/>
-<meta name="google-site-verification" content="xdxP4Om7Pxp3OMC73kRMv2emRoA91RXOEPaKMivB_zg" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-<meta name="theme-color" content="#222">
-
-
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="安全," />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="iOS 移动端 安全思考 这是一遍安全知识总结的博客，并涉及相关知识的延伸，以作知识备忘和总结。  安全相关的几个方面：   敏感数据输入安全 外部调用，和对外数据安全 本地数据存储安全 网络数据传输安全 app代码安全  以下分别对每一点展开1.敏感数据输入安全 textField密码模式与自定义键盘   敏感数据主要是指密码信息或者使用户的个人信息、交易信息等。当我们输入密码的时候一般会打开t">
-<meta name="keywords" content="安全">
-<meta property="og:type" content="article">
-<meta property="og:title" content="iOS 移动端 安全思考与总结">
-<meta property="og:url" content="https://zengbailiang.cn/2019-07-14安全思考.html">
-<meta property="og:site_name" content="liang&#39;s blog">
-<meta property="og:description" content="iOS 移动端 安全思考 这是一遍安全知识总结的博客，并涉及相关知识的延伸，以作知识备忘和总结。  安全相关的几个方面：   敏感数据输入安全 外部调用，和对外数据安全 本地数据存储安全 网络数据传输安全 app代码安全  以下分别对每一点展开1.敏感数据输入安全 textField密码模式与自定义键盘   敏感数据主要是指密码信息或者使用户的个人信息、交易信息等。当我们输入密码的时候一般会打开t">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1690665-9e69d9eb90759663.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1690665-28e536782b2bf45e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1690665-b7286c7a9af90258.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2019-07-20T01:03:01.166Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS 移动端 安全思考与总结">
-<meta name="twitter:description" content="iOS 移动端 安全思考 这是一遍安全知识总结的博客，并涉及相关知识的延伸，以作知识备忘和总结。  安全相关的几个方面：   敏感数据输入安全 外部调用，和对外数据安全 本地数据存储安全 网络数据传输安全 app代码安全  以下分别对每一点展开1.敏感数据输入安全 textField密码模式与自定义键盘   敏感数据主要是指密码信息或者使用户的个人信息、交易信息等。当我们输入密码的时候一般会打开t">
-<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/1690665-9e69d9eb90759663.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-
-
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Mist',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
-
-
-
-  <link rel="canonical" href="https://zengbailiang.cn/2019-07-14安全思考.html"/>
-
-
-
-
-
-  <title>iOS 移动端 安全思考与总结 | liang's blog</title>
-  
-
-
-
-
-
-
-
-
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-  
+<html>
+  <head>
+      <script>
+  var _hmt = _hmt || []
+  ;(function() {
+    var hm = document.createElement('script')
+    hm.src = 'https://hm.baidu.com/hm.js?5a0acc897fd96474a2c8f4deac84611a'
+    var s = document.getElementsByTagName('script')[0]
+    s.parentNode.insertBefore(hm, s)
+  })()
+</script> 
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="知行合一" />
     
-  
-
-  <div class="container sidebar-position-left page-post-detail">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
+    <title>
+      iOS 移动端 安全思考与总结 - liang&#39;s blog
+    </title>
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/style/style.css">
+  </head>
+  <body>
     
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">liang's blog</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <div id="post-toc" class="animated hiddenToc hide">
+      <span class="title">Toc</span>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#iOS-移动端-安全思考"><span class="toc-text">iOS 移动端 安全思考</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#以下分别对每一点展开"><span class="toc-text">以下分别对每一点展开</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-敏感数据输入安全"><span class="toc-text">1.敏感数据输入安全</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-外部调用，和对外数据安全"><span class="toc-text">2. 外部调用，和对外数据安全</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-本地数据存储安全"><span class="toc-text">3. 本地数据存储安全</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-网络数据传输安全"><span class="toc-text">4. 网络数据传输安全</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-app代码安全"><span class="toc-text">5. app代码安全</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#总结：孙子兵法有言知己知彼，方可百战百胜。安全攻防就是这样的一个东西，要去了解哪些攻击破解手段，才能更好的实施应对手段。"><span class="toc-text">总结：孙子兵法有言知己知彼，方可百战百胜。安全攻防就是这样的一个东西，要去了解哪些攻击破解手段，才能更好的实施应对手段。</span></a></li></ol></li></ol>
     </div>
-      
-        <p class="site-subtitle"></p>
-      
-  </div>
-
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
-  </div>
-</div>
-
-<nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            关于
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-
-      
-    </ul>
-  
-
-  
-</nav>
-
-
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-
-  <div id="posts" class="posts-expand">
     
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/2019-07-14安全思考.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zengbailiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/icon.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="liang's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">iOS 移动端 安全思考与总结</h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-02T00:00:00+08:00">
-                2019-05-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/安全/" itemprop="url" rel="index">
-                    <span itemprop="name">安全</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019-07-14安全思考.html" class="leancloud_visitors" data-flag-title="iOS 移动端 安全思考与总结">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  6,577
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
+    <div id="fixed-menu-wrap">
+      <span class="iconfont icon-sousuo search-box menu-reset"></span>
+      <span class="icon-toc menu-reset">Toc</span>
+      <span class="iconfont icon-arrowup menu-reset"></span>
+    </div>
+    <div id="fixed-menu">
+      <span class="iconfont icon-menu-"></span>
+    </div>
+    <div id="progress">
+      <div class="line"></div>
+    </div>
+    <div id="search-shade" class="animated hiddenSearch hide">
+      <div class="input-wrap">
+        <span class="iconfont icon-sousuo search-box"></span>
+        <input type="text" placeholder="Search" />
+        <span class="iconfont icon-close"></span>
+      </div>
+      <div class="search-result">
+        <div class="meta">
+          <span><b id="result-count">0</b> results found</span>
+          <img src="/images/logo.jpeg" />
         </div>
-      </header>
-    
+        <ul id="result-box"></ul>
+      </div>
+    </div>
+    <div id="menu-mask" class="animated hideMenuMask hide">
+      <span class="iconfont icon-close"></span>
+      <div class="nav">
+        
+        <a href="/" class="">
+          Home
+        </a>
+        
+        <a href="/archives" class="">
+          Archives
+        </a>
+        
+        <a href="/categories" class="">
+          Categories
+        </a>
+        
+        <a href="/tags" class="">
+          Tags
+        </a>
+        
+        <a href="/friends" class="">
+          Friends
+        </a>
+        
+        <a href="/about" class="">
+          About
+        </a>
+        
+      </div>
+    </div>
+    <div id="header">
+      <div class="intro">
+        <a href="/" class="logo" style="background-image: url('/images/logo.jpeg')"></a>
+        <div class="author">liang</div>
+      </div>
+      <div class="nav">
+        <span class="iconfont icon-menu menu-icon"></span>
+        <a href="#" class="search-box">
+          <span class="iconfont icon-sousuo"></span>
+        </a>
+      </div>
+    </div>
+    <div id="side" class="animated bounceInLeft">
+      <div class="shrink">
+        <a href="/" class="logo" style="background-image: url('/images/logo.jpeg')"></a>
+        <span class="iconfont icon-menu toggle-icon"></span>
+        <a href="#" class="search-box">
+          <span class="iconfont icon-sousuo"></span>
+        </a>
+      </div>
+      <div class="magnify">
+        <div class="about">
+          <div class="author">liang</div>
+          <a href="/" class="logo" style="background-image: url('/images/logo.jpeg')"></a>
+        </div>
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+        <div class="nav">
+          
+          <a href="/" class="">
+            Home
+          </a>
+          
+          <a href="/archives" class="">
+            Archives
+          </a>
+          
+          <a href="/categories" class="">
+            Categories
+          </a>
+          
+          <a href="/tags" class="">
+            Tags
+          </a>
+          
+          <a href="/friends" class="">
+            Friends
+          </a>
+          
+          <a href="/about" class="">
+            About
+          </a>
+          
+          <a href="#" class="search-box">
+            <span class="iconfont icon-sousuo"></span>
+          </a>
+        </div>
+        <div class="bottom">
+          <div class="follow">
+            
+            <a href="https://github.com/zmubai" target="_block">
+              <span class="iconfont icon-github"></span>
+            </a>
+             
+            <a href="/atom.xml" target="_block">
+              <span class="iconfont icon-rss"></span>
+            </a>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="container">
+      <div class="main animated bounceInRight delay-0.7s">
+        <article class="post-entry">
+    <div class="header">
+      
+      <div class="title">iOS 移动端 安全思考与总结</div>
+      <div class="meta">
+        <span class="item">
+          <span class="iconfont icon-time-circle"></span>
+          <span>2019/05/02</span>
+        </span>
 
-      
-      
+        
 
-      
-        <h3 id="iOS-移动端-安全思考"><a href="#iOS-移动端-安全思考" class="headerlink" title="iOS 移动端 安全思考"></a>iOS 移动端 安全思考</h3><p><img src="https://upload-images.jianshu.io/upload_images/1690665-9e69d9eb90759663.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="v2-510e2d2a1aae6e5ced9f1b142b33af0a_r (1).jpg"></p>
+         
+        <span class="item">
+          <span class="iconfont icon-folder"></span>
+          <span>
+              
+                
+                  <a href="/categories/安全">安全</a>
+                
+              
+          </span>
+        </span>
+        
+        
+         
+          <span class="item">
+            <span class="iconfont icon-tag1"></span>
+            <span>
+                
+                  
+                    <a href="/tags/安全">安全</a>
+                  
+                
+            </span>
+          </span>
+         
+      </div>
+      <div>
+      </div>
+    </div>
+    <h3 id="iOS-移动端-安全思考">iOS 移动端 安全思考<a class="post-anchor" href="#iOS-移动端-安全思考"></a></h3><p><a href="https://upload-images.jianshu.io/upload_images/1690665-9e69d9eb90759663.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-caption="v2-510e2d2a1aae6e5ced9f1b142b33af0a_r (1).jpg" data-fancybox="images"><img src="https://upload-images.jianshu.io/upload_images/1690665-9e69d9eb90759663.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="v2-510e2d2a1aae6e5ced9f1b142b33af0a_r (1).jpg"></a></p>
 <p>这是一遍安全知识总结的博客，并涉及相关知识的延伸，以作知识备忘和总结。</p>
 <ul>
 <li>安全相关的几个方面：</li>
@@ -379,7 +210,7 @@
 <li>网络数据传输安全</li>
 <li>app代码安全</li>
 </ol>
-<h4 id="以下分别对每一点展开"><a href="#以下分别对每一点展开" class="headerlink" title="以下分别对每一点展开"></a>以下分别对每一点展开</h4><h3 id="1-敏感数据输入安全"><a href="#1-敏感数据输入安全" class="headerlink" title="1.敏感数据输入安全"></a>1.敏感数据输入安全</h3><ul>
+<h4 id="以下分别对每一点展开">以下分别对每一点展开<a class="post-anchor" href="#以下分别对每一点展开"></a></h4><h3 id="1-敏感数据输入安全">1.敏感数据输入安全<a class="post-anchor" href="#1-敏感数据输入安全"></a></h3><ul>
 <li><p>textField密码模式与自定义键盘</p>
 <p>  敏感数据主要是指密码信息或者使用户的个人信息、交易信息等。当我们输入密码的时候一般会打开textField的密码输入模式，这时候是会强制使用系统键盘，并且密码输入后不可见。如果苹果对系统键盘没有做数据获取，那么这相对安全的，不存在数据泄漏。但这个代码不是开源的，所以也是不敢打包票的。所以我们常见的一些银行app会去实现私有键盘，同时会打乱数字字母的位置。这里面大概有两个考虑，一个是防止键盘数据监听，另一个是防止第三者通过观察用户输入手势猜测密码。</p>
 <p>  然而iOS是苹果的系统，如果苹果硬要监控数据，那么怎么都是没办法避免的，除非不用iOS系统。但这个本来就与苹果的立场相悖的。所以一些app实现私有键盘，个人认为主要是防止第三者通过观察用户输入手势的手段，猜测出密码。另外自定义键盘每个按钮点击的时候不显示视觉变化。如果在点击的时候样式发生变化，同时手机被录屏了，那么视频中就能看到密码输入的具体字符和顺序，导致密码泄露。</p>
@@ -398,7 +229,7 @@
 </ol>
 </li>
 </ul>
-<h3 id="2-外部调用，和对外数据安全"><a href="#2-外部调用，和对外数据安全" class="headerlink" title="2. 外部调用，和对外数据安全"></a>2. 外部调用，和对外数据安全<br></h3><ol>
+<h3 id="2-外部调用，和对外数据安全">2. 外部调用，和对外数据安全<br><a class="post-anchor" href="#2-外部调用，和对外数据安全"></a></h3><ol>
 <li>外部调用是指，其他应用唤起app的行为。主要是通过scheme来唤起。通常app内部是有处理外部调用的逻辑的，并能根据scheme后面拼接的参数来跳转到不同的业务模块。那么这里就有可能存在逻辑漏洞，特别对于重要的涉及用户金钱或隐私的模块，需要有一套严谨的参数校验规则，避免漏洞发生。个人认为这种提供给外部的入口，都是app安全的一个隐患，所有必须要有一个严谨的权限校验规则。</li>
 <li><p>对外数据，指通过各种途径能被外部获知的数据。这里主要是app退到后台显示的截图，因为实在不知道这个归类到哪里，就归类到对外数据。系统截图是系统为了提供用户体验的手段，但可能无意中泄漏了重要信息。故这里要进行处理，第一种可以禁止截图，那么推到后台把keyWindows隐藏，那么系统的截图就变成黑色；另外一种就是手动替换截图，一般会对截图进行模糊化。</p>
 </li>
@@ -409,14 +240,14 @@
 </ol>
 </li>
 </ol>
-<h3 id="3-本地数据存储安全"><a href="#3-本地数据存储安全" class="headerlink" title="3. 本地数据存储安全"></a>3. 本地数据存储安全</h3><p>本地数据如果明文保存的话，是不安全的。虽然有沙盒机制的保护，但如果手机被越狱了，那么数据就暴露了。所以，重要信息需要进行加密保存。可以采用aes进行加密，base64编码后进行保存。这样就算数据被获取，也无法得到有用信息。由于这里使用aes加密，那么如何安全保存加密秘钥是一个重要的问题。因为如果秘钥被破解了，那么数据就被破解了。因为本地数据加解密都在本地进行，所以秘钥作用范围也仅限于本地数据。一般可以使用两种方式提供秘钥：第一种hardCode秘钥，第二种本地生成秘钥，再保存本地。下面对安全性方案进行讨论：</p>
+<h3 id="3-本地数据存储安全">3. 本地数据存储安全<a class="post-anchor" href="#3-本地数据存储安全"></a></h3><p>本地数据如果明文保存的话，是不安全的。虽然有沙盒机制的保护，但如果手机被越狱了，那么数据就暴露了。所以，重要信息需要进行加密保存。可以采用aes进行加密，base64编码后进行保存。这样就算数据被获取，也无法得到有用信息。由于这里使用aes加密，那么如何安全保存加密秘钥是一个重要的问题。因为如果秘钥被破解了，那么数据就被破解了。因为本地数据加解密都在本地进行，所以秘钥作用范围也仅限于本地数据。一般可以使用两种方式提供秘钥：第一种hardCode秘钥，第二种本地生成秘钥，再保存本地。下面对安全性方案进行讨论：</p>
 <ol>
 <li><p>hanrdCode秘钥：<br></p>
  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//形如：</span><br><span class="line">static NSString *aesPriKey = @&quot;xxx0xxx0xxx0xxx0xxx0&quot;;</span><br></pre></td></tr></table></figure>
 <p> 这看起来好像没什么问题，但这种hardCode的方式，很容易被获取。获取方式：使用逆向技术对app进行砸壳（例如pp助手下载的app已经砸壳），并使用使用machOViewer<br> 查看APP的二进制文件，就能获取到字符串常量（前提是这个字符有被引用，否则编译器貌似会优化掉。但我们加密的秘钥怎么可能会不引用呢，测试的时候发现的现象，顺便记录下）。</p>
 </li>
 </ol>
-<p><img src="https://upload-images.jianshu.io/upload_images/1690665-28e536782b2bf45e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p><a href="https://upload-images.jianshu.io/upload_images/1690665-28e536782b2bf45e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-caption="image.png" data-fancybox="images"><img src="https://upload-images.jianshu.io/upload_images/1690665-28e536782b2bf45e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></a></p>
 <p>如果写入到文件中，然后在运行过程中通过读文件的方式获取秘钥，那么也是不安全的，秘钥不能直接保存到文件中，但难道要把秘钥加密保存到文件中，那么用于加密的秘钥怎么保证安全，这就变成了鸡生蛋蛋生鸡的问题了。可以尝试直接对秘钥加盐然后编码存储到文件中，这样只要加盐规则和编码规则足够复杂也是相对安全的。</p>
 <ol start="2">
 <li><p>本地生成秘钥<br> 由于这个秘钥保存的问题，个人在开发中使用的方案是，本地生成随机秘钥，并把秘钥保存到系统keychain中,同时可以设置秘钥的有效时间。这样设计有两个好处，一个生成随机秘钥，能保证每台手机的秘钥不一样，这样能缩窄影响范围，第二个是由于时效性的存在，当然这个时效性只能引用于用户登录信息等功能，但它增加了秘钥破解的难度。除非破解了代码逻辑并成功获取到keychain的秘钥，同时破解苹果的加密算法，才有可能破解整套策略，所以是相对安全的。在这个过程中，我们甚至可以对生成的秘钥加盐，但我认为这个貌似没必要，如果加盐是常量字符串，反而能从分析二进制文件常量字符中顺藤摸瓜找到相关的加密逻辑，留下多余线索。</p>
@@ -483,7 +314,7 @@
 <p>作用：提高数据安全性， 加盐后再通过散列算法得出特征值，不能直接通过彩虹表暴力破解出原数据，在验证用户密码的场景下，极大的提高了安全性。但同时因为要校验用户密码，所以需要保存这个盐值。</p>
 <p>以下为维基百科相关描述<br><br>通常情况下，当字段经过散列处理（如MD5），会生成一段散列值，而散列后的值一般是无法通过特定算法得到原始字段的。但是某些情况，比如一个大型的彩虹表，通过在表中搜索该MD5值，很有可能在极短的时间内找到该散列值对应的真实字段内容。<br>加盐后的散列值，可以极大的降低由于用户数据被盗而带来的密码泄漏风险，即使通过彩虹表寻找到了散列后的数值所对应的原始内容，但是由于经过了加盐，插入的字符串扰乱了真正的密码，使得获得真实密码的概率大大降低。</p>
 <p>所以在某些业务场景下可以考虑使用加盐的方式提高数据安全性。</p>
-<h3 id="4-网络数据传输安全"><a href="#4-网络数据传输安全" class="headerlink" title="4. 网络数据传输安全"></a>4. 网络数据传输安全</h3><p>移动数据通过网络传输主要是面临几个风险：1.窃听风险。2.篡改风险。3.冒充风险。<br>那么可以认为如果没有以上风险，传输就是安全的。s<br>在民用领域网络通信一般都是使用http，https，又或者使用socket的tcp udp通讯，另外还有一些私有协议（微信、qq）。对于敏感数据的传输，使用http是不安全的（除非先自己加密一遍再传输），而在不使用私有协议的前提下，为了保证安全性，一般会使用https。https依赖于第三方权威机构证书认证和非对称算法，能使clien和server相互确认身份，安全生成第三个随机数，并协商出用于对称加密的会话密秘钥，进行安全的对称加密传输（<a href="http://www.ruanyifeng.com/blog/2014/02/ssl_tls.html" target="_blank" rel="noopener">https原理说明</a>），我认为安全生成了会话秘钥后，在没有秘钥的情况下无法解开密文的，这样就能有效防止了窃听风险，篡改风险和冒充风险。首先无法解密就能避免窃听和冒充，而篡改，或者你可以把内容换掉，但这会导致解密失败，就算解密成功也是没有意义的内容，无关紧要。</p>
+<h3 id="4-网络数据传输安全">4. 网络数据传输安全<a class="post-anchor" href="#4-网络数据传输安全"></a></h3><p>移动数据通过网络传输主要是面临几个风险：1.窃听风险。2.篡改风险。3.冒充风险。<br>那么可以认为如果没有以上风险，传输就是安全的。s<br>在民用领域网络通信一般都是使用http，https，又或者使用socket的tcp udp通讯，另外还有一些私有协议（微信、qq）。对于敏感数据的传输，使用http是不安全的（除非先自己加密一遍再传输），而在不使用私有协议的前提下，为了保证安全性，一般会使用https。https依赖于第三方权威机构证书认证和非对称算法，能使clien和server相互确认身份，安全生成第三个随机数，并协商出用于对称加密的会话密秘钥，进行安全的对称加密传输（<a href="http://www.ruanyifeng.com/blog/2014/02/ssl_tls.html" target="_blank" rel="noopener">https原理说明</a>），我认为安全生成了会话秘钥后，在没有秘钥的情况下无法解开密文的，这样就能有效防止了窃听风险，篡改风险和冒充风险。首先无法解密就能避免窃听和冒充，而篡改，或者你可以把内容换掉，但这会导致解密失败，就算解密成功也是没有意义的内容，无关紧要。</p>
 <p>但在使用https的情况下，有几个点还是需要注意一下：</p>
 <ol>
 <li>https可以使用自签名证书，这种情况通过浏览器请求，地址栏开头一般会出现一个✘的图标，代表这个请求是不授信的，有些浏览器会提示风险并询问是否继续访问。但如果你在系统中添加了相关的根证书并设置信任，那么这个请求就会被认为是合法的。所以，往系统中添加证书需要慎重。</li>
@@ -501,10 +332,10 @@
 <li>allowInvalidCertificates = NO；+ AFSSLPinningModePublicKey; + validatesDomainName = YES/NO（某些情况下，证书域名不匹配所有客户端请求，此时需要配置为NO）;</li>
 <li>AFSSLPinningModeCertificatev；+ alidatesDomainName = YES/NO（同上）;</li>
 </ol>
-<p>下图为越狱版支付宝包内容展示，可见里面内嵌了pem编码格式的证书，包含了base64格式的公钥。<br><img src="https://upload-images.jianshu.io/upload_images/1690665-b7286c7a9af90258.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>下图为越狱版支付宝包内容展示，可见里面内嵌了pem编码格式的证书，包含了base64格式的公钥。<br><a href="https://upload-images.jianshu.io/upload_images/1690665-b7286c7a9af90258.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-caption="image.png" data-fancybox="images"><img src="https://upload-images.jianshu.io/upload_images/1690665-b7286c7a9af90258.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//命令行查看证书内容：</span><br><span class="line">zmubaiMacBook:AlipayWallet.app zengbailiang$ cat opensdk_public.pem </span><br><span class="line">-----BEGIN PUBLIC KEY-----</span><br><span class="line">MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCtDVxvZhDT6FNaBqZ/Js2h7G7j</span><br><span class="line">v88UjsRlv2qDHpobSqzqe/PAbfmHZNvOOlR07l9k8GJMUp4v4z+hTy4pjypmB1St</span><br><span class="line">nt5nulRHIbcUSQ3LsT3rETJGVsGBEkvIeZXHFRDK5UmeUO9IgiviwAthgvLnDM9S</span><br><span class="line">ZOa9QCTROfibnpYWVQIDAQAB</span><br><span class="line">-----END PUBLIC KEY-----</span><br></pre></td></tr></table></figure>
 <p>参考链接：<br><a href="http://www.ruanyifeng.com/blog/2014/02/ssl_tls.html" target="_blank" rel="noopener">SSL/TLS协议运行机制的概述</a><br><a href="https://baike.baidu.com/item/X.509/2817050" target="_blank" rel="noopener">X.509公钥证书格式标准，对证书链的验证过程有很好的说明</a><br><a href="http://www.cocoachina.com/ios/20140916/9632.html" target="_blank" rel="noopener">AF证书校验部分源码说明</a></p>
-<h3 id="5-app代码安全"><a href="#5-app代码安全" class="headerlink" title="5. app代码安全"></a>5. app代码安全</h3><p>这部分主要是涉及到开发期的代码混淆、加固技术。逆向加固方面的知识了解的比较少，也就不做什么记录了。但仍然需要记录下一些主要的点。</p>
+<h3 id="5-app代码安全">5. app代码安全<a class="post-anchor" href="#5-app代码安全"></a></h3><p>这部分主要是涉及到开发期的代码混淆、加固技术。逆向加固方面的知识了解的比较少，也就不做什么记录了。但仍然需要记录下一些主要的点。</p>
 <p>提高代码安全，增强逆向难道的一些手段</p>
 <ol>
 <li>类名、方法名、属性名混淆。（但混淆过度，可能导致审核被拒）</li>
@@ -513,514 +344,113 @@
 <li>使用加固工具，或第三方加固服务（UAObfuscatedString编译插件、爱加密、360加固等。）</li>
 </ol>
 <p>相关文章参考：<br><a href="https://www.jianshu.com/p/bff550b3ead4" target="_blank" rel="noopener">对 iOS app 进行安全加固</a></p>
-<h4 id="总结：孙子兵法有言知己知彼，方可百战百胜。安全攻防就是这样的一个东西，要去了解哪些攻击破解手段，才能更好的实施应对手段。"><a href="#总结：孙子兵法有言知己知彼，方可百战百胜。安全攻防就是这样的一个东西，要去了解哪些攻击破解手段，才能更好的实施应对手段。" class="headerlink" title="总结：孙子兵法有言知己知彼，方可百战百胜。安全攻防就是这样的一个东西，要去了解哪些攻击破解手段，才能更好的实施应对手段。"></a>总结：孙子兵法有言知己知彼，方可百战百胜。安全攻防就是这样的一个东西，要去了解哪些攻击破解手段，才能更好的实施应对手段。</h4>
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/安全/" rel="tag"># 安全</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2019-03-10sdimage设计分析.html" rel="next" title="SDWebImage设计思路分析">
-                <i class="fa fa-chevron-left"></i> SDWebImage设计思路分析
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019-07-17回了一趟学校.html" rel="prev" title="回了一趟校园">
-                回了一趟校园 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
+<h4 id="总结：孙子兵法有言知己知彼，方可百战百胜。安全攻防就是这样的一个东西，要去了解哪些攻击破解手段，才能更好的实施应对手段。">总结：孙子兵法有言知己知彼，方可百战百胜。安全攻防就是这样的一个东西，要去了解哪些攻击破解手段，才能更好的实施应对手段。<a class="post-anchor" href="#总结：孙子兵法有言知己知彼，方可百战百胜。安全攻防就是这样的一个东西，要去了解哪些攻击破解手段，才能更好的实施应对手段。"></a></h4>
 
   
-
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <div class="post-reward">
+    <div id="reward-button">打赏</div>
+      <div id="qr">
+        <div class="wrap">
             
-              <img class="site-author-image" itemprop="image"
-                src="/images/icon.jpg"
-                alt="zengbailiang" />
-            
-              <p class="site-author-name" itemprop="name">zengbailiang</p>
-              <p class="site-description motion-element" itemprop="description">知行合一</p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a rel="external nofollow" href="/archives/">
-              
-                  <span class="site-state-item-count">46</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">14</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">22</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-            <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/zmubai" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
+            <div class="bg-wrap">
+              <a href="/images/zhifubao.png" target="_block" class="bg" style="background-image:url('/images/zhifubao.png')"></a>
+              支付宝
             </div>
-          
-
-          
-          
-
-          
-          
-
-          
-
+            
+            
+            <div class="bg-wrap">
+                <a href="/images/weixin.png" target="_block" class="bg" style="background-image:url('/images/weixin.png')"></a>
+              微信
+            </div>
+            
         </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#iOS-移动端-安全思考"><span class="nav-number">1.</span> <span class="nav-text">iOS 移动端 安全思考</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#以下分别对每一点展开"><span class="nav-number">1.1.</span> <span class="nav-text">以下分别对每一点展开</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-敏感数据输入安全"><span class="nav-number">2.</span> <span class="nav-text">1.敏感数据输入安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-外部调用，和对外数据安全"><span class="nav-number">3.</span> <span class="nav-text">2. 外部调用，和对外数据安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-本地数据存储安全"><span class="nav-number">4.</span> <span class="nav-text">3. 本地数据存储安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-网络数据传输安全"><span class="nav-number">5.</span> <span class="nav-text">4. 网络数据传输安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-app代码安全"><span class="nav-number">6.</span> <span class="nav-text">5. app代码安全</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#总结：孙子兵法有言知己知彼，方可百战百胜。安全攻防就是这样的一个东西，要去了解哪些攻击破解手段，才能更好的实施应对手段。"><span class="nav-number">6.1.</span> <span class="nav-text">总结：孙子兵法有言知己知彼，方可百战百胜。安全攻防就是这样的一个东西，要去了解哪些攻击破解手段，才能更好的实施应对手段。</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
+      </div>
     </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">zengbailiang</span>
-
   
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
-      <i class="fa fa-area-chart"></i>
-    </span>
-    
-      <span class="post-meta-item-text">Site words total count&#58;</span>
-    
-    <span title="Site words total count">58.6k</span>
-  
-</div>
-
-
-  <div class="powered-by">由 <a rel="external nofollow" class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
-
-
-
-
+  <div class="post-guide">
+    <div class="item left">
         
-
-
-
-
-
-
-
+          <a href="/2019-07-17回了一趟学校.html">回了一趟校园</a>
         
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
+    </div>
+    <div class="item right">
         
-      </div>
-    
-
-    
-
+          <a href="/2019-03-10sdimage设计分析.html">SDWebImage设计思路分析</a>
+        
+    </div>
   </div>
 
   
 
+  <div class="post-copyright">
+    <div class="auth">
+      本文作者：<a href="https://zengbailiang.cn">liang</a>
+    </div>
+    <div class="link">
+      永久链接：<a href="https://zengbailiang.cn/2019-07-14安全思考.html">https://zengbailiang.cn/2019-07-14安全思考.html</a>
+    </div>
+    <div class="declare">
+      版权声明：本文首发于<a href="https://zengbailiang.cn">liang</a>的博客，转载请注明出处！
+    </div>
+  </div>
+
+  <div id="comment"></div>
+
+  
+  
+</article>
+        <footer>
+          <div class="copyright">
+            ©2019
+            <a href="https://zengbailiang.cn">liang</a> Powered by <a href="https://hexo.io">Hexo</a> |
+            <a href="https://github.com/shixiaohu2206/hexo-theme-huhu">hexo-theme-huhu</a>
+          </div>
+          
+        </footer>
+      </div>
+    </div>
+  </body>
+  
+</html>
 <script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-  
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-  <script>AV.initialize("7VSaCuGNNUXrDp0aOK65w7PQ-gzGzoHsz", "l1D8p6eriduqG6aqx1f8H7ia");</script>
-  <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
-
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for(var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
+                  window.HUHU_CONFIG = JSON.parse("{\"share\":[\"weibo\",\"weixin\",\"qqkongjian\",\"QQ\",\"douban\",\"facebook\",\"twitter\",\"google\"],\"service_worker\":{\"open\":false}}")
+                </script> <script type="text/javascript">window.addEventListener('load', function() {
+    
+    window.loadJs = function(d, m, a) {
+      var c = document.getElementsByTagName('head')[0] || document.head || document.documentElement
+      var b = document.createElement('script')
+      b.defer = true
+      b.setAttribute('type', 'text/javascript')
+      b.setAttribute('charset', 'UTF-8')
+      b.setAttribute('async', 'true')
+      b.setAttribute('src', d)
+      m && b.setAttribute('data-main', '/scripts/app-built')
+      if (typeof a === 'function') {
+        if (window.attachEvent) {
+          b.onreadystatechange = function() {
+            var e = b.readyState
+            if (e === 'loaded' || e === 'complete') {
+              b.onreadystatechange = null
+              a()
             }
           }
-        })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
-        });
-    }
-
-    function addCount(Counter) {
-      var $visitors = $(".leancloud_visitors");
-      var url = $visitors.attr('id').trim();
-      var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
-
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
-          if (results.length > 0) {
-            var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            counter.save(null, {
-              success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
-          } else {
-            var newcounter = new Counter();
-            /* Set ACL */
-            var acl = new AV.ACL();
-            acl.setPublicReadAccess(true);
-            acl.setPublicWriteAccess(true);
-            newcounter.setACL(acl);
-            /* End Set ACL */
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
-          }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
+        } else {
+          b.onload = a
         }
-      });
-    }
-
-    $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
       }
-    });
-  </script>
-
-
-
-  
-
-  
-
-  
-  
-
-  
-
-  
-
-  
-
-</body>
-</html>
+      c.appendChild(b)
+    }
+    window.loadJs && window.loadJs('https://cdn.bootcss.com/require.js/2.3.6/require.min.js', true, function() {require.config({"paths":{"util":"util","share":"share","search":"search","registerSW":"registerSW","valine":"cdn/Valine.min","av":["https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min"],"pjax":["https://cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min"],"jquery":["https://cdn.bootcss.com/jquery/3.4.1/jquery.min"],"confirm":["https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min"],"fancybox":["https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min"],"chart":["https://cdn.bootcss.com/Chart.js/2.8.0-rc.1/Chart.bundle.min"]},"map":{"*":{"css":"https://cdn.bootcss.com/require-css/0.1.10/css.min.js"}},"shim":{"fancybox":{"deps":["css!https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.css"]},"confirm":{"deps":["css!https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min.css"]},"chart":{"deps":["css!https://cdn.bootcss.com/Chart.js/2.8.0-rc.1/Chart.min.css"]}},"waitSeconds":3})})
+  })</script> <script type="text/javascript">
+                  ;(function() {
+                    var bp = document.createElement('script')
+                    var curProtocol = window.location.protocol.split(':')[0]
+                    if (curProtocol === 'https') {
+                      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'
+                    } else {
+                      bp.src = 'http://push.zhanzhang.baidu.com/push.js'
+                    }
+                    var s = document.getElementsByTagName('script')[0]
+                    s.parentNode.insertBefore(bp, s)
+                  })()
+                </script> 

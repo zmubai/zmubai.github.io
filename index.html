@@ -1,2454 +1,780 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next mist use-motion" lang="zh-Hans">
-<head>
-  <meta charset="UTF-8"/>
-<meta name="google-site-verification" content="xdxP4Om7Pxp3OMC73kRMv2emRoA91RXOEPaKMivB_zg" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-<meta name="theme-color" content="#222">
-
-
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="Hexo, NexT" />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="知行合一">
-<meta property="og:type" content="website">
-<meta property="og:title" content="liang&#39;s blog">
-<meta property="og:url" content="https://zengbailiang.cn/index.html">
-<meta property="og:site_name" content="liang&#39;s blog">
-<meta property="og:description" content="知行合一">
-<meta property="og:locale" content="zh-Hans">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="liang&#39;s blog">
-<meta name="twitter:description" content="知行合一">
-
-
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Mist',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
-
-
-
-  <link rel="canonical" href="https://zengbailiang.cn/"/>
-
-
-
-
-
-  <title> Hexo, NexT - liang's blog知行合一 </title>
-  
-
-
-
-
-
-
-
-
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-  
+<html>
+  <head>
+      <script>
+  var _hmt = _hmt || []
+  ;(function() {
+    var hm = document.createElement('script')
+    hm.src = 'https://hm.baidu.com/hm.js?5a0acc897fd96474a2c8f4deac84611a'
+    var s = document.getElementsByTagName('script')[0]
+    s.parentNode.insertBefore(hm, s)
+  })()
+</script> 
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="知行合一" />
     
-  
-
-  <div class="container sidebar-position-left 
-  page-home">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
+    <title>
+          liang&#39;s blog
+    </title>
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/style/style.css">
+  </head>
+  <body>
     
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">liang's blog</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <div id="fixed-menu-wrap">
+      <span class="iconfont icon-sousuo search-box menu-reset"></span>
+      <span class="icon-toc menu-reset">Toc</span>
+      <span class="iconfont icon-arrowup menu-reset"></span>
     </div>
-      
-        <p class="site-subtitle"></p>
-      
-  </div>
+    <div id="fixed-menu">
+      <span class="iconfont icon-menu-"></span>
+    </div>
+    <div id="progress">
+      <div class="line"></div>
+    </div>
+    <div id="search-shade" class="animated hiddenSearch hide">
+      <div class="input-wrap">
+        <span class="iconfont icon-sousuo search-box"></span>
+        <input type="text" placeholder="Search" />
+        <span class="iconfont icon-close"></span>
+      </div>
+      <div class="search-result">
+        <div class="meta">
+          <span><b id="result-count">0</b> results found</span>
+          <img src="/images/logo.jpeg" />
+        </div>
+        <ul id="result-box"></ul>
+      </div>
+    </div>
+    <div id="menu-mask" class="animated hideMenuMask hide">
+      <span class="iconfont icon-close"></span>
+      <div class="nav">
+        
+        <a href="/" class="current">
+          Home
+        </a>
+        
+        <a href="/archives" class="">
+          Archives
+        </a>
+        
+        <a href="/categories" class="">
+          Categories
+        </a>
+        
+        <a href="/tags" class="">
+          Tags
+        </a>
+        
+        <a href="/friends" class="">
+          Friends
+        </a>
+        
+        <a href="/about" class="">
+          About
+        </a>
+        
+      </div>
+    </div>
+    <div id="header">
+      <div class="intro">
+        <a href="/" class="logo" style="background-image: url('/images/logo.jpeg')"></a>
+        <div class="author">liang</div>
+      </div>
+      <div class="nav">
+        <span class="iconfont icon-menu menu-icon"></span>
+        <a href="#" class="search-box">
+          <span class="iconfont icon-sousuo"></span>
+        </a>
+      </div>
+    </div>
+    <div id="side" class="animated bounceInLeft">
+      <div class="shrink">
+        <a href="/" class="logo" style="background-image: url('/images/logo.jpeg')"></a>
+        <span class="iconfont icon-menu toggle-icon"></span>
+        <a href="#" class="search-box">
+          <span class="iconfont icon-sousuo"></span>
+        </a>
+      </div>
+      <div class="magnify">
+        <div class="about">
+          <div class="author">liang</div>
+          <a href="/" class="logo" style="background-image: url('/images/logo.jpeg')"></a>
+        </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
-  </div>
+        <div class="nav">
+          
+          <a href="/" class="current">
+            Home
+          </a>
+          
+          <a href="/archives" class="">
+            Archives
+          </a>
+          
+          <a href="/categories" class="">
+            Categories
+          </a>
+          
+          <a href="/tags" class="">
+            Tags
+          </a>
+          
+          <a href="/friends" class="">
+            Friends
+          </a>
+          
+          <a href="/about" class="">
+            About
+          </a>
+          
+          <a href="#" class="search-box">
+            <span class="iconfont icon-sousuo"></span>
+          </a>
+        </div>
+        <div class="bottom">
+          <div class="follow">
+            
+            <a href="https://github.com/zmubai" target="_block">
+              <span class="iconfont icon-github"></span>
+            </a>
+             
+            <a href="/atom.xml" target="_block">
+              <span class="iconfont icon-rss"></span>
+            </a>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="container">
+      <div class="main animated bounceInRight delay-0.7s">
+        
+<div class="posts">
+  <ul>
+     
+
+    
+
+  <li class="item">
+
+      
+
+      
+      <div class="describe">
+        <div class="title">
+          <a href="/238. 除自身以外数组的乘积.html">238. 除自身以外数组的乘积</a>
+        </div>
+        <div class="date">
+          <span class="iconfont icon-time-circle"></span>
+          <span>19/12/03</span>
+        </div>
+        
+        <div class="meta">
+          <div class="l">
+            <div class="warp">
+              
+              <span class="iconfont icon-folder"></span>
+              <span class="desp">
+                 
+                <a href="/categories/算法">算法</a>
+                 
+              </span>
+              
+            </div>
+
+            
+            <div class="warp">
+              <span class="iconfont icon-tag1"></span>
+              <span class="desp">
+                 
+                <a href="/tags/leetcode">leetcode</a>
+                 
+              </span>
+            </div>
+            
+            <div class="warp">
+              <div class="share" data-url="/238. 除自身以外数组的乘积.html">
+                <span class="iconfont icon-share"></span>
+              </div>
+              <div class="desp share" data-url="/238. 除自身以外数组的乘积.html">
+                <a href="#">Share</a>
+              </div>
+            </div>
+          </div>
+          <div class="r">
+            <a href="/238. 除自身以外数组的乘积.html">Read More</a>
+          </div>
+        </div>
+      </div>
+    </li>
+     
+
+    
+
+  <li class="item">
+
+      
+
+      
+      <div class="describe">
+        <div class="title">
+          <a href="/33. 搜索旋转排序数组.html">33. 搜索旋转排序数组</a>
+        </div>
+        <div class="date">
+          <span class="iconfont icon-time-circle"></span>
+          <span>19/11/26</span>
+        </div>
+        
+        <div class="meta">
+          <div class="l">
+            <div class="warp">
+              
+              <span class="iconfont icon-folder"></span>
+              <span class="desp">
+                 
+                <a href="/categories/算法">算法</a>
+                 
+              </span>
+              
+            </div>
+
+            
+            <div class="warp">
+              <span class="iconfont icon-tag1"></span>
+              <span class="desp">
+                 
+                <a href="/tags/leetcode">leetcode</a>
+                 
+              </span>
+            </div>
+            
+            <div class="warp">
+              <div class="share" data-url="/33. 搜索旋转排序数组.html">
+                <span class="iconfont icon-share"></span>
+              </div>
+              <div class="desp share" data-url="/33. 搜索旋转排序数组.html">
+                <a href="#">Share</a>
+              </div>
+            </div>
+          </div>
+          <div class="r">
+            <a href="/33. 搜索旋转排序数组.html">Read More</a>
+          </div>
+        </div>
+      </div>
+    </li>
+     
+
+    
+
+  <li class="item">
+
+      
+
+      
+      <div class="describe">
+        <div class="title">
+          <a href="/16. 最接近的三数之和.html">16. 最接近的三数之和</a>
+        </div>
+        <div class="date">
+          <span class="iconfont icon-time-circle"></span>
+          <span>19/11/25</span>
+        </div>
+        
+        <div class="meta">
+          <div class="l">
+            <div class="warp">
+              
+              <span class="iconfont icon-folder"></span>
+              <span class="desp">
+                 
+                <a href="/categories/算法">算法</a>
+                 
+              </span>
+              
+            </div>
+
+            
+            <div class="warp">
+              <span class="iconfont icon-tag1"></span>
+              <span class="desp">
+                 
+                <a href="/tags/leetcode">leetcode</a>
+                 
+              </span>
+            </div>
+            
+            <div class="warp">
+              <div class="share" data-url="/16. 最接近的三数之和.html">
+                <span class="iconfont icon-share"></span>
+              </div>
+              <div class="desp share" data-url="/16. 最接近的三数之和.html">
+                <a href="#">Share</a>
+              </div>
+            </div>
+          </div>
+          <div class="r">
+            <a href="/16. 最接近的三数之和.html">Read More</a>
+          </div>
+        </div>
+      </div>
+    </li>
+     
+
+    
+
+  <li class="item">
+
+      
+
+      
+      <div class="describe">
+        <div class="title">
+          <a href="/15. 三数之和.html">15. 三数之和</a>
+        </div>
+        <div class="date">
+          <span class="iconfont icon-time-circle"></span>
+          <span>19/11/23</span>
+        </div>
+        
+        <div class="meta">
+          <div class="l">
+            <div class="warp">
+              
+              <span class="iconfont icon-folder"></span>
+              <span class="desp">
+                 
+                <a href="/categories/算法">算法</a>
+                 
+              </span>
+              
+            </div>
+
+            
+            <div class="warp">
+              <span class="iconfont icon-tag1"></span>
+              <span class="desp">
+                 
+                <a href="/tags/leetcode">leetcode</a>
+                 
+              </span>
+            </div>
+            
+            <div class="warp">
+              <div class="share" data-url="/15. 三数之和.html">
+                <span class="iconfont icon-share"></span>
+              </div>
+              <div class="desp share" data-url="/15. 三数之和.html">
+                <a href="#">Share</a>
+              </div>
+            </div>
+          </div>
+          <div class="r">
+            <a href="/15. 三数之和.html">Read More</a>
+          </div>
+        </div>
+      </div>
+    </li>
+     
+
+    
+
+  <li class="item">
+
+      
+
+      
+      <div class="describe">
+        <div class="title">
+          <a href="/435. 无重叠区间的副本.html">435. 无重叠区间</a>
+        </div>
+        <div class="date">
+          <span class="iconfont icon-time-circle"></span>
+          <span>19/11/21</span>
+        </div>
+        
+        <div class="meta">
+          <div class="l">
+            <div class="warp">
+              
+              <span class="iconfont icon-folder"></span>
+              <span class="desp">
+                 
+                <a href="/categories/算法">算法</a>
+                 
+              </span>
+              
+            </div>
+
+            
+            <div class="warp">
+              <span class="iconfont icon-tag1"></span>
+              <span class="desp">
+                 
+                <a href="/tags/leetcode">leetcode</a>
+                 
+              </span>
+            </div>
+            
+            <div class="warp">
+              <div class="share" data-url="/435. 无重叠区间的副本.html">
+                <span class="iconfont icon-share"></span>
+              </div>
+              <div class="desp share" data-url="/435. 无重叠区间的副本.html">
+                <a href="#">Share</a>
+              </div>
+            </div>
+          </div>
+          <div class="r">
+            <a href="/435. 无重叠区间的副本.html">Read More</a>
+          </div>
+        </div>
+      </div>
+    </li>
+     
+
+    
+
+  <li class="item">
+
+      
+
+      
+      <div class="describe">
+        <div class="title">
+          <a href="/435. 无重叠区间.html">1262. 可被三整除的最大和</a>
+        </div>
+        <div class="date">
+          <span class="iconfont icon-time-circle"></span>
+          <span>19/11/21</span>
+        </div>
+        
+        <div class="meta">
+          <div class="l">
+            <div class="warp">
+              
+              <span class="iconfont icon-folder"></span>
+              <span class="desp">
+                 
+                <a href="/categories/算法">算法</a>
+                 
+              </span>
+              
+            </div>
+
+            
+            <div class="warp">
+              <span class="iconfont icon-tag1"></span>
+              <span class="desp">
+                 
+                <a href="/tags/leetcode">leetcode</a>
+                 
+              </span>
+            </div>
+            
+            <div class="warp">
+              <div class="share" data-url="/435. 无重叠区间.html">
+                <span class="iconfont icon-share"></span>
+              </div>
+              <div class="desp share" data-url="/435. 无重叠区间.html">
+                <a href="#">Share</a>
+              </div>
+            </div>
+          </div>
+          <div class="r">
+            <a href="/435. 无重叠区间.html">Read More</a>
+          </div>
+        </div>
+      </div>
+    </li>
+     
+
+    
+
+  <li class="item">
+
+      
+
+      
+      <div class="describe">
+        <div class="title">
+          <a href="/1249. 移除无效的括号.html">1249. 移除无效的括号</a>
+        </div>
+        <div class="date">
+          <span class="iconfont icon-time-circle"></span>
+          <span>19/11/19</span>
+        </div>
+        
+        <div class="meta">
+          <div class="l">
+            <div class="warp">
+              
+              <span class="iconfont icon-folder"></span>
+              <span class="desp">
+                 
+                <a href="/categories/算法">算法</a>
+                 
+              </span>
+              
+            </div>
+
+            
+            <div class="warp">
+              <span class="iconfont icon-tag1"></span>
+              <span class="desp">
+                 
+                <a href="/tags/leetcode">leetcode</a>
+                 
+              </span>
+            </div>
+            
+            <div class="warp">
+              <div class="share" data-url="/1249. 移除无效的括号.html">
+                <span class="iconfont icon-share"></span>
+              </div>
+              <div class="desp share" data-url="/1249. 移除无效的括号.html">
+                <a href="#">Share</a>
+              </div>
+            </div>
+          </div>
+          <div class="r">
+            <a href="/1249. 移除无效的括号.html">Read More</a>
+          </div>
+        </div>
+      </div>
+    </li>
+     
+
+    
+
+  <li class="item">
+
+      
+
+      
+      <div class="describe">
+        <div class="title">
+          <a href="/744. 寻找比目标字母大的最小字母.html">744. 寻找比目标字母大的最小字母</a>
+        </div>
+        <div class="date">
+          <span class="iconfont icon-time-circle"></span>
+          <span>19/11/19</span>
+        </div>
+        
+        <div class="meta">
+          <div class="l">
+            <div class="warp">
+              
+              <span class="iconfont icon-folder"></span>
+              <span class="desp">
+                 
+                <a href="/categories/算法">算法</a>
+                 
+              </span>
+              
+            </div>
+
+            
+            <div class="warp">
+              <span class="iconfont icon-tag1"></span>
+              <span class="desp">
+                 
+                <a href="/tags/leetcode">leetcode</a>
+                 
+              </span>
+            </div>
+            
+            <div class="warp">
+              <div class="share" data-url="/744. 寻找比目标字母大的最小字母.html">
+                <span class="iconfont icon-share"></span>
+              </div>
+              <div class="desp share" data-url="/744. 寻找比目标字母大的最小字母.html">
+                <a href="#">Share</a>
+              </div>
+            </div>
+          </div>
+          <div class="r">
+            <a href="/744. 寻找比目标字母大的最小字母.html">Read More</a>
+          </div>
+        </div>
+      </div>
+    </li>
+     
+
+    
+
+  <li class="item">
+
+      
+
+      
+      <div class="describe">
+        <div class="title">
+          <a href="/807. 保持城市天际线.html">807. 保持城市天际线</a>
+        </div>
+        <div class="date">
+          <span class="iconfont icon-time-circle"></span>
+          <span>19/11/19</span>
+        </div>
+        
+        <div class="meta">
+          <div class="l">
+            <div class="warp">
+              
+              <span class="iconfont icon-folder"></span>
+              <span class="desp">
+                 
+                <a href="/categories/算法">算法</a>
+                 
+              </span>
+              
+            </div>
+
+            
+            <div class="warp">
+              <span class="iconfont icon-tag1"></span>
+              <span class="desp">
+                 
+                <a href="/tags/leetcode">leetcode</a>
+                 
+              </span>
+            </div>
+            
+            <div class="warp">
+              <div class="share" data-url="/807. 保持城市天际线.html">
+                <span class="iconfont icon-share"></span>
+              </div>
+              <div class="desp share" data-url="/807. 保持城市天际线.html">
+                <a href="#">Share</a>
+              </div>
+            </div>
+          </div>
+          <div class="r">
+            <a href="/807. 保持城市天际线.html">Read More</a>
+          </div>
+        </div>
+      </div>
+    </li>
+     
+
+    
+
+  <li class="item">
+
+      
+
+      
+      <div class="describe">
+        <div class="title">
+          <a href="/1123最深叶节点的最近公共祖先191115.html">leetcode 1123 最深叶节点的最近公共祖先</a>
+        </div>
+        <div class="date">
+          <span class="iconfont icon-time-circle"></span>
+          <span>19/11/15</span>
+        </div>
+        
+        <div class="meta">
+          <div class="l">
+            <div class="warp">
+              
+              <span class="iconfont icon-folder"></span>
+              <span class="desp">
+                 
+                <a href="/categories/算法">算法</a>
+                 
+              </span>
+              
+            </div>
+
+            
+            <div class="warp">
+              <span class="iconfont icon-tag1"></span>
+              <span class="desp">
+                 
+                <a href="/tags/leetcode">leetcode</a>
+                 
+              </span>
+            </div>
+            
+            <div class="warp">
+              <div class="share" data-url="/1123最深叶节点的最近公共祖先191115.html">
+                <span class="iconfont icon-share"></span>
+              </div>
+              <div class="desp share" data-url="/1123最深叶节点的最近公共祖先191115.html">
+                <a href="#">Share</a>
+              </div>
+            </div>
+          </div>
+          <div class="r">
+            <a href="/1123最深叶节点的最近公共祖先191115.html">Read More</a>
+          </div>
+        </div>
+      </div>
+    </li>
+    
+  </ul>
 </div>
 
-<nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            关于
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-
-      
-    </ul>
-  
-
-  
-</nav>
-
-
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-  <section id="posts" class="posts-expand">
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/238. 除自身以外数组的乘积.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zengbailiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/icon.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="liang's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/238. 除自身以外数组的乘积.html" itemprop="url">238. 除自身以外数组的乘积</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-03T00:00:00+08:00">
-                2019-12-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/238. 除自身以外数组的乘积.html" class="leancloud_visitors" data-flag-title="238. 除自身以外数组的乘积">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  483
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> 给定长度为 n 的整数数组 nums，其中 n &gt; 1，返回输出数组 output ，其中 output[i] 等于 nums 中除 nums[i] 之外其余各元素的乘积。</span><br><span class="line"></span><br><span class="line">示例:</span><br><span class="line"></span><br><span class="line">输入: [1,2,3,4]</span><br><span class="line">输出: [24,12,8,6]</span><br><span class="line">说明: 请不要使用除法，且在 O(n) 时间复杂度内完成此题。</span><br></pre></td></tr></table></figure>
-<h4 id="解："><a href="#解：" class="headerlink" title="解："></a>解：</h4><ol>
-<li>暴力法。两层循环。 时间复杂度为O(n^2)。</li>
-<li>除自身外的乘积，等于其左边元素的乘积 和 其右边元素的乘积 的 乘积。使用两个临时数组分别保存对应下标其左边的元素积和右边元素的积。由于只是遍历两次，并没有循环嵌套，所以时间复杂度为O(n)。</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;int&gt; productExceptSelf(vector&lt;int&gt;&amp; nums) &#123;</span><br><span class="line">    vector&lt;int&gt; res (nums.size() ,1);</span><br><span class="line">    int temp = 1;</span><br><span class="line">    for (int i = 0; i &lt; nums.size(); ++ i) &#123;</span><br><span class="line">        res[i] = temp;</span><br><span class="line">        temp *= nums[i];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    temp = 1;</span><br><span class="line">    for (int i = (int)nums.size() - 1; i &gt;= 0; -- i) &#123;</span><br><span class="line">        res[i] *= temp;</span><br><span class="line">        temp *= nums[i];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">//优化版本，使用一个循环即可</span><br><span class="line">vector&lt;int&gt; productExceptSelf(vector&lt;int&gt;&amp; nums) &#123;</span><br><span class="line">    int size = (int)nums.size();</span><br><span class="line">    vector&lt;int&gt; res (size, 1);</span><br><span class="line">    int left = 1;</span><br><span class="line">    int right = 1;</span><br><span class="line">    </span><br><span class="line">    for (int i = 0; i &lt; size; i ++) &#123;</span><br><span class="line">        res[i] *= left;</span><br><span class="line">        left *= nums[i];</span><br><span class="line">        int j = size - 1 - i;</span><br><span class="line">        res[j] *= right;</span><br><span class="line">        right *= nums[j];</span><br><span class="line">    &#125;</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上面此思路不太好想到。我的初始思路是这样的，最后一个测试案例超时了，O(n^2)。顺便记录一下，作为一个对比的参照。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;int&gt; productExceptSelf(vector&lt;int&gt;&amp; nums) &#123;</span><br><span class="line">    if (nums.size() &lt;= 0) &#123;</span><br><span class="line">        return nums;</span><br><span class="line">    &#125;</span><br><span class="line">    vector&lt;int&gt; res (nums.size() , 0);</span><br><span class="line">    if (nums.size() &lt; 2) &#123;</span><br><span class="line">        res[0] = nums[0];</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">    res[0] = 1;</span><br><span class="line">    res[1] = nums[0];</span><br><span class="line">    for (int i = 1; i &lt; nums.size(); i ++) &#123;</span><br><span class="line">        for (int j = 0; j &lt;= i; j ++) &#123;</span><br><span class="line">            if(i == j &amp;&amp; i &lt; nums.size()) &#123;</span><br><span class="line">                if(j + 1 &lt; nums.size()) &#123;</span><br><span class="line">                    res[j+1]  = res[j] * nums[i];</span><br><span class="line">                &#125;</span><br><span class="line">                continue;</span><br><span class="line">            &#125;</span><br><span class="line">            else &#123;</span><br><span class="line">                res[j] *= nums[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/33. 搜索旋转排序数组.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zengbailiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/icon.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="liang's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/33. 搜索旋转排序数组.html" itemprop="url">33. 搜索旋转排序数组</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-26T00:00:00+08:00">
-                2019-11-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/33. 搜索旋转排序数组.html" class="leancloud_visitors" data-flag-title="33. 搜索旋转排序数组">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  665
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"> 假设按照升序排序的数组在预先未知的某个点上进行了旋转。</span><br><span class="line"></span><br><span class="line">( 例如，数组 [0,1,2,4,5,6,7] 可能变为 [4,5,6,7,0,1,2] )。</span><br><span class="line"></span><br><span class="line">搜索一个给定的目标值，如果数组中存在这个目标值，则返回它的索引，否则返回 -1 。</span><br><span class="line"></span><br><span class="line">你可以假设数组中不存在重复的元素。</span><br><span class="line"></span><br><span class="line">你的算法时间复杂度必须是 O(log n) 级别。</span><br><span class="line"></span><br><span class="line">示例 1:</span><br><span class="line"></span><br><span class="line">输入: nums = [4,5,6,7,0,1,2], target = 0</span><br><span class="line">输出: 4</span><br><span class="line">示例 2:</span><br><span class="line"></span><br><span class="line">输入: nums = [4,5,6,7,0,1,2], target = 3</span><br><span class="line">输出: -1</span><br></pre></td></tr></table></figure>
-<h4 id="解："><a href="#解：" class="headerlink" title="解："></a>解：</h4><p>由于题目说道数组是有序的，虽然做了旋转，且要求时间复杂度为logN，那么很容易会想到二分。</p>
-<p>思路：<br>存在旋转的分界点，其实就是数组旋转之前的起点。分界点的左边大于分界点，但分界点的左边和右边（包含分界点）都是两个有序的子数组。通过二分很容易确定这个分界点，然后根据target值与数组最后一个元素比较确定查找的子数组，如果小于最后元素，那么target只可能存在于右边子数组，相反存在与右边子数组，设计一个子函数二分查找并返回target在子数组的下标，如果找不到则返回-1.</p>
-<p>另外查找分界点的时候可以做下剪枝，如果这个子数组没有旋转，也即是起点少于终点，那么直接使用子函数查找。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">int indexInRange(vector&lt;int&gt;&amp; nums,int left,int right,int target)&#123;</span><br><span class="line">    while (left&lt;=right) &#123;</span><br><span class="line">        int mid = left + ((right - left) &gt;&gt;1);</span><br><span class="line">        if (target == nums[mid]) &#123;</span><br><span class="line">            return mid;</span><br><span class="line">        &#125;</span><br><span class="line">        else if(target &lt; nums[mid])&#123;</span><br><span class="line">            right --;</span><br><span class="line">        &#125;</span><br><span class="line">        else&#123;</span><br><span class="line">            left ++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return -1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int search(vector&lt;int&gt;&amp; nums, int target) &#123;</span><br><span class="line">    if (nums.size() == 0) &#123;</span><br><span class="line">        return  -1;</span><br><span class="line">    &#125;</span><br><span class="line">    if (nums[nums.size() -1] &gt;= nums[0]) &#123;</span><br><span class="line">    //没有旋转</span><br><span class="line">        return indexInRange(nums,0,(int)nums.size() - 1,target);</span><br><span class="line">    &#125;</span><br><span class="line">    else&#123;</span><br><span class="line">        //查找分界线， a,b a &gt;b；</span><br><span class="line">        int left = 1;</span><br><span class="line">        int right = (int)nums.size() - 1;</span><br><span class="line">        while (left &lt;= right) &#123;</span><br><span class="line">            int mid = left + ((right - left) &gt;&gt; 1);</span><br><span class="line">            if(nums[mid]&lt;nums[mid-1])&#123;</span><br><span class="line">                //find</span><br><span class="line">                cout &lt;&lt; mid&lt;&lt;&quot;&quot;;</span><br><span class="line">                if (target &lt;= nums[nums.size() - 1]) &#123;</span><br><span class="line">                    return indexInRange(nums,mid,(int)nums.size()-1,target);</span><br><span class="line">                &#125;</span><br><span class="line">                else&#123;</span><br><span class="line">                    return indexInRange(nums,0,mid - 1,target);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            else&#123;</span><br><span class="line">                if(nums[mid] &gt; nums[right])&#123;</span><br><span class="line">                    left = mid + 1;</span><br><span class="line">                &#125;</span><br><span class="line">                else&#123;</span><br><span class="line">                    right = mid - 1;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return -1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>题目给出了提示，有序，longN，容易想到二分。可论证正确思路，二分查找分界点，然后子数组在二分查找，返回结果。考验二分法的熟练度。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/16. 最接近的三数之和.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zengbailiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/icon.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="liang's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/16. 最接近的三数之和.html" itemprop="url">16. 最接近的三数之和</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-25T00:00:00+08:00">
-                2019-11-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/16. 最接近的三数之和.html" class="leancloud_visitors" data-flag-title="16. 最接近的三数之和">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  699
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> 给定一个包括 n 个整数的数组 nums 和 一个目标值 target。找出 nums 中的三个整数，使得它们的和与 target 最接近。返回这三个数的和。假定每组输入只存在唯一答案。</span><br><span class="line"></span><br><span class="line">例如，给定数组 nums = [-1，2，1，-4], 和 target = 1.</span><br><span class="line"></span><br><span class="line">与 target 最接近的三个数的和为 2. (-1 + 2 + 1 = 2).</span><br></pre></td></tr></table></figure>
-<h4 id="解1："><a href="#解1：" class="headerlink" title="解1："></a>解1：</h4><p>比暴力法好一点，在最内层做了二分。时间复杂度依然很高 n2 *longn。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">int threeSumClosest(vector&lt;int&gt;&amp; nums, int target) &#123;</span><br><span class="line">    sort(nums.begin(),nums.end());</span><br><span class="line">    ///这个初始化是有问题的,对于lastBiger和smaller没有问题，但对于res是可能存在问题，有可能他是最大值的三倍，但刚好是最接近target的，如果这样程序就会错误。这里大概可以设置为MAX_INT 或 MIN_INT。</span><br><span class="line">    int undefine = nums[nums.size() - 1] * 3;</span><br><span class="line">    int res = undefine;</span><br><span class="line">    for (int i = 0 ; i &lt; nums.size() - 2; ++ i) &#123;</span><br><span class="line">        for (int j = i+1; j &lt; nums.size() - 1; ++j) &#123;</span><br><span class="line">            int dstValue = target - nums[i] - nums[j];</span><br><span class="line">            int left = j + 1;</span><br><span class="line">            int right = (int)nums.size() - 1;</span><br><span class="line">            int lastBigger = undefine;</span><br><span class="line">            int lastSmaller = undefine;</span><br><span class="line">            while (left &lt;= right) &#123;</span><br><span class="line">                int mid = left + (right - left)/2;</span><br><span class="line">                if (nums[mid] == dstValue) &#123;</span><br><span class="line">                    cout&lt;&lt;i&lt;&lt;&quot;*&quot;;</span><br><span class="line">                    cout&lt;&lt;j&lt;&lt;&quot;*&quot;;</span><br><span class="line">                    cout&lt;&lt;mid&lt;&lt;&quot;*&quot;;</span><br><span class="line">                    return target;</span><br><span class="line">                &#125;</span><br><span class="line">                else if(nums[mid] &gt; dstValue)&#123;</span><br><span class="line">                    lastBigger = nums[mid];</span><br><span class="line">                    right --;</span><br><span class="line">                &#125;</span><br><span class="line">                else&#123;</span><br><span class="line">                    lastSmaller = nums[mid];</span><br><span class="line">                    left++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            int v3;</span><br><span class="line">            if(lastBigger != undefine &amp;&amp; lastSmaller != undefine)&#123;</span><br><span class="line">                int v0 = nums[i] + nums[j] + lastBigger;</span><br><span class="line">                int v1 = nums[i] + nums[j] + lastSmaller;</span><br><span class="line">                v3 = abs(target - v0) &lt; abs(target- v1) ? v0:v1;</span><br><span class="line">            &#125;</span><br><span class="line">            else if (lastSmaller == undefine)&#123;</span><br><span class="line">                v3 = nums[i] + nums[j] + lastBigger;</span><br><span class="line">            &#125;</span><br><span class="line">            else if(lastBigger == undefine)&#123;</span><br><span class="line">                v3 = nums[i] + nums[j] + lastSmaller;</span><br><span class="line">            &#125;</span><br><span class="line">            if (res == undefine) &#123;</span><br><span class="line">                res = v3;</span><br><span class="line">            &#125;</span><br><span class="line">            else&#123;</span><br><span class="line">                res = abs(target - res) &lt; abs(target- v3) ? res:v3;</span><br><span class="line">            &#125;</span><br><span class="line">            // cout &lt;&lt;res &lt;&lt;&quot;&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return  res;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="解2"><a href="#解2" class="headerlink" title="解2"></a>解2</h4><p>首先排序是肯定需要的，思考解决方法的时候，比较重要的就是提供更多有利的假设，同时这些假设是能实现的，在各种条件能够被满足的情况下，探索题解，如果依然找不到方法，可见是思路不对或被卡主了。言归正传，在建立排序后，执行循环遍历，然后使用前后下标比较，获取更接近目标值的解。其中前后下标的移动依据和与目标值得大小关系，由于数组已经排序，所以如果比tager大，那么后下标左移，相反左下标右移动，这样和的大小才能更靠近tager。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">int threeSumClosest(vector&lt;int&gt;&amp; nums, int target) &#123;</span><br><span class="line">    sort(nums.begin(), nums.end());</span><br><span class="line">    int res = nums[0] + nums[1] + nums[2];</span><br><span class="line">    for (int i = 0; i &lt; nums.size() - 2; ++ i) &#123;</span><br><span class="line">        int left = i + 1;</span><br><span class="line">        int right = (int)nums.size() - 1;</span><br><span class="line">        while (left &lt; right) &#123;</span><br><span class="line">            int r = nums[i] + nums[left] + nums[right];</span><br><span class="line">            res = abs(target - res) &lt; abs(target - r)?res:r;</span><br><span class="line">            if (r &gt; target) &#123;</span><br><span class="line">                --right;</span><br><span class="line">            &#125;</span><br><span class="line">            else if(r &lt; target)&#123;</span><br><span class="line">                ++left;</span><br><span class="line">            &#125;</span><br><span class="line">            else&#123;</span><br><span class="line">                return target;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/15. 三数之和.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zengbailiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/icon.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="liang's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/15. 三数之和.html" itemprop="url">15. 三数之和</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-23T00:00:00+08:00">
-                2019-11-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/15. 三数之和.html" class="leancloud_visitors" data-flag-title="15. 三数之和">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  753
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> 给定一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？找出所有满足条件且不重复的三元组。</span><br><span class="line"></span><br><span class="line">注意：答案中不可以包含重复的三元组。</span><br><span class="line"></span><br><span class="line">例如, 给定数组 nums = [-1, 0, 1, 2, -1, -4]，</span><br><span class="line"></span><br><span class="line">满足要求的三元组集合为：</span><br><span class="line">[</span><br><span class="line">  [-1, 0, 1],</span><br><span class="line">  [-1, -1, 2]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-<h4 id="解："><a href="#解：" class="headerlink" title="解："></a>解：</h4><p>根据题目和例子，结果集是不允许重复的解，但数组中的元素可以重复利用。首先把问题由三个数和为0 转化为,求两个数和为第三个数相反数的问题，并在处理过程中，跳过重复的情况。</p>
-<p>步骤：排序数组，从左边i遍历数组，左边i作为最小值。再开启两个下标left,right从两边查找，查找和为nums[i]的相反数。其中如果nums[i]&gt;0,那么就代表右边不可能存在解的可能，可以退出遍历。</p>
-<p>而对于每一此遍历，会去查找以num[i]做为最小值的所有非重复解。当找到其中一个解后，做一些处理避免重复后，继续移动两个下标，查找下一组解。所以遍历结束后，可得所有解。</p>
-<h5 id="重复处理："><a href="#重复处理：" class="headerlink" title="重复处理："></a>重复处理：</h5><ol>
-<li>比较重要的去重处理是由两个部分组成。首先循环外判断num[i] 与num[i-1]，由于每一次遍历都会求得以num[i]作为最小值的全部解，所以这里相等就代表重复，跳过。</li>
-<li>同理对于同一个num[i]，因为a +b +c  = 0,任意两个数确定都代表第三个数确定，所以循环内跳过所有相同的nums[left]和nums[right]。</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;int&gt;&gt; threeSum(vector&lt;int&gt;&amp; nums) &#123;</span><br><span class="line">    vector&lt;vector&lt;int&gt;&gt; res;</span><br><span class="line">    sort(nums.begin(), nums.end());</span><br><span class="line">    if (nums.size() &lt; 3) &#123;</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">    for (int i = 0; i &lt; nums.size(); ++i) &#123;</span><br><span class="line">        int v = nums[i];</span><br><span class="line">        if(v &gt; 0)&#123;</span><br><span class="line">            break;</span><br><span class="line">        &#125;</span><br><span class="line">        else&#123;</span><br><span class="line">            int target = 0 - nums[i];</span><br><span class="line">            if(i&gt;0 &amp;&amp; nums[i] == nums[i-1]) &#123;continue;&#125;</span><br><span class="line">            int left = i + 1;</span><br><span class="line">            int right = (int)nums.size() - 1;</span><br><span class="line">            while (left &gt; i &amp;&amp; left&lt; right) &#123;</span><br><span class="line">                if (nums[left] + nums[right] == target) &#123;</span><br><span class="line">                    vector&lt;int&gt; r;</span><br><span class="line">                    r.push_back(nums[i]);</span><br><span class="line">                    r.push_back(nums[left]);</span><br><span class="line">                    r.push_back(nums[right]);</span><br><span class="line">                    res.push_back(r);</span><br><span class="line">                    while (left&lt;right) &#123;</span><br><span class="line">                        if(nums[left + 1] == nums[left])&#123;left++;&#125;</span><br><span class="line">                        else&#123;break;&#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    while (left&lt;right) &#123;</span><br><span class="line">                        if(nums[right - 1] == nums[right])&#123;right --;&#125;</span><br><span class="line">                        else&#123;break;&#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    ++left;--right;</span><br><span class="line">                &#125;</span><br><span class="line">                else if(nums[left] + nums[right] &lt; target)&#123;</span><br><span class="line">                    left ++;</span><br><span class="line">                &#125;</span><br><span class="line">                else&#123;</span><br><span class="line">                    right --;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>关键：</p>
-<ol>
-<li>排序。a +b +c = 0； 转化为 a+b = -c ; </li>
-<li>去重处理。如何实现有效的去重并保证逻辑的正确。</li>
-</ol>
-<p>两点都不难想到，但遍历一次查找以num[i]为最小值的全部解，并有效去重，不好想到（可能和会卡在每次查找一组解里）。里面有严谨的逻辑关系。也就是说因为是这样的遍历思路，才能配合这样的去重处理（跳过重复i,left,right）。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/435. 无重叠区间.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zengbailiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/icon.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="liang's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/435. 无重叠区间.html" itemprop="url">1262. 可被三整除的最大和</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-21T00:00:00+08:00">
-                2019-11-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/435. 无重叠区间.html" class="leancloud_visitors" data-flag-title="1262. 可被三整除的最大和">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  774
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">给你一个整数数组 nums，请你找出并返回能被三整除的元素最大和。</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">示例 1：</span><br><span class="line"></span><br><span class="line">输入：nums = [3,6,5,1,8]</span><br><span class="line">输出：18</span><br><span class="line">解释：选出数字 3, 6, 1 和 8，它们的和是 18（可被 3 整除的最大和）。</span><br><span class="line">示例 2：</span><br><span class="line"></span><br><span class="line">输入：nums = [4]</span><br><span class="line">输出：0</span><br><span class="line">解释：4 不能被 3 整除，所以无法选出数字，返回 0。</span><br></pre></td></tr></table></figure>
-<h4 id="解"><a href="#解" class="headerlink" title="解:"></a>解:</h4><p>1.用sum累加所有数。同时使用两个数组，把余数为2和1的分别填充到其中，并对这两数组降序排序（因为要和最大，大的优先使用）。那么有了这两个基础上，结合问题，这个时候计算sum的余数，存在3中情况：</p>
-<ol>
-<li>余数为0,直接返回sum.</li>
-<li>余数为1，那么又存在两种情况，分别为减去余数为1数组中的最后一个或余数为2数组的最后两个，使sum最大，前提是其他们元素数量满足。</li>
-<li>余数为2，那么又存在两种情况，分别为减去余数为2数组中的最后一个或余数为1数组的最后两个，使sum最大，前提是其他们元素数量满足。</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">static bool compDesc(int a,int b)&#123;</span><br><span class="line">    return a &gt; b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int adjustSum(int rem ,int sum,vector&lt;int&gt; v1,vector&lt;int&gt; v2)&#123;</span><br><span class="line">    if (rem == 1) &#123;</span><br><span class="line">        if (v1.size() == 0) &#123;</span><br><span class="line">            return sum - v2[v2.size() - 1] - v2[v2.size() - 2];</span><br><span class="line">        &#125;</span><br><span class="line">        else if(v2.size()&lt;2)&#123;</span><br><span class="line">            return sum - v1[v1.size() - 1];</span><br><span class="line">        &#125;</span><br><span class="line">        else&#123;</span><br><span class="line">            int del = min(v2[v2.size() - 1] + v2[v2.size() - 2], v1[v1.size() - 1]);</span><br><span class="line">            return sum - del;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    else if(rem == 2)&#123;</span><br><span class="line">        if (v1.size()&lt;2) &#123;</span><br><span class="line">            return sum - v2[v2.size() - 1];</span><br><span class="line">        &#125;</span><br><span class="line">        else if (v2.size() == 0)&#123;</span><br><span class="line">            return sum - v1[v1.size() - 1] - v1[v1.size() - 2];</span><br><span class="line">        &#125;</span><br><span class="line">        else&#123;</span><br><span class="line">            int del = min(v2[v2.size() - 1],v1[v1.size() - 1] + v1[v1.size() - 2]);</span><br><span class="line">            return sum - del;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line">int maxSumDivThree(vector&lt;int&gt;&amp; nums) &#123;</span><br><span class="line">    vector&lt;int&gt; v1;</span><br><span class="line">    vector&lt;int&gt; v2;</span><br><span class="line">    int sum =0;</span><br><span class="line">    for (int i = 0; i &lt; nums.size(); ++i) &#123;</span><br><span class="line">        sum += nums[i];</span><br><span class="line">        int r = nums[i] % 3;</span><br><span class="line">        if(r == 1)&#123;</span><br><span class="line">            v1.push_back(nums[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        else if (r == 2)&#123;</span><br><span class="line">            v2.push_back(nums[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    sort(v1.begin(), v1.end(), compDesc);</span><br><span class="line">    sort(v2.begin(), v2.end(), compDesc);</span><br><span class="line">    if (sum % 3 == 1) &#123;</span><br><span class="line">        return adjustSum(1,sum, v1, v2);</span><br><span class="line">    &#125;</span><br><span class="line">    else if (sum % 3 == 2)&#123;</span><br><span class="line">        return adjustSum(2,sum, v1, v2);</span><br><span class="line">    &#125;</span><br><span class="line">    return sum;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-<p>难点思路的思考，如何使值最大。就会涉及到最后几个元素的取舍问题。我的想法是，用两个数组存储余1和余2，那么最后可能余1数组可能存在两种情况一个1 或两个1，因为满足3个1就可以加入到和中，余2数组也一样，剩下一个2或两个2.但这里就存在很多种组合了，而且余2和余1中的元素没有直接的大小关系，有可能还要退回去拿出之前加入的元素，这又把情况变得很复杂，最后也没想出解决的办法。这大概跟思维的方式和习惯有关系。如果发现死胡同后，这是后换个思路很重要。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/435. 无重叠区间的副本.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zengbailiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/icon.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="liang's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/435. 无重叠区间的副本.html" itemprop="url">435. 无重叠区间</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-21T00:00:00+08:00">
-                2019-11-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/435. 无重叠区间的副本.html" class="leancloud_visitors" data-flag-title="435. 无重叠区间">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  803
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"> 给定一个区间的集合，找到需要移除区间的最小数量，使剩余区间互不重叠。</span><br><span class="line"></span><br><span class="line">注意:</span><br><span class="line"></span><br><span class="line">可以认为区间的终点总是大于它的起点。</span><br><span class="line">区间 [1,2] 和 [2,3] 的边界相互“接触”，但没有相互重叠。</span><br><span class="line">示例 1:</span><br><span class="line"></span><br><span class="line">输入: [ [1,2], [2,3], [3,4], [1,3] ]</span><br><span class="line"></span><br><span class="line">输出: 1</span><br><span class="line"></span><br><span class="line">解释: 移除 [1,3] 后，剩下的区间没有重叠。</span><br><span class="line">示例 2:</span><br><span class="line"></span><br><span class="line">输入: [ [1,2], [1,2], [1,2] ]</span><br><span class="line"></span><br><span class="line">输出: 2</span><br><span class="line"></span><br><span class="line">解释: 你需要移除两个 [1,2] 来使剩下的区间没有重叠。</span><br></pre></td></tr></table></figure>
-<h4 id="解"><a href="#解" class="headerlink" title="解:"></a>解:</h4><p>步骤：</p>
-<ol>
-<li>根据上限，进行升序排序。</li>
-<li>遍历，选择一个区间a，与当前区间b（指向当前遍历的index）检测是否存在重叠。如果重叠重叠，那么选择上限较小的区间，并把其下标保存（更新区间a）,舍弃数+1。遍历结束返回结果。</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">static bool intervalsCompAsc(vector&lt;int&gt;a,vector&lt;int&gt;b)&#123;</span><br><span class="line">    if (a[0]&lt;b[0]) &#123;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">    return false;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int eraseOverlapIntervals(vector&lt;vector&lt;int&gt;&gt;&amp; intervals) &#123;</span><br><span class="line">    if (intervals.size() &lt;= 0) &#123;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">    int len = 0;</span><br><span class="line">    sort(intervals.begin(), intervals.end(), intervalsComp);</span><br><span class="line">    /*贪心策略，选择区间上限更小的，为后面提供更多的空间。</span><br><span class="line">     1.没有重叠，继续下一轮循环。</span><br><span class="line">     2.如果有重叠，那么舍弃上限大的，选择上限小的。</span><br><span class="line">     **/</span><br><span class="line">    int last = 0;</span><br><span class="line">    // cout&lt;&lt;intervals[0][0]&lt;&lt;&quot;&quot;;</span><br><span class="line">    for (int i = 1 ; i &lt; intervals.size(); ++i) &#123;</span><br><span class="line">        if (intervals[last][1]&lt;=intervals[i][0]) &#123;</span><br><span class="line">            last = i;</span><br><span class="line">            continue;</span><br><span class="line">        &#125;</span><br><span class="line">        else&#123;</span><br><span class="line">            // cout&lt;&lt;intervals[i][0]&lt;&lt;&quot;&quot;;</span><br><span class="line">            len ++;</span><br><span class="line">            last = intervals[last][1] &lt;= intervals[i][1] ? last : i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return len;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这里用到了贪心思想，选择较小的上限，可以理解为为后面腾出更多的空间，这样就能容纳更多的区间。而问题来了，这贪心思想并不直观，内部逻辑的正确性，并不能直观感知，需要通过数学归纳证明。只有完全理解题解的思路，论证正确性，才能算是真正的完事。找了很多文章找到一遍较好的文章，先记录下来。<a href="https://www.52cs.com/archives/527" target="_blank" rel="noopener">区间调度问题详解</a></p>
-<p>小结下，算法解题的几个阶段：</p>
-<ol>
-<li>审题阶段。有些题目不好看懂，结合例子，需要花费片刻，理清题意。</li>
-<li>寻找思路阶段。理清题意的前提下，去思考思路。有些题目，并不容易找到解题的关键，就会卡住。但如果没有一个可论证的思路，很难进入编码阶段，通常的暴露解法，至少也是一个可论证思路。所以这个阶段，是很重要的。练习的目的，很大程度是提高这个阶段的的能力。</li>
-<li>编码阶段 。有了思路，考验编码能力，考验抽象逻辑代码化的能力，特别有些递归等思路不好实现，有些需要依赖合适的数据结构才能实现。例如用循环实现完全二叉树的后续遍历。</li>
-<li>检查修正测试阶段 。检测代码的健壮性，正确性。</li>
-<li>优化阶段 。优化时间，优化空间。</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/1249. 移除无效的括号.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zengbailiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/icon.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="liang's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/1249. 移除无效的括号.html" itemprop="url">1249. 移除无效的括号</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-19T00:00:00+08:00">
-                2019-11-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/1249. 移除无效的括号.html" class="leancloud_visitors" data-flag-title="1249. 移除无效的括号">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  624
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"> 给你一个由 &apos;(&apos;、&apos;)&apos; 和小写字母组成的字符串 s。</span><br><span class="line"></span><br><span class="line">你需要从字符串中删除最少数目的 &apos;(&apos; 或者 &apos;)&apos; （可以删除任意位置的括号)，使得剩下的「括号字符串」有效。</span><br><span class="line"></span><br><span class="line">请返回任意一个合法字符串。</span><br><span class="line"></span><br><span class="line">有效「括号字符串」应当符合以下 任意一条 要求：</span><br><span class="line"></span><br><span class="line">空字符串或只包含小写字母的字符串</span><br><span class="line">可以被写作 AB（A 连接 B）的字符串，其中 A 和 B 都是有效「括号字符串」</span><br><span class="line">可以被写作 (A) 的字符串，其中 A 是一个有效的「括号字符串」</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">示例 1：</span><br><span class="line"></span><br><span class="line">输入：s = &quot;lee(t(c)o)de)&quot;</span><br><span class="line">输出：&quot;lee(t(c)o)de&quot;</span><br><span class="line">解释：&quot;lee(t(co)de)&quot; , &quot;lee(t(c)ode)&quot; 也是一个可行答案。</span><br></pre></td></tr></table></figure>
-<h4 id="解1："><a href="#解1：" class="headerlink" title="解1："></a>解1：</h4><p>利用栈来处理括号的匹配问题。遍历字符串，遇到”(“入栈，遇到”)”,那么需要查看栈里面是否为空，分两种情况：</p>
-<ol>
-<li>如果栈不为空，那么存在匹配的”(“，那么出栈，继续遍历。</li>
-<li>如果栈为空，那么此”)”找不到匹配，此”)”，必然是需要删除的，把其标记到map中。可能不同的思路处理的方式不一样，有些处理方式可能把其放入栈中，最后的时候在拿出来，删除。</li>
-</ol>
-<p>最后获取到需要删除的map集合，创建临时字符串res，用于返回，遍历原字符串，并对比map是否存在，不存在的话，拼接到res中，遍历结束后返回res.</p>
-<p>map是为了提高对比的效率，空间换时间。看到有些题解，在第一次遍历的时候用特殊字符串例如*替换对应位置的字符，最后遍历的时候通过对比来判定，这样就不需要额外map来处理了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">string minRemoveToMakeValid(string s) &#123;</span><br><span class="line">    stack&lt;int&gt; st;</span><br><span class="line">    map&lt;int,int&gt; map;</span><br><span class="line">    for (int i = 0; i &lt; s.length(); i ++) &#123;</span><br><span class="line">        char c = s[i];</span><br><span class="line">        if (c == &apos;(&apos;) &#123;</span><br><span class="line">            st.push(i);</span><br><span class="line">        &#125;</span><br><span class="line">        else if(c == &apos;)&apos;)&#123;</span><br><span class="line">            if (!st.empty()) &#123;</span><br><span class="line">                st.pop();</span><br><span class="line">            &#125;</span><br><span class="line">            else&#123;</span><br><span class="line">                map[i] = 1;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    while (!st.empty()) &#123;</span><br><span class="line">        int i = st.top();</span><br><span class="line">        st.pop();</span><br><span class="line">        map[i] = 1;</span><br><span class="line">    &#125;</span><br><span class="line">    string res;</span><br><span class="line">    for (int i = 0; i &lt; s.length(); i ++) &#123;</span><br><span class="line">        if(map.find(i) == map.end())&#123;</span><br><span class="line">            res.append(s[i],1);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>括号匹配，利用了栈，是此题关键。有时候某些问题，使用合适的数据结构，队列，栈、树等等，能很好的处理。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/744. 寻找比目标字母大的最小字母.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zengbailiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/icon.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="liang's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/744. 寻找比目标字母大的最小字母.html" itemprop="url">744. 寻找比目标字母大的最小字母</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-19T00:00:00+08:00">
-                2019-11-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/744. 寻找比目标字母大的最小字母.html" class="leancloud_visitors" data-flag-title="744. 寻找比目标字母大的最小字母">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  490
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> 给定一个只包含小写字母的有序数组letters 和一个目标字母 target，寻找有序数组里面比目标字母大的最小字母。</span><br><span class="line"></span><br><span class="line">数组里字母的顺序是循环的。举个例子，如果目标字母target = &apos;z&apos; 并且有序数组为 letters = [&apos;a&apos;, &apos;b&apos;]，则答案返回 &apos;a&apos;。</span><br></pre></td></tr></table></figure>
-<h4 id="解1"><a href="#解1" class="headerlink" title="解1:"></a>解1:</h4><p>遍历，然后对比target,记录比target大且差值最小的元素的下标bigIndex，如果存在那么返回letters[bigIndex]。如果没有比traget大的元素，那么根据题意，字母是循环的，那么返回letters[0]。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">char nextGreatestLetter(vector&lt;char&gt;&amp; letters, char target) &#123;</span><br><span class="line">    int big = -1;</span><br><span class="line">    int bigIndex = -1;</span><br><span class="line">        for(int i = 0; i &lt; letters.size(); i ++)&#123;</span><br><span class="line">            int len = letters[i] - target;</span><br><span class="line">            if(len &gt;= 0)</span><br><span class="line">            &#123;</span><br><span class="line">               if(len &lt; big|| big == -1)&#123;</span><br><span class="line">                   big = len;</span><br><span class="line">                   bigIndex = i;</span><br><span class="line">               &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        if(big)&#123;</span><br><span class="line">            return letters[big];</span><br><span class="line">        &#125;</span><br><span class="line">        else&#123;</span><br><span class="line">            return letters[0];</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="解2"><a href="#解2" class="headerlink" title="解2"></a>解2</h4><p>由于输入是有序数组，那么可能会想到二分。二分就查找比target大的元素。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">char nextGreatestLetter(vector&lt;char&gt;&amp; letters, char target) &#123;</span><br><span class="line">    int left = 0;</span><br><span class="line">    int right = (int)letters.size();</span><br><span class="line">    while (left &lt; right) &#123;</span><br><span class="line">        int mid = left + (right - left) / 2;</span><br><span class="line">        if (mid&gt; 0 &amp;&amp; letters[mid - 1] &lt;= target &amp;&amp; letters[mid]&gt; target) &#123;</span><br><span class="line">            return letters[mid];</span><br><span class="line">        &#125;</span><br><span class="line">        else&#123;</span><br><span class="line">            if (letters[mid]&lt;=target) &#123;</span><br><span class="line">            //注意这里的条件，已经明确的判断出mid不符合要求。所以left = mid + 1;</span><br><span class="line">            //mid，不符合要求，调整下限</span><br><span class="line">                left = mid + 1;</span><br><span class="line">            &#125;</span><br><span class="line">            else&#123;</span><br><span class="line">            //此分支代表, letters[mid]&gt;target,需要调整上限，但mid依然有可能符合要求。</span><br><span class="line">            //mid有可能符合要求，调整上限</span><br><span class="line">                right = mid;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return letters[0];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>二分条件判断后，调整上下限时候是有非常严谨的逻辑的，例如+1还是-1，是否= mid等。<br>另外有时候，二分是调整区间找坐标，有时候是给出特定的目标值，来查找坐标，情况很多。甚至二分的判断条件是一个函数，是一个以mid为入参的函数。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/807. 保持城市天际线.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zengbailiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/icon.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="liang's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/807. 保持城市天际线.html" itemprop="url">807. 保持城市天际线</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-19T00:00:00+08:00">
-                2019-11-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/807. 保持城市天际线.html" class="leancloud_visitors" data-flag-title="807. 保持城市天际线">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  796
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"> 在二维数组grid中，grid[i][j]代表位于某处的建筑物的高度。 我们被允许增加任何数量（不同建筑物的数量可能不同）的建筑物的高度。 高度 0 也被认为是建筑物。</span><br><span class="line"></span><br><span class="line">最后，从新数组的所有四个方向（即顶部，底部，左侧和右侧）观看的“天际线”必须与原始数组的天际线相同。 城市的天际线是从远处观看时，由所有建筑物形成的矩形的外部轮廓。 请看下面的例子。</span><br><span class="line"></span><br><span class="line">建筑物高度可以增加的最大总和是多少？</span><br><span class="line"></span><br><span class="line">例子：</span><br><span class="line">输入： grid = [[3,0,8,4],[2,4,5,7],[9,2,6,3],[0,3,1,0]]</span><br><span class="line">输出： 35</span><br><span class="line">解释： </span><br><span class="line">The grid is:</span><br><span class="line">[ [3, 0, 8, 4], </span><br><span class="line">  [2, 4, 5, 7],</span><br><span class="line">  [9, 2, 6, 3],</span><br><span class="line">  [0, 3, 1, 0] ]</span><br><span class="line"></span><br><span class="line">从数组竖直方向（即顶部，底部）看“天际线”是：[9, 4, 8, 7]</span><br><span class="line">从水平水平方向（即左侧，右侧）看“天际线”是：[8, 7, 9, 3]</span><br><span class="line"></span><br><span class="line">在不影响天际线的情况下对建筑物进行增高后，新数组如下：</span><br><span class="line"></span><br><span class="line">gridNew = [ [8, 4, 8, 7],</span><br><span class="line">            [7, 4, 7, 7],</span><br><span class="line">            [9, 4, 8, 7],</span><br><span class="line">            [3, 3, 3, 3] ]</span><br></pre></td></tr></table></figure>
-<h4 id="解法一："><a href="#解法一：" class="headerlink" title="解法一："></a>解法一：</h4><p>对于每一行或每一列都存在一个边际值，而对于每一个做坐标点，它必须同时满足小于等于它所在的列和行的两个边际值，即其必须小于等于，所在行和列的边界值的最小值&lt;=min(边际值row,边际值col)，而增加的部分累计就是题目所求。基于这个思路，可得以下步骤:</p>
-<ol>
-<li>定义两个临时数组用于存储行和列的边际值，通过遍历坐标点，更新这些值.一次遍历就可以获取到所有的边际值，[i]相同对比更新hSize，[j]相同对比更新vMaxArr。</li>
-<li>再次遍历，累计增加值。</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">int maxIncreaseKeepingSkyline(vector&lt;vector&lt;int&gt;&gt;&amp; grid) &#123;</span><br><span class="line">    long hSize = grid.size();</span><br><span class="line">    long vSize = grid[0].size();</span><br><span class="line">    vector&lt;int&gt; hMaxArr (hSize,0);</span><br><span class="line">    vector&lt;int&gt; vMaxArr (vSize,0);</span><br><span class="line">    //先获取 hMaxArr vMaxArr</span><br><span class="line">    for (int i = 0; i &lt; hSize ; i ++) &#123;</span><br><span class="line">        for (int j = 0 ; j &lt; vSize; j ++) &#123;</span><br><span class="line">            if(grid[i][j]&gt;hMaxArr[i])&#123;</span><br><span class="line">                hMaxArr[i] = grid[i][j];</span><br><span class="line">            &#125;</span><br><span class="line">            if (grid[i][j]&gt;vMaxArr[j]) &#123;</span><br><span class="line">                vMaxArr[j] = grid[i][j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    int res = 0;</span><br><span class="line">    for (int i = 0; i &lt; hSize ; i ++) &#123;</span><br><span class="line">        for (int j=0 ; j &lt; vSize; j ++) &#123;</span><br><span class="line">            int minLimit = hMaxArr[i] &gt; vMaxArr[j] ? vMaxArr[j] : hMaxArr[i];</span><br><span class="line">            int mayAdd = minLimit - grid[i][j];</span><br><span class="line">            if(mayAdd)&#123;</span><br><span class="line">                res += mayAdd;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return  res;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-<p>这道题的问题思路比较直观。<br>不能超过边际线–》那么要知道每个坐标能到达的上限，其上限是什么？-》其上限就是其所在的行列边际值得最小值。 ==》解题开始，获取边际点，累计高，返回。</p>
-<p>这种能有清晰的求解思路的题，相对好解。而有些题目，理清题目，并不容易想到可论证的正确思路（也即是可行思路），例如贪心算法之类的（435. 无重叠区间）。so解题前要尽量快速思考出思路，不断假设，提供条件，换思路等，找到可行思路。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengbailiang.cn/1123最深叶节点的最近公共祖先191115.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zengbailiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/icon.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="liang's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/1123最深叶节点的最近公共祖先191115.html" itemprop="url">leetcode 1123 最深叶节点的最近公共祖先</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-15T00:00:00+08:00">
-                2019-11-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/1123最深叶节点的最近公共祖先191115.html" class="leancloud_visitors" data-flag-title="leetcode 1123 最深叶节点的最近公共祖先">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  669
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"> 给你一个有根节点的二叉树，找到它最深的叶节点的最近公共祖先。</span><br><span class="line"></span><br><span class="line">回想一下：</span><br><span class="line"></span><br><span class="line">叶节点 是二叉树中没有子节点的节点</span><br><span class="line">树的根节点的 深度 为 0，如果某一节点的深度为 d，那它的子节点的深度就是 d+1</span><br><span class="line">如果我们假定 A 是一组节点 S 的 最近公共祖先，&lt;font color=&quot;#c7254e&quot; face=&quot;Menlo, Monaco, Consolas, Courier New, monospace&quot;&gt;S&lt;/font&gt; 中的每个节点都在以 A 为根节点的子树中，且 A 的深度达到此条件下可能的最大值。</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">示例 1：</span><br><span class="line"></span><br><span class="line">输入：root = [1,2,3]</span><br><span class="line">输出：[1,2,3]</span><br><span class="line"></span><br><span class="line">示例 2：</span><br><span class="line"></span><br><span class="line">输入：root = [1,2,3,4]</span><br><span class="line">输出：[4]</span><br><span class="line">示例 3：</span><br><span class="line"></span><br><span class="line">输入：root = [1,2,3,4,5]</span><br><span class="line">输出：[2,4,5]</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">提示：</span><br><span class="line"></span><br><span class="line">给你的树中将有 1 到 1000 个节点。</span><br><span class="line">树中每个节点的值都在 1 到 1000 之间。</span><br></pre></td></tr></table></figure>
-<h4 id="解法一："><a href="#解法一：" class="headerlink" title="解法一："></a>解法一：</h4><p>最近公共祖先，是指，其下面的节点全部都是他的孩子。那么对应题目,有一种情况比较刺手，当存在不止一个分支的深度都等于树的最大深度，此时，就需要返回他们的共同祖先，而一般使用递归实现的时候，这个好像不好处理，开始这里卡了好久。正如代码所示，使用两个int指针记录分支的深度，当子递归返回时，对比两变量决定是否返回当前的root。</p>
-<p>其他情况：1.root为空，返回root。2.存在一个分支的最深叶子，2.1叶子无兄弟节点，返回本身，2.2存在兄弟节点，返回其父节点。<br>3.存在多分支最深叶子，就需要根据深度指针对比，判断和返回。（这个上面单独已经说明）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">struct TreeNode &#123;</span><br><span class="line">     int val;</span><br><span class="line">     TreeNode *left;</span><br><span class="line">     TreeNode *right;</span><br><span class="line">     TreeNode(int x) : val(x), left(NULL), right(NULL) &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">TreeNode*  findDeepComm(TreeNode* root,int *deep)&#123;</span><br><span class="line">    if (root != nullptr) &#123;</span><br><span class="line">        *deep += 1;</span><br><span class="line">    &#125;</span><br><span class="line">    int *dL = (int*)malloc(sizeof(int));</span><br><span class="line">    int *dR = (int*)malloc(sizeof(int));</span><br><span class="line">    *dL = *deep;</span><br><span class="line">    *dR = *deep;</span><br><span class="line">    TreeNode *nl = root;</span><br><span class="line">    if(root-&gt;left)&#123;</span><br><span class="line">        nl = findDeepComm(root-&gt;left, dL);</span><br><span class="line">    &#125;</span><br><span class="line">    TreeNode *nr = root;</span><br><span class="line">    if (root-&gt;right) &#123;</span><br><span class="line">        nr = findDeepComm(root-&gt;right, dR);</span><br><span class="line">    &#125;</span><br><span class="line">    if (*dL == *dR) &#123;</span><br><span class="line">        *deep = *dL;</span><br><span class="line">        return root;</span><br><span class="line">    &#125;</span><br><span class="line">    else&#123;</span><br><span class="line">        *deep = *dL &gt; *dR ? *dL:*dR;</span><br><span class="line">        return *dL &gt; *dR ? nl : nr;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">TreeNode* lcaDeepestLeaves(TreeNode* root) &#123;</span><br><span class="line">    int *deep = (int*)malloc(sizeof(int));;</span><br><span class="line">    *deep = 0;</span><br><span class="line">    return findDeepComm(root,deep);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>后记：其实，根据题目给的例子，把我搞懵了。审题很重要，另外就是对递归的理解，小技巧，深度指针跟踪，递归中常用的小技巧。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-  </section>
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
-
-
-
-          </div>
-          
-
-
-          
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <img class="site-author-image" itemprop="image"
-                src="/images/icon.jpg"
-                alt="zengbailiang" />
-            
-              <p class="site-author-name" itemprop="name">zengbailiang</p>
-              <p class="site-description motion-element" itemprop="description">知行合一</p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a rel="external nofollow" href="/archives/">
-              
-                  <span class="site-state-item-count">46</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">14</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">22</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-            <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/zmubai" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-            </div>
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">zengbailiang</span>
-
-  
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
-      <i class="fa fa-area-chart"></i>
-    </span>
-    
-      <span class="post-meta-item-text">Site words total count&#58;</span>
-    
-    <span title="Site words total count">58.6k</span>
-  
+<div class="paginator">
+  <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a>
 </div>
 
-
-  <div class="powered-by">由 <a rel="external nofollow" class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-        
+        <footer>
+          <div class="copyright">
+            ©2019
+            <a href="https://zengbailiang.cn">liang</a> Powered by <a href="https://hexo.io">Hexo</a> |
+            <a href="https://github.com/shixiaohu2206/hexo-theme-huhu">hexo-theme-huhu</a>
+          </div>
+          
+        </footer>
       </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-  </div>
-
+    </div>
+  </body>
   
-
+</html>
 <script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-  
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-  
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-  <script>AV.initialize("7VSaCuGNNUXrDp0aOK65w7PQ-gzGzoHsz", "l1D8p6eriduqG6aqx1f8H7ia");</script>
-  <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
-
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for(var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
+                  window.HUHU_CONFIG = JSON.parse("{\"share\":[\"weibo\",\"weixin\",\"qqkongjian\",\"QQ\",\"douban\",\"facebook\",\"twitter\",\"google\"],\"service_worker\":{\"open\":false}}")
+                </script> <script type="text/javascript">window.addEventListener('load', function() {
+    
+    window.loadJs = function(d, m, a) {
+      var c = document.getElementsByTagName('head')[0] || document.head || document.documentElement
+      var b = document.createElement('script')
+      b.defer = true
+      b.setAttribute('type', 'text/javascript')
+      b.setAttribute('charset', 'UTF-8')
+      b.setAttribute('async', 'true')
+      b.setAttribute('src', d)
+      m && b.setAttribute('data-main', '/scripts/app-built')
+      if (typeof a === 'function') {
+        if (window.attachEvent) {
+          b.onreadystatechange = function() {
+            var e = b.readyState
+            if (e === 'loaded' || e === 'complete') {
+              b.onreadystatechange = null
+              a()
             }
           }
-        })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
-        });
-    }
-
-    function addCount(Counter) {
-      var $visitors = $(".leancloud_visitors");
-      var url = $visitors.attr('id').trim();
-      var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
-
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
-          if (results.length > 0) {
-            var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            counter.save(null, {
-              success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
-          } else {
-            var newcounter = new Counter();
-            /* Set ACL */
-            var acl = new AV.ACL();
-            acl.setPublicReadAccess(true);
-            acl.setPublicWriteAccess(true);
-            newcounter.setACL(acl);
-            /* End Set ACL */
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
-          }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
+        } else {
+          b.onload = a
         }
-      });
-    }
-
-    $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
       }
-    });
-  </script>
-
-
-
-  
-
-  
-
-  
-  
-
-  
-
-  
-
-  
-
-</body>
-</html>
+      c.appendChild(b)
+    }
+    window.loadJs && window.loadJs('https://cdn.bootcss.com/require.js/2.3.6/require.min.js', true, function() {require.config({"paths":{"util":"util","share":"share","search":"search","registerSW":"registerSW","valine":"cdn/Valine.min","av":["https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min"],"pjax":["https://cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min"],"jquery":["https://cdn.bootcss.com/jquery/3.4.1/jquery.min"],"confirm":["https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min"],"fancybox":["https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min"],"chart":["https://cdn.bootcss.com/Chart.js/2.8.0-rc.1/Chart.bundle.min"]},"map":{"*":{"css":"https://cdn.bootcss.com/require-css/0.1.10/css.min.js"}},"shim":{"fancybox":{"deps":["css!https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.css"]},"confirm":{"deps":["css!https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min.css"]},"chart":{"deps":["css!https://cdn.bootcss.com/Chart.js/2.8.0-rc.1/Chart.min.css"]}},"waitSeconds":3})})
+  })</script> <script type="text/javascript">
+                  ;(function() {
+                    var bp = document.createElement('script')
+                    var curProtocol = window.location.protocol.split(':')[0]
+                    if (curProtocol === 'https') {
+                      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'
+                    } else {
+                      bp.src = 'http://push.zhanzhang.baidu.com/push.js'
+                    }
+                    var s = document.getElementsByTagName('script')[0]
+                    s.parentNode.insertBefore(bp, s)
+                  })()
+                </script> 
