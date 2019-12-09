@@ -16,7 +16,7 @@
     <meta name="description" content="知行合一" />
     
     <title>
-      算法-两数之和 - liang&#39;s blog
+      146. LRU缓存机制 - liang&#39;s blog
     </title>
     <link rel="manifest" href="/manifest.json" />
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
@@ -26,7 +26,7 @@
     
     <div id="post-toc" class="animated hiddenToc hide">
       <span class="title">Toc</span>
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目"><span class="toc-text">题目</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#解："><span class="toc-text">解：</span></a></li></ol>
     </div>
     
     <div id="fixed-menu-wrap">
@@ -160,11 +160,11 @@
         <article class="post-entry">
     <div class="header">
       
-      <div class="title">算法-两数之和</div>
+      <div class="title">146. LRU缓存机制</div>
       <div class="meta">
         <span class="item">
           <span class="iconfont icon-time-circle"></span>
-          <span>2018/06/27</span>
+          <span>2019/12/08</span>
         </span>
 
         
@@ -188,7 +188,7 @@
             <span>
                 
                   
-                    <a href="/tags/算法">算法</a>
+                    <a href="/tags/leetcode">leetcode</a>
                   
                 
             </span>
@@ -198,27 +198,14 @@
       <div>
       </div>
     </div>
-    <h2 id="题目">题目<a class="post-anchor" href="#题目"></a></h2><blockquote>
-<p>给定一个整数数组和一个目标值，找出数组中和为目标值的两个数。</p>
-</blockquote>
-<p>你可以假设每个输入只对应一种答案，且同样的元素不能被重复利用。</p>
-<pre><code>示例:
-给定 nums = [2, 7, 11, 15], target = 9
-因为 nums[0] + nums[1] = 2 + 7 = 9
-所以返回 [0, 1]
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Note: The returned array must be malloced, assume caller calls free().</span><br><span class="line"> */</span><br><span class="line"> //面向过程的解法；这是最直接的思路。</span><br><span class="line">int* twoSum(int* nums, int numsSize, int target) &#123;</span><br><span class="line">    int *a=(int *)malloc(2*sizeof(int));</span><br><span class="line">    //外层index从0开始遍历</span><br><span class="line">    int index = 0;</span><br><span class="line">    while (index &lt; numsSize - 1) &#123;</span><br><span class="line">    //内层从外层当前下标index的下一个元素开始遍历即i= index + 1</span><br><span class="line">        int i = index + 1;</span><br><span class="line">        while (i &lt; numsSize) &#123;</span><br><span class="line">        //判断两个元素之和是否等于target,如果相等，保存值并返回。</span><br><span class="line">            if (*(nums + i) + *(nums + index) == target) &#123;</span><br><span class="line">                *(a + 0)= index;</span><br><span class="line">                *(a + 1) = i;</span><br><span class="line">                return a;</span><br><span class="line">            &#125;</span><br><span class="line">            i ++;</span><br><span class="line">        &#125;</span><br><span class="line">        index ++;</span><br><span class="line">    &#125;</span><br><span class="line">    return a;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">//思路升级</span><br><span class="line">//c++ 哈希map  空间换时间</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;int&gt; twoSum(vector&lt;int&gt;&amp; nums, int target) &#123;</span><br><span class="line">        map&lt;int,int&gt; valueMap;</span><br><span class="line">        for (int i = 0 ; i &lt; nums.size(); i++) &#123;</span><br><span class="line">            int searchValue = target - nums[i];</span><br><span class="line">            map&lt;int,int&gt;::iterator it ;</span><br><span class="line">            //通过value查找是否存在，该操作时间复杂度为O(1);</span><br><span class="line">            it = valueMap.find(searchValue);</span><br><span class="line">            if (it != valueMap.end()) &#123;</span><br><span class="line">                vector&lt;int&gt; collect;</span><br><span class="line">                collect.push_back(valueMap[searchValue]);</span><br><span class="line">                collect.push_back(i);</span><br><span class="line">                return collect;</span><br><span class="line">            &#125;</span><br><span class="line">            valueMap.insert(pair&lt;int, int&gt;(nums[i],i));</span><br><span class="line">        &#125;</span><br><span class="line">        vector&lt;int&gt; collect;</span><br><span class="line">        return collect; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>小结：</p>
+    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> 运用你所掌握的数据结构，设计和实现一个  LRU (最近最少使用) 缓存机制。它应该支持以下操作： 获取数据 get 和 写入数据 put 。</span><br><span class="line"></span><br><span class="line">获取数据 get(key) - 如果密钥 (key) 存在于缓存中，则获取密钥的值（总是正数），否则返回 -1。</span><br><span class="line">写入数据 put(key, value) - 如果密钥不存在，则写入其数据值。当缓存容量达到上限时，它应该在写入新数据之前删除最近最少使用的数据值，从而为新的数据值留出空间。</span><br></pre></td></tr></table></figure>
+<h4 id="解：">解：<a class="post-anchor" href="#解："></a></h4><p>使用双向链表来快速处理和调整，最近使用的元素.</p>
 <ol>
-<li>该题难度不大，直接使用面向过程的方法就能求解。</li>
-<li>该问题步骤分解中，因为已知和以及其中一个加数求另外一个加数，转换到程序中就是一个查找的问题-&gt;一个已知集合查找特定值得问题.</li>
+<li>put 分两种情况，如果存在，那么把已有元素调整到链头（拿出，删除，在插入）；如果不存在，直接插入。</li>
+<li>获取元素类似，存在，那么调整到头并返回。不存在那么返回-1；</li>
 </ol>
-<p>一个已知集合查找特定值得问题，会直接导致两种思路：</p>
-<ol>
-<li>遍历查找-&gt;优化遍历方法</li>
-<li>空间换时间-&gt;哈希查找(这里会产生一种数据结构，它会把一个数值和数值的索引存储【起到存储的作用】，并能快速通过索引查找到对应的数值。另外由于不存在相同索引，所以可以【存储同一索引最后状态的值】,这个性质可以对某类问题做优化，例如最长不重复字符子串问题，通过值替换能保存相同字符的最后位置j(当前位置)，假设被替换前的值为i ，那么当前子串长度len = j - i )。</li>
-</ol>
-<p>思维路线：<br>-&gt;常规思路是否可解；<br>-&gt;是否存查找问题-&gt;是否可以使用空间换时间(哈希查找，备忘录等)</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LRUCache</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    LRUCache(<span class="keyword">int</span> capacity) &#123;</span><br><span class="line">        maxSize = capacity;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">get</span><span class="params">(<span class="keyword">int</span> key)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (m.find(key) != m.end())&#123;</span><br><span class="line">				<span class="comment">//iterator通过*获取当前元素</span></span><br><span class="line">            pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; p = *m[key];</span><br><span class="line">            llist.erase(m[key]);</span><br><span class="line">            llist.push_front(p);</span><br><span class="line">            <span class="comment">//赋值新的iterator</span></span><br><span class="line">            m[key] = llist.begin();</span><br><span class="line">            <span class="keyword">return</span> p.second;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">put</span><span class="params">(<span class="keyword">int</span> key, <span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (m.find(key) != m.end()) &#123;</span><br><span class="line">            llist.erase(m[key]);</span><br><span class="line">            llist.push_front(make_pair(key, value));</span><br><span class="line">            m[key] = llist.begin();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (m.size() == maxSize) &#123;</span><br><span class="line">                m.erase(m.find(llist.back().first));</span><br><span class="line">                llist.pop_back();</span><br><span class="line">            &#125;</span><br><span class="line">            llist.push_front(make_pair(key, value));</span><br><span class="line">            m[key] = llist.begin();</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">    <span class="comment">//pair &lt;key,value&gt;</span></span><br><span class="line">    <span class="built_in">list</span>&lt;pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;&gt; llist;</span><br><span class="line">    <span class="comment">//unordered_map</span></span><br><span class="line">    <span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>, <span class="built_in">list</span>&lt;pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;&gt;::iterator&gt; m;</span><br><span class="line">    <span class="keyword">int</span> maxSize;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">        list 的方法</span></span><br><span class="line"><span class="comment">     最后元素.back()</span></span><br><span class="line"><span class="comment">     弹出元素pop_back pop_front()</span></span><br><span class="line"><span class="comment">            删除erase(const *type vale)</span></span><br><span class="line"><span class="comment">     插入 push_back()、push_front()</span></span><br><span class="line"><span class="comment">     获取iterator 对于的元素 可以解引用</span></span><br><span class="line"><span class="comment">        本题 pair&lt;int, int&gt; p = *m[key]; //m[key] 为iterator</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>主要用到双向链表，使插入查找的时间复杂度达到了O（1）。<br>对于iterator 作为元素的相关操作不熟悉，记录下。</p>
 
 
   
@@ -245,12 +232,12 @@
   <div class="post-guide">
     <div class="item left">
         
-          <a href="/2018-06-28-01-leetcode.html">算法-两数相加</a>
+          <a href="/148. 排序链表.html">148. 排序链表</a>
         
     </div>
     <div class="item right">
         
-          <a href="/2018-06-22-01.html">ffmpeg iOS平台编译</a>
+          <a href="/236. 二叉树的最近公共祖先.html">146. LRU缓存机制</a>
         
     </div>
   </div>
@@ -262,7 +249,7 @@
       本文作者：<a href="https://zengbailiang.cn">liang</a>
     </div>
     <div class="link">
-      永久链接：<a href="https://zengbailiang.cn/2018-06-27-01-leetcode.html">https://zengbailiang.cn/2018-06-27-01-leetcode.html</a>
+      永久链接：<a href="https://zengbailiang.cn/146. LRU缓存机制.html">https://zengbailiang.cn/146. LRU缓存机制.html</a>
     </div>
     <div class="declare">
       版权声明：本文首发于<a href="https://zengbailiang.cn">liang</a>的博客，转载请注明出处！
