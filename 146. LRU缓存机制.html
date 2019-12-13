@@ -198,7 +198,7 @@
       <div>
       </div>
     </div>
-    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> 运用你所掌握的数据结构，设计和实现一个  LRU (最近最少使用) 缓存机制。它应该支持以下操作： 获取数据 get 和 写入数据 put 。</span><br><span class="line"></span><br><span class="line">获取数据 get(key) - 如果密钥 (key) 存在于缓存中，则获取密钥的值（总是正数），否则返回 -1。</span><br><span class="line">写入数据 put(key, value) - 如果密钥不存在，则写入其数据值。当缓存容量达到上限时，它应该在写入新数据之前删除最近最少使用的数据值，从而为新的数据值留出空间。</span><br></pre></td></tr></table></figure>
+    <figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> 运用你所掌握的数据结构，设计和实现一个  LRU (最近最少使用) 缓存机制。它应该支持以下操作： 获取数据 <span class="built_in">get</span> 和 写入数据 <span class="built_in">put</span> 。</span><br><span class="line"></span><br><span class="line">获取数据 <span class="built_in">get</span>(<span class="built_in">key</span>) - 如果密钥 (<span class="built_in">key</span>) 存在于缓存中，则获取密钥的值（总是正数），否则返回 -<span class="number">1</span>。</span><br><span class="line">写入数据 <span class="built_in">put</span>(<span class="built_in">key</span>, value) - 如果密钥不存在，则写入其数据值。当缓存容量达到上限时，它应该在写入新数据之前删除最近最少使用的数据值，从而为新的数据值留出空间。</span><br></pre></td></tr></table></figure>
 <h4 id="解：">解：<a class="post-anchor" href="#解："></a></h4><p>使用双向链表来快速处理和调整，最近使用的元素.</p>
 <ol>
 <li>put 分两种情况，如果存在，那么把已有元素调整到链头（拿出，删除，在插入）；如果不存在，直接插入。</li>
