@@ -1,0 +1,87 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="iOS 多线程安全"><meta name="keywords" content="线程安全"><meta name="author" content="liang"><meta name="copyright" content="liang"><title>iOS 多线程安全 | liang's blog</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.6.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.6.1"><link rel="dns-prefetch" href="https://cdn.staticfile.org"><link rel="dns-prefetch" href="https://cdn.bootcss.com"><link rel="dns-prefetch" href="https://creativecommons.org"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+} </script></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#线程安全的概念"><span class="toc-number">1.</span> <span class="toc-text">线程安全的概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#导致线程不安全的原因"><span class="toc-number">2.</span> <span class="toc-text">导致线程不安全的原因</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#避免线程不安全"><span class="toc-number">3.</span> <span class="toc-text">避免线程不安全</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#iOS中的atomic与nonatomic"><span class="toc-number">4.</span> <span class="toc-text">iOS中的atomic与nonatomic</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#iOS中锁的使用"><span class="toc-number">5.</span> <span class="toc-text">iOS中锁的使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-number">6.</span> <span class="toc-text">总结</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="/img/avatar.png"></div><div class="author-info__name text-center">liang</div><div class="author-info__description text-center">知行合一</div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">49</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">22</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">14</span></a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(/personImg/topimg.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">liang's blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a></span></div><div id="post-info"><div id="post-title">iOS 多线程安全</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2018-08-05</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/iOS/">iOS</a><div class="post-meta-wordcount"><span>字数总计: </span><span class="word-count">1,049</span><span class="post-meta__separator">|</span><span>阅读时长: 4 分钟</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h3 id="线程安全的概念"><a href="#线程安全的概念" class="headerlink" title="线程安全的概念"></a>线程安全的概念</h3><p>如果在多线程的场景下，运行一段程序，不会出现预料之外的结果。可以认为这段程序是线程安全的。</p>
+<h3 id="导致线程不安全的原因"><a href="#导致线程不安全的原因" class="headerlink" title="导致线程不安全的原因"></a>导致线程不安全的原因</h3><p>当多线程访问同一个代码段的时候，共享变量的信息可以被各个访问它的线程所修改，以致于某个线程执行完代码块后出现期望之外的结果，甚至使线程崩溃。</p>
+<figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line">__block int i = <span class="number">0</span><span class="comment">;</span></span><br><span class="line">    dispatch_async(<span class="name">dispatch_get_global_queue</span>(<span class="name">DISPATCH_QUEUE_PRIORITY_DEFAULT</span>, <span class="number">0</span>), ^&#123;</span><br><span class="line"></span><br><span class="line">        for (<span class="name">int</span> j= <span class="number">0</span> <span class="comment">; j &lt; 1000; j++) &#123;</span></span><br><span class="line">            i ++<span class="comment">;</span></span><br><span class="line">        &#125;</span><br><span class="line">        NSLog(@<span class="string">" a thread: %d"</span>,i)<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">    &#125;)<span class="comment">;</span></span><br><span class="line">    </span><br><span class="line">    dispatch_async(<span class="name">dispatch_get_global_queue</span>(<span class="name">DISPATCH_QUEUE_PRIORITY_DEFAULT</span>, <span class="number">0</span>), ^&#123;</span><br><span class="line">        </span><br><span class="line">        for (<span class="name">int</span> j= <span class="number">0</span> <span class="comment">; j &lt; 1000; j++) &#123;</span></span><br><span class="line">            i ++<span class="comment">;</span></span><br><span class="line">        &#125;</span><br><span class="line">        NSLog(@<span class="string">"b thread: %d"</span>,i)<span class="comment">;</span></span><br><span class="line">        </span><br><span class="line">    &#125;)<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+
+<p>其中一种结果：</p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="number">2018</span><span class="number">-08</span><span class="number">-05</span> <span class="number">15</span>:<span class="number">30</span>:<span class="number">10.299750</span>+<span class="number">0800</span> safeThreadTest[<span class="number">16566</span>:<span class="number">2770764</span>]  a thread: <span class="number">1055</span></span><br><span class="line"><span class="number">2018</span><span class="number">-08</span><span class="number">-05</span> <span class="number">15</span>:<span class="number">30</span>:<span class="number">10.299750</span>+<span class="number">0800</span> safeThreadTest[<span class="number">16566</span>:<span class="number">2770766</span>] b thread: <span class="number">1965</span></span><br></pre></td></tr></table></figure>
+
+<p>与期待的1000 和2000 不一致。</p>
+<h3 id="避免线程不安全"><a href="#避免线程不安全" class="headerlink" title="避免线程不安全"></a>避免线程不安全</h3><p>避免线程不安全的关键是在原子操作，对需要原子操作的代码片段，通过加锁保证其线程安全。</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">__block int <span class="built_in">i</span> = <span class="number">0</span>;</span><br><span class="line">NSLock *lock = [NSLock new];</span><br><span class="line"></span><br><span class="line">dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>), ^&#123;</span><br><span class="line">    [lock lock];</span><br><span class="line">    <span class="keyword">for</span> (int <span class="built_in">j</span>= <span class="number">0</span> ; <span class="built_in">j</span> &lt; <span class="number">1000</span>; <span class="built_in">j</span>++) &#123;</span><br><span class="line">        <span class="built_in">i</span> ++;</span><br><span class="line">    &#125;</span><br><span class="line">    NSLog(@<span class="string">" a thread: %d"</span>,<span class="built_in">i</span>);</span><br><span class="line">    [lock unlock];</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>), ^&#123;</span><br><span class="line">    [lock lock];</span><br><span class="line">    <span class="keyword">for</span> (int <span class="built_in">j</span>= <span class="number">0</span> ; <span class="built_in">j</span> &lt; <span class="number">1000</span>; <span class="built_in">j</span>++) &#123;</span><br><span class="line">        <span class="built_in">i</span> ++;</span><br><span class="line">    &#125;</span><br><span class="line">    NSLog(@<span class="string">"b thread: %d"</span>,<span class="built_in">i</span>);</span><br><span class="line">    [lock unlock];</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>稳定的结果：</p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="number">2018</span><span class="number">-08</span><span class="number">-05</span> <span class="number">15</span>:<span class="number">34</span>:<span class="number">46.495629</span>+<span class="number">0800</span> safeThreadTest[<span class="number">16758</span>:<span class="number">2774646</span>]  a thread: <span class="number">1000</span></span><br><span class="line"><span class="number">2018</span><span class="number">-08</span><span class="number">-05</span> <span class="number">15</span>:<span class="number">34</span>:<span class="number">46.495806</span>+<span class="number">0800</span> safeThreadTest[<span class="number">16758</span>:<span class="number">2774644</span>] b thread: <span class="number">2000</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="iOS中的atomic与nonatomic"><a href="#iOS中的atomic与nonatomic" class="headerlink" title="iOS中的atomic与nonatomic"></a>iOS中的atomic与nonatomic</h3><p>使用atomic定义的属性，系统为其默认生成的setter和getter方法是加锁的，setter操作与getter操作是互斥的原子操作。而使用nonatomic定义的属性，系统为其默认生产的setter和getter是不加锁的，两者的操作不互斥，同时也不具备原子性。</p>
+<p>由于nonatomic是不加锁的，所以性能是比atomic高。而我们在开发过程中一般也是使用该属性。因为atomic只能保证属性的读写原子操作，并不能保证线程安全，在多线程编程中依然要根据代码的具体功能划分原子操作的范围，通过加锁来保证线程安全。除非原子操作范围就是这个属性的读与写，否则是没有必要定义成atomic，因为线程安全已经通过外层加锁处理。</p>
+<p>系统是通过地址总线寻址，数据总线存取数据的。而且数据总线只有一个，其访问内存是串行操作。假定数据总线宽度为64位，数据长度超过64位，那么数据总线就必须多次访问内存。如果数据长度少于数据总线宽度，读写总是串行的，也即是其操作是原子的。int、bool、float、double等操作总是原子操作，同时在定义时无需指定atomic，避免系统增加不必要的加锁操作。而不定长度的数据类型，就有必要根据实际情况定义atomic或nonatomic。</p>
+<h3 id="iOS中锁的使用"><a href="#iOS中锁的使用" class="headerlink" title="iOS中锁的使用"></a>iOS中锁的使用</h3><table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">说明</th>
+<th align="left">性能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">OSSPinLock</td>
+<td align="left">自旋锁</td>
+<td align="left">高</td>
+</tr>
+<tr>
+<td align="left">dispatch_semaphore_t</td>
+<td align="left">信号量</td>
+<td align="left">高</td>
+</tr>
+<tr>
+<td align="left">pthread_mutex</td>
+<td align="left">linux提供的互斥锁</td>
+<td align="left">高</td>
+</tr>
+<tr>
+<td align="left">NSLock</td>
+<td align="left">OC提供的互斥锁</td>
+<td align="left">一般</td>
+</tr>
+<tr>
+<td align="left">pthread_mutex(recursive)</td>
+<td align="left">linux提供的互斥锁</td>
+<td align="left">一般</td>
+</tr>
+<tr>
+<td align="left">NSCondition</td>
+<td align="left">作为锁和线程检查器，有wait/signal方法</td>
+<td align="left">一般</td>
+</tr>
+<tr>
+<td align="left">NSRecursiveLock</td>
+<td align="left">递归锁</td>
+<td align="left">一般</td>
+</tr>
+<tr>
+<td align="left">NSConditionLock</td>
+<td align="left">条件锁，内部包含一个NSCondition对象</td>
+<td align="left">低</td>
+</tr>
+<tr>
+<td align="left">@synchronized</td>
+<td align="left">互斥锁</td>
+<td align="left">低</td>
+</tr>
+</tbody></table>
+<p>加锁性能不能代表具体程序运行锁的性能。加锁快可能跟锁的实现简单，费时少有关。但使用中锁的性能跟线程等待采用的方式是休眠还是忙等有关。自旋锁由于优先级反转的问题已经不能使用，iOS10有替代版本。常规开发使用简单的NSLock、@synchronized等已经能满足大部分需求，性能要求高再考虑使用信号量等。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>以上线程安全、锁做简单的总结和理解。如果在开发中，还是要尽量避免多线程设计，搞不好出现死锁，也不好调试。程序的稳定安全比程序的性能更重要。要在确保程序的稳定和线程安全的情况下，再去提高程序的性能。</p>
+<p>参考：<br><br><a href="http://mrpeak.cn/blog/ios-thread-safety/" target="_blank" rel="noopener">iOS多线程到底不安全在哪里？</a><br><br><a href="https://blog.ibireme.com/2016/01/16/spinlock_is_unsafe_in_ios/" target="_blank" rel="noopener">不再安全的 OSSpinLock</a></p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">liang</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zengbailiang.cn/2018_08_05_iosSaftThread.html">https://zengbailiang.cn/2018_08_05_iosSaftThread.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zengbailiang.cn">liang's blog</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/线程安全/">线程安全</a></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2019-01-01-2018总结泛篇.html"><i class="fa fa-chevron-left">  </i><span>2018年终总结泛篇</span></a></div><div class="next-post pull-right"><a href="/2018_08_04_processAndThread.html"><span>进程与线程</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(/personImg/topimg.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2013 - 2019 By liang</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file-o"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.6.1"></script><script src="/js/fancybox.js?version=1.6.1"></script><script src="/js/sidebar.js?version=1.6.1"></script><script src="/js/copy.js?version=1.6.1"></script><script src="/js/fireworks.js?version=1.6.1"></script><script src="/js/transition.js?version=1.6.1"></script><script src="/js/scroll.js?version=1.6.1"></script><script src="/js/head.js?version=1.6.1"></script><script>if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+}</script></body></html>

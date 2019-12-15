@@ -1,0 +1,64 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="初入swift-常量变量、可选类型、可选绑定、隐式解析可选类型"><meta name="keywords" content="swift"><meta name="author" content="liang"><meta name="copyright" content="liang"><title>初入swift-常量变量、可选类型、可选绑定、隐式解析可选类型 | liang's blog</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.6.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.6.1"><link rel="dns-prefetch" href="https://cdn.staticfile.org"><link rel="dns-prefetch" href="https://cdn.bootcss.com"><link rel="dns-prefetch" href="https://creativecommons.org"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+} </script></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#一-swift只有常量和变量。"><span class="toc-number">1.</span> <span class="toc-text">一.swift只有常量和变量。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#二-可选类型"><span class="toc-number">2.</span> <span class="toc-text">二.可选类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#三、相对可选类型，另外有一个隐式解析可选类型"><span class="toc-number">3.</span> <span class="toc-text">三、相对可选类型，另外有一个隐式解析可选类型</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="/img/avatar.png"></div><div class="author-info__name text-center">liang</div><div class="author-info__description text-center">知行合一</div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">49</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">22</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">14</span></a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(/personImg/topimg.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">liang's blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a></span></div><div id="post-info"><div id="post-title">初入swift-常量变量、可选类型、可选绑定、隐式解析可选类型</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2018-03-14</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/swift/">swift</a><div class="post-meta-wordcount"><span>字数总计: </span><span class="word-count">998</span><span class="post-meta__separator">|</span><span>阅读时长: 3 分钟</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><blockquote>
+<p>最早接触swift的时候是swift2.0，现在已经到了swift4.0了。可惜的是项目中一直没有机会使用swift，但最近回顾swift的时候发现swift确实有很多优点。swift是一门强类型的语言，它有类型推断、它的语法提供尽量精简的表达方式，闭包的形式一简再简，化繁为简。<br>例如：类型推断，因为你给变量赋值了，那么其实你的类型就是变量的类型，我能根据已有的信息推断出需要的信息。</p>
+</blockquote>
+<p>为了更好的加深对swift的印象，从语法入手，对比oc，并做总结。 </p>
+<h4 id="一-swift只有常量和变量。"><a href="#一-swift只有常量和变量。" class="headerlink" title="一.swift只有常量和变量。"></a>一.swift只有常量和变量。</h4><p>声明变量用var，常量用let，如果一个值不需要变化的话，那么就把它声明为常量。无论是常量和变量在使用前都必须初始化，否则会编译报错。 </p>
+<pre><code>//swift不需要添加“;”,系统自动识别
+let item0 = 1  //系统自动推断出类型为int
+let item1:Int = 1 //注明类型  
+var item2 = 1
+var item3:String = &quot;hello swift&quot;</code></pre><p>具备oc没有的类型推断，起到简化代码的效果。同时它隐含着对开发者的要求，要清楚自己赋值的变量类型。  </p>
+<h4 id="二-可选类型"><a href="#二-可选类型" class="headerlink" title="二.可选类型"></a>二.可选类型</h4><p>swift提供可选类型来处理值存在缺失的情况。例如你定义一个常量，如果在它的使用期间有可能会为空，那么就有必要把这个常量定义为可选类型。</p>
+<pre><code>var item:Int?  //定义为可选类型。没有显式赋值，默认赋值为nil</code></pre><p>swift真机智，又提醒开发者需要搞清楚这个变量会不会存在缺失。</p>
+<p>更机智的是，你使用这个值的时候也要考虑几种情况。</p>
+<ol>
+<li><p>当不清楚它是否有值的情况下，获取它的时候可以直接使用变量名，例如print(item)</p>
+</li>
+<li><p>当明确知道它有值的情况下，使用强制解析（变量后面添加！），如print(item!)。但是如果这个值为nil，使用tiem！就会出现异常。</p>
+</li>
+</ol>
+<p>然后为了区分这两种情况，可以通过if进行判断，这里又有一个叫做<strong>可选绑定</strong>的概念。</p>
+<pre><code>var item：Int？ 
+//普通的if判断
+if item != nil
+{
+  print(tiem!)
+}
+else
+{
+//不操作，反正是为nil
+}
+
+//可选绑定
+//temp只做输出作用，如果item赋值给temp有值，那么进入第一个分支，temp只做输出作用，不需要再进行强制解析。
+if let temp = item
+{
+  print(temp)
+}
+else
+{
+
+}</code></pre><p>从语法的角度来分析，要避免使用item！且item = nil 的情况，因为这种情况会导致程序崩溃。但是从swfit的设计思想和开发者的角度来看，要更清楚每个常量变量的作用、生命周期会不会存在为空的情况等。使用强制解析的时候，必须确保有值。</p>
+<h4 id="三、相对可选类型，另外有一个隐式解析可选类型"><a href="#三、相对可选类型，另外有一个隐式解析可选类型" class="headerlink" title="三、相对可选类型，另外有一个隐式解析可选类型"></a>三、相对可选类型，另外有一个隐式解析可选类型</h4><p>如果你总能确定这个常量在它的生命周期中一定有值，那么就没有必要每次都进行if判断或者可选绑定，这样是非常低效的。直接把类型定义为隐式解析可选类型。<br>形如：  </p>
+<pre><code>//可选绑定
+var item0:Int? = 1
+let temp0 =  item0!
+
+//隐士解析可选绑定，问号变成感叹号
+var item1:Int! = 1
+//直接解析，不需要感叹号
+let temp1 = item1</code></pre><p><strong>小结</strong><br>通过分析可选类型、可选绑定、隐式解析可选类型、变量的获取等用法，去思考下swift为什么要这么设计。能感觉到swift尽量通过语法层面的东西，对开发者有更高的要求，至少在编码的层面要更清楚自己定义的每一个东西，它的作用是怎么样的，会存在什么情况，使用的时候的状态是有值还是没值等等。</p>
+<p>待续~</p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">liang</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zengbailiang.cn/2018-03-17-0.html">https://zengbailiang.cn/2018-03-17-0.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zengbailiang.cn">liang's blog</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/swift/">swift</a></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2018-03-17-1.html"><i class="fa fa-chevron-left">  </i><span>github page 域名绑定、域名设置https配置</span></a></div><div class="next-post pull-right"><a href="/2018-03-17-4.html"><span>iOS 网络数据-减少重复的字典取值操作、直接获取目的字段</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(/personImg/topimg.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2013 - 2019 By liang</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file-o"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.6.1"></script><script src="/js/fancybox.js?version=1.6.1"></script><script src="/js/sidebar.js?version=1.6.1"></script><script src="/js/copy.js?version=1.6.1"></script><script src="/js/fireworks.js?version=1.6.1"></script><script src="/js/transition.js?version=1.6.1"></script><script src="/js/scroll.js?version=1.6.1"></script><script src="/js/head.js?version=1.6.1"></script><script>if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+}</script></body></html>

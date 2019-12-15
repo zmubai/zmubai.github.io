@@ -1,0 +1,125 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="git的文件系统与底层原理 (1)"><meta name="keywords" content="git"><meta name="author" content="liang"><meta name="copyright" content="liang"><title>git的文件系统与底层原理 (1) | liang's blog</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.6.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.6.1"><link rel="dns-prefetch" href="https://cdn.staticfile.org"><link rel="dns-prefetch" href="https://cdn.bootcss.com"><link rel="dns-prefetch" href="https://creativecommons.org"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+} </script></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#git的文件结构"><span class="toc-number">1.</span> <span class="toc-text">git的文件结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#git的存储方式"><span class="toc-number">2.</span> <span class="toc-text">git的存储方式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#首先，创建一个内容对象"><span class="toc-number">2.0.1.</span> <span class="toc-text">首先，创建一个内容对象</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#查看刚才存储的数据"><span class="toc-number">2.0.2.</span> <span class="toc-text">查看刚才存储的数据</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#通过校验和作为键值-解读文件"><span class="toc-number">2.0.3.</span> <span class="toc-text">通过校验和作为键值 解读文件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#重新创建一个仓库并创建一个文件"><span class="toc-number">2.0.4.</span> <span class="toc-text">重新创建一个仓库并创建一个文件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#修改文件再保存"><span class="toc-number">2.0.5.</span> <span class="toc-text">修改文件再保存</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#查看已保存的内容"><span class="toc-number">2.0.6.</span> <span class="toc-text">查看已保存的内容</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#恢复到第一个版本"><span class="toc-number">2.0.7.</span> <span class="toc-text">恢复到第一个版本</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="/img/avatar.png"></div><div class="author-info__name text-center">liang</div><div class="author-info__description text-center">知行合一</div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">49</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">22</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">14</span></a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(/personImg/topimg.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">liang's blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a></span></div><div id="post-info"><div id="post-title">git的文件系统与底层原理 (1)</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2018-05-05</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/git/">git</a><div class="post-meta-wordcount"><span>字数总计: </span><span class="word-count">1,083</span><span class="post-meta__separator">|</span><span>阅读时长: 4 分钟</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><p> 由于工作中使用git作为版本管理，之前对git的了解不多，特别是底层方面的原理方面的知识。为了能更好的使用git，有必要学习并梳理下相关知识。</p>
+<p>步入正题：</p>
+<h3 id="git的文件结构"><a href="#git的文件结构" class="headerlink" title="git的文件结构"></a>git的文件结构</h3><p>执行git init 初始化后，会在.git文件夹下会创建多个目录，每个文件夹功能划分的很清晰。<br><img src="https://upload-images.jianshu.io/upload_images/1690665-6458ddc5b28b057a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/720" alt="git目录结构.png"></p>
+<h3 id="git的存储方式"><a href="#git的存储方式" class="headerlink" title="git的存储方式"></a>git的存储方式</h3><p>Git 是一套内容寻址文件系统.通过键值对的方式存储和查找。</p>
+<p>下面操作一遍，直观的看到整个过程，以便理解。</p>
+<h5 id="首先，创建一个内容对象"><a href="#首先，创建一个内容对象" class="headerlink" title="首先，创建一个内容对象"></a>首先，创建一个内容对象</h5><figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line">$ <span class="keyword">echo</span> <span class="string">"小明的文件"</span> | git hash-object -w <span class="params">--stdin</span></span><br><span class="line">5c98f8a9221e5336f68c7575<span class="keyword">cd</span>238b48875137c6</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>命令/参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>echo</td>
+<td>将字符串输出到终端</td>
+</tr>
+<tr>
+<td>git hash-object</td>
+<td>创建一个blob（二进制大对象）,<br>可指定其他类型，不一定是blob。</td>
+</tr>
+<tr>
+<td>–stdin</td>
+<td>从标准终端中读取输入，代替从文件读取，<br>这里读取的是由echo命令输出到终端的字符串。</td>
+</tr>
+<tr>
+<td>-w</td>
+<td>把blob对象写入数据库</td>
+</tr>
+</tbody></table>
+<p>参考：<a href="https://git-scm.com/docs/git-hash-object" target="_blank" rel="noopener">https://git-scm.com/docs/git-hash-object</a></p>
+<h5 id="查看刚才存储的数据"><a href="#查看刚才存储的数据" class="headerlink" title="查看刚才存储的数据"></a>查看刚才存储的数据</h5><figure class="highlight llvm"><table><tr><td class="code"><pre><span class="line">$ find .git/objects -<span class="keyword">type</span> f</span><br><span class="line">.git/objects/<span class="number">5</span><span class="keyword">c</span>/<span class="number">98</span>f<span class="number">8</span>a<span class="number">9221e5336</span>f<span class="number">68</span><span class="keyword">c</span><span class="number">7575</span>cd<span class="number">238</span>b<span class="number">48875137</span><span class="keyword">c</span><span class="number">6</span></span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>命令/参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>find</td>
+<td>查找目录下文件</td>
+</tr>
+<tr>
+<td>-type f</td>
+<td>指定查类型为普通文件</td>
+</tr>
+</tbody></table>
+<p>参考：<a href="http://man.linuxde.net/find" target="_blank" rel="noopener">http://man.linuxde.net/find</a></p>
+<p>可以见到文件名称为数字和字母组成的字符串。这个是根据文件内容和头信息（Header），通过SHA-1算法计算得出的40位十六进制校验和。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>校验和</td>
+<td>5c98f8a9221e5336f68c7575cd238b48875137c6</td>
+</tr>
+<tr>
+<td>存储路径</td>
+<td>5c/98f8a9221e5336f68c7575cd238b48875137c6<br>以校验和前两位作为子路径创建文件夹，<br>以校验和后38位作为文件名生成文件。</td>
+</tr>
+</tbody></table>
+<p><em>SHA-1是一种加密哈希函数（cryptographic hash function）。SHA-1将文件中的内容通过其hash算法生成一个160bit的报文摘要，即40个十六进制数字（每个十六进制数字占4位）。它几乎可以保证，如果两个文件的SHA-1值是相同的，那么它们确是完全相同的内容（类似于生活中的指纹识别）；SHA-1主要有两种用途，一个是加密，一个是数据完整性校验。Linux kernel开创者和Git的开发者——Linus说，Git使用了SHA-1并非是为了安全性，而是为了数据的完整性。理论上SHA-1会在2^51攻击下实现哈希碰撞，所以也不是完全的安全。</em></p>
+<h5 id="通过校验和作为键值-解读文件"><a href="#通过校验和作为键值-解读文件" class="headerlink" title="通过校验和作为键值 解读文件"></a>通过校验和作为键值 解读文件</h5><figure class="highlight llvm"><table><tr><td class="code"><pre><span class="line">$ git cat-file -p <span class="number">5</span><span class="keyword">c</span><span class="number">98</span>f<span class="number">8</span>a<span class="number">9221e5336</span>f<span class="number">68</span><span class="keyword">c</span><span class="number">7575</span>cd<span class="number">238</span>b<span class="number">48875137</span><span class="keyword">c</span><span class="number">6</span></span><br><span class="line">小明的文件</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>命令/参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>git cat-file</td>
+<td>读取对象信息</td>
+</tr>
+<tr>
+<td>-p</td>
+<td>根据对象的类型打印其信息</td>
+</tr>
+</tbody></table>
+<p>参考：<a href="https://git-scm.com/docs/git-cat-file" target="_blank" rel="noopener">https://git-scm.com/docs/git-cat-file</a></p>
+<p>以上，说明了git的数据存储的基本方式。主要是使用SHA-1算法根据其内容和头信息生成唯一的40位校验和，并使用校验和作为key做文件存取。</p>
+<p>模拟bolb对象存储流程<br><img src="https://upload-images.jianshu.io/upload_images/1690665-a9e4427dc58379b1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="bolb存储流程图.png"></p>
+<p>以上，说明了git的数据存储的基本方式。主要步骤：</p>
+<ol>
+<li>使用SHA-1算法根据其原始内容和头信息（头信息格式”blob #{content.length}\0”）生成唯一的40位校验和。</li>
+<li>以校验和前两位创建文件夹、校验和后38位作为文件名。</li>
+<li>对拼接后的内容压缩后存储。        </li>
+</ol>
+<hr>
+<p>下面是创建文件，修改文件，恢复文件的相关过程。</p>
+<h5 id="重新创建一个仓库并创建一个文件"><a href="#重新创建一个仓库并创建一个文件" class="headerlink" title="重新创建一个仓库并创建一个文件"></a>重新创建一个仓库并创建一个文件</h5><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> <span class="string">'小明该吃午饭了'</span> &gt; test.txt</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git <span class="built_in">hash</span>-object -w test.txt</span></span><br><span class="line">efbd70f46da0d1852de88c58aebc86616beecdaf</span><br></pre></td></tr></table></figure>
+
+<h5 id="修改文件再保存"><a href="#修改文件再保存" class="headerlink" title="修改文件再保存"></a>修改文件再保存</h5><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> <span class="string">"小明打算去吃个泡面"</span> &gt; test.txt</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git <span class="built_in">hash</span>-object -w test.txt</span></span><br><span class="line">26aab56c7d1f9bd962b28f78ce61f021b221d317</span><br></pre></td></tr></table></figure>
+
+<h5 id="查看已保存的内容"><a href="#查看已保存的内容" class="headerlink" title="查看已保存的内容"></a>查看已保存的内容</h5><figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line">$ find <span class="string">.git/objects</span> -type f</span><br><span class="line"><span class="string">.git/objects/26/aab56c7d1f9bd962b28f78ce61f021b221d317</span></span><br><span class="line"><span class="string">.git/objects/ef/bd70f46da0d1852de88c58aebc86616beecdaf</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="恢复到第一个版本"><a href="#恢复到第一个版本" class="headerlink" title="恢复到第一个版本"></a>恢复到第一个版本</h5><figure class="highlight stata"><table><tr><td class="code"><pre><span class="line">$ git <span class="keyword">cat</span>-<span class="keyword">file</span> -p efbd70f46da0d1852de88c58aebc86616beecdaf &gt; .git/<span class="keyword">test</span>.txt</span><br><span class="line">$ <span class="keyword">cat</span> .git/<span class="keyword">test</span>.txt</span><br><span class="line">小明该吃午饭了</span><br></pre></td></tr></table></figure>
+
+<p>git会记录每个版本的修改，根据校验和可恢复到相应的版本。</p>
+<hr>
+<p><strong>小结：</strong>这个过程中包括文件创建、文件修改、文件恢复，跟我们平时工作中使用的高级命令功能很相似。git会把整个过程转化为底层操作，同时对用户透明。</p>
+<p><strong>相关引用参考：</strong></p>
+<p><a href="http://smilejay.com/2012/08/git-commit-sha-1/" target="_blank" rel="noopener">http://smilejay.com/2012/08/git-commit-sha-1/</a></p>
+<p><a href="https://git-scm.com/book/zh/v1/Git-%E5%86%85%E9%83%A8%E5%8E%9F%E7%90%86-Git-%E5%AF%B9%E8%B1%A1" target="_blank" rel="noopener">https://git-scm.com/book/zh/v1/Git-%E5%86%85%E9%83%A8%E5%8E%9F%E7%90%86-Git-%E5%AF%B9%E8%B1%A1</a></p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">liang</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zengbailiang.cn/2018-05-05-01.html">https://zengbailiang.cn/2018-05-05-01.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zengbailiang.cn">liang's blog</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/git/">git</a></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2018-05-12-01.html"><i class="fa fa-chevron-left">  </i><span>iOS 指纹解锁 检测指纹信息变更</span></a></div><div class="next-post pull-right"><a href="/2018-04-23-0.html"><span>git 常用操作汇总</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(/personImg/topimg.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2013 - 2019 By liang</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file-o"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.6.1"></script><script src="/js/fancybox.js?version=1.6.1"></script><script src="/js/sidebar.js?version=1.6.1"></script><script src="/js/copy.js?version=1.6.1"></script><script src="/js/fireworks.js?version=1.6.1"></script><script src="/js/transition.js?version=1.6.1"></script><script src="/js/scroll.js?version=1.6.1"></script><script src="/js/head.js?version=1.6.1"></script><script>if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+}</script></body></html>

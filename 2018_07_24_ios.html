@@ -1,0 +1,121 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="iOS 深复制与浅复制"><meta name="keywords" content="浅拷贝、深拷贝"><meta name="author" content="liang"><meta name="copyright" content="liang"><title>iOS 深复制与浅复制 | liang's blog</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.6.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.6.1"><link rel="dns-prefetch" href="https://cdn.staticfile.org"><link rel="dns-prefetch" href="https://cdn.bootcss.com"><link rel="dns-prefetch" href="https://creativecommons.org"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+} </script></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#官方文档翻译"><span class="toc-number">1.</span> <span class="toc-text">官方文档翻译</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#相关API："><span class="toc-number">1.1.</span> <span class="toc-text">相关API：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#从组合的方式理解深浅拷贝"><span class="toc-number">1.2.</span> <span class="toc-text">从组合的方式理解深浅拷贝</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#总结"><span class="toc-number">1.3.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="/img/avatar.png"></div><div class="author-info__name text-center">liang</div><div class="author-info__description text-center">知行合一</div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">49</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">22</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">14</span></a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(/personImg/topimg.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">liang's blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a></span></div><div id="post-info"><div id="post-title">iOS 深复制与浅复制</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2018-07-24</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/iOS/">iOS</a><div class="post-meta-wordcount"><span>字数总计: </span><span class="word-count">1,284</span><span class="post-meta__separator">|</span><span>阅读时长: 5 分钟</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h3 id="官方文档翻译"><a href="#官方文档翻译" class="headerlink" title="官方文档翻译"></a>官方文档翻译</h3><p>Protocol<br>NSCopying(swift)</p>
+<p>A protocol that objects adopt to provide functional copies of themselves.<br>对象采用的一种协议，用来提供拷贝自身元素的功能。</p>
+<p>Overview</p>
+<blockquote>
+<p>The exact meaning of “copy” can vary from class to class, but a copy must be a functionally independent object with values identical to the original at the time the copy was made. A copy produced with NSCopying is implicitly retained by the sender, who is responsible for releasing it.</p>
+</blockquote>
+<p>拷贝的确切意义会因类而异，但拷贝的必须是一个功能独立的对象并且其值在复制时跟 元素对象的值一样。通过NSCopying生成的副本会被发送者隐式持有，发送者负责其释放。</p>
+<blockquote>
+<p>NSCopying declares one method, copy(with:), but copying is commonly invoked with the convenience method copy(). The copy() method is defined for all objects inheriting from NSObject and simply invokes copy(with:) with the default zone.</p>
+</blockquote>
+<p>NSCopying声明一个方法copy(with:)，但拷贝通常被便利方法copy()调用。copy()方法被所的继承NSObject的对象定义，并通过默认zone直接调用copy(with:)。</p>
+<blockquote>
+<p>Your options for implementing this protocol are as follows:</p>
+</blockquote>
+<p>您实现本协议的选项如下:</p>
+<ul>
+<li><p>Implement NSCopying using alloc and init… in classes that don’t inherit copy(with:).</p>
+<ul>
+<li>在不继承copy(with:)的类中，使用alloc和init方法。</li>
+</ul>
+</li>
+<li><p>Implement NSCopying by invoking the superclass’s copy(with:) when NSCopying behavior is inherited. If the superclass implementation might use the NSCopyObject function, make explicit assignments to pointer instance variables for retained objects.</p>
+<ul>
+<li>当NSCopying行为被继承时，通过调用父类的copy(with:)实现NSCopying。如果父类实现可能使用NSCopyObject方法，显式分配指针实例变量来持有对象。</li>
+</ul>
+</li>
+<li><p>Implement NSCopying by retaining the original instead of creating a new copy when the class and its contents are immutable.</p>
+<ul>
+<li>当类及其内容是不可变的时，通过保留原始副本而不是创建新的副本来实现NSCopying。</li>
+</ul>
+</li>
+<li><p>If a subclass inherits NSCopying from its superclass and declares additional instance variables, the subclass has to override copy(with:) to properly handle its own instance variables, invoking the superclass’s implementation first.</p>
+<ul>
+<li>如果一个子类继承其父类的NSCopying并声明额外的实例变量。子类必须重写copy(with:)方法来处理自身的实例变量，父类的copy(with:）方法会先被执行。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>Protocol<br>NSMutableCopying(Object-c)</p>
+<blockquote>
+<p>A protocol that mutable objects adopt to provide functional copies of themselves.</p>
+</blockquote>
+<p>可变对象采用的一种协议，用来提供拷贝自身元素的功能。</p>
+<p>Overview</p>
+<blockquote>
+<p>The NSMutableCopying protocol declares a method for providing mutable copies of an object. Only classes that define an “immutable vs. mutable” distinction should adopt this protocol. Classes that don’t define such a distinction should adopt NSCopying instead.</p>
+</blockquote>
+<p>NSMutableCopying协议声明了一个方法，用于提供对象的可变副本。只有定义“不可变与可变”区别的类才应该采用此协议。没有定义这种区别的类应该采用NSCopying。</p>
+<blockquote>
+<p>NSMutableCopying declares one method, mutableCopyWithZone:, but mutable copying is commonly invoked with the convenience method mutableCopy. The mutableCopy method is defined for all NSObjects and simply invokes mutableCopyWithZone: with the default zone.</p>
+</blockquote>
+<p>NSMutableCopying定义了一个方法mutableCopyWithZone。但可变拷贝一般通过便利方法mutableCopy调用。mutableCopy方法被所有的NSObjects定义并通过默认zone直接调用mutableCopyWithZone。</p>
+<blockquote>
+<p>If a subclass inherits NSMutableCopying from its superclass and declares additional instance variables, the subclass has to override mutableCopyWithZone: to properly handle its own instance variables, invoking the superclass’s implementation first.</p>
+</blockquote>
+<p>如果子类通过父类继承NSMutableCopying协议，同时定义了额外的实例变量。子类必须复写mutableCopyWithZone方法来处理自身额外的实例变量，但会先调用父类的mutableCopyWithZone方法。</p>
+<hr>
+<h4 id="相关API："><a href="#相关API：" class="headerlink" title="相关API："></a>相关API：</h4><pre><code>- (id)copy;//执行成功返回不可变对象
+
+- (id)mutableCopy;//执行成功返回可变对象</code></pre><h4 id="从组合的方式理解深浅拷贝"><a href="#从组合的方式理解深浅拷贝" class="headerlink" title="从组合的方式理解深浅拷贝"></a>从组合的方式理解深浅拷贝</h4><p>指针拷贝：返回对象与被复制对象都指向同一个对象，返回对象拷贝的是被复制对象的指针。</p>
+<p>内容拷贝：创建新的对象，并把被复制对象的内容复制。返回对象与被复制对象指向不同的对象，返回对象拷贝的是被复制对象的内容。</p>
+<ol>
+<li><p>浅复制：被复制对象每一层都是指针拷贝。</p>
+<ol>
+<li>仅当执行imutable对象执行copy方法时产生浅复制。</li>
+</ol>
+</li>
+<li><p>深复制：被复制对象第一层是内容拷贝。</p>
+<ol>
+<li>执行mutableCopy总会产生深复制。</li>
+<li>mutable对象执行拷贝总会产生深拷贝，不论copy或mutableCopy。</li>
+<li>当对象属性中存在集合的时候，集合本身是深拷贝，但其元素执行的依然是浅拷贝。这个在某些开发场景中如果使用不当，会导致业务逻辑的不对。因为是指针拷贝，实际上是同一个对象。如果我们期待他们是不同的对象，期待他们之间的修改是互不影响的，那么久需要执行完全拷贝，简单的深拷贝是不满足的。所以，要实现集合属性的内容拷贝，需要对集合属性执行 initWithArray:copyItems: / initWithDictionary:copyItems:。copyItems入参YES。</li>
+</ol>
+</li>
+<li><p>排列组合：</p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="left">object type</th>
+<th align="left">invoke funtion</th>
+<th align="left">copy type</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">imutable object</td>
+<td align="left">copy</td>
+<td align="left">shallow copy</td>
+</tr>
+<tr>
+<td align="left">imutable object</td>
+<td align="left">mutableCopy</td>
+<td align="left">deep copy</td>
+</tr>
+<tr>
+<td align="left">mutable object</td>
+<td align="left">copy</td>
+<td align="left">deep copy</td>
+</tr>
+<tr>
+<td align="left">mutable object</td>
+<td align="left">mutableCopy</td>
+<td align="left">deep copy</td>
+</tr>
+</tbody></table>
+<p>我的理解是当执行拷贝使对象状态发生变化，即可变变为不可变或者不可变变为可变，必然是深拷贝。另外可变对象执行拷贝必然也是深拷贝。</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>可变对象拷贝深拷贝，状态变化深拷贝。</p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">liang</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zengbailiang.cn/2018_07_24_ios.html">https://zengbailiang.cn/2018_07_24_ios.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zengbailiang.cn">liang's blog</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/浅拷贝、深拷贝/">浅拷贝、深拷贝</a></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2018_07_29_Memory.html"><i class="fa fa-chevron-left">  </i><span>谈谈计算机内存</span></a></div><div class="next-post pull-right"><a href="/2018-07-22-leetcode.html"><span>算法-不同路径</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(/personImg/topimg.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2013 - 2019 By liang</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file-o"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.6.1"></script><script src="/js/fancybox.js?version=1.6.1"></script><script src="/js/sidebar.js?version=1.6.1"></script><script src="/js/copy.js?version=1.6.1"></script><script src="/js/fireworks.js?version=1.6.1"></script><script src="/js/transition.js?version=1.6.1"></script><script src="/js/scroll.js?version=1.6.1"></script><script src="/js/head.js?version=1.6.1"></script><script>if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+}</script></body></html>
